@@ -9,18 +9,20 @@ app.use(bodyParser.json());
 app.get('/',(req,res)=>{
     res.send('welcome to my api')
 })
-
+//todas las ventas
 app.get('/ventas', (req, res) => {
 
     res.json(data.venta)
 
 })
-
+//todas las compras
 app.get('/compras', (req, res) => {
 
     res.json(data.compra)
 
 })
+
+//faenas con su numero de tropa
 
 app.get('/faenas', (req, res) => {
 
@@ -28,31 +30,35 @@ app.get('/faenas', (req, res) => {
 
 })
 
+//_todos los datos de  proveedores 
 app.get('/proveedores', (req, res) => {
 
     res.json(data.proveedor)
 
 })
 
-app.get('/proveedores', (req, res) => {
+// datos de clientes
+app.get('/clientes', (req, res) => {
 
     res.json(data.cliente)
 
 })
-
-app.get('/proveedores', (req, res) => {
+// pago de una faeneada con fecha y monto con id de faena
+app.get('/pago_faena', (req, res) => {
 
     res.json(data.pago_faena)
 
 })
 
-app.get('/proveedores', (req, res) => {
+// pago de una compra con id de compra
+app.get('/pago_compra', (req, res) => {
 
     res.json(data.pago_compra)
 
 })
 
-app.get('/proveedores', (req, res) => {
+// pago de una venta con id de venta
+app.get('/pago_venta', (req, res) => {
 
     res.json(data.pago_venta)
 

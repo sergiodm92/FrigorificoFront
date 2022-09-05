@@ -251,12 +251,14 @@
     ],
     "cliente":[
         {
+            "id_cliente":"1",
             "nombre":"Roberto Espeche",
             "telefono":"3835398783",
             "email":"roberto_espeche@gmail.com",
             "direccion":"Los Andes 2987"
         },
         {
+            "id_cliente":"2",
             "nombre":"Jorge La Vanguardia",
             "telefono":"3835726532",
             "email":"jorge@gmail.com",
@@ -265,12 +267,14 @@
     ],
     "proveedor":[
         {
+            "id_proveedor":"1",
             "nombre":"Castillo",
             "telefono":"3835628739",
             "email":"castillo@gmail.com",
             "direccion":"La Madrid 2976"
         },
         {
+            "id_proveedor":"2",
             "nombre":"Puchulu",
             "telefono":"3836922001",
             "email":"puchulu@gmail.com",
