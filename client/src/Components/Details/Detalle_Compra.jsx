@@ -1,8 +1,8 @@
 import React from "react";
 import tableComprasStyle from "./tableCompraStyle.module.scss"
 const data = require("./data.json")
-//los datos se colocaron en un json independiente por una mejor practica de manejo de datos ya que estos
-//pueden venir del back-end o de una base de datos 
+
+
 
 export default function TableCompra(){
     const array=[]
@@ -14,7 +14,7 @@ export default function TableCompra(){
 
     return(
         <div className={tableComprasStyle.conteiner}>
-         <table class="table">
+            <table class="table">
 
             <tbody>
             {array.map((e,i) => {

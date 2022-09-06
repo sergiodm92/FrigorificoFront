@@ -1,7 +1,7 @@
 import React from "react"
 import StyleCompras from './StyleCompras.module.scss'
 import NavBar from "../../Components/Navbar/Navbar"
-import TableCompra from "../../Components/Details/Detalle_Compra"
+
 
 export default function Compras(){
 
@@ -10,9 +10,7 @@ export default function Compras(){
         <NavBar
         title={"Compras"}
         />
-        <div className={StyleCompras.TableCompras}>
-        <TableCompra></TableCompra>
-        </div>
+
         </div>
 
     )
