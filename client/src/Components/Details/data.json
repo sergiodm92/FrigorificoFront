@@ -215,44 +215,34 @@
     ],
     "pago_venta":[
         {
-            "id_pago_v":"1",
-            "id_venta":"2",
-            "fecha":"18-08-22",
-            "monto":100000
+            "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
+            "id_venta":"2"
         },
         {
-            "id_pago_v":"2",
-            "id_venta":"1",
-            "fecha":"03-09-22",
-            "monto":92425
+            "pagos":[{"id_pago":1,"fecha":"18-09-22","monto":100000},{"id_pago":2,"fecha":"18-10-22","monto":100000}],
+            "id_venta":"3"
         }
     ],
     "pago_compra":[
         {
-            "id_pago_c":"1",
-            "id_compra":"1",
-            "fecha":"20-07-22",
-            "monto":100000
+            "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
+            "id_compra":"1"
+          
         },
         {
-            "id_pago_c":"2",
-            "id_compra":"1",
-            "fecha":"23-07-22",
-            "monto":78591.83
+            "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
+            "id_compra":"2"
         }
     ],
     "pago_faena":[
         {
-            "id_pago_f":"1",
-            "id_faena":"1",
-            "fecha":"30-08-22",
-            "monto":21605
+            "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
+            "id_faena":"1"
+           
         },
         {
-            "id_pago_f":"2",
-            "id_faena":"2",
-            "fecha":"05-09-22",
-            "monto":20000
+            "id_pago_f":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
+            "id_faena":"2"          
         }
     ],
     "cliente":[
