@@ -40,6 +40,9 @@
     border-radius: 30%;
 
 }
+.ConteinerButtonReturn:hover{
+    background-color: rgb(104, 155, 189);
+}
 
 .ConteinerButtonHome{
     background-color: rgb(191, 215, 228);
@@ -54,6 +57,9 @@
     border-radius: 30%;
     margin-right: 10%;
 
+}
+.ConteinerButtonHome:hover{
+    background-color: rgb(104, 155, 189);
 }
 @media screen and (min-width: 400px) {
     .ConteinerButtonHome {
