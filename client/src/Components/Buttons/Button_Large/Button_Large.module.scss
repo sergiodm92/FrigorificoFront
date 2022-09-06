@@ -9,7 +9,7 @@
     height: 50px;
     background-color: rgb(195, 215, 228);
     border-radius: 20px;
-    border-width: 2px;
+    border-width: 3px;
     margin: 0;
     padding: 0;
     color: black;
@@ -19,11 +19,4 @@
 }
 .button1:hover{
     background-color: rgb(104, 155, 189);;
-}
-@media only screen and (max-width: 400px) {
-    .button1{
-        width: 300px;
-        height: 60px;
-        border-width: 3px;
-    }
 }
