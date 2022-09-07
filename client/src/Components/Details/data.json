@@ -25,8 +25,7 @@
             "Costo_Faena":290,
             "Costo_Total":749356.49,
             "COSTO/KG":145.53
-          
-          
+
         },
         {
             "ID_compra":"2",
@@ -163,10 +162,16 @@
     ],
     "venta":[
         {
+<<<<<<< HEAD
             "ID_Venta":"1",
             "Fecha":"25-08-22",
             "Cliente":"Sergio",
             "Tropa":45490,
+=======
+            "ID_venta":"1",
+            "Fecha":"25-08-22",
+            "Cliente":"Sergio",
+>>>>>>> b215441e9a682753bf773c76219cea36ab6f275c
             "Detalle":[
                 {
                     "Correlativo":"1045451",
@@ -202,10 +207,16 @@
             "Margen(%)":7.88
         },
         {
+<<<<<<< HEAD
             "ID_Venta":"2",
             "Fecha":"13-08-22",
             "Cliente":"Franchela",
             "Tropa":45491,
+=======
+            "ID_venta":"2",
+            "Fecha":"13-08-22",
+            "Cliente":"Franchela",
+>>>>>>> b215441e9a682753bf773c76219cea36ab6f275c
             "Detalle":[
                 {
                     "Correlativo":"45458",
@@ -233,7 +244,7 @@
             "Margen(%)":7.88
         }
     ],
-    "pago_venta":[
+    "Pago_Venta":[
         {
             "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
             "id_venta":"2"
@@ -243,29 +254,29 @@
             "id_venta":"3"
         }
     ],
-    "pago_compra":[
+    "Pago_Compra":[
         {
             "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
             "id_compra":"1"
-          
+
         },
         {
             "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
             "id_compra":"2"
         }
     ],
-    "pago_faena":[
+    "Pago_Faena":[
         {
             "pagos":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
             "id_faena":"1"
-           
+
         },
         {
             "id_pago_f":[{"id_pago":1,"fecha":"18-08-22","monto":100000},{"id_pago":2,"fecha":"18-11-22","monto":100000}],
             "id_faena":"2"          
         }
     ],
-    "cliente":[
+    "Cliente":[
         {
             "id_cliente":"1",
             "nombre":"Roberto Espeche",
@@ -281,7 +292,7 @@
             "direccion":"La Vanguardia 243"
         }
     ],
-    "proveedor":[
+    "Proveedor":[
         {
             "id_proveedor":"1",
             "nombre":"Castillo",
