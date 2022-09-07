@@ -52,112 +52,167 @@
             "Costo_Faena":190,
             "Costo_Total":948356.49,
             "COSTO/KG":165.53
+        },
+        {
+            "ID_compra":"1",
+            "Fecha":"13-07-22",
+            "Proveedor":"La Soñada",
+            "Lugar":"Andalgala",
+            "N°_dte":"023140929-7",
+            "Categoria":"vaca",
+            "Cant":1,
+            "Kgv_brutos":651,
+            "Desbaste":"",
+            "Kg_desbaste":"",
+            "Kgv_netos":651,
+            "$_kgv_netos":247.33,
+            "N°_tropa":"245421",
+            "Kg_carne":357,
+            "Kg_achuras":"",
+            "$_Venta":4500,
+            "Recupero_$/kg":10.94,
+            "Costo_Hac($)": 680062.50,
+            "Comision":"",
+            "Costo_de_Flete":8000,
+            "Costo_VEPS":2000,
+            "Costo_Faena":290,
+            "Costo_Total":749356.49,
+            "COSTO/KG":145.53
+
+        },
+        {
+            "ID_compra":"2",
+            "Fecha":"13-07-22",
+            "Proveedor":"La Soñada",
+            "Lugar":"Payogasta",
+            "N°_dte":"0231465429-7",
+            "Categoria":"Ternero",
+            "Cant":1,
+            "Kgv_brutos":655,
+            "Desbaste":"",
+            "Kg_desbaste":"",
+            "Kgv_netos":631,
+            "$_kgv_netos":647.33,
+            "N°_tropa":"834421",
+            "Kg_carne":236,
+            "Kg_achuras":"235",
+            "$_Venta":5700,
+            "Recupero_$/kg":15.94,
+            "Costo_Hac($)": 680062.50,
+            "Comision":"",
+            "Costo_de_Flete":8000,
+            "Costo_VEPS":3000,
+            "Costo_Faena":190,
+            "Costo_Total":948356.49,
+            "COSTO/KG":165.53
         }
     ],
     "faena":[
         {
-            "id_faena":"1",
-            "fecha":"24-08-22",
-            "tropa":"245430",
-            "frigorífico":"Natilla",
-            "proveedor":"Costello Pedro Rafael",
-            "detalle":[
+            "ID_Faena":"1",
+            "Fecha":"24-08-22",
+            "Tropa":"245430",
+            "Frigorifico":"Natilla",
+            "Proveedor":"Costello Pedro Rafael",
+            "Detalle":[
                 {
-                    "correlativo":"1729101",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729101",
+                    "Categoria":"vaquillona",
                     "kg":81
                 },
                 {
-                    "correlativo":"1729102",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729102",
+                    "Categoria":"vaquillona",
                     "kg":83
                 },
                 {
-                    "correlativo":"1729103",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729103",
+                    "Categoria":"vaquillona",
                     "kg":85
                 },
                 {
-                    "correlativo":"1729104",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729104",
+                    "Categoria":"vaquillona",
                     "kg":88
                 },
                 {
-                    "correlativo":"1729105",
-                    "categoria":"novillito",
+                    "Correlativo":"1729105",
+                    "Categoria":"novillito",
                     "kg":98
                 },
                 {
-                    "correlativo":"1729106",
-                    "categoria":"novillito",
+                    "Correlativo":"1729106",
+                    "Categoria":"novillito",
                     "kg":104
                 },
                 {
-                    "correlativo":"1729107",
-                    "categoria":"novillito",
+                    "Correlativo":"1729107",
+                    "Categoria":"novillito",
                     "kg":100
                 },
                 {
-                    "correlativo":"1729108",
-                    "categoria":"novillito",
+                    "Correlativo":"1729108",
+                    "Categoria":"novillito",
                     "kg":106
                 }
             ],
-            "total_kg":745,
-            "total_medias":8,
-            "costo_total":21605
+            "Total_kg":745,
+            "Total_Medias":8,
+            "Costo_Total":21605,
+            "Saldo":21605
         },
         {
-            "id_faena":"2",
-            "fecha":"03-09-22",
-            "tropa":"245455",
-            "frigorífico":"Natilla",
-            "proveedor":"Costello Pedro Rafael",
-            "detalle":[
+            "ID_Faena":"2",
+            "Fecha":"03-09-22",
+            "Tropa":"245455",
+            "Frigorifico":"Natilla",
+            "Proveedor":"Costello Pedro Rafael",
+            "Detalle":[
                 {
-                    "correlativo":"829101",
-                    "categoria":"vaca",
+                    "Correlativo":"829101",
+                    "Categoria":"vaca",
                     "kg":110
                 },
                 {
-                    "correlativo":"829102",
-                    "categoria":"vaca",
+                    "Correlativo":"829102",
+                    "Categoria":"vaca",
                     "kg":105
                 },
                 {
-                    "correlativo":"829103",
-                    "categoria":"vaca",
+                    "Correlativo":"829103",
+                    "Categoria":"vaca",
                     "kg":100
                 },
                 {
-                    "correlativo":"829104",
-                    "categoria":"vaca",
+                    "Correlativo":"829104",
+                    "Categoria":"vaca",
                     "kg":115
                 },
                 {
-                    "correlativo":"829105",
-                    "categoria":"toro",
+                    "Correlativo":"829105",
+                    "Categoria":"toro",
                     "kg":120
                 },
                 {
-                    "correlativo":"829106",
-                    "categoria":"toro",
+                    "Correlativo":"829106",
+                    "Categoria":"toro",
                     "kg":125
                 },
                 {
-                    "correlativo":"829107",
-                    "categoria":"toro",
+                    "Correlativo":"829107",
+                    "Categoria":"toro",
                     "kg":100
                 },
                 {
-                    "correlativo":"829108",
-                    "categoria":"toro",
+                    "Correlativo":"829108",
+                    "Categoria":"toro",
                     "kg":106
                 }
             ],
-            "total_kg":881,
-            "total_medias":8,
-            "costo_total":25549
+            "Total_kg":881,
+            "Total_Medias":8,
+            "Costo_Total":25549,
+            "Saldo":25549
         }
     ],
     "venta":[
@@ -185,7 +240,7 @@
                 {
                     "Correlativo":"1045453",
                     "Categoria":"novillito",
-                    "Total_Media":"1/4 trasero",
+                    "Total_Media":"1/4T",
                     "kg":38,
                     "$_kg":675,
                     "Margen":""
@@ -215,7 +270,7 @@
                 {
                     "Correlativo":"45459",
                     "Categoria":"vaca",
-                    "Total_Media":"1/4 delantero",
+                    "Total_Media":"1/4D",
                     "kg":101,
                     "$_kg":620,
                     "Margen":""
@@ -264,34 +319,42 @@
     ],
     "Cliente":[
         {
-            "id_cliente":"1",
-            "nombre":"Roberto Espeche",
-            "telefono":"3835398783",
-            "email":"roberto_espeche@gmail.com",
-            "direccion":"Los Andes 2987"
+            "ID_Cliente":"1",
+            "Nombre":"Roberto Espeche",
+            "Telefono":"3835398783",
+            "Email":"roberto_espeche@gmail.com",
+            "Direccion":"Los Andes 2987",
+            "Ultima_Venta":"10/08/22",
+            "Saldo":50300
         },
         {
-            "id_cliente":"2",
-            "nombre":"Jorge La Vanguardia",
-            "telefono":"3835726532",
-            "email":"jorge@gmail.com",
-            "direccion":"La Vanguardia 243"
+            "ID_Cliente":"2",
+            "Nombre":"Jorge La Vanguardia",
+            "Telefono":"3835726532",
+            "Email":"jorge@gmail.com",
+            "Direccion":"La Vanguardia 243",
+            "Ultima_Venta":"05/09/22",
+            "Saldo":180300
         }
     ],
     "Proveedor":[
         {
-            "id_proveedor":"1",
-            "nombre":"Castillo",
-            "telefono":"3835628739",
-            "email":"castillo@gmail.com",
-            "direccion":"La Madrid 2976"
+            "ID_Proveedor":"1",
+            "Nombre":"Castillo",
+            "Telefono":"3835628739",
+            "Email":"castillo@gmail.com",
+            "Direccion":"La Madrid 2976",
+            "Ultima_Compra":"10/08/22",
+            "Saldo":50300
         },
         {
-            "id_proveedor":"2",
-            "nombre":"Puchulu",
-            "telefono":"3836922001",
-            "email":"puchulu@gmail.com",
-            "direccion":"Caseros 98"
+            "ID_Proveedor":"2",
+            "Nombre":"Puchulu",
+            "Telefono":"3836922001",
+            "Email":"puchulu@gmail.com",
+            "Direccion":"Caseros 98",
+            "Ultima_Compra":"06/09/22",
+            "Saldo":135300
         }
     ]
 }

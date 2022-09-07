@@ -14,8 +14,10 @@ export default function TableDetRes({id_v}){
     array=[]
     total$+=a.kg*a.$_kg
     totalkg+=a.kg
-    if(a.Total_Media=="1/4D")a.Correlativo.concat(" D")
-    if(a.Total_Media=="1/4T")a.Correlativo.concat(" T")
+    
+    if(a.Total_Media=="1/4D")a.Correlativo=a.Correlativo.concat(" D")
+    if(a.Total_Media=="1/4T")a.Correlativo=a.Correlativo.concat(" T")
+    
     for(const [key,value] of Object.entries(a)){ 
     
         array.push(value) 
