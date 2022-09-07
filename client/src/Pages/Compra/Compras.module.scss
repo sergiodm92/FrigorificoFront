@@ -1,0 +1,31 @@
+.title{
+    display: flex;
+    position: relative;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
+}
+.cardsCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+@media screen and (max-width: 400px) {
+    .title{
+        gap: 12px;
+        font-size: 13px;
+        
+    }
+    .cardsCont{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}

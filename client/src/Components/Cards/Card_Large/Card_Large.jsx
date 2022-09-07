@@ -8,11 +8,15 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo}) => {
 
     return (
         <div className={styleC.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-            <div className={styleC.div1}><p>{fecha}</p></div>
-            <div className={styleC.otherdivs}><p>{para}</p></div>
-            <div className={styleC.otherdivs}><p>{cant}</p></div>
-            <div className={styleC.otherdivs}><p>{kg}</p></div>
-            <div className={styleC.otherdivs}><p>{monto}</p></div>
+            <div className={styleC.items}><p>{fecha}</p></div>
+            <div className={styleC.items}><p>|</p></div>
+            <div className={styleC.items}><p>{para}</p></div>
+            <div className={styleC.items}><p>|</p></div>
+            <div className={styleC.items}><p>{cant}</p></div>
+            <div className={styleC.items}><p>|</p></div>
+            <div className={styleC.items}><p>{kg}</p></div>
+            <div className={styleC.items}><p>|</p></div>
+            <div className={styleC.items}><p>{monto}</p></div>
         </div>
     );
 };

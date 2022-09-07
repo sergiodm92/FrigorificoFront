@@ -3,34 +3,39 @@
     position: relative;
     border-color: black;
     justify-content: center;
-    width: 300px;
+    align-items: center;
+    width: 450px;
     height: 50px;
     background-color: rgb(195, 215, 228);
     border-radius: 20px;
     border-width: 3px;
-    margin: 0;
+    margin: 10px;
     padding: 0;
+    gap: 20px;
 }
 .cont:hover{
     background-color: rgb(104, 155, 189);;
 }
-.div1{
+.items{
     display: flex;
     position: relative;
-    border-width: 0px;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
     color: black;
     font-family: 'Karla', sans-serif;
-    font-size: 25px;
+    font-size: 16px;
     font-style: initial;
 }
-.otherdivs{
-    display: flex;
-    position: relative;
-    border-color: black;
-    border-width: 0px;
-    border-right-width: 3px;
-    color: black;
-    font-family: 'Karla', sans-serif;
-    font-size: 25px;
-    font-style: initial;
+@media screen and (max-width: 400px) {
+    .cont{
+        width: 350px;
+        height: 50px;
+        margin: 10px;
+        padding: 0;
+        gap: 12px;
+    }
+    .items{
+        font-size: 13px;
+    }
 }

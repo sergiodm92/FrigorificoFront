@@ -14,15 +14,15 @@
     display: flex;
     position: relative;
     width: 60%;
-    
     max-height: 60px;
     margin-left: 5%;
 }
 .NavTitle{
     display:grid;
     font-size: 25px;
-    font-family:cursive;
-    font-style: normal;
+    font-family: 'Karla', sans-serif;
+    font-style:initial;
+    font-weight: bold;
     height: 100%;
     align-items: center;
 }
