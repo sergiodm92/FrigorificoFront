@@ -1,0 +1,23 @@
+.cont{
+    display: flex;
+    position: relative;
+    justify-content: center;
+
+}
+.buttonPago{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(76, 166, 226);
+    border-radius: 10px;
+    border-color: rgba(240, 248, 255, 0);
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 20px;
+    font-style: initial;
+}
+.buttonPago:hover{
+    background-color: rgb(26, 127, 194);;
+}

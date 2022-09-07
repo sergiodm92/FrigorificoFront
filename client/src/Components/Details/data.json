@@ -56,108 +56,110 @@
     ],
     "faena":[
         {
-            "id_faena":"1",
-            "fecha":"24-08-22",
-            "tropa":"245430",
-            "frigorífico":"Natilla",
-            "proveedor":"Costello Pedro Rafael",
-            "detalle":[
+            "ID_Faena":"1",
+            "Fecha":"24-08-22",
+            "Tropa":"245430",
+            "Frigorifico":"Natilla",
+            "Proveedor":"Costello Pedro Rafael",
+            "Detalle":[
                 {
-                    "correlativo":"1729101",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729101",
+                    "Categoria":"vaquillona",
                     "kg":81
                 },
                 {
-                    "correlativo":"1729102",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729102",
+                    "Categoria":"vaquillona",
                     "kg":83
                 },
                 {
-                    "correlativo":"1729103",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729103",
+                    "Categoria":"vaquillona",
                     "kg":85
                 },
                 {
-                    "correlativo":"1729104",
-                    "categoria":"vaquillona",
+                    "Correlativo":"1729104",
+                    "Categoria":"vaquillona",
                     "kg":88
                 },
                 {
-                    "correlativo":"1729105",
-                    "categoria":"novillito",
+                    "Correlativo":"1729105",
+                    "Categoria":"novillito",
                     "kg":98
                 },
                 {
-                    "correlativo":"1729106",
-                    "categoria":"novillito",
+                    "Correlativo":"1729106",
+                    "Categoria":"novillito",
                     "kg":104
                 },
                 {
-                    "correlativo":"1729107",
-                    "categoria":"novillito",
+                    "Correlativo":"1729107",
+                    "Categoria":"novillito",
                     "kg":100
                 },
                 {
-                    "correlativo":"1729108",
-                    "categoria":"novillito",
+                    "Correlativo":"1729108",
+                    "Categoria":"novillito",
                     "kg":106
                 }
             ],
-            "total_kg":745,
-            "total_medias":8,
-            "costo_total":21605
+            "Total_kg":745,
+            "Total_Medias":8,
+            "Costo_Total":21605,
+            "Saldo":21605
         },
         {
-            "id_faena":"2",
-            "fecha":"03-09-22",
-            "tropa":"245455",
-            "frigorífico":"Natilla",
-            "proveedor":"Costello Pedro Rafael",
-            "detalle":[
+            "ID_Faena":"2",
+            "Fecha":"03-09-22",
+            "Tropa":"245455",
+            "Frigorifico":"Natilla",
+            "Proveedor":"Costello Pedro Rafael",
+            "Detalle":[
                 {
-                    "correlativo":"829101",
-                    "categoria":"vaca",
+                    "Correlativo":"829101",
+                    "Categoria":"vaca",
                     "kg":110
                 },
                 {
-                    "correlativo":"829102",
-                    "categoria":"vaca",
+                    "Correlativo":"829102",
+                    "Categoria":"vaca",
                     "kg":105
                 },
                 {
-                    "correlativo":"829103",
-                    "categoria":"vaca",
+                    "Correlativo":"829103",
+                    "Categoria":"vaca",
                     "kg":100
                 },
                 {
-                    "correlativo":"829104",
-                    "categoria":"vaca",
+                    "Correlativo":"829104",
+                    "Categoria":"vaca",
                     "kg":115
                 },
                 {
-                    "correlativo":"829105",
-                    "categoria":"toro",
+                    "Correlativo":"829105",
+                    "Categoria":"toro",
                     "kg":120
                 },
                 {
-                    "correlativo":"829106",
-                    "categoria":"toro",
+                    "Correlativo":"829106",
+                    "Categoria":"toro",
                     "kg":125
                 },
                 {
-                    "correlativo":"829107",
-                    "categoria":"toro",
+                    "Correlativo":"829107",
+                    "Categoria":"toro",
                     "kg":100
                 },
                 {
-                    "correlativo":"829108",
-                    "categoria":"toro",
+                    "Correlativo":"829108",
+                    "Categoria":"toro",
                     "kg":106
                 }
             ],
-            "total_kg":881,
-            "total_medias":8,
-            "costo_total":25549
+            "Total_kg":881,
+            "Total_Medias":8,
+            "Costo_Total":25549,
+            "Saldo":25549
         }
     ],
     "venta":[

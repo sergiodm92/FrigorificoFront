@@ -1,0 +1,44 @@
+.contTitle{
+    margin: 20px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.titleP{
+    font-family: 'Karla', sans-serif;
+    font-weight: bold;
+    font-style: initial;
+    font-size: 22px;
+}
+.title{
+    display: flex;
+    position: relative;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
+}
+.cardsCont{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+@media screen and (max-width: 400px) {
+    .title{
+        gap: 15px;
+        font-size: 16px;
+        
+    }
+    .cardsCont{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
