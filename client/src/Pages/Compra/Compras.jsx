@@ -6,6 +6,10 @@ const data = require("../../Components/Details/data.json")
 
 export default function Compras(){
 
+    const array=[];
+    for(let i=0; i<10 && i<data.compra.length; i++){
+        array.push(data.compra[i])
+    }
     return(
         <div className={styleCom.ConteinerCompras}>
             <NavBar
@@ -24,7 +28,7 @@ export default function Compras(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleCom.cardsCont}>
-                    {data.compra.map((a)=>{
+                    {array.map((a)=>{
                         return(
                             <CardLarge
                                 id={a.ID_compra}
