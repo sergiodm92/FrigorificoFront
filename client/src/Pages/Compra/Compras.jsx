@@ -1,13 +1,18 @@
 import React from "react"
+import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import styleCom from "./Compras.module.scss"
 const data = require("../../Components/Details/data.json")
 
+
 export default function Compras(){
 
+    const navigate = useNavigate()
+
     const array=[];
-    for(let i=0; i<10 && i<data.compra.length; i++){
+    for(let i=0; i<8 && i<data.compra.length; i++){
         array.push(data.compra[i])
     }
     return(
@@ -38,10 +43,16 @@ export default function Compras(){
                                 kg={a.Kg_carne}
                                 monto={a.Costo_Total}
                                 tipo={"Compras"}
-                            ></CardLarge>
+                            />
                         )
                     })
                     }
+                </div>
+                <div className={styleCom.buttonLarge}>
+                    <LargeButton
+                        title={"Mostrar todas"}
+                        onClick={()=>navigate("/Historial_Compras")}
+                    />
                 </div>
             </div>
         </div>

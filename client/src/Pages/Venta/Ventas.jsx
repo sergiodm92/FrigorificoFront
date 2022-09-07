@@ -1,11 +1,20 @@
 import React from "react"
+import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import styleVen from "./Ventas.module.scss";
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 const data = require("../../Components/Details/data.json")
 
 
 export default function Ventas(){
+
+    const navigate = useNavigate()
+
+    const array=[];
+    for(let i=0; i<8 && i<data.venta.length; i++){
+        array.push(data.venta[i])
+    }
 
     return(
         <div className={styleVen.ConteinerCompras}>
@@ -25,7 +34,7 @@ export default function Ventas(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleVen.cardsCont}>
-                    {data.venta.map((a)=>{
+                    {array.map((a)=>{
                         return(
                             <CardLarge
                                 id={a.ID_Venta}
@@ -35,10 +44,16 @@ export default function Ventas(){
                                 kg={a.kg_Total}
                                 monto={a.Total}
                                 tipo={"Ventas"}
-                            ></CardLarge>
+                            />
                         )
                     })
                     }
+                </div>
+                <div className={styleVen.buttonLarge}>
+                    <LargeButton
+                        title={"Mostrar todas"}
+                        onClick={()=>navigate("/Historial_Ventas")}
+                    />
                 </div>
             </div>
         </div>
