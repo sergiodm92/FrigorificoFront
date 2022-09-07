@@ -162,16 +162,10 @@
     ],
     "venta":[
         {
-<<<<<<< HEAD
             "ID_Venta":"1",
             "Fecha":"25-08-22",
             "Cliente":"Sergio",
             "Tropa":45490,
-=======
-            "ID_venta":"1",
-            "Fecha":"25-08-22",
-            "Cliente":"Sergio",
->>>>>>> b215441e9a682753bf773c76219cea36ab6f275c
             "Detalle":[
                 {
                     "Correlativo":"1045451",
@@ -207,16 +201,10 @@
             "Margen(%)":7.88
         },
         {
-<<<<<<< HEAD
             "ID_Venta":"2",
             "Fecha":"13-08-22",
             "Cliente":"Franchela",
             "Tropa":45491,
-=======
-            "ID_venta":"2",
-            "Fecha":"13-08-22",
-            "Cliente":"Franchela",
->>>>>>> b215441e9a682753bf773c76219cea36ab6f275c
             "Detalle":[
                 {
                     "Correlativo":"45458",
