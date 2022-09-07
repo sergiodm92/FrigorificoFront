@@ -1,7 +1,7 @@
 import React from "react";
-import styleBP from "./Button_Pago.module.scss";
+import styleBP from "./ButtonNew.module.scss";
 
-const ButtonPago = ({onClick}) => {
+const ButtonNew = ({onClick}) => {
   
   return (
       <div className={styleBP.cont}>
@@ -14,4 +14,4 @@ const ButtonPago = ({onClick}) => {
   );
 };
 
-export default ButtonPago;
+export default ButtonNew;

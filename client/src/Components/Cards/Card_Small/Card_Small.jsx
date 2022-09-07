@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom';
-import ButtonPago from "../../Buttons/Button_Pago/Button_Pago";
+import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
 
 const CardSmall = ({ id, fecha, otro, monto, tipo, nav, pago}) => {
@@ -16,8 +16,8 @@ const CardSmall = ({ id, fecha, otro, monto, tipo, nav, pago}) => {
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{monto}</p></div>
             </div>
-            {pago=true?
-            <ButtonPago
+            {pago===true?
+            <ButtonNew
                 onClick={()=>navigate(`/${nav}/${id}`)}
             />
             : null

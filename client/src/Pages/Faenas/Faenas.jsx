@@ -5,7 +5,6 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import ButtonPago from "../../Components/Buttons/Button_Pago/Button_Pago";
 
 const data = require("../../Components/Details/data.json")
 

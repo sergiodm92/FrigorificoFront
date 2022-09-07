@@ -187,7 +187,7 @@
                 {
                     "Correlativo":"1045453",
                     "Categoria":"novillito",
-                    "Total_Media":"1/4 trasero",
+                    "Total_Media":"1/4T",
                     "kg":38,
                     "$_kg":675,
                     "Margen":""
@@ -217,7 +217,7 @@
                 {
                     "Correlativo":"45459",
                     "Categoria":"vaca",
-                    "Total_Media":"1/4 delantero",
+                    "Total_Media":"1/4D",
                     "kg":101,
                     "$_kg":620,
                     "Margen":""
@@ -266,34 +266,42 @@
     ],
     "Cliente":[
         {
-            "id_cliente":"1",
-            "nombre":"Roberto Espeche",
-            "telefono":"3835398783",
-            "email":"roberto_espeche@gmail.com",
-            "direccion":"Los Andes 2987"
+            "ID_Cliente":"1",
+            "Nombre":"Roberto Espeche",
+            "Telefono":"3835398783",
+            "Email":"roberto_espeche@gmail.com",
+            "Direccion":"Los Andes 2987",
+            "Ultima_Venta":"10/08/22",
+            "Saldo":50300
         },
         {
-            "id_cliente":"2",
-            "nombre":"Jorge La Vanguardia",
-            "telefono":"3835726532",
-            "email":"jorge@gmail.com",
-            "direccion":"La Vanguardia 243"
+            "ID_Cliente":"2",
+            "Nombre":"Jorge La Vanguardia",
+            "Telefono":"3835726532",
+            "Email":"jorge@gmail.com",
+            "Direccion":"La Vanguardia 243",
+            "Ultima_Venta":"05/09/22",
+            "Saldo":180300
         }
     ],
     "Proveedor":[
         {
-            "id_proveedor":"1",
-            "nombre":"Castillo",
-            "telefono":"3835628739",
-            "email":"castillo@gmail.com",
-            "direccion":"La Madrid 2976"
+            "ID_Proveedor":"1",
+            "Nombre":"Castillo",
+            "Telefono":"3835628739",
+            "Email":"castillo@gmail.com",
+            "Direccion":"La Madrid 2976",
+            "Ultima_Compra":"10/08/22",
+            "Saldo":50300
         },
         {
-            "id_proveedor":"2",
-            "nombre":"Puchulu",
-            "telefono":"3836922001",
-            "email":"puchulu@gmail.com",
-            "direccion":"Caseros 98"
+            "ID_Proveedor":"2",
+            "Nombre":"Puchulu",
+            "Telefono":"3836922001",
+            "Email":"puchulu@gmail.com",
+            "Direccion":"Caseros 98",
+            "Ultima_Compra":"06/09/22",
+            "Saldo":135300
         }
     ]
 }
