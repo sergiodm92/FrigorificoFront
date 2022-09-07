@@ -165,7 +165,6 @@
             "ID_Venta":"1",
             "Fecha":"25-08-22",
             "Cliente":"Sergio",
-            "Tropa":45490,
             "Detalle":[
                 {
                     "Correlativo":"1045451",
@@ -204,7 +203,6 @@
             "ID_Venta":"2",
             "Fecha":"13-08-22",
             "Cliente":"Franchela",
-            "Tropa":45491,
             "Detalle":[
                 {
                     "Correlativo":"45458",
