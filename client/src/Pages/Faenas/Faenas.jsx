@@ -11,6 +11,10 @@ const data = require("../../Components/Details/data.json")
 export default function Faenas(){
 
     const navigate = useNavigate();
+    const faenasPendientes = [];
+    for(let i=0; i<data.faena.length; i++){
+        if(data.faena[i].Saldo>0) faenasPendientes.push(data.faena[i])
+    }
 
     return(
         <div className={styleF.ConteinerCompras}>
@@ -29,7 +33,7 @@ export default function Faenas(){
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={styleF.cardsCont}>
-                    {data.faena.map((a)=>{
+                    {faenasPendientes.map((a)=>{
                         return(
                             <CardSmall
                                 id={a.ID_Faena}
@@ -41,6 +45,7 @@ export default function Faenas(){
                                 nav={"Form_Pago_Faena"}
                             />
                         )
+                        
                     })
                     }
                 </div>
