@@ -162,58 +162,74 @@
     ],
     "venta":[
         {
-            "ID_venta":"1",
+            "ID_Venta":"1",
             "Fecha":"25-08-22",
             "Cliente":"Sergio",
+            "Tropa":45490,
             "Detalle":[
                 {
-                    "correlativo":"1045451",
-                    "categoria":"vaquillona",
-                    "total_media":"total",
+                    "Correlativo":"1045451",
+                    "Categoria":"vaquillona",
+                    "Total_Media":"total",
                     "kg":79,
                     "$_kg":675,
-                    "margen":""
+                    "Margen":""
                 },
                 {
-                    "correlativo":"1045452",
-                    "categoria":"novillito",
-                    "total_media":"total",
+                    "Correlativo":"1045452",
+                    "Categoria":"novillito",
+                    "Total_Media":"total",
                     "kg":94,
                     "$_kg":675,
-                    "margen":""
+                    "Margen":""
                 },
                 {
-                    "correlativo":"1045453",
-                    "categoria":"novillito",
-                    "total_media":"1/4 trasero",
+                    "Correlativo":"1045453",
+                    "Categoria":"novillito",
+                    "Total_Media":"1/4 trasero",
                     "kg":38,
                     "$_kg":675,
-                    "margen":""
+                    "Margen":""
                 }
-            ]
+            ],
+            "Cant": 2.5,
+            "kg_Total":211,
+            "$_kg_Prom":675,
+            "Total":142425,
+            "Margen/kg":11.47,
+            "Margen/Venta":27849.16,
+            "Margen(%)":7.88
         },
         {
-            "ID_venta":"2",
+            "ID_Venta":"2",
             "Fecha":"13-08-22",
             "Cliente":"Franchela",
+            "Tropa":45491,
             "Detalle":[
                 {
-                    "correlativo":"45458",
-                    "categoria":"novillo pesado",
-                    "total_media":"total",
+                    "Correlativo":"45458",
+                    "Categoria":"novillo pesado",
+                    "Total_Media":"total",
                     "kg":155,
                     "$_kg":640,
-                    "margen":""
+                    "Margen":""
                 },
                 {
-                    "correlativo":"45459",
-                    "categoria":"vaca",
-                    "total_media":"1/4 delantero",
+                    "Correlativo":"45459",
+                    "Categoria":"vaca",
+                    "Total_Media":"1/4 delantero",
                     "kg":101,
                     "$_kg":620,
-                    "margen":""
+                    "Margen":""
                 }
-            ]
+            ],
+            "Cant": 1.5,
+            "kg_Total":211,
+            "$_kg_Prom":675,
+            "Total":142425,
+            "Margen/kg":11.47,
+            "Margen/Venta":27849.16,
+            "Margen(%)":7.88
         }
     ],
     "Pago_Venta":[
