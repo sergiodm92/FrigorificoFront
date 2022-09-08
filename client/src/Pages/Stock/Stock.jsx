@@ -8,10 +8,37 @@ const data = require("../../Components/Details/data.json")
 
 export default function Stock(){
 
-    const total_kg=0
-    for(let i=0; i<data.stock.Detalle.length; i++){
-        total_kg = total_kg+data.stock.Detalle[i].kg
-    }
+    let total_kg=["Total kg","","",0]
+    let vaq=["Vaquillon",0,0,0]
+    let vaca=["Vaca",0,0,0]
+    let nov=["Novillo",0,0,0]
+    let toro=["Toro",0,0,0]
+    
+    data.stock.map((a)=>{
+        a.Detalle.map((a)=>{
+            total_kg[3]+=a.kg;
+            if(a.Categoria==="Vaquillon"){
+                if(a.Correlativo.includes("D")) vaq[2]++
+                if(a.Correlativo.includes("T")) vaq[3]++
+                else vaq[1]++
+            }
+            if(a.Categoria==="Vaca"){
+                if(a.Correlativo.includes("D")) vaca[2]++
+                if(a.Correlativo.includes("T")) vaca[3]++
+                else vaca[1]++
+            }
+            if(a.Categoria==="Novillo"){
+                if(a.Correlativo.includes("D")) nov[2]++
+                if(a.Correlativo.includes("T")) nov[3]++
+                else nov[1]++
+            }
+            if(a.Categoria==="Toro"){
+                if(a.Correlativo.includes("D")) toro[2]++
+                if(a.Correlativo.includes("T")) toro[3]++
+                else toro[1]++
+            }
+        })
+    })
 
     return(
         <div className={styleSt.ConteinerCompras}>
@@ -19,16 +46,8 @@ export default function Stock(){
             title={"Stock"}
             />
             <div>
-                <div className={styleSt.contTitle}>
-
-                    <div>
-                        <div><b>Resumen</b></div>
-                        <div><p>1/2Res</p></div>
-                        <div><p>|</p></div>
-                        <div><p>1/4D</p></div>
-                        <div><p>|</p></div>
-                        <div><p>1/4T</p></div>
-                    </div>
+                <div className={styleSt.contTable}>
+                    //inserte aqui su código
                 </div>
                 <div className={styleSt.title}>
                     <div><b>Fecha</b></div>
