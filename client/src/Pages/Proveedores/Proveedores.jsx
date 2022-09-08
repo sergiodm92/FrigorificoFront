@@ -29,11 +29,11 @@ export default function Proveedores(){
                     {data.Proveedor.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.ID_Proveedor}
+                                id={a.Nombre}
                                 fecha={a.Nombre}
                                 otro={a.Ultima_Compra}
                                 monto={a.Saldo}
-                                tipo={"Proveedor"}
+                                tipo={"Detalle_Proveedor"}
                                 pago={false}
                             />
                         )

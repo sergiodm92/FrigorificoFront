@@ -1,24 +1,22 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import NavBar from "../../Components/Navbar/Navbar";
-import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
-import styleCl from "./Clientes.module.scss";
+import React from "react"
+import NavBar from "../../Components/Navbar/Navbar"
+import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
+import styleVen from "./Ventas.module.scss";
 const data = require("../../Components/Details/data.json")
 
-export default function Historial_Ventas_Cliente(){
-    const {name}=useParams()
-    const VentasPendientes=data.venta.filter((a)=>a.Cliente.toString("")===name.toString(""))
+
+export default function Historial_Ventas(){
 
     return(
-        <div className={styleCl.ConteinerCompras}>
+        <div className={styleVen.ConteinerCompras}>
             <NavBar
-            title={name}
+            title={"Hist. Ventas"}
             />
             <div>
-                <div className={styleCl.title}>
+                <div className={styleVen.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
-                    <div><b>Cliente</b></div>
+                    <div><b>Proveedor</b></div>
                     <div><b>|</b></div>
                     <div><b>Cant</b></div>
                     <div><b>|</b></div>
@@ -26,8 +24,8 @@ export default function Historial_Ventas_Cliente(){
                     <div><b>|</b></div>
                     <div><b>Monto($)</b></div>
                 </div>
-                <div className={styleCl.cardsCont}>
-                    {VentasPendientes.map((a)=>{
+                <div className={styleVen.cardsCont}>
+                    {data.venta.map((a)=>{
                         return(
                             <CardLarge
                                 id={a.ID_Venta}
@@ -37,7 +35,6 @@ export default function Historial_Ventas_Cliente(){
                                 kg={a.kg_Total}
                                 monto={a.Total}
                                 tipo={"Ventas"}
-                                pago={false}
                             />
                         )
                     })
