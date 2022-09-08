@@ -44,7 +44,7 @@ function App() {
     <Route exact path="/Detalle_Cliente" element={<Detalle_Cliente />} />
     <Route exact path="/Form_Cliente" element={<Form_Cliente />} />
     <Route exact path="/Historial_Ventas_Cliente" element={<Historial_Ventas_Cliente />} />
-    <Route exact path="/Faenass/:id" element={<Detalle_Faena />} />
+    <Route exact path="/Faenas/:tropa" element={<Detalle_Faena />} />
     <Route exact path="/Faenas" element={<Faenas />} />
     <Route exact path="/Form_Faena" element={<Form_Faena />} />
     <Route exact path="/Form_Pago_Faena" element={<Form_Pago_Faena />} />

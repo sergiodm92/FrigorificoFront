@@ -36,7 +36,7 @@ export default function Faenas(){
                     {faenasPendientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.ID_Faena}
+                                id={a.Tropa}
                                 fecha={a.Fecha}
                                 otro={a.Frigorifico}
                                 monto={a.Saldo}
