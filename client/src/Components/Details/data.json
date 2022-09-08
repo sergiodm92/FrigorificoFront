@@ -814,25 +814,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Vaquillon",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Vaca",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Vaquillon",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Vaca",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -847,25 +847,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Toro",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Vaca",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Vaquillon",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Vaca",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -880,25 +880,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Vaquillon",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Novillo",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Novillo",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Novillo",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -913,25 +913,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Vaquillon",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Toro",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Vaquillon",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Vaquillon",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -946,25 +946,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Toro",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Novillo",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Vaquillon",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Vaca",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -979,25 +979,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Vaquillon",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Vaca",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Vaquillon",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Vaca",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -1012,25 +1012,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Toro",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Novillo",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Toro",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Novillo",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
@@ -1045,25 +1045,25 @@
                     "Correlativo":"123456",
                     "Categoria": "Vaquillon",
                     "kg":83,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123457T",
                     "Categoria": "Vaca",
                     "kg":54,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123458",
                     "Categoria": "Vaquillon",
                     "kg":89,
-                    "Costo/kg":675
+                    "Costo":675
                 },
                 {
                     "Correlativo":"123459D",
                     "Categoria": "Vaca",
                     "kg":60,
-                    "Costo/kg":675
+                    "Costo":675
                 }
             ],
             "Total_kg":286
