@@ -3,7 +3,7 @@
         {
             "ID_compra":"1",
             "Fecha":"13-07-22",
-            "Proveedor":"Castillo",
+            "Proveedor":"La Soñada",
             "Lugar":"Andalgala",
             "N°_dte":"023140929-7",
             "Categoria":"vaca",
@@ -24,8 +24,7 @@
             "Costo_VEPS":2000,
             "Costo_Faena":290,
             "Costo_Total":749356.49,
-            "COSTO/KG":145.53,
-            "Saldo":550000
+            "COSTO/KG":145.53
 
         },
         {
@@ -52,13 +51,12 @@
             "Costo_VEPS":3000,
             "Costo_Faena":190,
             "Costo_Total":948356.49,
-            "COSTO/KG":165.53,
-            "Saldo":550000
+            "COSTO/KG":165.53
         },
         {
             "ID_compra":"1",
             "Fecha":"13-07-22",
-            "Proveedor":"Puchulo",
+            "Proveedor":"La Soñada",
             "Lugar":"Andalgala",
             "N°_dte":"023140929-7",
             "Categoria":"vaca",
@@ -79,14 +77,13 @@
             "Costo_VEPS":2000,
             "Costo_Faena":290,
             "Costo_Total":749356.49,
-            "COSTO/KG":145.53,
-            "Saldo":0
+            "COSTO/KG":145.53
 
         },
         {
             "ID_compra":"2",
             "Fecha":"13-07-22",
-            "Proveedor":"Puchulo",
+            "Proveedor":"La Soñada",
             "Lugar":"Payogasta",
             "N°_dte":"0231465429-7",
             "Categoria":"Ternero",
@@ -107,8 +104,7 @@
             "Costo_VEPS":3000,
             "Costo_Faena":190,
             "Costo_Total":948356.49,
-            "COSTO/KG":165.53,
-            "Saldo":65000
+            "COSTO/KG":165.53
         }
     ],
     "faena":[
@@ -170,7 +166,7 @@
             "Fecha":"03-09-22",
             "Tropa":"245455",
             "Frigorifico":"Natilla",
-            "Proveedor":"Castillo",
+            "Proveedor":"Costello Pedro Rafael",
             "Detalle":[
                 {
                     "Correlativo":"829101",
@@ -276,7 +272,7 @@
             "Fecha":"03-09-22",
             "Tropa":"245454",
             "Frigorifico":"Natilla",
-            "Proveedor":"Puchulo",
+            "Proveedor":"Costello Pedro Rafael",
             "Detalle":[
                 {
                     "Correlativo":"829101",
@@ -362,8 +358,7 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":65000
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"2",
@@ -393,148 +388,7 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":85000
-        },
-        {
-            "ID_Venta":"1",
-            "Fecha":"25-08-22",
-            "Cliente":"Roberto Espeche",
-            "Detalle":[
-                {
-                    "Correlativo":"1045451",
-                    "Categoria":"vaquillona",
-                    "Total_Media":"total",
-                    "kg":79,
-                    "$_kg":675,
-                    "Margen":""
-                },
-                {
-                    "Correlativo":"1045452",
-                    "Categoria":"novillito",
-                    "Total_Media":"total",
-                    "kg":94,
-                    "$_kg":675,
-                    "Margen":""
-                },
-                {
-                    "Correlativo":"1045453",
-                    "Categoria":"novillito",
-                    "Total_Media":"1/4T",
-                    "kg":38,
-                    "$_kg":675,
-                    "Margen":""
-                }
-            ],
-            "Cant": 2.5,
-            "kg_Total":211,
-            "$_kg_Prom":675,
-            "Total":142425,
-            "Margen/kg":11.47,
-            "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":0
-        },
-        {
-            "ID_Venta":"2",
-            "Fecha":"13-08-22",
-            "Cliente":"Jorge La Vanguardia",
-            "Detalle":[
-                {
-                    "Correlativo":"45458",
-                    "Categoria":"novillo pesado",
-                    "Total_Media":"total",
-                    "kg":155,
-                    "$_kg":640,
-                    "Margen":""
-                },
-                {
-                    "Correlativo":"45459",
-                    "Categoria":"vaca",
-                    "Total_Media":"1/4D",
-                    "kg":101,
-                    "$_kg":620,
-                    "Margen":""
-                }
-            ],
-            "Cant": 1.5,
-            "kg_Total":211,
-            "$_kg_Prom":675,
-            "Total":142425,
-            "Margen/kg":11.47,
-            "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":0
-        },
-        {
-            "ID_Venta":"1",
-            "Fecha":"25-08-22",
-            "Cliente":"Jorge La Vanguardia",
-            "Detalle":[
-                {
-                    "Correlativo":"1045451",
-                    "Categoria":"vaquillona",
-                    "Total_Media":"total",
-                    "kg":79,
-                    "$_kg":675,
-                    "Margen":""
-                },
-                {
-                    "Correlativo":"1045452",
-                    "Categoria":"novillito",
-                    "Total_Media":"total",
-                    "kg":94,
-                    "$_kg":675,
-                    "Margen":""
-                },
-                {
-                    "Correlativo":"1045453",
-                    "Categoria":"novillito",
-                    "Total_Media":"1/4T",
-                    "kg":38,
-                    "$_kg":675,
-                    "Margen":""
-                }
-            ],
-            "Cant": 2.5,
-            "kg_Total":211,
-            "$_kg_Prom":675,
-            "Total":142425,
-            "Margen/kg":11.47,
-            "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":0
-        },
-        {
-            "ID_Venta":"2",
-            "Fecha":"13-08-22",
-            "Cliente":"Roberto Espeche",
-            "Detalle":[
-                {
-                    "Correlativo":"45458",
-                    "Categoria":"novillo pesado",
-                    "Total_Media":"total",
-                    "kg":155,
-                    "$_kg":640,
-                    "Margen":""
-                },
-                {
-                    "Correlativo":"45459",
-                    "Categoria":"vaca",
-                    "Total_Media":"1/4D",
-                    "kg":101,
-                    "$_kg":620,
-                    "Margen":""
-                }
-            ],
-            "Cant": 1.5,
-            "kg_Total":211,
-            "$_kg_Prom":675,
-            "Total":142425,
-            "Margen/kg":11.47,
-            "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":65000
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"1",
@@ -572,13 +426,12 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":65000
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"2",
             "Fecha":"13-08-22",
-            "Cliente":"Jorge La Vanguardia",
+            "Cliente":"Franchela",
             "Detalle":[
                 {
                     "Correlativo":"45458",
@@ -603,13 +456,12 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":0
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"1",
             "Fecha":"25-08-22",
-            "Cliente":"Roberto Espeche",
+            "Cliente":"Sergio",
             "Detalle":[
                 {
                     "Correlativo":"1045451",
@@ -642,8 +494,7 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":0
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"2",
@@ -673,13 +524,12 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":0
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"1",
             "Fecha":"25-08-22",
-            "Cliente":"Jorge La Vanguardia",
+            "Cliente":"Sergio",
             "Detalle":[
                 {
                     "Correlativo":"1045451",
@@ -712,8 +562,7 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":65000
+            "Margen(%)":7.88
         },
         {
             "ID_Venta":"2",
@@ -743,8 +592,143 @@
             "Total":142425,
             "Margen/kg":11.47,
             "Margen/Venta":27849.16,
-            "Margen(%)":7.88,
-            "Saldo":65000
+            "Margen(%)":7.88
+        },
+        {
+            "ID_Venta":"1",
+            "Fecha":"25-08-22",
+            "Cliente":"Sergio",
+            "Detalle":[
+                {
+                    "Correlativo":"1045451",
+                    "Categoria":"vaquillona",
+                    "Total_Media":"total",
+                    "kg":79,
+                    "$_kg":675,
+                    "Margen":""
+                },
+                {
+                    "Correlativo":"1045452",
+                    "Categoria":"novillito",
+                    "Total_Media":"total",
+                    "kg":94,
+                    "$_kg":675,
+                    "Margen":""
+                },
+                {
+                    "Correlativo":"1045453",
+                    "Categoria":"novillito",
+                    "Total_Media":"1/4T",
+                    "kg":38,
+                    "$_kg":675,
+                    "Margen":""
+                }
+            ],
+            "Cant": 2.5,
+            "kg_Total":211,
+            "$_kg_Prom":675,
+            "Total":142425,
+            "Margen/kg":11.47,
+            "Margen/Venta":27849.16,
+            "Margen(%)":7.88
+        },
+        {
+            "ID_Venta":"2",
+            "Fecha":"13-08-22",
+            "Cliente":"Franchela",
+            "Detalle":[
+                {
+                    "Correlativo":"45458",
+                    "Categoria":"novillo pesado",
+                    "Total_Media":"total",
+                    "kg":155,
+                    "$_kg":640,
+                    "Margen":""
+                },
+                {
+                    "Correlativo":"45459",
+                    "Categoria":"vaca",
+                    "Total_Media":"1/4D",
+                    "kg":101,
+                    "$_kg":620,
+                    "Margen":""
+                }
+            ],
+            "Cant": 1.5,
+            "kg_Total":211,
+            "$_kg_Prom":675,
+            "Total":142425,
+            "Margen/kg":11.47,
+            "Margen/Venta":27849.16,
+            "Margen(%)":7.88
+        },
+        {
+            "ID_Venta":"1",
+            "Fecha":"25-08-22",
+            "Cliente":"Sergio",
+            "Detalle":[
+                {
+                    "Correlativo":"1045451",
+                    "Categoria":"vaquillona",
+                    "Total_Media":"total",
+                    "kg":79,
+                    "$_kg":675,
+                    "Margen":""
+                },
+                {
+                    "Correlativo":"1045452",
+                    "Categoria":"novillito",
+                    "Total_Media":"total",
+                    "kg":94,
+                    "$_kg":675,
+                    "Margen":""
+                },
+                {
+                    "Correlativo":"1045453",
+                    "Categoria":"novillito",
+                    "Total_Media":"1/4T",
+                    "kg":38,
+                    "$_kg":675,
+                    "Margen":""
+                }
+            ],
+            "Cant": 2.5,
+            "kg_Total":211,
+            "$_kg_Prom":675,
+            "Total":142425,
+            "Margen/kg":11.47,
+            "Margen/Venta":27849.16,
+            "Margen(%)":7.88
+        },
+        {
+            "ID_Venta":"2",
+            "Fecha":"13-08-22",
+            "Cliente":"Franchela",
+            "Detalle":[
+                {
+                    "Correlativo":"45458",
+                    "Categoria":"novillo pesado",
+                    "Total_Media":"total",
+                    "kg":155,
+                    "$_kg":640,
+                    "Margen":""
+                },
+                {
+                    "Correlativo":"45459",
+                    "Categoria":"vaca",
+                    "Total_Media":"1/4D",
+                    "kg":101,
+                    "$_kg":620,
+                    "Margen":""
+                }
+            ],
+            "Cant": 1.5,
+            "kg_Total":211,
+            "$_kg_Prom":675,
+            "Total":142425,
+            "Margen/kg":11.47,
+            "Margen/Venta":27849.16,
+            "Margen(%)":7.88
         }
     ],
     "Pago_Venta":[
@@ -811,7 +795,7 @@
         },
         {
             "ID_Proveedor":"2",
-            "Nombre":"Puchulo",
+            "Nombre":"Puchulu",
             "Telefono":"3836922001",
             "Email":"puchulu@gmail.com",
             "Direccion":"Caseros 98",
