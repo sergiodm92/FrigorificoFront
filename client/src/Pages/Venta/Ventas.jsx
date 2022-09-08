@@ -25,7 +25,7 @@ export default function Ventas(){
                 <div className={styleVen.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
-                    <div><b>Proveedor</b></div>
+                    <div><b>Cliente</b></div>
                     <div><b>|</b></div>
                     <div><b>Cant</b></div>
                     <div><b>|</b></div>

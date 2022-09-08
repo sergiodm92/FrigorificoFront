@@ -18,11 +18,12 @@ import Reestablecer_Login from '../src/Pages/Login/Reestablecer_Login.jsx'
 import Login from '../src/Pages/Login/Login.jsx'
 import Detalle_Proveedor from '../src/Pages/Proveedores/Detalle_Proveedor'
 import Form_Proveedores from '../src/Pages/Proveedores/Form_Proveedores.jsx'
-import Historial_Compra_Prov from '../src/Pages/Proveedores/Historial_Compra_Prov.jsx'
+import Historial_Compras_Proveedor from '../src/Pages/Proveedores/Historial_Compra_Prov.jsx'
 import Proveedores from '../src/Pages/Proveedores/Proveedores.jsx'
 import Detalle_Stock_Tropa from '../src/Pages/Stock/Detalle_Stock_Tropa.jsx'
 import Stock from '../src/Pages/Stock/Stock.jsx'
 import Ventas from '../src/Pages/Venta/Ventas.jsx'
+import Historial_Ventas from './Pages/Venta/Historial_Ventas.jsx';
 import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx'
 import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
 import Form_Pago_Venta from '../src/Pages/Venta/Form_Pago_Venta.jsx'
@@ -41,9 +42,9 @@ function App() {
     <Route exact path="/Compras/:id" element={<Detalle_Compra />} />
     <Route exact path="/Form_Compra" element={<Form_Compra />} />
     <Route exact path="/Historial_Compras" element={<Historial_Compras />} />
-    <Route exact path="/Detalle_Cliente" element={<Detalle_Cliente />} />
+    <Route exact path="/Detalle_Cliente/:name" element={<Detalle_Cliente />} />
     <Route exact path="/Form_Cliente" element={<Form_Cliente />} />
-    <Route exact path="/Historial_Ventas_Cliente" element={<Historial_Ventas_Cliente />} />
+    <Route exact path="/Historial_Ventas_Cliente/:name" element={<Historial_Ventas_Cliente />} />
     <Route exact path="/Faenas/:tropa" element={<Detalle_Faena />} />
     <Route exact path="/Faenas" element={<Faenas />} />
     <Route exact path="/Form_Faena" element={<Form_Faena />} />
@@ -51,13 +52,14 @@ function App() {
     <Route exact path="/Historial_Faena" element={<Historial_Faena />} />
     <Route exact path="/Home" element={<Home />} />
     <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
-    <Route exact path="/Detalle_Proveedor" element={<Detalle_Proveedor />} />
+    <Route exact path="/Detalle_Proveedor/:name" element={<Detalle_Proveedor />} />
     <Route exact path="/Form_Proveedores" element={<Form_Proveedores />} />
-    <Route exact path="/Historial_Compra_Prov" element={<Historial_Compra_Prov />} />
+    <Route exact path="/Historial_Compras_Proveedor/:name" element={<Historial_Compras_Proveedor />} />
     <Route exact path="/Proveedores" element={<Proveedores />} />
     <Route exact path="/Detalle_Stock_Tropa/:id" element={<Detalle_Stock_Tropa />} />
     <Route exact path="/Stock" element={<Stock />} />
     <Route exact path="/Ventas" element={<Ventas />} />
+    <Route exact path="/Historial_Ventas" element={<Historial_Ventas />} />
     <Route exact path="/Detalle_Reses_Venta/:id" element={<Detalle_Reses_Venta />} />
     <Route exact path="/Ventas/:id" element={<Detalle_Venta />} />
     <Route exact path="/Form_Pago_Venta" element={<Form_Pago_Venta />} />
