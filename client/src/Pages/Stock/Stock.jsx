@@ -8,6 +8,11 @@ const data = require("../../Components/Details/data.json")
 
 export default function Stock(){
 
+    const total_kg=0
+    for(let i=0; i<data.stock.Detalle.length; i++){
+        total_kg = total_kg+data.stock.Detalle[i].kg
+    }
+
     return(
         <div className={styleSt.ConteinerCompras}>
             <NavBar
@@ -15,9 +20,14 @@ export default function Stock(){
             />
             <div>
                 <div className={styleSt.contTitle}>
-                    <h1 className={styleSt.titleP}>Resumen</h1>
-                    <div>
 
+                    <div>
+                        <div><b>Resumen</b></div>
+                        <div><p>1/2Res</p></div>
+                        <div><p>|</p></div>
+                        <div><p>1/4D</p></div>
+                        <div><p>|</p></div>
+                        <div><p>1/4T</p></div>
                     </div>
                 </div>
                 <div className={styleSt.title}>
@@ -29,6 +39,7 @@ export default function Stock(){
                 </div>
                 <div className={styleSt.cardsCont}>
                     {data.stock.map((a)=>{
+                        
                         return(
                             <CardSmall
                                 id={a.Tropa}
