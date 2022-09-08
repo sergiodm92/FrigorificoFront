@@ -1,11 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-
 const data = require("../../Components/Details/data.json")
 
 export default function Clientes(){
@@ -29,11 +27,11 @@ export default function Clientes(){
                     {data.Cliente.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.ID_Cliente}
+                                id={a.Nombre}
                                 fecha={a.Nombre}
                                 otro={a.Ultima_Venta}
                                 monto={a.Saldo}
-                                tipo={"Clientes"}
+                                tipo={"Detalle_Cliente"}
                                 pago={false}
                             />
                         )
