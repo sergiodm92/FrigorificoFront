@@ -1,24 +1,37 @@
 import React from "react";
-import DoubleButton from "../../Components/Buttons/Button_Doble_Home/Button_Doble_Home";
-import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import styleH from "./Home.module.scss";
+import styleL from "./Login.module.scss"
 import {useNavigate} from "react-router-dom";
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 
 export default function Login(){
 
     const navigate= useNavigate()
     return(
-        <div className={styleH.wallpaper}>
-            <div className={styleH.block1BH}><div className={styleH.logo}></div></div>
-            <div className={styleH.block2BH}>
-                <DoubleButton title={"Compras"} onClick1={()=> navigate("/Compras")} onClick2={()=> navigate("/Form_Compra")}/>
-                <DoubleButton title={"Faenas"} onClick1={()=> navigate("/Faenas")} onClick2={()=> navigate("/Form_Faena")}/>
-                <DoubleButton title={"Ventas"} onClick1={()=> navigate("/Ventas")} onClick2={()=> navigate("/Form_Venta")}/>
-                <LargeButton title={"Clientes"} onClick={()=> navigate("/Clientes")}/>
-                <LargeButton title={"Proveedores"} onClick={()=> navigate("/Proveedores")}/>
-                <LargeButton title={"Stock"} onClick={()=> navigate("/Stock")}/>
-                <LargeButton title={"Balance"} onClick={()=> navigate("/Balance")}/>
+        <div className={styleL.wallpaper}>
+            <div className={styleL.block1BH}><div className={styleL.logo}></div></div>
+            <div className={styleL.block2BH}>
+            <div className={styleL.conteiner}>
+        <h1>Login</h1>
+        <div className={styleL.cont}>
+          <p>Usuario</p>
+          <input placeholder="Ingrese el usuario"></input>
+        </div>
+        <div className={styleL.cont}>
+          <p>Contraseña</p>
+          <input 
+          placeholder="Ingrese la contraseña"
+          maxlength="8"
+          type="password"
+          >
+          </input>
+        </div>
+        <LargeButton
+            title="Entrar"
+            onClick={()=> navigate("/Home")}
+        />
+    </div>
             </div>
         </div>
     )
+
 }
