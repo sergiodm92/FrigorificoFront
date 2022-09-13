@@ -52,6 +52,7 @@
     position: relative;
     border-color: black;
     justify-content: center;
+    align-items: center;
 }
 .button1{
     width: 300px;
@@ -75,4 +76,10 @@
     flex-direction: column;
     max-width: 400px;
     gap: 20px;
+}
+
+.user{
+    width: 180px;
+    border-radius:10px;
+    
 }
