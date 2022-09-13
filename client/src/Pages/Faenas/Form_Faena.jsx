@@ -140,7 +140,7 @@ const Form_Faena = () => {
                             color="primary"
                         />
                         <ShortButton
-                            title="✔Crear Faena"
+                            title="✔ Confirmar"
                             onClick={handleSubmit}
                             color="green"
 
