@@ -56,7 +56,7 @@ function App() {
     <Route exact path="/Form_Proveedores" element={<Form_Proveedores />} />
     <Route exact path="/Historial_Compras_Proveedor/:name" element={<Historial_Compras_Proveedor />} />
     <Route exact path="/Proveedores" element={<Proveedores />} />
-    <Route exact path="/Detalle_Stock_Tropa/:id" element={<Detalle_Stock_Tropa />} />
+    <Route exact path="/Detalle_Stock_Tropa/:tropa" element={<Detalle_Stock_Tropa />} />
     <Route exact path="/Stock" element={<Stock />} />
     <Route exact path="/Ventas" element={<Ventas />} />
     <Route exact path="/Historial_Ventas" element={<Historial_Ventas />} />

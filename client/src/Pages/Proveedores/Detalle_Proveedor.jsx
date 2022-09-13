@@ -4,6 +4,7 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import Table_Proveedor from "../../Components/Details/Table_Proveedor";
 const data = require("../../Components/Details/data.json")
 
 export default function Detalle_Proveedor(){
@@ -16,6 +17,9 @@ export default function Detalle_Proveedor(){
         <div className={stylePr.ConteinerCompras}>
             <NavBar
             title={name}
+            />
+            <Table_Proveedor
+            name={name}
             />
             <div>
                 <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>

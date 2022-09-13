@@ -4,6 +4,7 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import Table_Cliente from "../../Components/Details/Table_Cliente";
 const data = require("../../Components/Details/data.json")
 
 export default function Detalle_Cliente(){
@@ -16,6 +17,9 @@ export default function Detalle_Cliente(){
         <div className={styleCl.ConteinerCompras}>
             <NavBar
             title={name}
+            />
+            <Table_Cliente
+            name={name}
             />
             <div>
                 <div className={styleCl.contTitle}><h1 className={styleCl.titleP}>Pendientes</h1></div>

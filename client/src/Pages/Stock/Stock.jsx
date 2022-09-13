@@ -3,6 +3,7 @@ import React from "react";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleSt from "./Stock.module.scss";
+import Table_Stock from "../../Components/Details/Table_Stock";
 
 const data = require("../../Components/Details/data.json")
 
@@ -13,7 +14,7 @@ export default function Stock(){
     let vaca=["Vaca",0,0,0]
     let nov=["Novillo",0,0,0]
     let toro=["Toro",0,0,0]
-    
+
     data.stock.map((a)=>{
         a.Detalle.map((a)=>{
             total_kg[3]+=a.kg;
@@ -39,7 +40,7 @@ export default function Stock(){
             }
         })
     })
-
+var array=[vaq,vaca,nov,toro,total_kg]
     return(
         <div className={styleSt.ConteinerCompras}>
             <NavBar
@@ -47,7 +48,11 @@ export default function Stock(){
             />
             <div>
                 <div className={styleSt.contTable}>
-                    //inserte aqui su código
+                <Table_Stock
+                array={array}
+                />
+
+
                 </div>
                 <div className={styleSt.title}>
                     <div><b>Fecha</b></div>
