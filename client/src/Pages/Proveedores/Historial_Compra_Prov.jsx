@@ -25,7 +25,7 @@ export default function Historial_Compras_Proveedor(){
                     <div><b>|</b></div>
                     <div><b>kg</b></div>
                     <div><b>|</b></div>
-                    <div><b>Saldo($)</b></div>
+                    <div><b>Monto($)</b></div>
                 </div>
                 <div className={stylePr.cardsCont}>
                     {allCompras.map((a)=>{
