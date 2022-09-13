@@ -1,6 +1,12 @@
 import axios from "axios";
 import swal from "sweetalert";
 
+// estado de login
+export const login_state = (e) => {
+ 
+    return ({ type: "LOGIN_STATE", payload: e  });
+           
+        };
 
 
 //Traer todas las compras
