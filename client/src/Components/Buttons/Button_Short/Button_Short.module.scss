@@ -1,0 +1,41 @@
+.cont{
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+.button1{
+    width: 120px;
+    height: 50px;
+    border-radius: 20px;
+    border-color: rgba(0, 0, 0, 0);
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 18px;
+    font-style: initial;
+}
+.PrimaryButton{
+    background-color: rgb(195, 215, 228);
+}
+.PrimaryButton:hover{
+    background-color: rgb(104, 155, 189);;
+}
+.SecondaryButton{
+    background-color: rgb(76, 166, 226);
+}
+.SecondaryButton:hover{
+    background-color: rgb(26, 127, 194);
+}
+.GreenButton{
+    background-color: rgb(0, 150, 0);
+}
+.GreenButton:hover{
+    background-color: rgb(0, 90, 0);
+}
+.RedButton{
+    background-color: red;
+}
+.RedButton:hover{
+    background-color: rgb(141, 0, 0);
+}

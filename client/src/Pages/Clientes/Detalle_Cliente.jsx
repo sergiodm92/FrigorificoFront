@@ -18,6 +18,7 @@ export default function Detalle_Cliente(){
             title={name}
             />
             <div>
+                <div className={styleCl.contTitle}><h1 className={styleCl.titleP}>Pendientes</h1></div>
                 <div className={styleCl.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>

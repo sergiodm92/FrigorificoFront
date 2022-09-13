@@ -18,6 +18,7 @@ export default function Detalle_Proveedor(){
             title={name}
             />
             <div>
+                <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>
                 <div className={stylePr.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
