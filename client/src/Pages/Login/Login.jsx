@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 import styleL from "./Login.module.scss"
 import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,10 +21,22 @@ export default function Login(){
     const validate = ()=> {
      if(log.user==="Gato" && log.password==="123"){
         navigate("/Home")
-        alert("ingreso correctamente")
+        swal({
+          title: "Alerta de Ingreso",
+          text: "Ingreso correctamente",
+          icon: "success",
+          button: "ok",
+          
+        })
         dispatch(login_state(true)) 
       }
-    else alert("usuario o contraseña incorrectos")
+    else    swal({
+      title: "Ingreso incorrecto",
+      text: "Error en usuario o Contraseña",
+      icon: "warning",
+      button: "ok",
+      dangerMode: true,
+    })
     }
 
     return(
@@ -41,6 +54,7 @@ export default function Login(){
           maxlength="10"
           type="text"
           onChange={handleChange}
+          className={styleL.user}
           ></input>
         </div>
         <div className={styleL.cont}>
@@ -52,6 +66,7 @@ export default function Login(){
           maxlength="8"
           type="password"
           onChange={handleChange}
+          className={styleL.user}
           >
           </input>
         </div>
