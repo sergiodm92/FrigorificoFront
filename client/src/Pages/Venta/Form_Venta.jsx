@@ -7,23 +7,18 @@ import NavBar from '../../Components/Navbar/Navbar'
 
 import styleFormV from './Form_Venta.module.scss';
 
-const formF = {
-    fecha: '',
-    frigorifico: '',
-    tropa: '',
-    proveedor: '',
+const formV = {
+    cliente:'',
+    fecha: ''
 };
 const clientes = ["Don Alberto", "Quiroga"]
 
 //validaciones
-export const validate = (faena) => {
+export const validate = (venta) => {
     let error = {};
 
-    if (!faena.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
-    if (!faena.tropa) error.tropa = "Falta tropa";
-    else if (!/^([0-9])*$/.test(faena.tropa)) error.tropa = "Tropa debe ser un número";
-    return error;
+    if (!venta.fecha) error.fecha = "Falta fecha";
+    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
 };
 
 const Form_Venta = () => {
@@ -31,7 +26,7 @@ const Form_Venta = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [form, setForm] = useState(formF);
+    const [form, setForm] = useState(formV);
     const [error, setError] = useState({});
 
     const handleChange = (e) => {
@@ -49,12 +44,11 @@ const Form_Venta = () => {
 
     const handleSubmit = () => {
         if(
-        !error.fecha && form.fecha &&
-        !error.tropa && form.tropa
+        !error.fecha && form.fecha
         ){
         // dispatch(postFaena(form))
         alert( "Venta cargada correctamente");
-        setForm(formF);
+        setForm(formV);
         }
         else {
         alert( "Datos incorrectos, porfavor intente nuevamente")

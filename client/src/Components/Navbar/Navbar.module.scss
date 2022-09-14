@@ -2,7 +2,8 @@
 
     display: flex;
     position: relative;
-    height: 10%;
+    height: auto;
+    padding: 5px;
     width: 100%;
     max-height: 60px;
     background-color: rgb(222, 239, 246);
@@ -63,7 +64,7 @@
 .ConteinerButtonHome:hover{
     background-color: rgb(104, 155, 189);
 }
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 500px) {
     .ConteinerButtonHome {
     margin-right: 3%;
     margin-left: 0%;

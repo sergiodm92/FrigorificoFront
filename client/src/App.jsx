@@ -18,16 +18,16 @@ import Home from '../src/Pages/Home/Home.jsx';
 import Reestablecer_Login from '../src/Pages/Login/Reestablecer_Login.jsx';
 import Login from '../src/Pages/Login/Login.jsx';
 import Detalle_Proveedor from '../src/Pages/Proveedores/Detalle_Proveedor';
-import Form_Proveedores from '../src/Pages/Proveedores/Form_Proveedores.jsx';
+import Form_Proveedor from '../src/Pages/Proveedores/Form_Proveedor.jsx';
 import Historial_Compras_Proveedor from '../src/Pages/Proveedores/Historial_Compra_Prov.jsx';
 import Proveedores from '../src/Pages/Proveedores/Proveedores.jsx';
 import Detalle_Stock_Tropa from '../src/Pages/Stock/Detalle_Stock_Tropa.jsx';
 import Stock from '../src/Pages/Stock/Stock.jsx';
 import Ventas from '../src/Pages/Venta/Ventas.jsx';
 import Historial_Ventas from './Pages/Venta/Historial_Ventas.jsx';
-import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx'
+import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx';
 import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
-import Form_Pago_Venta from '../src/Pages/Venta/Form_Pago_Venta.jsx'
+import Form_Pago_Venta from '../src/Pages/FormsPagos/Form_pago_venta';
 import NoAccess from '../src/Pages/NoAcces/NoAcces'
 import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx'
 import { useDispatch, useSelector } from "react-redux";
@@ -66,7 +66,7 @@ function App() {
     <Route exact path="/Home" element={state_login?<Home />:<NoAccess/>} />
     <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
     <Route exact path="/Detalle_Proveedor/:name" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
-    <Route exact path="/Form_Proveedores" element={state_login?<Form_Proveedores />:<NoAccess/>} />
+    <Route exact path="/Form_Proveedor" element={state_login?<Form_Proveedor />:<NoAccess/>} />
     <Route exact path="/Historial_Compras_Proveedor/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
     <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
     <Route exact path="/Detalle_Stock_Tropa/:tropa" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />

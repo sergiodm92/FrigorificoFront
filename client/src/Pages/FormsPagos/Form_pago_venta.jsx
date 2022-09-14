@@ -51,7 +51,7 @@ const Form_Pago_Venta = () => {
         !error.fecha && form.fecha &&
         !error.monto && form.monto
         ){
-        // dispatch(postFaena(form))
+        // dispatch(postPagoVenta(form))
         alert( "Pago agregado correctamente");
         setForm(formPV);
         }

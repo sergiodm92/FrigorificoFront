@@ -43,7 +43,7 @@ export default function Proveedores(){
                 <div className={stylePr.buttonLarge}>
                     <LargeButton
                         title={"Agregar Proveedor"}
-                        onClick={()=>navigate("/Form_Proveedores")}
+                        onClick={()=>navigate("/Form_Proveedor")}
                     ></LargeButton>
                 </div>
             </div>

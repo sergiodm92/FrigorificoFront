@@ -53,7 +53,7 @@ const Form_Pago_Faena = () => {
         !error.fecha && form.fecha &&
         !error.monto && form.monto
         ){
-        // dispatch(postFaena(form))
+        // dispatch(postPagoFaena(form))
         alert( "Pago agregado correctamente");
         setForm(formPF);
         }

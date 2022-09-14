@@ -84,7 +84,7 @@ const Form_Compra = () => {
         !error.fecha && form.fecha &&
         !error.tropa && form.tropa
         ){
-        // dispatch(postFaena(form))
+        // dispatch(postCompra(form))
         alert( "Compra cargada correctamente");
         setForm(formC);
         }

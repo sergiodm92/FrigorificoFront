@@ -1,0 +1,64 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+.formItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: rgb(195, 215, 228);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    
+}
+.title{
+    font-size: 16px;
+}
+p.danger {
+	color: red;
+	text-align: center;
+	margin: 0;
+    font-size: 12px;
+}
+p.pass{
+    display: none;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.size1 {
+	width: 50px;
+}
+.size2{
+    width: 100px;
+}
+.numero{
+    display: flex;
+}
+input{
+    border-radius: 10px;
+    border-color: rgba(0, 0, 0, 0);
+}
+select{
+    border-radius: 10px;
+    border-color: rgba(0, 0, 0, 0);
+    height: 30px;
+}
