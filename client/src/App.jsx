@@ -29,14 +29,20 @@ import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
 import Form_Pago_Venta from '../src/Pages/Venta/Form_Pago_Venta.jsx'
 import NoAccess from '../src/Pages/NoAcces/NoAcces'
 import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx'
-import {useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from 'react';
+import {login_state} from './Redux/Actions/Actions.js'
 import './App.css';
 
 
-
-
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(login_state())
+  }, [])
+  
   const state_login = useSelector((state)=>state.login_State)
 
   return (

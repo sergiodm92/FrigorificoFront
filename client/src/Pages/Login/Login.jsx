@@ -4,7 +4,7 @@ import styleL from "./Login.module.scss"
 import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import { login_state } from "../../Redux/Actions/Actions";
+
 
 export default function Login(){
     const dispatch = useDispatch()
@@ -20,16 +20,17 @@ export default function Login(){
 
     const validate = ()=> {
      if(log.user==="Gato" && log.password==="123"){
+        localStorage.setItem("login","true")
         navigate("/Home")
         swal({
           title: "Alerta de Ingreso",
           text: "Ingreso correctamente",
           icon: "success",
           button: "ok",
-          
         })
-        dispatch(login_state(true)) 
+        
       }
+
     else    swal({
       title: "Ingreso incorrecto",
       text: "Error en usuario o Contraseña",
@@ -38,6 +39,8 @@ export default function Login(){
       dangerMode: true,
     })
     }
+
+
 
     return(
         <div className={styleL.wallpaper}>

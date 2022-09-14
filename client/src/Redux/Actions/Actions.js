@@ -2,8 +2,8 @@ import axios from "axios";
 import swal from "sweetalert";
 
 // estado de login
-export const login_state = (e) => {
- 
+export const login_state = () => {
+    const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
            
         };

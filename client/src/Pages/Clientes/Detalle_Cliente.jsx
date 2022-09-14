@@ -14,13 +14,15 @@ export default function Detalle_Cliente(){
     const navigate = useNavigate();
 
     return(
-        <div className={styleCl.ConteinerCompras}>
+        <div className={styleCl.Conteiner}>
             <NavBar
             title={name}
             />
+            <div className={styleCl.tablecliente}>
             <Table_Cliente
             name={name}
             />
+            </div>
             <div>
                 <div className={styleCl.contTitle}><h1 className={styleCl.titleP}>Pendientes</h1></div>
                 <div className={styleCl.title}>

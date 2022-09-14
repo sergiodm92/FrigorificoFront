@@ -14,15 +14,15 @@ const objClient=data.Cliente.find((a)=>a.Nombre==name)
             <tbody>
                 <tr>
                     <td>Teléfono</td>
-                    <td>{objClient.Telefono}</td>
+                    <td className={tableVentaStyle.tdr}>{objClient.Telefono}</td>
                 </tr>
                 <tr>
                     <td>e-mail</td>
-                    <td>{objClient.Email}</td>
+                    <td className={tableVentaStyle.tdr}>{objClient.Email}</td>
                 </tr>
                 <tr>
                     <td>Dirección</td>
-                    <td>{objClient.Direccion}</td>
+                    <td className={tableVentaStyle.tdr}>{objClient.Direccion}</td>
                 </tr>
             </tbody>
         </table>
