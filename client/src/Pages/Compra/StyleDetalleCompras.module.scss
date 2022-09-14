@@ -3,7 +3,19 @@
     height: 100%;
     min-height: 800px;
     justify-content: center;
+    justify-items: center;
+    align-items: center
 }
 .TableCompras{
-    max-width: 360px;
+    max-width: 500px;
+    width: 400px;
+   
+
+}
+
+.ConteinerCompras{
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 100%
 }

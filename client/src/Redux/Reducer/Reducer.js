@@ -1,5 +1,5 @@
 const initialState = {
-    login_State: true
+    login_State: false
 }
 
 const rootReducer = (state = initialState, action) => {

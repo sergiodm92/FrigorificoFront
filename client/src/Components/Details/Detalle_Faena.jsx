@@ -35,7 +35,7 @@ export default function Table_Det_Faena({tropa}){
                     <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-primary"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td>{e.value}</td>            
+                        <td className={tableVentaStyle.tdDF}>{e.value}</td>            
                     </tr>
                     )
             })

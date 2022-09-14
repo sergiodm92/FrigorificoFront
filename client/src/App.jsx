@@ -25,19 +25,25 @@ import Detalle_Stock_Tropa from '../src/Pages/Stock/Detalle_Stock_Tropa.jsx';
 import Stock from '../src/Pages/Stock/Stock.jsx';
 import Ventas from '../src/Pages/Venta/Ventas.jsx';
 import Historial_Ventas from './Pages/Venta/Historial_Ventas.jsx';
-import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx';
-import Detalle_Venta from '../src/Pages/Venta/Detalle_venta';
-import Form_Pago_Venta from '../src/Pages/FormsPagos/Form_pago_venta';
-import NoAccess from '../src/Pages/NoAcces/NoAcces';
-import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx';
-import {useSelector} from "react-redux";
+import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx'
+import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
+import Form_Pago_Venta from '../src/Pages/Venta/Form_Pago_Venta.jsx'
+import NoAccess from '../src/Pages/NoAcces/NoAcces'
+import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx'
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { useEffect } from 'react';
+import {login_state} from './Redux/Actions/Actions.js'
 import './App.css';
 
 
-
-
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(login_state())
+  }, [])
+  
   const state_login = useSelector((state)=>state.login_State)
 
   return (
