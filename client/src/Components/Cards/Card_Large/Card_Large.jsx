@@ -23,7 +23,7 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, nav, pago}) => {
             {pago===true?
             <div className={styleCL.button_pago}>
                 <ButtonNew
-                    onClick={()=>navigate(`/${nav}/${id}`)}
+                    onClick={()=>navigate(`/${nav}`)}
                 />
             </div>
             : null

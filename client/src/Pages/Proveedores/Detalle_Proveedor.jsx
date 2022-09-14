@@ -46,7 +46,7 @@ export default function Detalle_Proveedor(){
                                 monto={a.Saldo}
                                 tipo={"Compras"}
                                 pago={true}
-                                nav={"Form_Pago_Compra"}
+                                nav={`Form_Pago_Compra/${name}`}
                             />
                         )
                     })

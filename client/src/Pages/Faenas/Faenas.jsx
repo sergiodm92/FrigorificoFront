@@ -42,7 +42,7 @@ export default function Faenas(){
                                 monto={a.Saldo}
                                 tipo={"Faenas"}
                                 pago={true}
-                                nav={"Form_Pago_Faena"}
+                                nav={`Form_Pago_Faena/${a.Tropa}`}
                             />
                         )
                         

@@ -27,7 +27,7 @@
     
 }
 .title{
-    font-size: large;
+    font-size: 16px;
 }
 p.danger {
 	color: red;
@@ -44,6 +44,15 @@ p.pass{
     align-items: center;
     gap: 50px;
 }
+.size1 {
+	width: 50px;
+}
+.size2{
+    width: 100px;
+}
+.numero{
+    display: flex;
+}
 input{
     border-radius: 10px;
     border-color: rgba(0, 0, 0, 0);
@@ -53,9 +62,29 @@ select{
     border-color: rgba(0, 0, 0, 0);
     height: 30px;
 }
-.numero{
+.detallePro{
     display: flex;
+    flex-direction: column;
+    justify-content:  center;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    background-color: rgb(195, 215, 228);
+    border-radius: 20px;
+    margin: 0;
+    padding: 10px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
 }
-.size2{
-    width: 80px;
+.detalledivs{
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    gap: 10px;
+}
+.nameP{
+    font-size: 18px;
+    font-weight: bold;
 }
