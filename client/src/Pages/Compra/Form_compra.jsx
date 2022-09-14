@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
@@ -85,11 +86,21 @@ const Form_Compra = () => {
         !error.tropa && form.tropa
         ){
         // dispatch(postCompra(form))
-        alert( "Compra cargada correctamente");
+        swal({
+            title: "Nueva Compra",
+            text: "Compra cargada correctamente",
+            icon: "success",
+            button: "ok",
+        })
         setForm(formC);
         }
         else {
-        alert( "Datos incorrectos, porfavor intente nuevamente")
+            swal({
+                title: "Alerta",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
         }
     };
 

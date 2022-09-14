@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
@@ -51,11 +52,21 @@ const Form_Cliente = () => {
         !error.telefono && form.telefono
         ){
         // dispatch(postCliente(form))
-        alert( "Nuevo cliente cargado correctamente");
+        swal({
+            title: "Nuevo Cliente",
+            text: "Cargado correctamente",
+            icon: "success",
+            button: "ok",
+        })
         setForm(formCl);
         }
         else {
-        alert( "Datos incorrectos, porfavor intente nuevamente")
+            swal({
+                title: "Alerta",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
         }
     };
 
