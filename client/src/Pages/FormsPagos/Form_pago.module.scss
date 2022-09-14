@@ -62,3 +62,29 @@ select{
     border-color: rgba(0, 0, 0, 0);
     height: 30px;
 }
+.detallePro{
+    display: flex;
+    flex-direction: column;
+    justify-content:  center;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    background-color: rgb(195, 215, 228);
+    border-radius: 20px;
+    margin: 0;
+    padding: 10px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+}
+.detalledivs{
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    gap: 10px;
+}
+.nameP{
+    font-size: 18px;
+    font-weight: bold;
+}

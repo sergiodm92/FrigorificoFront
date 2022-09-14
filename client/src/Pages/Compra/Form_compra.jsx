@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
@@ -25,7 +26,7 @@ const formC = {
     costoFaenakg: ''
     
 };
-const frigorificos = ["Natilla", "otro"]
+const categorias = ["Vaca", "Vaquillon", "Novillo", "Toro"]
 const proveedores = ["Puchulo", "Stopa", "Castillo", "Dib", "Dulio Text", "C Walter"]
 
 //validaciones
@@ -36,7 +37,7 @@ export const validate = (compra) => {
     if (!compra.DTE) error.DTE = "Falta N° DTE";
     else if (!/^([0-9])*$/.test(compra.DTE)) error.DTE = "DTE debe ser un número";
     if (!compra.cantidad) error.cantidad = "Falta cantidad";
-    else if (!/^([0-9])*$/.test(compra.cantidad)) error.tropa = "N° debe ser un número";
+    else if (!/^([0-9])*$/.test(compra.cantidad)) error.cantidad = "N° debe ser un número";
     if (!compra.kgVBrutos) error.kgVBrutos = "Falta kgV Brutos";
     else if (!/^([0-9])*$/.test(compra.kgVBrutos)) error.kgVBrutos = "kgV Brutos debe ser un número";
     if (!/^([0-9])*$/.test(compra.desbaste)) error.desbaste = "kgV Brutos debe ser un número";
@@ -60,6 +61,7 @@ export const validate = (compra) => {
 const Form_Compra = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
@@ -83,7 +85,7 @@ const Form_Compra = () => {
         !error.tropa && form.tropa
         ){
         // dispatch(postFaena(form))
-        alert( "Faena cargada correctamente");
+        alert( "Compra cargada correctamente");
         setForm(formC);
         }
         else {
@@ -104,9 +106,8 @@ const Form_Compra = () => {
         })
     }
 
-    const handleReset = () => {
-        setForm(formC);
-        setError({});
+    const handleDet = () => {
+        navigate("/Compras")
     };
 
     return (
@@ -163,18 +164,75 @@ const Form_Compra = () => {
                     </div>
                     <p className={error.DTE ? styleFormC.danger : styleFormC.pass}>{error.DTE}</p>
                     <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>Frigorífico: </h5>
-                        <select className="selectform" onChange={(e)=> handleSelectFr(e)}>
-                            <option value="" selected>-</option>
-                            {frigorificos.length > 0 &&  
-                            frigorificos.map((f) => (
-                                    <option	value={f}>{f}</option>
-                                    ))
-                            }
-                        </select>
+                        <div>
+                            <select className="selectform" onChange={(e)=> handleSelectFr(e)}>
+                                <option value="" selected>Categoría</option>
+                                {categorias.length > 0 &&  
+                                categorias.map((c) => (
+                                        <option	value={c}>{c}</option>
+                                        ))
+                                }
+                            </select>
+                        </div>
+                        <div className={styleFormC.numero}>
+                            <h5 className={styleFormC.title}>N°: </h5>
+                            <input
+                                type="text"
+                                value={form.cantidad}
+                                id="cantidad"
+                                name="cantidad"
+                                onChange={handleChange}
+                                className={styleFormC.size1}
+                            />
+                        </div>
                     </div>
+                    <p className={error.cantidad ? styleFormC.danger : styleFormC.pass}>{error.cantidad}</p>
                     <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>Tropa: </h5>
+                        <h5 className={styleFormC.title}>kgV Brutos: </h5>
+                        <input
+                            type="text"
+                            value={form.kgVBrutos}
+                            id="kgVBrutos"
+                            name="kgVBrutos"
+                            onChange={handleChange}
+                            placeholder="00"
+                            className={styleFormC.size2}
+                        />
+                    </div>
+                    <p className={error.kgVBrutos ? styleFormC.danger : styleFormC.pass}>{error.kgVBrutos}</p>
+                    <div className={styleFormC.formItem}>
+                        <h5 className={styleFormC.title}>Desbaste: </h5>
+                        <input
+                            type="text"
+                            value={form.desbaste}
+                            id="desbaste"
+                            name="desbaste"
+                            onChange={handleChange}
+                            placeholder="00"
+                            className={error.desbaste & styleFormC.danger}
+                        />
+                    </div>
+                    <p className={error.desbaste ? styleFormC.danger : styleFormC.pass}>{error.desbaste}</p>
+                    <div className={styleFormC.formItem}>
+                        <div>
+                            <h5 className={styleFormC.title}>$/kgV Neto: </h5>
+                        </div>
+                        <div className={styleFormC.numero}>
+                            <h5 className={styleFormC.title}>$ </h5>
+                            <input
+                                type="text"
+                                value={form.cantidad}
+                                id="cantidad"
+                                name="cantidad"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={styleFormC.size2}
+                            />
+                        </div>
+                    </div>
+                    <p className={error.cantidad ? styleFormC.danger : styleFormC.pass}>{error.cantidad}</p>
+                    <div className={styleFormC.formItem}>
+                        <h5 className={styleFormC.title}> N° Tropa: </h5>
                         <input
                             type="text"
                             value={form.tropa}
@@ -186,10 +244,108 @@ const Form_Compra = () => {
                         />
                     </div>
                     <p className={error.tropa ? styleFormC.danger : styleFormC.pass}>{error.tropa}</p>
+                    <div className={styleFormC.formItem}>
+                        <h5 className={styleFormC.title}>kg de Carne: </h5>
+                        <input
+                            type="text"
+                            value={form.kgCarne}
+                            id="kgCarne"
+                            name="kgCarne"
+                            onChange={handleChange}
+                            placeholder="00"
+                            className={styleFormC.size2}
+                        />
+                    </div>
+                    <p className={error.kgCarne ? styleFormC.danger : styleFormC.pass}>{error.kgCarne}</p>
+                    <div className={styleFormC.formItem}>
+                        <h5 className={styleFormC.title}>kg de Achuras: </h5>
+                        <input
+                            type="text"
+                            value={form.kgAchuras}
+                            id="kgAchuras"
+                            name="kgAchuras"
+                            onChange={handleChange}
+                            placeholder="00"
+                            className={styleFormC.size2}
+                        />
+                    </div>
+                    <p className={error.kgAchuras ? styleFormC.danger : styleFormC.pass}>{error.kgAchuras}</p>
+                    <div className={styleFormC.formItem}>
+                        <div>
+                            <h5 className={styleFormC.title}>$ Ventas de Ach.: </h5>
+                        </div>
+                        <div className={styleFormC.numero}>
+                            <h5 className={styleFormC.title}>$ </h5>
+                            <input
+                                type="text"
+                                value={form.$VentaAchuras}
+                                id="$VentaAchuras"
+                                name="$VentaAchuras"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={styleFormC.size2}
+                            />
+                        </div>
+                    </div>
+                    <p className={error.$VentaAchuras ? styleFormC.danger : styleFormC.pass}>{error.$VentaAchuras}</p>
+                    <div className={styleFormC.formItem}>
+                        <div>
+                            <h5 className={styleFormC.title}>Costo Flete: </h5>
+                        </div>
+                        <div className={styleFormC.numero}>
+                            <h5 className={styleFormC.title}>$ </h5>
+                            <input
+                                type="text"
+                                value={form.costoFlete}
+                                id="costoFlete"
+                                name="costoFlete"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={styleFormC.size2}
+                            />
+                        </div>
+                    </div>
+                    <p className={error.costoFlete ? styleFormC.danger : styleFormC.pass}>{error.costoFlete}</p>
+                    <div className={styleFormC.formItem}>
+                        <div>
+                            <h5 className={styleFormC.title}>Costo VEPS/kg: </h5>
+                        </div>
+                        <div className={styleFormC.numero}>
+                            <h5 className={styleFormC.title}>$ </h5>
+                            <input
+                                type="text"
+                                value={form.costoVEPkg}
+                                id="costoVEPkg"
+                                name="costoVEPkg"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={styleFormC.size2}
+                            />
+                        </div>
+                    </div>
+                    <p className={error.costoVEPkg ? styleFormC.danger : styleFormC.pass}>{error.costoVEPkg}</p>
+                    <div className={styleFormC.formItem}>
+                        <div>
+                            <h5 className={styleFormC.title}>Costo Faena/kg: </h5>
+                        </div>
+                        <div className={styleFormC.numero}>
+                            <h5 className={styleFormC.title}>$ </h5>
+                            <input
+                                type="text"
+                                value={form.costoFaenakg}
+                                id="costoFaenakg"
+                                name="costoFaenakg"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={styleFormC.size2}
+                            />
+                        </div>
+                    </div>
+                    <p className={error.costoFaenakg ? styleFormC.danger : styleFormC.pass}>{error.costoFaenakg}</p>
                     <div className={styleFormC.buttons}>
                         <ShortButton
-                            title="🧹Limpiar"
-                            onClick={handleReset}
+                            title="📃 Detalle"
+                            onClick={handleDet}
                             color="primary"
                         />
                         <ShortButton

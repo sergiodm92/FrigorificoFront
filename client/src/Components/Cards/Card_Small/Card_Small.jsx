@@ -19,7 +19,7 @@ const CardSmall = ({ id, fecha, otro, monto, tipo, nav, pago}) => {
             {pago===true?
             <div className={styleCS.button_pago}>
                 <ButtonNew
-                    onClick={()=>navigate(`/${nav}/${id}`)}
+                    onClick={()=>navigate(`/${nav}`)}
                 />
             </div>
             : null
