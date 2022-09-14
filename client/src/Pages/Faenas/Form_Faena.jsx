@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
@@ -29,6 +30,7 @@ export const validate = (faena) => {
 const Form_Faena = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [form, setForm] = useState(formF);
     const [error, setError] = useState({});
@@ -73,9 +75,9 @@ const Form_Faena = () => {
         })
     }
 
-    const handleReset = () => {
-        setForm(formF);
-        setError({});
+    const handleDet = () => {
+        navigate("/Faenas")
+
     };
 
     return (
@@ -133,14 +135,33 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
+                    //--------------------------------------------
+                    <div className={styleFormF.formItem}>
+                        <div>
+                            <h5 className={styleFormF.title}>Costo Faena/kg: </h5>
+                        </div>
+                        <div className={styleFormF.numero}>
+                            <h5 className={styleFormF.title}>$ </h5>
+                            <input
+                                type="text"
+                                value={form.costoFaenakg}
+                                id="costoFaenakg"
+                                name="costoFaenakg"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={styleFormF.size2}
+                            />
+                        </div>
+                    </div>
+                    <p className={error.costoFaenakg ? styleFormF.danger : styleFormF.pass}>{error.costoFaenakg}</p>
                     <div className={styleFormF.buttons}>
                         <ShortButton
-                            title="🧹Limpiar"
-                            onClick={handleReset}
+                            title="📃 Detalle"
+                            onClick={handleDet}
                             color="primary"
                         />
                         <ShortButton
-                            title="✔Crear Faena"
+                            title="✔ Confirmar"
                             onClick={handleSubmit}
                             color="green"
 

@@ -9,7 +9,7 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             login_State: action.payload,
-                   };
+            };
         
         default:
         return state;

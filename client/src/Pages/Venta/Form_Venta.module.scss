@@ -27,7 +27,7 @@
     
 }
 .title{
-    font-size: large;
+    font-size: 16px;
 }
 p.danger {
 	color: red;
@@ -44,6 +44,15 @@ p.pass{
     align-items: center;
     gap: 50px;
 }
+.size1 {
+	width: 50px;
+}
+.size2{
+    width: 100px;
+}
+.numero{
+    display: flex;
+}
 input{
     border-radius: 10px;
     border-color: rgba(0, 0, 0, 0);
@@ -52,10 +61,4 @@ select{
     border-radius: 10px;
     border-color: rgba(0, 0, 0, 0);
     height: 30px;
-}
-.numero{
-    display: flex;
-}
-.size2{
-    width: 80px;
 }

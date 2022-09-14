@@ -48,7 +48,7 @@ export default function Detalle_Cliente(){
                                 monto={a.Saldo}
                                 tipo={"Ventas"}
                                 pago={true}
-                                nav={"Form_Pago_Venta"}
+                                nav={`Form_Pago_Venta/${name}`}
                             />
                         )
                     })
