@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
@@ -54,11 +55,21 @@ const Form_Pago_Faena = () => {
         !error.monto && form.monto
         ){
         // dispatch(postPagoFaena(form))
-        alert( "Pago agregado correctamente");
+        swal({
+            title: "Alerta de Pago",
+            text: "Pago agregado correctamente",
+            icon: "success",
+            button: "ok",
+        })
         setForm(formPF);
         }
         else {
-        alert( "Datos incorrectos, porfavor intente nuevamente")
+            swal({
+                title: "Alerta de Pago",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
         }
     };
 
