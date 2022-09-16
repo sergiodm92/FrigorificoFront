@@ -1,0 +1,30 @@
+.cardForms{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    gap: 10px;
+    background-color: rgb(195, 215, 228);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;   
+}
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+.numero{
+    display: flex;
+    gap: 5px;
+}
+input{
+    width: 100px;
+}
