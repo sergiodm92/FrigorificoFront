@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
+import FaenaComp from "../../Components/Form_Components/Form_Comp_Faena";
 
 import NavBar from '../../Components/Navbar/Navbar'
 
@@ -13,7 +15,9 @@ const formF = {
     frigorifico: '',
     tropa: '',
     proveedor: '',
+    detalle:[],
 };
+
 const frigorificos = ["Natilla", "otro"]
 const proveedores = ["Puchulo", "Stopa", "Castillo", "Dib", "Dulio Text", "C Walter"]
 
@@ -146,7 +150,8 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
-                    //--------------------------------------------
+                    <FaenaComp/>
+                    <ButtonNew/>
                     <div className={styleFormF.formItem}>
                         <div>
                             <h5 className={styleFormF.title}>Costo Faena/kg: </h5>
