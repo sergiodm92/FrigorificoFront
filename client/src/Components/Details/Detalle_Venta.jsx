@@ -22,45 +22,41 @@ export default function TableVenta({id_v}){
                     <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-primary"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td>{e.value}</td>            
+                        <td className={tableVentaStyle.columnRight}>{e.value}</td>            
                     </tr>
                     )
             })
             }
+                    <tr>
+                            <td class="table-dark">Hacienda</td>
+                            <td class="table-dark"></td>
+                    </tr>
+                    
+                    <tr>
+                            <td>Fecha</td>
+                            <td>10/07/2022</td>
+                    </tr>
+                    <tr>
+                            <td>saldo</td>
+                            <td>$150000</td>
+                    </tr>
 
+                    <tr>
+                            <td class="table-dark">Faena</td>
+                            <td class="table-dark"></td>
+
+                    </tr>
+                    <tr>
+                            <td>Fecha</td>
+                            <td>10/07/2022</td>
+                    </tr>
+                    <tr>
+                            <td>saldo</td>
+                            <td>150000</td>
+                    </tr>
             </tbody>
         </table>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Hacienda</th>
-                </tr>
-            </thead>
-            <tr>
-                    <td>10/07/2022</td>
-                    <td>11800</td>
-            </tr>
-            <tr>
-                    <td>saldo</td>
-                    <td>150000</td>
-            </tr>
-                <thead>
-                <tr>
-                    <th>Faena</th>
 
-                </tr>
-             
-            </thead>
-            <tr>
-                    <td>10/07/2022</td>
-                    <td>150000</td>
-            </tr>
-            <tr>
-                    <td>saldo</td>
-                    <td>150000</td>
-            </tr>
-
-        </table>
 
         </div>
     )

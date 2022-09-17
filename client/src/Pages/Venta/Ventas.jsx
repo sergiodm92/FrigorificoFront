@@ -17,7 +17,7 @@ export default function Ventas(){
     }
 
     return(
-        <div className={styleVen.ConteinerCompras}>
+        <div className={styleVen.ConteinerVentas}>
             <NavBar
             title={"Ventas"}
             />

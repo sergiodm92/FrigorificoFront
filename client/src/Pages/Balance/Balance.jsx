@@ -20,36 +20,32 @@ export default function Balance(){
             <td class="table-success">Valor</td>
         </tr>
         <tr>
-            <td class="table-dark">Stock</td>
-            <td class="table-dark"></td>
+            <td class="table-dark" colspan="2">Stock</td>
         </tr>
         <tr>
             <td class="table-secondary">kg</td>
             <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td>Valor estimado</td>
-            <td>Valor</td>
+            <td class="table-secondary">Valor estimado</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td class="table-dark">Proveedores</td>
-            <td class="table-dark"></td>
+            <td class="table-dark" colspan="2">Proveedores</td>
         </tr>
         <tr>
             <td class="table-secondary">Saldo pendiente</td>
             <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td class="table-dark">Clientes</td>
-            <td class="table-dark"></td>
+            <td class="table-dark" colspan="2">Clientes</td>
         </tr>
         <tr>
             <td class="table-secondary">Saldo pendiente</td>
             <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td class="table-dark">Faena</td>
-            <td class="table-dark"></td>
+            <td class="table-dark" colspan="2">Faena</td>
         </tr>
         <tr>
             <td class="table-secondary">Saldo pendiente</td>
@@ -57,8 +53,7 @@ export default function Balance(){
         </tr>
     
         <tr>
-            <td class="table-dark">General</td>
-            <td class="table-dark"></td>
+            <td class="table-dark" colspan="2">General</td>
         </tr>
         <tr>
             <td class="table-secondary">Saldo total a cobrar</td>

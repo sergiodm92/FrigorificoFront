@@ -12,7 +12,7 @@ const {id}=useParams()
 const Navigate = useNavigate()
 
     return(
-        <div className={StyleDetalleVenta.ConteinerVenta}>
+        <div className={StyleDetalleVenta.ConteinerVentas}>
         <NavBar
         title={"Detalle"}
         />

@@ -20,45 +20,41 @@ var arraydet=[]
 {array.map((e,i) => {
         return(
 
-        <tr key={i} class={"table-primary"}>
+        <tr key={i} class="table-primary">
 
-            <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-            <td>{e.value}</td>            
+            <td colspan="2">{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
+            <td colspan="2">{e.value}</td>            
         </tr>
         )
 })
 }
 
-        </tbody>
-        </table>
-        <table className="table">
+<tr class="table-dark">
 
-        <tbody>
-        <tr class={"table-primary"}>
+<td>Correlativo</td> 
+<td>Categoria</td> 
+<td>kg</td> 
+<td>Costo/kg</td> 
 
-            <td>Correlativo</td> 
-            <td>Categoria</td> 
-            <td>kg</td> 
-            <td>Costo/kg</td> 
+</tr>
 
-        </tr>
+{arraydet.map((e,i) => {
+return(
+<tr key={i} class={"table-primary"}>
 
-        {arraydet.map((e,i) => {
-            return(
-        <tr key={i} class={"table-primary"}>
 
-        
-            <td>{e.Correlativo}</td> 
-            <td>{e.Categoria}</td> 
-            <td>{e.kg}</td> 
-            <td align="center">{e.Costo}</td> 
+<td>{e.Correlativo}</td> 
+<td>{e.Categoria}</td> 
+<td>{e.kg}</td> 
+<td align="center">{e.Costo}</td> 
 
-        </tr>
-        )
-            })
-            } 
+</tr>
+)
+})
+} 
 
         </tbody>
+    
 
 
 
