@@ -1,74 +1,80 @@
 import React from "react"
 import NavBar from "../../Components/Navbar/Navbar";
-
+import styleBalance from "./Balance.module.scss"
 export default function Balance(){
 
     return(
-        <div>
+        <div className={styleBalance.ConteinerBalance}>
         <NavBar
         title="Balance"    
         />
+        <div className={styleBalance.tableBalance}>
         <table class="table">
         <tbody>
         <tr>
-            <td>Ganancia mensual</td>
-            <td>Valor</td>
+            <td class="table-success">Ganancia mensual</td>
+            <td class="table-success">Valor</td>
         </tr>
         <tr>
-            <td>Rentabilidad promedio</td>
-            <td>Valor</td>
+            <td class="table-success">Rentabilidad promedio</td>
+            <td class="table-success">Valor</td>
         </tr>
         <tr>
-            <td>Stock</td>
+            <td class="table-dark">Stock</td>
+            <td class="table-dark"></td>
         </tr>
         <tr>
-            <td>kg</td>
-            <td>Valor</td>
+            <td class="table-secondary">kg</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
             <td>Valor estimado</td>
             <td>Valor</td>
         </tr>
         <tr>
-            <td>Proveedores</td>
+            <td class="table-dark">Proveedores</td>
+            <td class="table-dark"></td>
         </tr>
         <tr>
-            <td>Saldo pendiente</td>
-            <td>Valor</td>
+            <td class="table-secondary">Saldo pendiente</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td>Clientes</td>
+            <td class="table-dark">Clientes</td>
+            <td class="table-dark"></td>
         </tr>
         <tr>
-            <td>Saldo pendiente</td>
-            <td>Valor</td>
+            <td class="table-secondary">Saldo pendiente</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td>Faena</td>
+            <td class="table-dark">Faena</td>
+            <td class="table-dark"></td>
         </tr>
         <tr>
-            <td>Saldo pendiente</td>
-            <td>Valor</td>
+            <td class="table-secondary">Saldo pendiente</td>
+            <td class="table-secondary">Valor</td>
         </tr>
     
         <tr>
-            <td>General</td>
+            <td class="table-dark">General</td>
+            <td class="table-dark"></td>
         </tr>
         <tr>
-            <td>Saldo total a cobrar</td>
-            <td>Valor</td>
+            <td class="table-secondary">Saldo total a cobrar</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td>Saldo total a pagar</td>
-            <td>Valor</td>
+            <td class="table-secondary">Saldo total a pagar</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td>kg por pagar</td>
-            <td>Valor</td>
+            <td class="table-secondary">kg por pagar</td>
+            <td class="table-secondary">Valor</td>
         </tr>
         <tr>
-            <td>kg por cobrar</td>
-            <td>Valor</td>
+            <td class="table-secondary">kg por cobrar</td>
+            <td class="table-secondary">Valor</td>
         </tr>
 
 
@@ -80,6 +86,7 @@ export default function Balance(){
         </tbody>
 
         </table>
+        </div>
 
 
 
