@@ -42,7 +42,7 @@ export default function Stock(){
     })
 var array=[vaq,vaca,nov,toro,total_kg]
     return(
-        <div className={styleSt.ConteinerCompras}>
+        <div className={styleSt.Conteiner}>
             <NavBar
             title={"Stock"}
             />

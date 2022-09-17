@@ -14,13 +14,15 @@ export default function Detalle_Proveedor(){
     const navigate = useNavigate();
 
     return(
-        <div className={stylePr.ConteinerCompras}>
+        <div className={stylePr.ConteinerProveedor}>
             <NavBar
             title={name}
             />
+            <div className={stylePr.tableproveedor}>
             <Table_Proveedor
             name={name}
             />
+            </div>
             <div>
                 <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>
                 <div className={stylePr.title}>
