@@ -28,32 +28,24 @@ export default function TableVenta({id_v}){
             })
             }
                     <tr>
-                            <td class="table-dark">Hacienda</td>
-                            <td class="table-dark"></td>
+                            <td class="table-dark" colspan="2">Pagos</td>
+                       
                     </tr>
                     
                     <tr>
-                            <td>Fecha</td>
                             <td>10/07/2022</td>
+                            <td>$60000</td>
                     </tr>
                     <tr>
-                            <td>saldo</td>
+                            <td>20/07/2022</td>
+                            <td>$80000</td>
+                    </tr>
+                    <tr>
+                            <td>Saldo</td>
                             <td>$150000</td>
                     </tr>
 
-                    <tr>
-                            <td class="table-dark">Faena</td>
-                            <td class="table-dark"></td>
-
-                    </tr>
-                    <tr>
-                            <td>Fecha</td>
-                            <td>10/07/2022</td>
-                    </tr>
-                    <tr>
-                            <td>saldo</td>
-                            <td>150000</td>
-                    </tr>
+                    
             </tbody>
         </table>
 
