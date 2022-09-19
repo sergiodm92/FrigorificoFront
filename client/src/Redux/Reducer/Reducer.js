@@ -2,7 +2,7 @@ import Faenas from "../../Pages/Faenas/Faenas";
 
 const initialState = {
     login_State: false,
-    auth_token:"",
+    AuthLogin: {},
     Faenas:[]
 }
 
@@ -14,17 +14,16 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             login_State: action.payload,
             };
-        case "USER_LOGIN":
-            return{
-            ...state,
-            auth_token: action.payload,
-            }
         case "GET_FAENAS":
         return{
             ...state,
             Faenas: action.payload,
         }
-        
+        case "AUTH_LOGIN":
+        return{
+            ...state,
+            AuthLogin: action.payload
+        }
         default:
         return state;
     }
