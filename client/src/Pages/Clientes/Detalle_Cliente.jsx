@@ -48,7 +48,9 @@ export default function Detalle_Cliente(){
                                 monto={a.Saldo}
                                 tipo={"Ventas"}
                                 pago={true}
-                                nav={`Form_Pago_Venta/${name}`}
+                                bstyle={"new"}
+                                bicon={"new"}
+                                bonClick={()=>navigate(`/Form_Pago_Venta/${name}`)}
                             />
                         )
                     })
