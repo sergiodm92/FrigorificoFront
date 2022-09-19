@@ -14,13 +14,15 @@ export default function Detalle_Proveedor(){
     const navigate = useNavigate();
 
     return(
-        <div className={stylePr.ConteinerCompras}>
+        <div className={stylePr.Conteiner}>
             <NavBar
             title={name}
             />
+            <div className={stylePr.tablecliente}>
             <Table_Proveedor
             name={name}
             />
+            </div>
             <div>
                 <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>
                 <div className={stylePr.title}>
@@ -46,7 +48,9 @@ export default function Detalle_Proveedor(){
                                 monto={a.Saldo}
                                 tipo={"Compras"}
                                 pago={true}
-                                nav={`Form_Pago_Compra/${name}`}
+                                bstyle={"new"}
+                                bicon={"new"}
+                                bonClick={()=>navigate(`/Form_Pago_Compra/${name}`)}
                             />
                         )
                     })
