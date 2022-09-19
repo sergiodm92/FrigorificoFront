@@ -26,38 +26,36 @@ export default function TableCompra({id_c}){
                     </tr>
         );
             })}
+
+            <tr>
+                            <td class="table-dark">Pagos Hacienda</td>
+                            <td class="table-dark"></td>
+                    </tr>
+                    
+                    <tr>
+                            <td>10/07/2022</td>
+                            <td>$150000</td>
+                    </tr>
+                    <tr>
+                            <td>Saldo</td>
+                            <td>$150000</td>
+                    </tr>
+
+                    <tr>
+                            <td class="table-dark">Pagos Faena</td>
+                            <td class="table-dark"></td>
+
+                    </tr>
+                    <tr>
+                            <td>10/07/2022</td>
+                            <td>$110000</td>
+                    </tr>
+                    <tr>
+                            <td>Saldo</td>
+                            <td>150000</td>
+                    </tr>
+                    
             </tbody>
-        </table>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Hacienda</th>
-                </tr>
-            </thead>
-            <tr>
-                    <td>10/07/2022</td>
-                    <td>11800</td>
-            </tr>
-            <tr>
-                    <td>saldo</td>
-                    <td>150000</td>
-            </tr>
-                <thead>
-                <tr>
-                    <th>Faena</th>
-
-                </tr>
-             
-            </thead>
-            <tr>
-                    <td>10/07/2022</td>
-                    <td>150000</td>
-            </tr>
-            <tr>
-                    <td>saldo</td>
-                    <td>150000</td>
-            </tr>
-
         </table>
 
         </div>
