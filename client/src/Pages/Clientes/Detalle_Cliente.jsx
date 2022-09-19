@@ -4,6 +4,7 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Cliente from "../../Components/Details/Table_Cliente";
 const data = require("../../Components/Details/data.json")
 
@@ -16,8 +17,15 @@ export default function Detalle_Cliente(){
     return(
         <div className={styleCl.Conteiner}>
             <NavBar
-            title={name}
+                title={name}
             />
+            <div className={styleCl.buttonEdith}>
+                <ButtonNew
+                    style={"edith"}
+                    icon={"edith"}
+                    onClick={()=>navigate(`/Faenas`)}
+                />
+            </div>
             <div className={styleCl.tablecliente}>
             <Table_Cliente
             name={name}
