@@ -9,6 +9,7 @@
 }
 .TableVenta{
     max-width: 360px;
+    margin-top: 2%;
 }
 
 .ConteinerVentas{
@@ -25,4 +26,10 @@
 .TableVenta{
     max-width: 500px;
     width: 400px;
+}
+.buttonEdith{
+    display: flex;
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 400px;
 }
