@@ -4,13 +4,13 @@ import styleL from "./Login.module.scss"
 import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-
+import {postLogin} from "../../Redux/Actions/Actions.js"
 
 export default function Login(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [log,setlog] = useState({user:"",password:""})
-    
+    const [log,setlog] = useState({name:"",password:""})
+   
     const handleChange = (e) => {
         setlog({
         ...log,
@@ -19,17 +19,21 @@ export default function Login(){
     };
 
     const validate = ()=> {
-     if(log.user==="Gato" && log.password==="123"){
-        localStorage.setItem("login","true")
-        navigate("/Home")
-        swal({
-          title: "Alerta de Ingreso",
-          text: "Ingreso correctamente",
-          icon: "success",
-          button: "ok",
-        })
+      
+      postLogin(log)
+      
+      if(log.name==="sergio" && log.password==="123456"){
+          localStorage.setItem("login","true")
+          navigate("/Home")
+          swal({
+            title: "Alerta de Ingreso",
+            text: "Ingreso correctamente",
+            icon: "success",
+            button: "ok",
+          })
         
       }
+    
 
     else    swal({
       title: "Ingreso incorrecto",
@@ -39,6 +43,9 @@ export default function Login(){
       dangerMode: true,
     })
     }
+
+    const AuthLogin = useSelector((state)=>state.AuthLogin)
+    localStorage.setItem("AuthLogin",AuthLogin)
 
 
 
@@ -53,7 +60,7 @@ export default function Login(){
           <input 
           placeholder="Ingrese el usuario"
           id="usuario"
-          name="user"
+          name="name"
           maxlength="10"
           type="text"
           onChange={handleChange}

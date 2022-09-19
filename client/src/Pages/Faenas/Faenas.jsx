@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
@@ -9,11 +9,14 @@ import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 const data = require("../../Components/Details/data.json")
 
 export default function Faenas(){
-
+const AllFaenas = useSelector((state)=>state.Faenas)
+console.log(AllFaenas)
+console.log("token")
+console.log(localStorage.getItem("auth_token"))
     const navigate = useNavigate();
     const faenasPendientes = [];
-    for(let i=0; i<data.faena.length; i++){
-        if(data.faena[i].Saldo>0) faenasPendientes.push(data.faena[i])
+    for(let i=0; i<Faenas.length; i++){
+        if(Faenas[i].Saldo>0) faenasPendientes.push(Faenas[i])
     }
 
     return(

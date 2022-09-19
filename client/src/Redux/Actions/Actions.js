@@ -1,5 +1,9 @@
 import axios from "axios";
 import swal from "sweetalert";
+import { useDispatch, useSelector } from "react-redux";
+const URL=`https://frigorifico-backend.herokuapp.com`
+
+
 
 // estado de login
 export const login_state = () => {
@@ -8,6 +12,45 @@ export const login_state = () => {
            
         };
 
+// User Login
+// export const postLogin = (payload) => {
+//     return async function (dispatch){
+//         try{
+//             console.log(payload)
+//             const json = await axios.post(`${URL}/user/login`, payload);
+//             console.log(json)
+//             localStorage.setItem("auth_token",json.data)
+//             return dispatch ({
+//               type:"LOGIN_TOKEN",
+//               payload: json
+//           })
+//         }
+//         catch(err){
+//             console.log(err)
+//         }
+//     }
+// }
+
+export function postLogin(payload){
+  return async function (dispatch){
+      try{
+          const json = await axios.post(`${URL}/user/login`, payload);
+          return dispatch ({
+              type:"AUTH_LOGIN",
+              payload: json.data
+          })
+      }
+      catch(err){
+          console.log(err)
+      }
+  }
+}
+
+
+
+
+
+const token = localStorage.getItem("auth_token")
 
 //Traer todas las compras
 export const getAllComrpas = () => {
