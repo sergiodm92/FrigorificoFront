@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import FaenaComp from "../../Components/Form_Components/Form_Comp_Faena";
+
 
 import NavBar from '../../Components/Navbar/Navbar'
 
@@ -17,9 +17,15 @@ const formF = {
     proveedor: '',
     detalle:[],
 };
+const formComF = {
+    correlativo: '',
+    categoria: '',
+    kg: ''
+};
 
 const frigorificos = ["Natilla", "otro"]
 const proveedores = ["Puchulo", "Stopa", "Castillo", "Dib", "Dulio Text", "C Walter"]
+const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
 
 //validaciones
 export const validate = (faena) => {
@@ -29,6 +35,11 @@ export const validate = (faena) => {
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
     if (!faena.tropa) error.tropa = "Falta tropa";
     else if (!/^([0-9])*$/.test(faena.tropa)) error.tropa = "Tropa debe ser un número";
+    if (!faena.correlativo) error.correlativo = "Falta correlativo";
+    else if (!/^([0-9])*$/.test(faena.correlativo)) error.correlativo = "Correlativo debe ser un número";
+    if (!faena.categoria) error.categoria = "Falta categoría";
+    if (!faena.kg) error.kg = "Falta kg";
+    else if (!/^([0-9])*$/.test(faena.kg)) error.kg = "kg debe ser un número";
     return error;
 };
 
@@ -38,6 +49,7 @@ const Form_Faena = () => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState(formF);
+    const [formCF, setFormCF] = useState(formComF)
     const [error, setError] = useState({});
 
     const handleChange = (e) => {
@@ -51,6 +63,31 @@ const Form_Faena = () => {
         ...form,
         [e.target.name]: e.target.value,
         });
+    };
+
+    const handleSubmitRes = () => {
+        if(
+        !error.categoria && form.categoria &&
+        !error.kg && form.kg &&
+        !error.correlativo && form.correlativo
+        ){
+        // dispatch(postFaena(form))
+        swal({
+            title: "Nueva Res",
+            text: " Res cargada correctamente",
+            icon: "success",
+            button: "ok",
+        })
+        setForm(formComF);
+        }
+        else {
+            swal({
+                title: "Alerta",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
+        }
     };
 
     const handleSubmit = () => {
@@ -87,6 +124,12 @@ const Form_Faena = () => {
         setForm({
             ...form,
             proveedor: [...form.proveedor, e.target.value ]
+        })
+    }
+    function handleSelect(e) {
+        setForm({
+            ...formCF,
+            categoria: [...formCF.categoria, e.target.value ]
         })
     }
 
@@ -150,8 +193,49 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
-                    <FaenaComp/>
-                    <ButtonNew/>
+                    <div className={styleFormF.formItem2}>
+                        <div className={styleFormF.item}>
+                            <h5 className={styleFormF.title}>Correlativo: </h5>
+                            <input
+                                type="text"
+                                value={form.correlativo}
+                                id="correlativo"
+                                name="correlativo"
+                                onChange={handleChange}
+                                placeholder="0000"
+                                className={styleFormF.size2}
+                            />
+                        </div>
+                        <div className={styleFormF.item}>
+                            <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                <option value="" selected>Categoría</option>
+                                {categorias.length > 0 &&  
+                                categorias.map((c) => (
+                                    <option	value={c}>{c}</option>
+                                ))
+                                }
+                            </select>
+                            <div className={styleFormF.numero}>
+                                <h5 className={styleFormF.title}>kg </h5>
+                                <input
+                                    type="text"
+                                    value={form.kg}
+                                    id="kg"
+                                    name="kg"
+                                    onChange={handleChange}
+                                    placeholder="00"
+                                    className={styleFormF.size2}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styleFormF.button}>
+                        <ButtonNew
+                            style={"rigth"}
+                            icon={"rigth"}
+                            onClick={handleSubmitRes}
+                        />
+                    </div>
                     <div className={styleFormF.formItem}>
                         <div>
                             <h5 className={styleFormF.title}>Costo Faena/kg: </h5>

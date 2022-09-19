@@ -45,7 +45,9 @@ console.log(localStorage.getItem("auth_token"))
                                 monto={a.Saldo}
                                 tipo={"Faenas"}
                                 pago={true}
-                                nav={`Form_Pago_Faena/${a.Tropa}`}
+                                bstyle={"new"}
+                                bicon={"new"}
+                                bonClick={()=>navigate(`Form_Pago_Faena/${a.Tropa}`)}
                             />
                         )
                         

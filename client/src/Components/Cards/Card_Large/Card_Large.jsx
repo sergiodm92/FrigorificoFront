@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import styleCL from "./Card_Large.module.scss";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 
-const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, nav, pago}) => {
+const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon, bonClick}) => {
 
     const navigate = useNavigate()
 
@@ -23,7 +23,9 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, nav, pago}) => {
             {pago===true?
             <div className={styleCL.button_pago}>
                 <ButtonNew
-                    onClick={()=>navigate(`/${nav}`)}
+                    style={bstyle}
+                    icon={bicon}
+                    onClick={bonClick}
                 />
             </div>
             : null

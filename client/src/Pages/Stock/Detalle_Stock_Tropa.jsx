@@ -16,7 +16,6 @@ const {tropa}=useParams()
         tropa={tropa}
         />
         </div>
-
         </div>
 
     )
