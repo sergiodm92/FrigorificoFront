@@ -96,9 +96,9 @@ const Form_Faena = () => {
     const handleSubmitRes = (e) => {   
         e.preventDefault();
         if(
-        !error2.categoria && formCF.categoria &&
-        !error2.kg && formCF.kg &&
-        !error2.correlativo && formCF.correlativo
+            !error2.categoria && formCF.categoria &&
+            !error2.kg && formCF.kg &&
+            !error2.correlativo && formCF.correlativo
         ){
             form.detalle.push(formCF)
             setFormCF(formComF);

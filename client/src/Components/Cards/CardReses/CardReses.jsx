@@ -26,22 +26,27 @@ const CardReses = ({ correlativo, categoria, kg, res, costo_kg, margen, precio_k
                     <div><b>kg: </b></div>
                     <div><p>{kg}</p></div>
                 </div>
-                <div className={styleCard.items}>
-                    <div><b>res: </b></div>
-                    <div><p>{res}</p></div>
+                { res && costo_kg && margen && precio_kg ?
+                <div>
+                    <div className={styleCard.items}>
+                        <div><b>res: </b></div>
+                        <div><p>{res}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>Costo/kg: </b></div>
+                        <div><p>{costo_kg}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>Margen: </b></div>
+                        <div><p>{margen}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>Precio/kg: </b></div>
+                        <div><p>{precio_kg}</p></div>
+                    </div>
                 </div>
-                <div className={styleCard.items}>
-                    <div><b>Costo/kg: </b></div>
-                    <div><p>{costo_kg}</p></div>
-                </div>
-                <div className={styleCard.items}>
-                    <div><b>Margen: </b></div>
-                    <div><p>{margen}</p></div>
-                </div>
-                <div className={styleCard.items}>
-                    <div><b>Precio/kg: </b></div>
-                    <div><p>{precio_kg}</p></div>
-                </div>
+                :null
+                }
             </div>
             
         </div>

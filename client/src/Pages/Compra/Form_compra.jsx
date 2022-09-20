@@ -106,7 +106,7 @@ const Form_Compra = () => {
             icon: "success",
             button: "ok",
         })
-        // setForm(formC);
+        setForm(formC);
         }
         else {
             swal({

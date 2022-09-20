@@ -23,7 +23,7 @@ const formComV = {
     kg:'',
     costo_kg:'',
     margen:'',
-    precio_kg:'',
+    precio_kg:''
 };
 
 // Arrays para los selects
@@ -100,13 +100,13 @@ const Form_Venta = () => {
     const handleSubmitRes = (e) => {   
         e.preventDefault();
         if(
-        !error2.categoria && formCV.categoria &&
-        !error2.kg && formCV.kg &&
-        !error2.res && formCV.res &&
-        !error2.margen && formCV.margen &&
-        !error2.costo_kg && formCV.costo_kg &&
-        !error2.precio_kg && formCV.precio_kg &&
-        !error2.correlativo && formCV.correlativo
+            !error2.categoria && formCV.categoria &&
+            !error2.kg && formCV.kg &&
+            !error2.res && formCV.res &&
+            !error2.margen && formCV.margen &&
+            !error2.costo_kg && formCV.costo_kg &&
+            !error2.precio_kg && formCV.precio_kg &&
+            !error2.correlativo && formCV.correlativo
         ){
             form.detalle.push(formCV)
             setFormCV(formComV);
