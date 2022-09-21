@@ -21,17 +21,19 @@ export default function Detalle_Faena(){
             <NavBar
                 title="Faena"    
             />
-            <div className={StyleDF.buttonEdith}>
-                <ButtonNew
-                    style={"edith"}
-                    icon={"edith"}
-                    onClick={()=>navigate(`/Faenas`)}
-                />
-            </div>
-            <div className={StyleDF.tablefaena}>
-                <Table_Det_Faena
-                    tropa={tropa}
-                />
+            <div className={StyleDF.page}>
+                <div className={StyleDF.buttonEdith}>
+                    <ButtonNew
+                        style={"edith"}
+                        icon={"edith"}
+                        onClick={()=>navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={StyleDF.tablefaena}>
+                    <Table_Det_Faena
+                        tropa={tropa}
+                    />
+                </div>
             </div>
         </div>
 
