@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
-const data = require("../../Components/Details/data.json")
+import {getAllFaenas} from "../../Redux/Actions/Actions.js"
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Historial_Faena(){
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+    dispatch(getAllFaenas())
+    }, [dispatch])
+
+const AllFaenas = useSelector((state)=>state.AllFaenas)
     return(
         <div className={styleF.ConteinerCompras}>
             <NavBar
@@ -20,13 +27,13 @@ export default function Historial_Faena(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleF.cardsCont}>
-                    {data.faena.map((a)=>{
+                    {AllFaenas.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.Tropa}
-                                fecha={a.Fecha}
-                                otro={a.Frigorifico}
-                                monto={a.Saldo}
+                                id={a.tropa}
+                                fecha={a.fecha}
+                                otro={a.frigorifico}
+                                monto={a.saldo}
                                 tipo={"Faenas"}
                                 pago={false}
                             />
