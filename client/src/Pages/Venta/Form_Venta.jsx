@@ -10,13 +10,13 @@ import NavBar from '../../Components/Navbar/Navbar'
 import styleFormV from './Form_Venta.module.scss';
 
 //Form Venta
-const formV = {
+var formV = {
     cliente:'',
     fecha: '',
     detalle:[]
 };
 //Form para cargar el detalle de la venta
-const formComV = {
+var formComV = {
     categoria:'',
     res: '',
     correlativo:'',

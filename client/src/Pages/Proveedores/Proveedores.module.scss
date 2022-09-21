@@ -59,8 +59,21 @@
     align-items: center
 }
 .buttonEdith{
+    background-color: aqua;
     display: flex;
-    position: absolute;
-    margin-top: 65px;
-    margin-left: 400px;
+    position: relative;
+    margin-bottom: -25px;
+    margin-left: 370px;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

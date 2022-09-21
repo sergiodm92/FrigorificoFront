@@ -15,8 +15,12 @@
 }
 .buttonEdith{
     display: flex;
-    position: absolute;
-    margin-top:80px;
-    margin-left: 400px;
+    position: relative;
+    justify-content: flex-end;
+    margin-bottom: -20px;
+    margin-left: 50px;
+}
+.page{
+    margin-top: 10px;
 }
 

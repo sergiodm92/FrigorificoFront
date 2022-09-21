@@ -17,22 +17,24 @@ const Navigate = useNavigate()
             <NavBar
                 title={"Detalle"}
             />
-            <div className={StyleDetalleVenta.buttonEdith}>
-                <ButtonNew
-                    style={"edith"}
-                    icon={"edith"}
-                    onClick={()=>Navigate(`/Faenas`)}
+            <div className={StyleDetalleVenta.page}>
+                <div className={StyleDetalleVenta.buttonEdith}>
+                    <ButtonNew
+                        style={"edith"}
+                        icon={"edith"}
+                        onClick={()=>Navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={StyleDetalleVenta.TableVenta}>
+                    <TableVenta
+                        id_v={id}
+                    />        
+                </div>
+                <LargeButton
+                    title="Detalle de Reses"
+                    onClick={()=>Navigate(`/Detalle_Reses_Venta/${id}`)}
                 />
             </div>
-            <div className={StyleDetalleVenta.TableVenta}>
-                <TableVenta
-                    id_v={id}
-                />        
-            </div>
-            <LargeButton
-                title="Detalle de Reses"
-                onClick={()=>Navigate(`/Detalle_Reses_Venta/${id}`)}
-            />
         </div>
 
     )
