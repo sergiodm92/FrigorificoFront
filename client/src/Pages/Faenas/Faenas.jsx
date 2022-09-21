@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
+import {getAllFaenas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 
-const data = require("../../Components/Details/data.json")
+
 
 export default function Faenas(){
-const AllFaenas = useSelector((state)=>state.Faenas)
+const dispatch = useDispatch()
+
+    useEffect(() => {
+    dispatch(getAllFaenas())
+    }, [dispatch])
+
+const AllFaenas = useSelector((state)=>state.AllFaenas)
 console.log(AllFaenas)
 console.log("token")
-console.log(localStorage.getItem("auth_token"))
+console.log(localStorage.getItem("AuthLogin"))
     const navigate = useNavigate();
     // const faenasPendientes = [];
     // for(let i=0; i<data.faena.length; i++){
@@ -21,7 +27,7 @@ console.log(localStorage.getItem("auth_token"))
     // }
     const faenasPendientes = [];
     for(let i=0; i<AllFaenas.length; i++){
-        if(AllFaenas[i].Saldo>0) faenasPendientes.push(AllFaenas[i])
+        if(AllFaenas[i].saldo*1>0) faenasPendientes.push(AllFaenas[i])
     }
 
     return(
@@ -44,13 +50,13 @@ console.log(localStorage.getItem("auth_token"))
                     {faenasPendientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.Tropa}
-                                fecha={a.Fecha}
-                                otro={a.Frigorifico}
-                                monto={a.Saldo}
+                                id={a.tropa}
+                                fecha={a.fecha.substr(2,6)+a.fecha.substr(0,4)}
+                                otro={a.frigorifico}
+                                monto={a.saldo}
                                 tipo={"Faenas"}
                                 pago={true}
-                                nav={`Form_Pago_Faena/${a.Tropa}`}
+                                nav={`Form_Pago_Faena/${a.tropa}`}
                             />
                         )
                         

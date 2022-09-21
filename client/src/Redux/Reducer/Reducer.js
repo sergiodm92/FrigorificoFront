@@ -2,8 +2,14 @@ import Faenas from "../../Pages/Faenas/Faenas";
 
 const initialState = {
     login_State: false,
-    AuthLogin: {},
-    Faenas:[]
+    AllFaenas:[],
+    FaenaByTropa:[],
+    postProveedor:"",
+    postCliente:"",
+    postCompra:"",
+    postVentaCarne:"",
+    postVentaAchura:"",
+    postFaena:"",
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -17,13 +23,43 @@ const rootReducer = (state = initialState, action) => {
         case "GET_FAENAS":
         return{
             ...state,
-            Faenas: action.payload,
+            AllFaenas: action.payload,
         }
-        case "AUTH_LOGIN":
-        return{
-            ...state,
-            AuthLogin: action.payload
-        }
+        case "GET_FAENA_BY_TROPA":
+            return{
+                ...state,
+                FaenaByTropa: action.payload,
+            }
+        case "POST_NEW_PROVEEDOR":
+            return{
+                ...state,
+                postProveedor:action.payload
+            }
+        case "POST_NEW_CLIENTE":
+            return{
+                ...state,
+                postCliente:action.payload
+            }
+        case "POST_NEW_COMPRA":
+            return{
+                    ...state,
+                    postCompra:action.payload
+            }
+        case "POST_NEW_VENTA_CARNE":
+            return{
+                        ...state,
+                        postVentaCarne:action.payload
+            }
+        case "POST_NEW_VENTA_ACHURA":
+            return{
+                    ...state,
+                    postVentaAchura:action.payload
+            }
+        case "POST_NEW_FAENA":
+            return{
+                    ...state,
+                    postFaena:action.payload
+            }
         default:
         return state;
     }

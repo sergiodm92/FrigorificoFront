@@ -19,8 +19,8 @@ export default function Login(){
     };
 
     const validate = ()=> {
-      
-      postLogin(log)
+      console.log(log)
+      dispatch(postLogin(log))
       
       if(log.name==="sergio" && log.password==="123456"){
           localStorage.setItem("login","true")
@@ -43,9 +43,6 @@ export default function Login(){
       dangerMode: true,
     })
     }
-
-    const AuthLogin = useSelector((state)=>state.AuthLogin)
-    localStorage.setItem("AuthLogin",AuthLogin)
 
 
 
