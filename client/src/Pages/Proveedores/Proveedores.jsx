@@ -36,10 +36,10 @@ export default function Proveedores(){
                     {AllProveedores.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.Nombre}
-                                fecha={a.Nombre}
-                                otro={a.Ultima_Compra}
-                                monto={a.Saldo}
+                                id={a.nombre}
+                                fecha={a.nombre}
+                                otro={a.ultima_compra===null?"-":a.ultima_compra}
+                                monto={a.saldo===null?0:a.saldo}
                                 tipo={"Detalle_Proveedor"}
                                 pago={false}
                             />
