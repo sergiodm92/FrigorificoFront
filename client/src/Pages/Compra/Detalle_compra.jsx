@@ -15,17 +15,19 @@ export default function Detalle_Compra(){
             <NavBar
                 title={"Detalle"}
             />
-            <div className={StyleDetalleCompra.buttonEdith}>
-                <ButtonNew
-                    style={"edith"}
-                    icon={"edith"}
-                    onClick={()=>navigate(`/Faenas`)}
-                />
-            </div>
-            <div className={StyleDetalleCompra.TableCompras}>
-                <TableCompra
-                    id_c={id}
-                />
+            <div className={StyleDetalleCompra.page}>
+                <div className={StyleDetalleCompra.buttonEdith}>
+                    <ButtonNew
+                        style={"edith"}
+                        icon={"edith"}
+                        onClick={()=>navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={StyleDetalleCompra.TableCompras}>
+                    <TableCompra
+                        id_c={id}
+                    />
+                </div>
             </div>
         </div>
 

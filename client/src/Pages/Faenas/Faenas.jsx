@@ -1,18 +1,23 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-
-const data = require("../../Components/Details/data.json")
+import {getAllFaenas} from "../../Redux/Actions/Actions.js"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Faenas(){
-const AllFaenas = useSelector((state)=>state.Faenas)
+const dispatch = useDispatch()
+
+    useEffect(() => {
+    dispatch(getAllFaenas())
+    }, [dispatch])
+
+const AllFaenas = useSelector((state)=>state.AllFaenas)
 console.log(AllFaenas)
 console.log("token")
-console.log(localStorage.getItem("auth_token"))
+console.log(localStorage.getItem("AuthLogin"))
     const navigate = useNavigate();
     const faenasPendientes = [];
     for(let i=0; i<Faenas.length; i++){
@@ -39,10 +44,10 @@ console.log(localStorage.getItem("auth_token"))
                     {faenasPendientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.Tropa}
-                                fecha={a.Fecha}
-                                otro={a.Frigorifico}
-                                monto={a.Saldo}
+                                id={a.tropa}
+                                fecha={a.fecha.substr(2,6)+a.fecha.substr(0,4)}
+                                otro={a.frigorifico}
+                                monto={a.saldo}
                                 tipo={"Faenas"}
                                 pago={true}
                                 bstyle={"new"}

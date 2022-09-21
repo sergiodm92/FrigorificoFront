@@ -17,11 +17,11 @@ const formC = {
     cantidad: '',
     kgVBrutos: '',
     desbaste: '',
-    $kgVNeto: '',
+    preciokgVNeto: '',
     tropa: '',
     kgCarne: '',
     kgAchuras: '',
-    $VentaAchuras: '',
+    precioVentaAchuras: '',
     costoFlete: '',
     costoVEPkg: '',
     costoFaenakg: ''
@@ -42,14 +42,14 @@ export const validate = (compra) => {
     if (!compra.kgVBrutos) error.kgVBrutos = "Falta kgV Brutos";
     else if (!/^([0-9])*$/.test(compra.kgVBrutos)) error.kgVBrutos = "kgV Brutos debe ser un número";
     if (!/^([0-9])*$/.test(compra.desbaste)) error.desbaste = "kgV Brutos debe ser un número";
-    if (!compra.$kgVNeto) error.$kgVNeto = "Falta $/kgV Neto";
-    else if (!/^([0-9])*$/.test(compra.$kgVNeto)) error.$kgVNeto = "$/kgV Neto debe ser un número";
+    if (!compra.preciokgVNeto) error.preciokgVNeto = "Falta $/kgV Neto";
+    else if (!/^([0-9])*$/.test(compra.preciokgVNeto)) error.preciokgVNeto = "$/kgV Neto debe ser un número";
     if (!compra.tropa) error.tropa = "Falta tropa";
     else if (!/^([0-9])*$/.test(compra.tropa)) error.tropa = "Tropa debe ser un número";
     if (!compra.kgCarne) error.kgCarne = "Falta kg de Carne";
     else if (!/^([0-9])*$/.test(compra.kgCarne)) error.kgCarne = "kg de Carne debe ser un número";
     else if (!/^([0-9])*$/.test(compra.kgAchuras)) error.kgAchuras = "kg de Achuras debe ser un número";
-    else if (!/^([0-9])*$/.test(compra.$VentaAchuras)) error.$VentaAchuras = "$ Venta de Achuras debe ser un número";
+    else if (!/^([0-9])*$/.test(compra.precioVentaAchuras)) error.precioVentaAchuras = "$ Venta de Achuras debe ser un número";
     if (!compra.costoFlete) error.costoFlete = "Falta Costo de Flete";
     else if (!/^([0-9])*$/.test(compra.costoFlete)) error.costoFlete = "Costo de Flete debe ser un número";
     if (!compra.costoVEPkg) error.costoVEPkg = "Falta costo de VEP/kg";
@@ -80,12 +80,26 @@ const Form_Compra = () => {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(
         !error.fecha && form.fecha &&
-        !error.tropa && form.tropa
+        !error.DTE && form.DTE &&
+        !error.cantidad && form.cantidad &&
+        !error.kgVBrutos && form.kgVBrutos &&
+        !error.desbaste && form.desbaste &&
+        !error.preciokgVNeto && form.preciokgVNeto &&
+        !error.tropa && form.tropa &&
+        !error.kgCarne && form.kgCarne &&
+        !error.kgAchuras && form.kgAchuras &&
+        !error.precioVentaAchuras && form.precioVentaAchuras &&
+        !error.costoFlete && form.costoFlete &&
+        !error.costoVEPkg && form.costoVEPkg &&
+        !error.costoFaenakg && form.costoFaenakg
+
         ){
-        // dispatch(postCompra(form))
+        // dispatch(postNewCompra(form))
+        console.log(form)
         swal({
             title: "Nueva Compra",
             text: "Compra cargada correctamente",
@@ -104,16 +118,16 @@ const Form_Compra = () => {
         }
     };
 
-    function handleSelectFr(e) {
+    function handleSelectCat(e) {
         setForm({
             ...form,
-            frigorifico: [...form.frigorifico, e.target.value ]
+            categoria: e.target.value 
         })
     }
     function handleSelectPr(e) {
         setForm({
             ...form,
-            proveedor: [...form.proveedor, e.target.value ]
+            proveedor:  e.target.value
         })
     }
 
@@ -176,7 +190,7 @@ const Form_Compra = () => {
                     <p className={error.DTE ? styleFormC.danger : styleFormC.pass}>{error.DTE}</p>
                     <div className={styleFormC.formItem}>
                         <div>
-                            <select className="selectform" onChange={(e)=> handleSelectFr(e)}>
+                            <select className="selectform" onChange={(e)=> handleSelectCat(e)}>
                                 <option value="" selected>Categoría</option>
                                 {categorias.length > 0 &&  
                                 categorias.map((c) => (
@@ -232,9 +246,9 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.cantidad}
-                                id="cantidad"
-                                name="cantidad"
+                                value={form.preciokgVNeto}
+                                id="preciokgVNeto"
+                                name="preciokgVNeto"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}
@@ -289,9 +303,9 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.$VentaAchuras}
-                                id="$VentaAchuras"
-                                name="$VentaAchuras"
+                                value={form.precioVentaAchuras}
+                                id="precioVentaAchuras"
+                                name="precioVentaAchuras"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}

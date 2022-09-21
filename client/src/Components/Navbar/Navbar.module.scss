@@ -1,31 +1,30 @@
 .NavConteiner{
-
     display: flex;
     position: relative;
     height: auto;
     padding: 5px;
     width: 100%;
-    max-height: 60px;
     background-color: rgb(222, 239, 246);
-    align-content: center;
+    justify-content: center;
+    align-items: center;
     gap: 10%;
    
 }
 .DivTitle{
     display: flex;
     position: relative;
+    align-items: center;
     width: 60%;
-    max-height: 60px;
     margin-left: 5%;
 }
 .NavTitle{
-    display:grid;
-    font-size: 25px;
+    display:flex;
+    position: relative;
+    font-size: 20px;
     font-family: 'Karla', sans-serif;
     font-style:initial;
     font-weight: bold;
     height: 100%;
-    align-items: center;
 }
 
 .ConteinerButtonReturn{
@@ -36,8 +35,11 @@
     background-position-x: 50%;
     background-position-y: 50%;
     width: 16%;
+    height: 16%;
     max-width: 60px;
     min-width: 50px;
+    max-height: 60px;
+    min-height: 50px;
     border-radius: 30%;
     cursor: pointer;
 
@@ -54,8 +56,11 @@
     background-position-x: 50%;
     background-position-y: 50%;
     width: 16%;
+    height: 16%;
     max-width: 60px;
     min-width: 50px;
+    max-height: 60px;
+    min-height: 50px;
     border-radius: 30%;
     margin-right: 10%;
     cursor: pointer;
@@ -79,6 +84,8 @@
     }
     .NavConteiner{
         gap: 3%;
-
+    }
+    .NavTitle{
+        font-size: 25px;
     }
   }

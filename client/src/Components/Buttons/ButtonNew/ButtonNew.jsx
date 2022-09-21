@@ -11,7 +11,8 @@ const ButtonNew = ({onClick, style, icon}) => {
   const icons = {
     new: "+",
     rigth: "✔",
-    edith: "🖊"
+    edith: "🖊",
+    delete: "x"
   };
   
   return (

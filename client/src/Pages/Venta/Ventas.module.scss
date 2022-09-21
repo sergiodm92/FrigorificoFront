@@ -43,6 +43,12 @@
 .TableCompras{
     max-width: 500px;
     width: 400px;
-   
-
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 80px;
 }

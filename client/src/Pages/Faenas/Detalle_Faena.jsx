@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
@@ -21,17 +22,19 @@ export default function Detalle_Faena(){
             <NavBar
                 title="Faena"    
             />
-            <div className={StyleDF.buttonEdith}>
-                <ButtonNew
-                    style={"edith"}
-                    icon={"edith"}
-                    onClick={()=>navigate(`/Faenas`)}
-                />
-            </div>
-            <div className={StyleDF.tablefaena}>
-                <Table_Det_Faena
-                    tropa={tropa}
-                />
+            <div className={StyleDF.page}>
+                <div className={StyleDF.buttonEdith}>
+                    <ButtonNew
+                        style={"edith"}
+                        icon={"edith"}
+                        onClick={()=>navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={StyleDF.tablefaena}>
+                    <Table_Det_Faena
+                        tropa={tropa}
+                    />
+                </div>
             </div>
         </div>
 
