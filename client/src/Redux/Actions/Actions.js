@@ -7,6 +7,7 @@ const URL=`https://frigorifico-backend.herokuapp.com`
 export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
+           
         };
 
 // User Login
@@ -51,7 +52,7 @@ console.log(token)
 export const getAllComrpas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/compras/all`);
+            const json = await axios.get(`/compras/all`);
         
             return dispatch({
             type: "GET_COMPRAS",
@@ -68,7 +69,7 @@ export const getAllComrpas = () => {
 export const getAllComrpasByProveedor = (proveedor) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/compras/all/${proveedor}`);
+            const json = await axios.get(`/compras/all/${proveedor}`);
         
             return dispatch({
             type: "GET_COMPRAS_BY_PROVEEDOR",
@@ -85,7 +86,7 @@ export const getAllComrpasByProveedor = (proveedor) => {
 export const getComrpaByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/compras/${id}`);
+            const json = await axios.get(`/compras/${id}`);
         
             return dispatch({
             type: "GET_COMPRA_BY_ID",
@@ -102,21 +103,9 @@ export const getComrpaByID = (id) => {
 //Traer todas las faenas
 export const getAllFaenas = () => {
     return async (dispatch) => {
+        try {
+            const json = await axios.get(`/faenas/all`);
         
-      try {
-            
-            const json = await axios.get(`${URL}/faenas/all`,{
-            headers: {
-              'auth-token': `${token}`
-            }
-            })
-            let faenasMap = json.data.data.map(e=>{
-              return [e.tropa,e]
-          });
-          var faenasMapArr = new Map(faenasMap); // Pares de clave y valor
-          
-          let unicas = [...faenasMapArr.values()]; // Conversión a un array
-          
             return dispatch({
             type: "GET_FAENAS",
             payload: unicas})
@@ -132,12 +121,8 @@ export const getAllFaenas = () => {
 export const getFaenasByTropa = (tropa) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/faenas/${tropa}`,{
-            headers: {
-              'auth-token': `${token}`
-            }
-            })
-            console.log(json.data.data)
+            const json = await axios.get(`/faenas/${tropa}`);
+        
             return dispatch({
             type: "GET_FAENA_BY_TROPA",
             payload: json.data.data})
@@ -154,7 +139,7 @@ export const getFaenasByTropa = (tropa) => {
 export const getAllVentas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/ventas/all`);
+            const json = await axios.get(`/ventas/all`);
         
             return dispatch({
             type: "GET_VENTAS",
@@ -171,7 +156,7 @@ export const getAllVentas = () => {
 export const getVentaByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/ventas/${id}`);
+            const json = await axios.get(`/ventas/${id}`);
         
             return dispatch({
             type: "GET_VENTA_BY_ID",
@@ -187,7 +172,7 @@ export const getVentaByID = (id) => {
 export const getAllStock = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/stock`);
+            const json = await axios.get(`/stock`);
         
             return dispatch({
             type: "GET_STOCK",
@@ -204,7 +189,7 @@ export const getAllStock = () => {
 export const getAllClientes = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/clientes/all`);
+            const json = await axios.get(`/clientes/all`);
         
             return dispatch({
             type: "GET_CLIENTES",
@@ -221,7 +206,7 @@ export const getAllClientes = () => {
 export const getClienteByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/cliente/${id}`);
+            const json = await axios.get(`/cliente/${id}`);
         
             return dispatch({
             type: "GET_CLIENTE_BY_ID",
@@ -237,7 +222,7 @@ export const getClienteByID = (id) => {
 export const getAllProveedores = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/proveedores/all`);
+            const json = await axios.get(`/proveedores/all`);
         
             return dispatch({
             type: "GET_PROVEEDORES",
@@ -254,7 +239,7 @@ export const getAllProveedores = () => {
 export const getProveedorByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/proveedores/${id}`);
+            const json = await axios.get(`/proveedores/${id}`);
         
             return dispatch({
             type: "GET_PROVEEDOR_BY_ID",
@@ -270,7 +255,7 @@ export const getProveedorByID = (id) => {
 export const getAllReses = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/reses/all`);
+            const json = await axios.get(`/reses/all`);
         
             return dispatch({
             type: "GET_RESES",
@@ -287,7 +272,7 @@ export const getAllReses = () => {
 export const getResByCorrelativo = (correlativo) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/reses/${correlativo}`);
+            const json = await axios.get(`/reses/${correlativo}`);
         
             return dispatch({
             type: "GET_RES_BY_CORRELATIVO",

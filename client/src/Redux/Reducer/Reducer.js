@@ -1,5 +1,3 @@
-import Faenas from "../../Pages/Faenas/Faenas";
-
 const initialState = {
     login_State: false,
     AllFaenas:[],

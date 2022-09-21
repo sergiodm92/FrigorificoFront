@@ -42,7 +42,6 @@
         align-items: center;
     }
 }
-
 .Conteiner{
     width: 100%;
     height: 100%;
@@ -54,7 +53,25 @@
 }
 
 .tablecliente{
+    margin-top: 20px;
     max-width: 500px;
     width: 400px;
 }
-
+.buttonEdith{
+    display: flex;
+    position: relative;
+    margin-bottom: -25px;
+    margin-left: 370px;
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

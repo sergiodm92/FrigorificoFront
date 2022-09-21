@@ -1,26 +1,35 @@
 import React from "react"
 import TableDetRes from "../../Components/Details/Detalle_Reses_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 
-export default function Detalle_Reses_Venta() 
-{
-const {id}=useParams()
+export default function Detalle_Reses_Venta() {
+    
+    const {id}=useParams()
+    const Navigate = useNavigate()
 
     return(
         <div className={StyleDetalleVenta.ConteinerVenta}>
-        <div>
-
-        <NavBar
-        title={"Detalle"}
-        />
-        </div>
-        <div>
-            <TableDetRes
-            id_v={id}
+            <NavBar
+                title={"Detalle"}
             />
-        </div>
+            <div className={StyleDetalleVenta.page}>
+                <div className={StyleDetalleVenta.buttonEdith}>
+                    <ButtonNew
+                        style={"edith"}
+                        icon={"edith"}
+                        onClick={()=>Navigate(`/Faenas`)}
+                    />
+                </div>
+                <div>
+                    <TableDetRes
+                    id_v={id}
+                    />
+                </div>
+            </div>
+            
         </div>
 
     )

@@ -7,15 +7,23 @@
     align-items: center
 }
 .TableCompras{
+    margin-top: 2%;
     max-width: 500px;
     width: 400px;
-   
-
 }
-
 .ConteinerCompras{
     display: flex;
     position: relative;
     flex-direction: column;
     width: 100%
+}
+.buttonEdith{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-bottom: -20px;
+    margin-left: 50px;
+}
+.page{
+    margin-top: 10px;
 }

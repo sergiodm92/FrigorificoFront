@@ -46,38 +46,31 @@ var array=[vaq,vaca,nov,toro,total_kg]
             <NavBar
             title={"Stock"}
             />
-            <div>
-                <div className={styleSt.contTable}>
+            <div className={styleSt.contTable}>
                 <Table_Stock
-                array={array}
+                    array={array}
                 />
-
-
-                </div>
-                <div className={styleSt.title}>
-                    <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Frigorífico</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Tropa</b></div>
-                </div>
-                <div className={styleSt.cardsCont}>
-                    {data.stock.map((a)=>{
-                        
-                        return(
-                            <CardSmall
-                                id={a.Tropa}
-                                fecha={a.Fecha}
-                                otro={a.Frigorifico}
-                                monto={a.Tropa}
-                                tipo={"Detalle_Stock_Tropa"}
-                                pago={false}
-                            />
-                        )
-                        
-                    })
-                    }
-                </div>
+            </div>
+            <div className={styleSt.title}>
+                <div><b>Fecha</b></div>
+                <div><b>|</b></div>
+                <div><b>Frigorífico</b></div>
+                <div><b>|</b></div>
+                <div><b>Tropa</b></div>
+            </div>
+            <div className={styleSt.cardsCont}>
+                {data.stock.map((a)=>{
+                    return(
+                        <CardSmall
+                            id={a.Tropa}
+                            fecha={a.Fecha}
+                            otro={a.Frigorifico}
+                            monto={a.Tropa}
+                            tipo={"Detalle_Stock_Tropa"}
+                            pago={false}
+                        />
+                    )
+                })}
             </div>
         </div>
     )

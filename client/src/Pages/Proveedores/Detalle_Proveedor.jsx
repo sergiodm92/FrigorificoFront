@@ -4,6 +4,7 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
 const data = require("../../Components/Details/data.json")
 
@@ -16,49 +17,66 @@ export default function Detalle_Proveedor(){
     return(
         <div className={stylePr.ConteinerProveedor}>
             <NavBar
-            title={name}
+                title={name}
             />
-            <div className={stylePr.tableproveedor}>
-            <Table_Proveedor
-            name={name}
-            />
-            </div>
-            <div>
-                <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>
-                <div className={stylePr.title}>
-                    <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cliente</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cant</b></div>
-                    <div><b>|</b></div>
-                    <div><b>kg</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Saldo($)</b></div>
+            <div className={stylePr.page}>
+                <div className={stylePr.buttonEdith}>
+                    <ButtonNew
+                        style={"edith"}
+                        icon={"edith"}
+                        onClick={()=>navigate(`/Faenas`)}
+                    />
                 </div>
-                <div className={stylePr.cardsCont}>
-                    {ComprasPendientes.map((a)=>{
-                        return(
-                            <CardLarge
-                                id={a.ID_compra}
-                                fecha={a.Fecha}
-                                para={a.Proveedor}
-                                cant={a.Cant}
-                                kg={a.Kg_carne}
-                                monto={a.Saldo}
-                                tipo={"Compras"}
-                                pago={true}
-                                nav={`Form_Pago_Compra/${name}`}
-                            />
-                        )
-                    })
-                    }
+                <div className={stylePr.tableproveedor}>
+                <Table_Proveedor
+                name={name}
+                />
                 </div>
-                <div className={stylePr.buttonLarge}>
-                    <LargeButton
-                        title={"Historial de Compras"}
-                        onClick={()=>navigate(`/Historial_Compras_Proveedor/${name}`)}
-                    ></LargeButton>
+                <div className={stylePr.cont}>
+                    <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>
+                    <div className={stylePr.title}>
+                        <div><b>Fecha</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Cliente</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Cant</b></div>
+                        <div><b>|</b></div>
+                        <div><b>kg</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Saldo($)</b></div>
+                    </div>
+                    <div className={stylePr.cardsCont}>
+                        {ComprasPendientes.map((a)=>{
+                            return(
+                                <CardLarge
+                                    id={a.ID_compra}
+                                    fecha={a.Fecha}
+                                    para={a.Proveedor}
+                                    cant={a.Cant}
+                                    kg={a.Kg_carne}
+                                    monto={a.Saldo}
+                                    tipo={"Compras"}
+                                    pago={true}
+                                    bstyle={"new"}
+                                    bicon={"new"}
+                                    bonClick={()=>navigate(`/Form_Pago_Compra/${name}`)}
+                                />
+                            )
+                        })
+                        }
+                    </div>
+                    <div className={stylePr.buttonLarge}>
+                        <LargeButton
+                            title={"Historial de Compras"}
+                            onClick={()=>navigate(`/Historial_Compras_Proveedor/${name}`)}
+                        ></LargeButton>
+                    </div>
+                    <div className={stylePr.buttonLarge}>
+                        <LargeButton
+                            title={"Detalle de Pagos"}
+                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${name}`)}
+                        ></LargeButton>
+                    </div>
                 </div>
             </div>
         </div>

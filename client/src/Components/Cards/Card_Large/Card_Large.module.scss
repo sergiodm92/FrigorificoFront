@@ -28,10 +28,10 @@
     font-style: initial;
 }
 .button_pago{
-    display: block;
-    position: absolute;
+    display: flex;
+    position: relative;
+    margin-top: -22px;
     margin-left: 500px;
-    margin-top: -25px;
     cursor: pointer;
 }
 @media screen and (max-width: 500px) {
@@ -46,6 +46,7 @@
         font-size: 12px;
     }
     .button_pago{
-        margin-right: 20px;
+        margin-top: -22px;
+        margin-left: 320px;
     }
 }

@@ -8,16 +8,31 @@
     display: flex;
     position: relative;
     justify-content: center;
+    align-items: center;
     width: 30px;
     height: 30px;
-    background-color: rgb(76, 166, 226);
-    border-radius: 10px;
-    border-color: rgba(240, 248, 255, 0);
+    border-radius: 35%;
     color: black;
     font-family: 'Karla', sans-serif;
     font-size: 20px;
     font-style: initial;
+    cursor: pointer;
 }
-.buttonPago:hover{
-    background-color: rgb(26, 127, 194);
+.NewButton{
+    background-color: rgb(0, 153, 255);
+}
+.NewButton:hover{
+    background-color: rgb(0, 115, 192);
+}
+.RigthButton{
+    background-color: rgb(0, 150, 0);
+}
+.RigthButton:hover{
+    background-color: rgb(0, 90, 0);
+}
+.EdithButton{
+    background-color: rgb(243, 85, 85);
+}
+.EdithButton:hover{
+    background-color: rgb(202, 45, 45);
 }

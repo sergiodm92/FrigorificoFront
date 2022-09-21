@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {getAllFaenas} from "../../Redux/Actions/Actions.js"
+import { useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
@@ -21,13 +20,9 @@ console.log(AllFaenas)
 console.log("token")
 console.log(localStorage.getItem("AuthLogin"))
     const navigate = useNavigate();
-    // const faenasPendientes = [];
-    // for(let i=0; i<data.faena.length; i++){
-    //     if(data.faena[i].Saldo>0) faenasPendientes.push(data.faena[i])
-    // }
     const faenasPendientes = [];
-    for(let i=0; i<AllFaenas.length; i++){
-        if(AllFaenas[i].saldo*1>0) faenasPendientes.push(AllFaenas[i])
+    for(let i=0; i<Faenas.length; i++){
+        if(Faenas[i].Saldo>0) faenasPendientes.push(Faenas[i])
     }
 
     return(
@@ -56,7 +51,9 @@ console.log(localStorage.getItem("AuthLogin"))
                                 monto={a.saldo}
                                 tipo={"Faenas"}
                                 pago={true}
-                                nav={`Form_Pago_Faena/${a.tropa}`}
+                                bstyle={"new"}
+                                bicon={"new"}
+                                bonClick={()=>navigate(`Form_Pago_Faena/${a.Tropa}`)}
                             />
                         )
                         
