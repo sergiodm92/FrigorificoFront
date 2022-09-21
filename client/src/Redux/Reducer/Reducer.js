@@ -9,6 +9,7 @@ const initialState = {
     postVentaCarne:"",
     postVentaAchura:"",
     postFaena:"",
+    login_status:"",
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -63,6 +64,11 @@ const rootReducer = (state = initialState, action) => {
             return{
                     ...state,
                     postFaena:action.payload
+            }
+        case "LOGIN_STATUS":
+            return{
+                ...state,
+                login_status:action.payload
             }
         default:
         return state;

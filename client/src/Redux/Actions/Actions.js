@@ -14,9 +14,7 @@ export const login_state = () => {
 // export const postLogin = (payload) => {
 //     return async function (dispatch){
 //         try{
-//             console.log(payload)
 //             const json = await axios.post(`${URL}/user/login`, payload);
-//             console.log(json)
 //             localStorage.setItem("auth_token",json.data)
 //             return dispatch ({
 //               type:"LOGIN_TOKEN",
@@ -28,13 +26,17 @@ export const login_state = () => {
 //         }
 //     }
 // }
-console.log("hola")
+
+
 export function postLogin(jsonUser){
   return async function (dispatch){
       try{
           const json = await axios.post(`${URL}/user/login`, jsonUser);
           localStorage.setItem("AuthLogin",json.data.data)   
-      }
+          return dispatch({
+            type: "LOGIN_STATUS",
+            payload: json.data.status})
+        }
       catch(err){
           console.log(err)
       }
@@ -46,6 +48,7 @@ export function postLogin(jsonUser){
 
 //Traer Token de localstorage
 const token = localStorage.getItem("AuthLogin")
+console.log("token")
 console.log(token)
 
 //Traer todas las compras
