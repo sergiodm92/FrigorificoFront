@@ -1,6 +1,7 @@
 const initialState = {
     login_State: false,
     AllFaenas:[],
+    AllProveedores:[],
     FaenaByTropa:[],
     postProveedor:"",
     postCliente:"",
@@ -22,6 +23,11 @@ const rootReducer = (state = initialState, action) => {
         return{
             ...state,
             AllFaenas: action.payload,
+        }
+        case "GET_PROVEEDORES":
+        return{
+            ...state,
+            AllProveedores: action.payload,
         }
         case "GET_FAENA_BY_TROPA":
             return{

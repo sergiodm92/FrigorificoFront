@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-
-
+import {getAllFaenas} from "../../Redux/Actions/Actions.js"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Faenas(){
 const dispatch = useDispatch()

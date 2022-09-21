@@ -105,6 +105,12 @@ export const getAllFaenas = () => {
     return async (dispatch) => {
         try {
             const json = await axios.get(`/faenas/all`);
+            let faenasMap = json.data.data.map(e=>{
+              return [e.tropa,e]
+          });
+          var faenasMapArr = new Map(faenasMap); 
+          
+          let unicas = [...faenasMapArr.values()]; 
         
             return dispatch({
             type: "GET_FAENAS",
@@ -226,7 +232,7 @@ export const getAllProveedores = () => {
         
             return dispatch({
             type: "GET_PROVEEDORES",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
