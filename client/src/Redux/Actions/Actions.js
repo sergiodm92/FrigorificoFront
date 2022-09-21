@@ -3,8 +3,6 @@ import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 const URL=`https://frigorifico-backend.herokuapp.com`
 
-
-
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
@@ -30,27 +28,25 @@ export const login_state = () => {
 //         }
 //     }
 // }
-
-export function postLogin(payload){
+console.log("hola")
+export function postLogin(jsonUser){
   return async function (dispatch){
       try{
-          const json = await axios.post(`${URL}/user/login`, payload);
-          return dispatch ({
-              type:"AUTH_LOGIN",
-              payload: json.data
-          })
+          const json = await axios.post(`${URL}/user/login`, jsonUser);
+          localStorage.setItem("AuthLogin",json.data.data)   
       }
       catch(err){
           console.log(err)
       }
+      
   }
+ 
 }
 
 
-
-
-
-const token = localStorage.getItem("auth_token")
+//Traer Token de localstorage
+const token = localStorage.getItem("AuthLogin")
+console.log(token)
 
 //Traer todas las compras
 export const getAllComrpas = () => {
@@ -109,10 +105,16 @@ export const getAllFaenas = () => {
     return async (dispatch) => {
         try {
             const json = await axios.get(`/faenas/all`);
+            let faenasMap = json.data.data.map(e=>{
+              return [e.tropa,e]
+          });
+          var faenasMapArr = new Map(faenasMap); 
+          
+          let unicas = [...faenasMapArr.values()]; 
         
             return dispatch({
             type: "GET_FAENAS",
-            payload: json.data})
+            payload: unicas})
 
         }
         catch (error) {
@@ -122,14 +124,14 @@ export const getAllFaenas = () => {
       };
 
 //Traer faena por numero de tropa
-export const getFaenasByID = (tropa) => {
+export const getFaenasByTropa = (tropa) => {
     return async (dispatch) => {
         try {
             const json = await axios.get(`/faenas/${tropa}`);
         
             return dispatch({
             type: "GET_FAENA_BY_TROPA",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -230,7 +232,7 @@ export const getAllProveedores = () => {
         
             return dispatch({
             type: "GET_PROVEEDORES",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -289,8 +291,124 @@ export const getResByCorrelativo = (correlativo) => {
         };
       }; 
 
+//Post porveedores
+export const postNewProveedor = (proveedor_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/proveedores`, proveedor_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_PROVEEDOR",
+          payload: json.data.data})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
 
 
+//Post clientes
+export const postNewCliente = (cliente_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/clientes`, cliente_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_CLIENTE",
+          payload: json.data.data})
 
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
 
+//Post compra
+export const postNewCompra = (compra_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/crompras`, compra_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_COMPRA",
+          payload: json.data.data})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+//Post venta carne
+export const postNewVentaCarne = (venta_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_VENTA_CARNE",
+          payload: json.data.data})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+//Post venta achura
+export const postNewVentaAchura = (venta_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_VENTA_ACHURA",
+          payload: json.data.data})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+//Post faena
+export const postNewFaena = (faena_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/crompras`, faena_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_FAENA",
+          payload: json.data.data})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
 
