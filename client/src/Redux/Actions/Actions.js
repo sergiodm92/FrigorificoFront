@@ -52,7 +52,7 @@ console.log(token)
 export const getAllComrpas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/compras/all`,{
+            const json = await axios.get(`${URL}/compras/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -73,7 +73,7 @@ export const getAllComrpas = () => {
 export const getAllComrpasByProveedor = (proveedor) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/compras/all/${proveedor}`,{
+            const json = await axios.get(`${URL}/compras/all/${proveedor}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -94,7 +94,7 @@ export const getAllComrpasByProveedor = (proveedor) => {
 export const getComrpaByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/compras/${id}`,{
+            const json = await axios.get(`${URL}/compras/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -116,7 +116,7 @@ export const getComrpaByID = (id) => {
 export const getAllFaenas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/faenas/all`,{
+            const json = await axios.get(`${URL}/faenas/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -143,7 +143,7 @@ export const getAllFaenas = () => {
 export const getFaenasByTropa = (tropa) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/faenas/${tropa}`,{
+            const json = await axios.get(`${URL}/faenas/${tropa}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -165,7 +165,7 @@ export const getFaenasByTropa = (tropa) => {
 export const getAllVentas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/ventas/all`,{
+            const json = await axios.get(`${URL}/ventas/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -186,7 +186,7 @@ export const getAllVentas = () => {
 export const getVentaByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/ventas/${id}`,{
+            const json = await axios.get(`${URL}/ventas/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -206,7 +206,7 @@ export const getVentaByID = (id) => {
 export const getAllStock = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/stock`,{
+            const json = await axios.get(`${URL}/stock`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -227,7 +227,7 @@ export const getAllStock = () => {
 export const getAllClientes = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/clientes/all`,{
+            const json = await axios.get(`${URL}/clientes/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -248,7 +248,7 @@ export const getAllClientes = () => {
 export const getClienteByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/cliente/${id}`,{
+            const json = await axios.get(`${URL}/cliente/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -268,11 +268,12 @@ export const getClienteByID = (id) => {
 export const getAllProveedores = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/proveedores/all`,{
+            const json = await axios.get(`${URL}/proveedores/all/`,{
             headers: {
               'auth-token': `${token}`
             }
             })
+            console.log(json)
             return dispatch({
             type: "GET_PROVEEDORES",
             payload: json.data.data})
@@ -292,7 +293,7 @@ export const getAllProveedores = () => {
 export const getProveedorByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/proveedores/${id}`,{
+            const json = await axios.get(`${URL}/proveedores/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -312,7 +313,7 @@ export const getProveedorByID = (id) => {
 export const getAllReses = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/reses/all`,{
+            const json = await axios.get(`${URL}/reses/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -333,7 +334,7 @@ export const getAllReses = () => {
 export const getResByCorrelativo = (correlativo) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`/reses/${correlativo}`,{
+            const json = await axios.get(`${URL}/reses/${correlativo}`,{
               headers: {
                 'auth-token': `${token}`
               }
