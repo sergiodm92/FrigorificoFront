@@ -29,7 +29,9 @@ import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx';
 import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
 import Form_Pago_Venta from '../src/Pages/FormsPagos/Form_pago_venta';
 import NoAccess from '../src/Pages/NoAcces/NoAcces'
-import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx'
+import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx';
+import Form_Venta_Achuras from './Pages/Venta/Form_Venta_Achuras.jsx';
+import Nueva_Venta from './Pages/Venta/Nueva_Venta.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from 'react';
@@ -78,7 +80,8 @@ function App() {
     <Route exact path="/Form_Pago_Venta/:name" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
     <Route exact path="/Form_Pago_Compra/:name" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
     <Route exact path="/Form_Venta" element={state_login?<Form_Venta />:<NoAccess/> }/>
-    <Route exact path="/Form_Venta" element={state_login?<Form_Venta />:<NoAccess/>} />
+    <Route exact path="/Form_Venta_Achuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>
+    <Route exact path="/Nueva_Venta" element={state_login?<Nueva_Venta />:<NoAccess/>} />
     
     </Routes>
   );
