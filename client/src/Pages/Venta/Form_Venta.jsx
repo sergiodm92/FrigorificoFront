@@ -38,8 +38,10 @@ export const validate = (venta) => {
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
     if (!venta.cliente) error.cliente = "Falta cliente";
     if (venta.detalle.length<1) error.detalle = "Falta detalle";
+    console.log(venta.detalle.length)
     return error;
 };
+
 
 //Validacion del detalle
 export const validate2 = (res) => {
