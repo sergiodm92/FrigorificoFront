@@ -13,7 +13,7 @@ export default function Home(){
             <div className={styleH.block2BH}>
                 <DoubleButton title={"Compras"} onClick1={()=> navigate("/Compras")} onClick2={()=> navigate("/Form_Compra")}/>
                 <DoubleButton title={"Faenas"} onClick1={()=> navigate("/Faenas")} onClick2={()=> navigate("/Form_Faena")}/>
-                <DoubleButton title={"Ventas"} onClick1={()=> navigate("/Ventas")} onClick2={()=> navigate("/Form_Venta")}/>
+                <DoubleButton title={"Ventas"} onClick1={()=> navigate("/Ventas")} onClick2={()=> navigate("/Nueva_Venta")}/>
                 <LargeButton title={"Clientes"} onClick={()=> navigate("/Clientes")}/>
                 <LargeButton title={"Proveedores"} onClick={()=> navigate("/Proveedores")}/>
                 <LargeButton title={"Stock"} onClick={()=> navigate("/Stock")}/>
