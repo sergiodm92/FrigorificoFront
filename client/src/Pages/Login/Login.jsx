@@ -10,7 +10,8 @@ export default function Login(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [log,setlog] = useState({name:"",password:""})
-   
+    const login_status = useSelector((state)=>state.login_status)
+  
     const handleChange = (e) => {
         setlog({
         ...log,
@@ -22,7 +23,7 @@ export default function Login(){
       console.log(log)
       dispatch(postLogin(log))
       
-      if(log.name==="sergio" && log.password==="123456"){
+      if(login_status==="ok"){
           localStorage.setItem("login","true")
           navigate("/Home")
           swal({
