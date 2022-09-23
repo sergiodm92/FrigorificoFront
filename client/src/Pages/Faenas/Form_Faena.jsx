@@ -7,6 +7,7 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar';
 import styleFormF from './Form_Faena.module.scss';
 import CardReses from "../../Components/Cards/CardReses/CardReses";
+import {postNewFaena} from "../../Redux/Actions/Actions";
 
 //Form Faena
 const formF = {
@@ -15,6 +16,11 @@ const formF = {
     tropa: '',
     proveedor: '',
     detalle:[],
+    costoFaenakg:'',
+    total_kg:'',
+    total_medias:'',
+    costo_total:'',
+    saldo:''
 };
 //Form para cargar las reses del detalle de Faena
 const formComF = {
@@ -22,6 +28,8 @@ const formComF = {
     categoria: '',
     kg: ''
 };
+//var para sumar medias
+var m=0
 
 //Arrays para los selects
 const frigorificos = ["Natilla", "El Hueco"]
@@ -35,6 +43,10 @@ export const validate = (faena) => {
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
     if (!faena.tropa) error.tropa = "Falta tropa";
     else if (!/^([0-9])*$/.test(faena.tropa)) error.tropa = "Tropa debe ser un número";
+    if (!faena.frigorifico) error.frigorifico = "Falta frigorifico";
+    if (!faena.proveedor) error.proveedor = "Falta proveedor";
+    if (!faena.costoFaenakg) error.costoFaenakg = "Falta costo de Faena/kg";
+    else if (!/^([0-9])*$/.test(faena.costoFaenakg)) error.costoFaenakg = "costo de Faena debe ser un número";
     if (faena.detalle.length<1) error.detalle = "Falta detalle";
     return error;
 };
@@ -100,6 +112,11 @@ const Form_Faena = () => {
             !error2.kg && formCF.kg &&
             !error2.correlativo && formCF.correlativo
         ){
+            form.total_kg=form.total_kg+formCF.kg
+            console.log(form.total_kg)
+            m++
+            form.total_medias = m
+            console.log(form.total_medias)
             form.detalle.push(formCF)
             setFormCF(formComF);
         }
@@ -118,9 +135,16 @@ const Form_Faena = () => {
         e.preventDefault();
         if(
         !error.fecha && form.fecha &&
+        !error.frigorífico && form.frigorifico &&
+        !error.proveedor && form.proveedor &&
+        !error.detalle && form.detalle &&
         !error.tropa && form.tropa
         ){
-            // dispatch(postFaena(form))
+            form.costo_total=form.costoFaenakg*form.total_kg
+            console.log(form.costo_total)
+            form.saldo=form.costo_total
+            console.log(form.saldo)
+            dispatch(postNewFaena(form))
             console.log(form)
             swal({
                 title: "Nueva Faena",
