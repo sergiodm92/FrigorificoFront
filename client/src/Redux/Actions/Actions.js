@@ -30,7 +30,7 @@ export const login_state = () => {
 
 
 export function postLogin(jsonUser){
-  return async function (){
+  return async function (dispatch){
       try{
           const json = await axios.post(`${URL}/user/login`, jsonUser);
           localStorage.setItem("AuthLogin",json.data.data)   
