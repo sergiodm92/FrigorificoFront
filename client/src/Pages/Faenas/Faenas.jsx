@@ -21,7 +21,7 @@ console.log(localStorage.getItem("AuthLogin"))
     const navigate = useNavigate();
     const faenasPendientes = [];
     for(let i=0; i<Faenas.length; i++){
-        if(Faenas[i].Saldo>0) faenasPendientes.push(Faenas[i])
+        if(Faenas[i].saldo>0) faenasPendientes.push(Faenas[i])
     }
 
     return(

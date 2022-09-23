@@ -22,7 +22,7 @@ export default function Login(){
       console.log(log)
       dispatch(postLogin(log))
       
-      if(log.name==="sergio" && log.password==="123456"){
+      if(log.name==="sergio" || log.name==="mariana" && log.password==="123456"){
           localStorage.setItem("login","true")
           navigate("/Home")
           swal({

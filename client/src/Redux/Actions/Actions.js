@@ -28,9 +28,8 @@ export const login_state = () => {
 //         }
 //     }
 // }
-console.log("hola")
 export function postLogin(jsonUser){
-  return async function (dispatch){
+  return async function (){
       try{
           const json = await axios.post(`${URL}/user/login`, jsonUser);
           localStorage.setItem("AuthLogin",json.data.data)   
@@ -46,6 +45,7 @@ export function postLogin(jsonUser){
 
 //Traer Token de localstorage
 const token = localStorage.getItem("AuthLogin")
+console.log("-----------------------TOKEN-------------------")
 console.log(token)
 
 //Traer todas las compras
@@ -456,7 +456,7 @@ export const postNewVentaAchura = (venta_json) => {
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, faena_json,{
+          const json = await axios.post(`${URL}/faenas`, faena_json,{
           headers: {
             'auth-token': `${token}`
           }

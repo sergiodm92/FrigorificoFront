@@ -17,9 +17,12 @@ const formC = {
     cantidad: '',
     kgVBrutos: '',
     desbaste: '',
+    kgDesbaste:'', //kgVBrutos*desbaste
+    kgVNetos:'', //kgVBrutos-kgDesbaste
     preciokgVNeto: '',
     tropa: '',
     kgCarne: '',
+    rinde:'', // kgCarne*100/kgVNetos
     kgAchuras: '',
     precioVentaAchuras: '',
     costoFlete: '',
