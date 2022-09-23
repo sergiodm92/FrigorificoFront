@@ -12,7 +12,8 @@ const initialState = {
     login_status:"",
     AllCompras:[],
     AllVentas:[],
-    AllClientes:[]
+    AllClientes:[],
+    AllStock:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -37,6 +38,11 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             AllClientes: action.payload,
+            }
+        case "GET_ALL_STOCK":
+            return {
+            ...state,
+            AllStock: action.payload,
             }
         case "GET_FAENAS":
         return{
@@ -65,23 +71,23 @@ const rootReducer = (state = initialState, action) => {
             }
         case "POST_NEW_COMPRA":
             return{
-                    ...state,
-                    postCompra:action.payload
+                ...state,
+                postCompra:action.payload
             }
         case "POST_NEW_VENTA_CARNE":
             return{
-                        ...state,
-                        postVentaCarne:action.payload
+                ...state,
+                postVentaCarne:action.payload
             }
         case "POST_NEW_VENTA_ACHURA":
             return{
-                    ...state,
-                    postVentaAchura:action.payload
+                ...state,
+                postVentaAchura:action.payload
             }
         case "POST_NEW_FAENA":
             return{
-                    ...state,
-                    postFaena:action.payload
+                ...state,
+                postFaena:action.payload
             }
         case "LOGIN_STATUS":
             return{

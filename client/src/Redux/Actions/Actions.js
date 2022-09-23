@@ -216,7 +216,7 @@ export const getAllStock = () => {
             });
         
             return dispatch({
-            type: "GET_STOCK",
+            type: "GET_ALL_STOCK",
             payload: json.data})
 
         }
@@ -419,7 +419,7 @@ export const postNewCompra = (compra_json) => {
 export const postNewVentaCarne = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          const json = await axios.post(`${URL}/ventacarne`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -439,7 +439,7 @@ export const postNewVentaCarne = (venta_json) => {
 export const postNewVentaAchura = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          const json = await axios.post(`${URL}/ventaachuras`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -459,7 +459,7 @@ export const postNewVentaAchura = (venta_json) => {
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, faena_json,{
+          const json = await axios.post(`${URL}/faenas`, faena_json,{
           headers: {
             'auth-token': `${token}`
           }
