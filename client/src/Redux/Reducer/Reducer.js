@@ -10,6 +10,11 @@ const initialState = {
     postVentaAchura:"",
     postFaena:"",
     login_status:"",
+    AllCompras:[],
+    AllVentas:[],
+    AllClientes:[],
+    AllStock:[],
+    faenasPendientes:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -20,11 +25,32 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             login_State: action.payload,
             };
-        case "GET_FAENAS":
-        return{
+        case "GET_ALL_COMPRAS":
+            return {
             ...state,
-            AllFaenas: action.payload,
-        }
+            AllCompras: action.payload,
+            }
+        case "GET_ALL_VENTAS":
+            return {
+            ...state,
+            AllVentas: action.payload,
+            }
+        case "GET_ALL_CLIENTES":
+            return {
+            ...state,
+            AllClientes: action.payload,
+            }
+        case "GET_ALL_STOCK":
+            return {
+            ...state,
+            AllStock: action.payload,
+            }
+        case "GET_ALL_FAENAS":
+            return{
+            ...state,
+            AllFaenas: action.payload[0],
+            faenasPendientes: action.payload[1],
+            }
         case "GET_PROVEEDORES":
         return{
             ...state,
@@ -47,23 +73,23 @@ const rootReducer = (state = initialState, action) => {
             }
         case "POST_NEW_COMPRA":
             return{
-                    ...state,
-                    postCompra:action.payload
+                ...state,
+                postCompra:action.payload
             }
         case "POST_NEW_VENTA_CARNE":
             return{
-                        ...state,
-                        postVentaCarne:action.payload
+                ...state,
+                postVentaCarne:action.payload
             }
         case "POST_NEW_VENTA_ACHURA":
             return{
-                    ...state,
-                    postVentaAchura:action.payload
+                ...state,
+                postVentaAchura:action.payload
             }
         case "POST_NEW_FAENA":
             return{
-                    ...state,
-                    postFaena:action.payload
+                ...state,
+                postFaena:action.payload
             }
         case "LOGIN_STATUS":
             return{

@@ -62,8 +62,8 @@ export const getAllComrpas = () => {
             });
         
             return dispatch({
-            type: "GET_COMPRAS",
-            payload: json.data})
+            type: "GET_ALL_COMPRAS",
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -124,16 +124,18 @@ export const getAllFaenas = () => {
                 'auth-token': `${token}`
               }
             })
+            var faenasPendientes=[]
             let faenasMap = json.data.data.map(e=>{
+              if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)
               return [e.tropa,e]
           });
           var faenasMapArr = new Map(faenasMap); 
-          
           let unicas = [...faenasMapArr.values()]; 
-        
+          const response = [unicas,faenasPendientes]
             return dispatch({
-            type: "GET_FAENAS",
-            payload: unicas})
+            type: "GET_ALL_FAENAS",
+            payload: response},{
+            } )
 
         }
         catch (error) {
@@ -175,8 +177,8 @@ export const getAllVentas = () => {
             });
         
             return dispatch({
-            type: "GET_VENTAS",
-            payload: json.data})
+            type: "GET_ALL_VENTAS",
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -216,7 +218,7 @@ export const getAllStock = () => {
             });
         
             return dispatch({
-            type: "GET_STOCK",
+            type: "GET_ALL_STOCK",
             payload: json.data})
 
         }
@@ -237,7 +239,7 @@ export const getAllClientes = () => {
             });
         
             return dispatch({
-            type: "GET_CLIENTES",
+            type: "GET_ALL_CLIENTES",
             payload: json.data})
 
         }
@@ -419,7 +421,7 @@ export const postNewCompra = (compra_json) => {
 export const postNewVentaCarne = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          const json = await axios.post(`${URL}/ventacarne`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -439,7 +441,7 @@ export const postNewVentaCarne = (venta_json) => {
 export const postNewVentaAchura = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          const json = await axios.post(`${URL}/ventaachuras`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -459,7 +461,7 @@ export const postNewVentaAchura = (venta_json) => {
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, faena_json,{
+          const json = await axios.post(`${URL}/faenas`, faena_json,{
           headers: {
             'auth-token': `${token}`
           }

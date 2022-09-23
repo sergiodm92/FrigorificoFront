@@ -1,20 +1,23 @@
-import React from "react"
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {getAllComrpas} from "../../Redux/Actions/Actions.js"
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import styleCom from "./Compras.module.scss"
-const data = require("../../Components/Details/data.json")
+
+
 
 
 export default function Compras(){
-
+    const AllCompras= useSelector((state)=>(state.AllCompras))
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    const array=[];
-    for(let i=0; i<8 && i<data.compra.length; i++){
-        array.push(data.compra[i])
-    }
+    useEffect(() => {
+        dispatch(getAllComrpas())
+    }, [dispatch])
+    
     return(
         <div className={styleCom.ConteinerCompras}>
             <NavBar
@@ -33,15 +36,15 @@ export default function Compras(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleCom.cardsCont}>
-                    {array.map((a)=>{
+                    {AllCompras.map((a)=>{
                         return(
                             <CardLarge
-                                id={a.ID_compra}
-                                fecha={a.Fecha}
-                                para={a.Proveedor}
-                                cant={a.Cant}
-                                kg={a.Kg_carne}
-                                monto={a.Costo_Total}
+                                id={a.id}
+                                fecha={a.fecha}
+                                para={a.proveedor}
+                                cant={a.cant}
+                                kg={a.kg_carne}
+                                monto={a.costo_total}
                                 tipo={"Compras"}
                             />
                         )
