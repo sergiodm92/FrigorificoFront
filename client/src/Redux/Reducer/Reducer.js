@@ -13,7 +13,8 @@ const initialState = {
     AllCompras:[],
     AllVentas:[],
     AllClientes:[],
-    AllStock:[]
+    AllStock:[],
+    faenasPendientes:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -44,11 +45,12 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             AllStock: action.payload,
             }
-        case "GET_FAENAS":
-        return{
+        case "GET_ALL_FAENAS":
+            return{
             ...state,
-            AllFaenas: action.payload,
-        }
+            AllFaenas: action.payload[0],
+            faenasPendientes: action.payload[1],
+            }
         case "GET_PROVEEDORES":
         return{
             ...state,

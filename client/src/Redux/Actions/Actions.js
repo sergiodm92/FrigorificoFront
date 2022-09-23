@@ -124,16 +124,18 @@ export const getAllFaenas = () => {
                 'auth-token': `${token}`
               }
             })
+            var faenasPendientes=[]
             let faenasMap = json.data.data.map(e=>{
+              if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)
               return [e.tropa,e]
           });
           var faenasMapArr = new Map(faenasMap); 
-          
           let unicas = [...faenasMapArr.values()]; 
-        
+          const response = [unicas,faenasPendientes]
             return dispatch({
-            type: "GET_FAENAS",
-            payload: unicas})
+            type: "GET_ALL_FAENAS",
+            payload: response},{
+            } )
 
         }
         catch (error) {
