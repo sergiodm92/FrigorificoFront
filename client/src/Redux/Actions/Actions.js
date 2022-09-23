@@ -1,22 +1,21 @@
 import axios from "axios";
-import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
-const URL=`https://frigorifico-backend.herokuapp.com`
+
+
+const URL=`https://frigorifico-backend.herokuapp.com`;
+
+
 
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
-           
         };
 
 // User Login
 // export const postLogin = (payload) => {
 //     return async function (dispatch){
 //         try{
-//             console.log(payload)
 //             const json = await axios.post(`${URL}/user/login`, payload);
-//             console.log(json)
 //             localStorage.setItem("auth_token",json.data)
 //             return dispatch ({
 //               type:"LOGIN_TOKEN",
@@ -28,12 +27,17 @@ export const login_state = () => {
 //         }
 //     }
 // }
+
+
 export function postLogin(jsonUser){
   return async function (){
       try{
           const json = await axios.post(`${URL}/user/login`, jsonUser);
           localStorage.setItem("AuthLogin",json.data.data)   
-      }
+          return dispatch({
+            type: "LOGIN_STATUS",
+            payload: json.data.status})
+        }
       catch(err){
           console.log(err)
       }
@@ -45,7 +49,7 @@ export function postLogin(jsonUser){
 
 //Traer Token de localstorage
 const token = localStorage.getItem("AuthLogin")
-console.log("-----------------------TOKEN-------------------")
+console.log("token")
 console.log(token)
 
 //Traer todas las compras
@@ -59,8 +63,8 @@ export const getAllComrpas = () => {
             });
         
             return dispatch({
-            type: "GET_COMPRAS",
-            payload: json.data})
+            type: "GET_ALL_COMPRAS",
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -121,16 +125,18 @@ export const getAllFaenas = () => {
                 'auth-token': `${token}`
               }
             })
+            var faenasPendientes=[]
             let faenasMap = json.data.data.map(e=>{
+              if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)
               return [e.tropa,e]
           });
           var faenasMapArr = new Map(faenasMap); 
-          
           let unicas = [...faenasMapArr.values()]; 
-        
+          const response = [unicas,faenasPendientes]
             return dispatch({
-            type: "GET_FAENAS",
-            payload: unicas})
+            type: "GET_ALL_FAENAS",
+            payload: response},{
+            } )
 
         }
         catch (error) {
@@ -172,8 +178,8 @@ export const getAllVentas = () => {
             });
         
             return dispatch({
-            type: "GET_VENTAS",
-            payload: json.data})
+            type: "GET_ALL_VENTAS",
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -213,7 +219,7 @@ export const getAllStock = () => {
             });
         
             return dispatch({
-            type: "GET_STOCK",
+            type: "GET_ALL_STOCK",
             payload: json.data})
 
         }
@@ -234,7 +240,7 @@ export const getAllClientes = () => {
             });
         
             return dispatch({
-            type: "GET_CLIENTES",
+            type: "GET_ALL_CLIENTES",
             payload: json.data})
 
         }
@@ -416,7 +422,7 @@ export const postNewCompra = (compra_json) => {
 export const postNewVentaCarne = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          const json = await axios.post(`${URL}/ventacarne`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -436,7 +442,7 @@ export const postNewVentaCarne = (venta_json) => {
 export const postNewVentaAchura = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, venta_json,{
+          const json = await axios.post(`${URL}/ventaachuras`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }

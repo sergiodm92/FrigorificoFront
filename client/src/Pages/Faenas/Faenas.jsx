@@ -14,15 +14,11 @@ const dispatch = useDispatch()
     dispatch(getAllFaenas())
     }, [dispatch])
 
-const AllFaenas = useSelector((state)=>state.AllFaenas)
-console.log(AllFaenas)
-console.log("token")
-console.log(localStorage.getItem("AuthLogin"))
+    const faenasPendientes = useSelector((state)=>state.faenasPendientes)
+    console.log(faenasPendientes)
     const navigate = useNavigate();
-    const faenasPendientes = [];
-    for(let i=0; i<Faenas.length; i++){
-        if(Faenas[i].saldo>0) faenasPendientes.push(Faenas[i])
-    }
+  
+
 
     return(
         <div className={styleF.ConteinerCompras}>
