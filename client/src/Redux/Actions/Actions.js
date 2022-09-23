@@ -1,13 +1,11 @@
 import axios from "axios";
-import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
 const URL=`https://frigorifico-backend.herokuapp.com`
+
 
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
-           
         };
 
 // User Login

@@ -9,16 +9,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Faenas(){
 const dispatch = useDispatch()
-
-    useEffect(() => {
+   
+useEffect(() => {
     dispatch(getAllFaenas())
     }, [dispatch])
 
     const faenasPendientes = useSelector((state)=>state.faenasPendientes)
     console.log(faenasPendientes)
     const navigate = useNavigate();
-  
-
 
     return(
         <div className={styleF.ConteinerCompras}>
