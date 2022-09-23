@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Cliente from "../../Components/Details/Table_Cliente";
-const data = require("../../Components/Details/data.json")
+
 
 export default function Detalle_Cliente(){
-    const {name}=useParams()
-    const VentasPendientes=data.venta.filter((a)=>a.Cliente.toString("")===name.toString("") && a.Saldo>0)
-
-    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {id}=useParams()
+    useEffect(() => {
+        dispatch(getClienteByID(id))
+    }, [dispatch])
+    const ClienteById = useSelector((state)=>(state.ClienteById))
+    useEffect(() => {
+        dispatch(getVentasByCliente(ClienteById.nombre))
+    }, [ClienteById])
+    const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
+    const VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
 
     return(
         <div className={styleCl.Conteiner}>
             <NavBar
-                title={name}
+                title={ClienteById.nombre}
             />
             <div className={styleCl.page}>
                 <div className={styleCl.buttonEdith}>
@@ -29,7 +39,9 @@ export default function Detalle_Cliente(){
                 </div>
                 <div className={styleCl.tablecliente}>
                 <Table_Cliente
-                name={name}
+                email={ClienteById.email}
+                telefono={ClienteById.telefono}
+                direccion={ClienteById.direccion}
                 />
                 </div>
                 <div className={styleCl.cont}>
@@ -49,17 +61,17 @@ export default function Detalle_Cliente(){
                         {VentasPendientes.map((a)=>{
                             return(
                                 <CardLarge
-                                    id={a.ID_Venta}
-                                    fecha={a.Fecha}
-                                    para={a.Cliente}
-                                    cant={a.Cant}
-                                    kg={a.kg_Total}
-                                    monto={a.Saldo}
+                                    id={a.ID}
+                                    fecha={a.fecha}
+                                    para={a.cliente}
+                                    cant={a.cant}
+                                    kg={a.kg_total}
+                                    monto={a.saldo}
                                     tipo={"Ventas"}
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Venta/${name}`)}
+                                    bonClick={()=>navigate(`/Form_Pago_Venta/${ClienteById.nombre}`)}
                                 />
                             )
                         })
@@ -68,13 +80,13 @@ export default function Detalle_Cliente(){
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Historial de Ventas"}
-                            onClick={()=>navigate(`/Historial_Ventas_Cliente/${name}`)}
+                            onClick={()=>navigate(`/Historial_Ventas_Cliente/${id}`)}
                         ></LargeButton>
                     </div>
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Cliente/${name}`)}
+                            onClick={()=>navigate(`/Detalle_Pagos_Cliente/${id}`)}
                         ></LargeButton>
                     </div>
                 </div>
