@@ -62,8 +62,8 @@ export const getAllComrpas = () => {
             });
         
             return dispatch({
-            type: "GET_COMPRAS",
-            payload: json.data})
+            type: "GET_ALL_COMPRAS",
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -175,8 +175,8 @@ export const getAllVentas = () => {
             });
         
             return dispatch({
-            type: "GET_VENTAS",
-            payload: json.data})
+            type: "GET_ALL_VENTAS",
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -237,7 +237,7 @@ export const getAllClientes = () => {
             });
         
             return dispatch({
-            type: "GET_CLIENTES",
+            type: "GET_ALL_CLIENTES",
             payload: json.data})
 
         }

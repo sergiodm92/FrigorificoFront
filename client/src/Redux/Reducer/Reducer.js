@@ -10,6 +10,9 @@ const initialState = {
     postVentaAchura:"",
     postFaena:"",
     login_status:"",
+    AllCompras:[],
+    AllVentas:[],
+    AllClientes:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -20,6 +23,21 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             login_State: action.payload,
             };
+        case "GET_ALL_COMPRAS":
+            return {
+            ...state,
+            AllCompras: action.payload,
+            }
+        case "GET_ALL_VENTAS":
+            return {
+            ...state,
+            AllVentas: action.payload,
+            }
+        case "GET_ALL_CLIENTES":
+            return {
+            ...state,
+            AllClientes: action.payload,
+            }
         case "GET_FAENAS":
         return{
             ...state,

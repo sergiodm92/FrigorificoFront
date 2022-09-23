@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-const data = require("../../Components/Details/data.json")
+import { getAllClientes } from "../../Redux/Actions/Actions";
+
 
 export default function Clientes(){
+    const AllClientes = useSelector((state)=>(state.AllClientes))
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        dispatch(getAllClientes())
+    }, [dispatch])
+
 
     return(
         <div className={styleCl.ConteinerCompras}>
@@ -24,13 +32,13 @@ export default function Clientes(){
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={styleCl.cardsCont}>
-                    {data.Cliente.map((a)=>{
+                    {AllClientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.Nombre}
-                                fecha={a.Nombre}
-                                otro={a.Ultima_Venta}
-                                monto={a.Saldo}
+                                id={a.nombre}
+                                fecha={a.nombre}
+                                otro={a.ultima_venta}
+                                monto={a.saldo}
                                 tipo={"Detalle_Cliente"}
                                 pago={false}
                             />
