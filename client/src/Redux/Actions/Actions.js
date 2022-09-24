@@ -433,7 +433,7 @@ export const postNewCliente = (cliente_json) => {
 export const postNewCompra = (compra_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/crompras`, compra_json,{
+          const json = await axios.post(`${URL}/compras`, compra_json,{
           headers: {
             'auth-token': `${token}`
           }
