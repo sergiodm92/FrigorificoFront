@@ -3,74 +3,94 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-
+import {postNewCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
-
 import styleFormC from './Form_Compra.module.scss';
 
 const formC = {
     proveedor: '',
     fecha: '',
     lugar: '',
-    DTE: '',
+    n_dte: '',
     categoria: '',
-    cantidad: '',
-    kgVBrutos: '',
+    cant: '',
+    kgv_brutos: '',
     desbaste: '',
-    kgDesbaste:'', //kgVBrutos*desbaste
-    kgVNetos:'', //kgVBrutos-kgDesbaste
-    preciokgVNeto: '',
-    tropa: '',
-    kgCarne: '',
-    rinde:'', // kgCarne*100/kgVNetos
-    kgAchuras: '',
-    precioVentaAchuras: '',
-    costoFlete: '',
-    costoVEPkg: '',
-    costoFaenakg: ''
-    
+    kg_desbaste:'', //kgv_brutos * desbaste
+    kgv_netos:'', //kgv_brutos - kg_desbaste
+    precio_kgv_netos: '',
+    n_tropa: '',
+    kg_carne: '',
+    rinde:'', // kg_carne*100/kgv_netos
+    cant_achuras: '',
+    precio_venta_achuras: '',
+    recupero_precio_kg:'', //precio_venta_achuras/kg_carne
+    costo_hac:'',//kgv_netos * precio_kgv_netos
+    costo_faena_kg:'',
+    costo_faena:'', //costo_faena_kg * kg_carne
+    switch_comision: false,
+    comision:'', //0,02*costo_hac//true or false
+    costo_flete: '',
+    costo_veps_unit: '',
+    costo_veps: '',//costo_veps_unit * cant
+    costo_total:'', //costo_faena + costo_veps + costo_flete + costo_hac
+    costo_kg:'', //costo_total/kg_carne
+    saldo:'' //saldo de hacienda solamente
 };
 const categorias = ["Vaca", "Vaquillon", "Novillo", "Toro"]
-const proveedores = ["Puchulo", "Stopa", "Castillo", "Dib", "Dulio Text", "C Walter"]
+const proveedores = ["Puchulo", "jose"]
 
 //validaciones
 export const validate = (compra) => {
     let error = {};
+    if (!compra.proveedor) error.proveedor = "Falta proveedor";
     if (!compra.fecha) error.fecha = "Falta fecha";
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(compra.fecha)) error.fecha = "Fecha incorrecta";
-    if (!compra.DTE) error.DTE = "Falta N° DTE";
-    else if (!/^([0-9])*$/.test(compra.DTE)) error.DTE = "DTE debe ser un número";
-    if (!compra.cantidad) error.cantidad = "Falta cantidad";
-    else if (!/^([0-9])*$/.test(compra.cantidad)) error.cantidad = "N° debe ser un número";
-    if (!compra.kgVBrutos) error.kgVBrutos = "Falta kgV Brutos";
-    else if (!/^([0-9])*$/.test(compra.kgVBrutos)) error.kgVBrutos = "kgV Brutos debe ser un número";
-    if (!/^([0-9])*$/.test(compra.desbaste)) error.desbaste = "kgV Brutos debe ser un número";
-    if (!compra.preciokgVNeto) error.preciokgVNeto = "Falta $/kgV Neto";
-    else if (!/^([0-9])*$/.test(compra.preciokgVNeto)) error.preciokgVNeto = "$/kgV Neto debe ser un número";
-    if (!compra.tropa) error.tropa = "Falta tropa";
-    else if (!/^([0-9])*$/.test(compra.tropa)) error.tropa = "Tropa debe ser un número";
-    if (!compra.kgCarne) error.kgCarne = "Falta kg de Carne";
-    else if (!/^([0-9])*$/.test(compra.kgCarne)) error.kgCarne = "kg de Carne debe ser un número";
-    else if (!/^([0-9])*$/.test(compra.kgAchuras)) error.kgAchuras = "kg de Achuras debe ser un número";
-    else if (!/^([0-9])*$/.test(compra.precioVentaAchuras)) error.precioVentaAchuras = "$ Venta de Achuras debe ser un número";
-    if (!compra.costoFlete) error.costoFlete = "Falta Costo de Flete";
-    else if (!/^([0-9])*$/.test(compra.costoFlete)) error.costoFlete = "Costo de Flete debe ser un número";
-    if (!compra.costoVEPkg) error.costoVEPkg = "Falta costo de VEP/kg";
-    else if (!/^([0-9])*$/.test(compra.costoVEPkg)) error.costoVEPkg = "costo de VEP/kg debe ser un número";
-    if (!compra.costoFaenakg) error.costoFaenakg = "Falta Costo de Faena/kg";
-    else if (!/^([0-9])*$/.test(compra.costoFaenakg)) error.costoFaenakg = "Costo de Faena/kg debe ser un número";
+    if (!compra.n_dte) error.n_dte = "Falta N° DTE";
+    if (!compra.categoria) error.categoria = "Falta categoria";
+    if (!compra.cant) error.cant = "Falta cant";
+    else if (!/^([0-9])*$/.test(compra.cant)) error.cant = "N° debe ser un número";
+    if (!compra.kgv_brutos) error.kgv_brutos = "Falta kgV Brutos";
+    else if (!/^([0-9])*$/.test(compra.kgv_brutos)) error.kgv_brutos = "kgV Brutos debe ser un número";
+    if (!compra.precio_kgv_netos) error.precio_kgv_netos = "Falta $/kgV Neto";
+    else if (!/^([0-9])*$/.test(compra.precio_kgv_netos)) error.precio_kgv_netos = "$/kgV Neto debe ser un número";
+    if (!compra.n_tropa) error.n_tropa = "Falta tropa";
+    else if (!/^([0-9])*$/.test(compra.n_tropa)) error.n_tropa = "Tropa debe ser un número";
+    if (!compra.kg_carne) error.kg_carne = "Falta kg de Carne";
+    else if (!/^([0-9])*$/.test(compra.kg_carne)) error.kg_carne = "kg de Carne debe ser un número";
+    else if (!/^([0-9])*$/.test(compra.cant_achuras)) error.cant_achuras = "Cantidad de Achuras debe ser un número";
+    else if (!/^([0-9])*$/.test(compra.precio_venta_achuras)) error.precio_venta_achuras = "$ Venta de Achuras debe ser un número";
+    if (!compra.costo_flete) error.costo_flete = "Falta Costo de Flete";
+    else if (!/^([0-9])*$/.test(compra.costo_flete)) error.costo_flete = "Costo de Flete debe ser un número";
+    if (!compra.costo_veps_unit) error.costo_veps_unit = "Falta costo de VEP/Un";
+    else if (!/^([0-9])*$/.test(compra.costo_veps_unit)) error.costo_veps_unit = "costo de VEP/Un debe ser un número";
+    if (!compra.costo_faena_kg) error.costo_faena_kg = "Falta Costo de Faena/kg";
     return error;
 };
 
 const Form_Compra = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const alert_msj= useSelector ((state)=>state.postCompra);
+    
+    
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+    }, [alert_msj])
+    
 
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
 
     const handleChange = (e) => {
+        e.preventDefault()
         setError(
         validate({
             ...form,
@@ -86,39 +106,52 @@ const Form_Compra = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(
+        !error.proveedor && form.proveedor &&
         !error.fecha && form.fecha &&
-        !error.DTE && form.DTE &&
-        !error.cantidad && form.cantidad &&
-        !error.kgVBrutos && form.kgVBrutos &&
+        !error.n_dte && form.n_dte &&
+        !error.categoria && form.categoria &&
+        !error.cant && form.cant &&
+        !error.kgv_brutos && form.kgv_brutos &&
         !error.desbaste && form.desbaste &&
-        !error.preciokgVNeto && form.preciokgVNeto &&
-        !error.tropa && form.tropa &&
-        !error.kgCarne && form.kgCarne &&
-        !error.kgAchuras && form.kgAchuras &&
-        !error.precioVentaAchuras && form.precioVentaAchuras &&
-        !error.costoFlete && form.costoFlete &&
-        !error.costoVEPkg && form.costoVEPkg &&
-        !error.costoFaenakg && form.costoFaenakg
-
+        !error.precio_kgv_netos && form.precio_kgv_netos &&
+        !error.n_tropa && form.n_tropa &&
+        !error.kg_carne && form.kg_carne &&
+        !error.cant_achuras && form.cant_achuras &&
+        !error.precio_venta_achuras && form.precio_venta_achuras &&
+        !error.costo_flete && form.costo_flete &&
+        !error.costo_veps_unit && form.costo_veps_unit &&
+        !error.costo_faena_kg && form.costo_faena_kg
         ){
-        // dispatch(postNewCompra(form))
+            //cargo el resto de las propiedades
+        form.kg_desbaste = form.kgv_brutos*1 * form.desbaste;
+        form.kgv_netos = form.kgv_brutos*1 - form.kg_desbaste*1;
+        form.rinde = form.kg_carne  * 100 / (form.kgv_netos*1) ;
+        form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1) ;
+        form.costo_hac = form.kgv_netos*1  * form.precio_kgv_netos;
+        form.costo_faena = form.costo_faena_kg*1  * form.kg_carne;
+        if(form.switch_comision===true) form.comision = 0.02 * form.costo_hac;
+        form.costo_veps = form.costo_veps_unit*1  * form.cant;
+        form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
+        form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
+        form.saldo = form.costo_hac
+        dispatch(postNewCompra(form))
         console.log(form)
-        swal({
-            title: "Nueva Compra",
-            text: "Compra cargada correctamente",
-            icon: "success",
-            button: "ok",
-        })
+        // swal({
+        //     title: "Nueva Compra",
+        //     text: alert_msj,
+        //     icon: "success",
+        //     button: "ok",
+        // })
         setForm(formC);
         }
-        else {
-            swal({
-                title: "Alerta",
-                text: "Datos incorrectos, por favor intente nuevamente",
-                icon: "warning",
-                button: "ok",
-            })
-        }
+        // else {
+        //     swal({
+        //         title: "Alerta",
+        //         text: alert_msj,
+        //         icon: "warning",
+        //         button: "ok",
+        //     })
+        // }
     };
 
     function handleSelectCat(e) {
@@ -137,6 +170,12 @@ const Form_Compra = () => {
     const handleDet = () => {
         navigate("/Compras")
     };
+
+    const switchCom = ()=>{
+        if(form.switch_comision===false)form.switch_comision=true;
+        else if(form.switch_comision===true)form.switch_comision=false;
+        console.log(form.switch_comision)
+    }
 
     return (
         <div className={styleFormC.wallpaper}>
@@ -183,14 +222,14 @@ const Form_Compra = () => {
                         <h5 className={styleFormC.title}>N° DTE: </h5>
                         <input
                             type="text"
-                            value={form.DTE}
-                            id="DTE"
-                            name="DTE"
+                            value={form.n_dte}
+                            id="n_dte"
+                            name="n_dte"
                             onChange={handleChange}
-                            className={error.DTE & 'danger'}
+                            className={error.n_dte & 'danger'}
                         />
                     </div>
-                    <p className={error.DTE ? styleFormC.danger : styleFormC.pass}>{error.DTE}</p>
+                    <p className={error.n_dte ? styleFormC.danger : styleFormC.pass}>{error.n_dte}</p>
                     <div className={styleFormC.formItem}>
                         <div>
                             <select className="selectform" onChange={(e)=> handleSelectCat(e)}>
@@ -206,28 +245,28 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>N°: </h5>
                             <input
                                 type="text"
-                                value={form.cantidad}
-                                id="cantidad"
-                                name="cantidad"
+                                value={form.cant}
+                                id="cant"
+                                name="cant"
                                 onChange={handleChange}
                                 className={styleFormC.size1}
                             />
                         </div>
                     </div>
-                    <p className={error.cantidad ? styleFormC.danger : styleFormC.pass}>{error.cantidad}</p>
+                    <p className={error.cant ? styleFormC.danger : styleFormC.pass}>{error.cant}</p>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>kgV Brutos: </h5>
                         <input
                             type="text"
-                            value={form.kgVBrutos}
-                            id="kgVBrutos"
-                            name="kgVBrutos"
+                            value={form.kgv_brutos}
+                            id="kgv_brutos"
+                            name="kgv_brutos"
                             onChange={handleChange}
                             placeholder="00"
                             className={styleFormC.size2}
                         />
                     </div>
-                    <p className={error.kgVBrutos ? styleFormC.danger : styleFormC.pass}>{error.kgVBrutos}</p>
+                    <p className={error.kgv_brutos ? styleFormC.danger : styleFormC.pass}>{error.kgv_brutos}</p>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>Desbaste: </h5>
                         <input
@@ -249,55 +288,55 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.preciokgVNeto}
-                                id="preciokgVNeto"
-                                name="preciokgVNeto"
+                                value={form.precio_kgv_netos}
+                                id="precio_kgv_netos"
+                                name="precio_kgv_netos"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.cantidad ? styleFormC.danger : styleFormC.pass}>{error.cantidad}</p>
+                    <p className={error.precio_kgv_netos ? styleFormC.danger : styleFormC.pass}>{error.precio_kgv_netos}</p>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}> N° Tropa: </h5>
                         <input
                             type="text"
-                            value={form.tropa}
-                            id="tropa"
-                            name="tropa"
+                            value={form.n_tropa}
+                            id="n_tropa"
+                            name="n_tropa"
                             onChange={handleChange}
                             placeholder="00000"
-                            className={error.tropa & 'danger'}
+                            className={error.n_tropa & 'danger'}
                         />
                     </div>
-                    <p className={error.tropa ? styleFormC.danger : styleFormC.pass}>{error.tropa}</p>
+                    <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>kg de Carne: </h5>
                         <input
                             type="text"
-                            value={form.kgCarne}
-                            id="kgCarne"
-                            name="kgCarne"
+                            value={form.kg_carne}
+                            id="kg_carne"
+                            name="kg_carne"
                             onChange={handleChange}
                             placeholder="00"
                             className={styleFormC.size2}
                         />
                     </div>
-                    <p className={error.kgCarne ? styleFormC.danger : styleFormC.pass}>{error.kgCarne}</p>
+                    <p className={error.kg_carne ? styleFormC.danger : styleFormC.pass}>{error.kg_carne}</p>
                     <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>kg de Achuras: </h5>
+                        <h5 className={styleFormC.title}>Juegos de Achuras: </h5>
                         <input
                             type="text"
-                            value={form.kgAchuras}
-                            id="kgAchuras"
-                            name="kgAchuras"
+                            value={form.cant_achuras}
+                            id="cant_achuras"
+                            name="cant_achuras"
                             onChange={handleChange}
                             placeholder="00"
                             className={styleFormC.size2}
                         />
                     </div>
-                    <p className={error.kgAchuras ? styleFormC.danger : styleFormC.pass}>{error.kgAchuras}</p>
+                    <p className={error.cant_achuras ? styleFormC.danger : styleFormC.pass}>{error.cant_achuras}</p>
                     <div className={styleFormC.formItem}>
                         <div>
                             <h5 className={styleFormC.title}>$ Ventas de Ach.: </h5>
@@ -306,16 +345,23 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.precioVentaAchuras}
-                                id="precioVentaAchuras"
-                                name="precioVentaAchuras"
+                                value={form.precio_venta_achuras}
+                                id="precio_venta_achuras"
+                                name="precio_venta_achuras"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.$VentaAchuras ? styleFormC.danger : styleFormC.pass}>{error.$VentaAchuras}</p>
+                    <p className={error.precio_venta_achuras ? styleFormC.danger : styleFormC.pass}>{error.precio_venta_achuras}</p>
+                    <div className={styleFormC.formItem}>
+                        <h5 className={styleFormC.title}>Comisión: </h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={()=>switchCom()}/>
+                            {/* <label class="form-check-label" for="flexSwitchCheckDefault"></label> */}
+                        </div>
+                    </div>
                     <div className={styleFormC.formItem}>
                         <div>
                             <h5 className={styleFormC.title}>Costo Flete: </h5>
@@ -324,34 +370,34 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.costoFlete}
-                                id="costoFlete"
-                                name="costoFlete"
+                                value={form.costo_flete}
+                                id="costo_flete"
+                                name="costo_flete"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.costoFlete ? styleFormC.danger : styleFormC.pass}>{error.costoFlete}</p>
+                    <p className={error.costo_flete ? styleFormC.danger : styleFormC.pass}>{error.costo_flete}</p>
                     <div className={styleFormC.formItem}>
                         <div>
-                            <h5 className={styleFormC.title}>Costo VEPS/kg: </h5>
+                            <h5 className={styleFormC.title}>Costo VEPS unit.: </h5>
                         </div>
                         <div className={styleFormC.numero}>
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.costoVEPkg}
-                                id="costoVEPkg"
-                                name="costoVEPkg"
+                                value={form.costo_veps_unit}
+                                id="costo_veps_unit"
+                                name="costo_veps_unit"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.costoVEPkg ? styleFormC.danger : styleFormC.pass}>{error.costoVEPkg}</p>
+                    <p className={error.costo_veps_unit ? styleFormC.danger : styleFormC.pass}>{error.costo_veps_unit}</p>
                     <div className={styleFormC.formItem}>
                         <div>
                             <h5 className={styleFormC.title}>Costo Faena/kg: </h5>
@@ -360,16 +406,16 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.costoFaenakg}
-                                id="costoFaenakg"
-                                name="costoFaenakg"
+                                value={form.costo_faena_kg}
+                                id="costo_faena_kg"
+                                name="costo_faena_kg"
                                 onChange={handleChange}
                                 placeholder="0.00"
                                 className={styleFormC.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.costoFaenakg ? styleFormC.danger : styleFormC.pass}>{error.costoFaenakg}</p>
+                    <p className={error.costo_faena_kg ? styleFormC.danger : styleFormC.pass}>{error.costo_faena_kg}</p>
                     <div className={styleFormC.buttons}>
                         <ShortButton
                             title="📃 Detalle"
