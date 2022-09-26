@@ -10,13 +10,14 @@ import stylePagoV from './Form_pago.module.scss';
 
 const formPV = {
     fecha: '',
-    monto: ''
+    monto: '',
+    forma_pago:''
 };
 
 //validaciones
 export const validate = (pago) => {
     let error = {};
-
+    if (!pago.forma_pago) error.forma_pago = "Falta forma de pago";
     if (!pago.fecha) error.fecha = "Falta fecha";
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
@@ -35,6 +36,7 @@ const Form_Pago_Venta = () => {
     const [error, setError] = useState({});
 
     const handleChange = (e) => {
+        e.preventDefault();
         setError(
         validate({
             ...form,
@@ -47,9 +49,11 @@ const Form_Pago_Venta = () => {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(
         !error.fecha && form.fecha &&
+        !error.forma_pago && form.forma_pago &&
         !error.monto && form.monto
         ){
         // dispatch(postPagoVenta(form))
@@ -117,7 +121,20 @@ const Form_Pago_Venta = () => {
                             className={error.monto & 'danger'}
                         />
                     </div>
-                    <p className={error.monto ? stylePagoV.danger : stylePagoV.pass}>{error.monto}</p>                    
+                    <p className={error.monto ? stylePagoV.danger : stylePagoV.pass}>{error.monto}</p> 
+                    <div className={stylePagoV.formItem}>
+                        <h5 className={stylePagoV.title}>Forma de pago: </h5>
+                        <input
+                            type="text"
+                            value={form.forma_pago}
+                            id="forma_pago"
+                            name="forma_pago"
+                            onChange={handleChange}
+                            placeholder="0.00"
+                            className={error.monforma_pagoto & 'danger'}
+                        />
+                    </div>
+                    <p className={error.forma_pago ? stylePagoV.danger : stylePagoV.pass}>{error.forma_pago}</p>                    
                     <div className={stylePagoV.buttons}>
                         <ShortButton
                             title="📃Generar Factura"

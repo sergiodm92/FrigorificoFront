@@ -85,7 +85,8 @@ const Form_Venta = () => {
     };
 
     //handleChange del detalle
-    const handleChangeCV = (e) => { 
+    const handleChangeCV = (e) => {
+        e.preventDefault();
         setError2(
         validate2({
             ...formCV,
@@ -99,7 +100,7 @@ const Form_Venta = () => {
     };
 
     //handleSubmit del detalle
-    const handleSubmitRes = (e) => {   
+    const handleSubmitRes = (e) => { 
         e.preventDefault();
         if(
             !error2.categoria && formCV.categoria &&

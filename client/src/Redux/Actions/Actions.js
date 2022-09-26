@@ -449,6 +449,7 @@ export const postNewCliente = (cliente_json) => {
     };
 
 //Post compra
+
 export const postNewCompra = (compra_json) => {
   return async (dispatch) => {
       try {
