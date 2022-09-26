@@ -10,6 +10,8 @@ import { getAllClientes } from "../../Redux/Actions/Actions";
 
 export default function Clientes(){
     const AllClientes = useSelector((state)=>(state.AllClientes))
+    console.log(AllClientes)
+    console.log(AllClientes.length)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -32,19 +34,19 @@ export default function Clientes(){
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={styleCl.cardsCont}>
-                    {AllClientes.map((a)=>{
+                    {AllClientes.length>0?AllClientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.nombre}
+                                id={a.ID}
                                 fecha={a.nombre}
-                                otro={a.ultima_venta}
-                                monto={a.saldo}
+                                otro="08/08/2022"
+                                monto="$125000"
                                 tipo={"Detalle_Cliente"}
                                 pago={false}
                             />
                         )
                     })
-                    }
+                        : (<></>) }
                 </div>
                 <div className={styleCl.buttonLarge}>
                     <LargeButton

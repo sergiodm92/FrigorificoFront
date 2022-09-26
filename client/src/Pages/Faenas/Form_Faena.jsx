@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import {postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar';
 import styleFormF from './Form_Faena.module.scss';
 import CardReses from "../../Components/Cards/CardReses/CardReses";
-import {postNewFaena} from "../../Redux/Actions/Actions";
+
 
 //Form Faena
 const formF = {
@@ -92,6 +93,7 @@ const Form_Faena = () => {
 
     //handleChange de reses
     const handleChangeCF = (e) => { 
+        e.preventDefault();
         setError2(
         validate2({
             ...formCF,
@@ -145,7 +147,7 @@ const Form_Faena = () => {
             form.saldo=form.costo_total
             console.log(form.saldo)
             dispatch(postNewFaena(form))
-            console.log(form)
+            form.detalle.map((a)=>dispatch(postNewRes(a)))
             swal({
                 title: "Nueva Faena",
                 text: " Faena cargada correctamente",

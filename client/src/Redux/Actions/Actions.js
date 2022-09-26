@@ -1,14 +1,15 @@
 import axios from "axios";
-
-
-const URL=`https://frigorifico-backend.herokuapp.com`;
-
+const URL=`https://frigorifico-backend.herokuapp.com`
 
 
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
+        };
+export const setlogin_state = (value) => {
+    
+    return ({ type: "LOGIN_STATE", payload: value  });
         };
 
 // User Login
@@ -33,17 +34,32 @@ export function postLogin(jsonUser){
   return async function (dispatch){
       try{
           const json = await axios.post(`${URL}/user/login`, jsonUser);
-          localStorage.setItem("AuthLogin",json.data.data)   
+          if(json.data.status==="ok")localStorage.setItem("AuthLogin",json.data.data)   
           return dispatch({
             type: "LOGIN_STATUS",
             payload: json.data.status})
         }
       catch(err){
-          console.log(err)
+        return dispatch({
+          type: "LOGIN_STATUS",
+          payload: "error"})
       }
       
   }
- 
+}
+
+export function setStatus(value){
+  return async function (dispatch){
+      try{
+          return dispatch({
+            type: "LOGIN_STATUS",
+            payload: value})
+        }
+      catch(err){
+        console.log(err)
+      }
+      
+  }
 }
 
 
@@ -186,7 +202,36 @@ export const getAllVentas = () => {
             console.log(error);
           }
         };
-      };   
+      }; 
+      
+//Ventas por cliente
+export const getVentasByCliente = (name) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`${URL}/ventas/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          const response = json.data.data.filter((a)=>a.cliente===name)
+          return dispatch({
+          type: "GET_ALL_VENTAS_BY_CLIENTE",
+          payload: response})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    }; 
+
+
+
+
+
+
+
+
 
 //Traer venta por ID
 export const getVentaByID = (id) => {
@@ -200,7 +245,7 @@ export const getVentaByID = (id) => {
         
             return dispatch({
             type: "GET_VENTA_BY_ID",
-            payload: json.data})
+            payload: json.data.data})
         }
         catch (error) {
             console.log(error);
@@ -220,7 +265,7 @@ export const getAllStock = () => {
         
             return dispatch({
             type: "GET_ALL_STOCK",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -241,7 +286,7 @@ export const getAllClientes = () => {
         
             return dispatch({
             type: "GET_ALL_CLIENTES",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -254,7 +299,7 @@ export const getAllClientes = () => {
 export const getClienteByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/cliente/${id}`,{
+            const json = await axios.get(`${URL}/clientes/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -262,7 +307,7 @@ export const getClienteByID = (id) => {
         
             return dispatch({
             type: "GET_CLIENTE_BY_ID",
-            payload: json.data})
+            payload: json.data.data})
         }
         catch (error) {
             console.log(error);
@@ -307,7 +352,7 @@ export const getProveedorByID = (id) => {
         
             return dispatch({
             type: "GET_PROVEEDOR_BY_ID",
-            payload: json.data})
+            payload: json.data.data})
         }
         catch (error) {
             console.log(error);
@@ -315,7 +360,7 @@ export const getProveedorByID = (id) => {
         };
       };
 
-//Traer todas las reses
+//Get todas las reses
 export const getAllReses = () => {
     return async (dispatch) => {
         try {
@@ -324,10 +369,13 @@ export const getAllReses = () => {
                 'auth-token': `${token}`
               }
             });
-        
+            const ResStock = json.data.data.filter((a)=>a.stock===true)
+            const response = [json.data.data,ResStock]
+
             return dispatch({
             type: "GET_RESES",
-            payload: json.data})
+            payload: response
+            })
 
         }
         catch (error) {
@@ -336,7 +384,9 @@ export const getAllReses = () => {
         };
       }; 
 
-//Traer res por correlativo
+
+
+//Get res por correlativo
 export const getResByCorrelativo = (correlativo) => {
     return async (dispatch) => {
         try {
@@ -348,7 +398,7 @@ export const getResByCorrelativo = (correlativo) => {
         
             return dispatch({
             type: "GET_RES_BY_CORRELATIVO",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -478,4 +528,27 @@ export const postNewFaena = (faena_json) => {
         }
       };
     };
+
+
+
+//Post res
+export const postNewRes = (res_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`${URL}/res`, res_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_RES",
+          payload: json.data.data})
+
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
 
