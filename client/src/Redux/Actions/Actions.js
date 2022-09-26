@@ -7,6 +7,10 @@ export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
         };
+export const setlogin_state = (value) => {
+    
+    return ({ type: "LOGIN_STATE", payload: value  });
+        };
 
 // User Login
 // export const postLogin = (payload) => {
@@ -30,17 +34,32 @@ export function postLogin(jsonUser){
   return async function (dispatch){
       try{
           const json = await axios.post(`${URL}/user/login`, jsonUser);
-          localStorage.setItem("AuthLogin",json.data.data)   
+          if(json.data.status==="ok")localStorage.setItem("AuthLogin",json.data.data)   
           return dispatch({
             type: "LOGIN_STATUS",
             payload: json.data.status})
         }
       catch(err){
-          console.log(err)
+        return dispatch({
+          type: "LOGIN_STATUS",
+          payload: "error"})
       }
       
   }
- 
+}
+
+export function setStatus(value){
+  return async function (dispatch){
+      try{
+          return dispatch({
+            type: "LOGIN_STATUS",
+            payload: value})
+        }
+      catch(err){
+        console.log(err)
+      }
+      
+  }
 }
 
 

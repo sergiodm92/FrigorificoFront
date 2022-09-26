@@ -29,6 +29,7 @@ import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx';
 import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
 import Form_Pago_Venta from '../src/Pages/FormsPagos/Form_pago_venta';
 import NoAccess from '../src/Pages/NoAcces/NoAcces'
+import LogOut from './Pages/LogOut/LogOut.jsx';
 import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx';
 import Form_Venta_Achuras from './Pages/Venta/Form_Venta_Achuras.jsx';
 import Nueva_Venta from './Pages/Venta/Nueva_Venta.jsx';
@@ -50,7 +51,7 @@ function App() {
 
   return (
     <Routes>
-    <Route exact path="/" element={<Login />} />
+    <Route exact path="/" element={state_login?<LogOut/>:<Login/>} />
     <Route exact path="/Balance" element={state_login?<Balance/>:<NoAccess/>} />
     <Route exact path="/Clientes" element={state_login?<Clientes />:<NoAccess/>} />
     <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
