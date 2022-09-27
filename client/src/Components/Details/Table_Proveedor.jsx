@@ -1,11 +1,11 @@
 import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
-const data = require("./data.json")
 
 
-export default function Table_Proveedor({name}){
 
-const objClient=data.Proveedor.find((a)=>a.Nombre==name)
+export default function Table_Proveedor({ProveedorById}){
+
+
 
 
     return(
@@ -14,15 +14,15 @@ const objClient=data.Proveedor.find((a)=>a.Nombre==name)
             <tbody>
                 <tr>
                     <td>Teléfono</td>
-                    <td>{objClient.Telefono}</td>
+                    <td>{ProveedorById.telefono}</td>
                 </tr>
                 <tr>
                     <td>e-mail</td>
-                    <td>{objClient.Email}</td>
+                    <td>{ProveedorById.email}</td>
                 </tr>
                 <tr>
                     <td>Dirección</td>
-                    <td>{objClient.Direccion}</td>
+                    <td>{ProveedorById.direccion}</td>
                 </tr>
             </tbody>
         </table>

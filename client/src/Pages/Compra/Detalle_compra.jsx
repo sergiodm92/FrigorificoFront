@@ -9,7 +9,7 @@ export default function Detalle_Compra(){
 
     const {id}=useParams()
     const navigate = useNavigate()
-
+    
     return(
         <div className={StyleDetalleCompra.ConteinerCompras}>
             <NavBar

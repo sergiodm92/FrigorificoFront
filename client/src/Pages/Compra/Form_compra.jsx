@@ -81,6 +81,7 @@ const Form_Compra = () => {
     useEffect(() => {
         dispatch(getAllProveedores())
     }, [dispatch])
+
     
     
     useEffect(() => {
@@ -91,6 +92,7 @@ const Form_Compra = () => {
                 button: "ok",
             })}
     }, [alert_msj])
+
 
     //estados locales
     const [form, setForm] = useState(formC);
@@ -142,9 +144,12 @@ const Form_Compra = () => {
         form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
         form.saldo = form.costo_hac
 
+
+
         dispatch(postNewCompra(form))
         setForm(formC);
         }
+
     };
 
     function handleSelectCat(e) {

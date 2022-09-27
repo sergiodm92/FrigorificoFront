@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
@@ -6,18 +7,31 @@ import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
-const data = require("../../Components/Details/data.json")
+import { getAllComrpas, getProveedorByID } from "../../Redux/Actions/Actions";
+
+
 
 export default function Detalle_Proveedor(){
-    const {name}=useParams()
-    const ComprasPendientes=data.compra.filter((a)=>a.Proveedor.toString("")===name.toString("") && a.Saldo>0)
+    const dispatch = useDispatch()
+    const ProveedorById = useSelector((state)=>(state.ProveedorById))
+    const AllCompras = useSelector((state)=>(state.AllCompras))
+    const {id}=useParams()
+    const ComprasPendientes = AllCompras.filter((a)=>a.proveedor===ProveedorById.nombre && a.saldo>0)
 
     const navigate = useNavigate();
+    useEffect(() => {
+        dispatch(getProveedorByID(id))
+        dispatch(getAllComrpas())
+    }, [dispatch])
+
+
+
+
 
     return(
         <div className={stylePr.ConteinerProveedor}>
             <NavBar
-                title={name}
+                title={ProveedorById.nombre}
             />
             <div className={stylePr.page}>
                 <div className={stylePr.buttonEdith}>
@@ -29,7 +43,7 @@ export default function Detalle_Proveedor(){
                 </div>
                 <div className={stylePr.tableproveedor}>
                 <Table_Proveedor
-                name={name}
+                ProveedorById={ProveedorById}
                 />
                 </div>
                 <div className={stylePr.cont}>
@@ -50,16 +64,16 @@ export default function Detalle_Proveedor(){
                             return(
                                 <CardLarge
                                     id={a.ID_compra}
-                                    fecha={a.Fecha}
-                                    para={a.Proveedor}
-                                    cant={a.Cant}
-                                    kg={a.Kg_carne}
-                                    monto={a.Saldo}
+                                    fecha={a.fecha}
+                                    para={a.proveedor}
+                                    cant={a.cant}
+                                    kg={a.kg_carne}
+                                    monto={a.saldo}
                                     tipo={"Compras"}
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Compra/${name}`)}
+                                    bonClick={()=>navigate(`/Form_Pago_Compra/${id}`)}
                                 />
                             )
                         })
@@ -68,13 +82,13 @@ export default function Detalle_Proveedor(){
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Historial de Compras"}
-                            onClick={()=>navigate(`/Historial_Compras_Proveedor/${name}`)}
+                            onClick={()=>navigate(`/Historial_Compras_Proveedor/${id}`)}
                         ></LargeButton>
                     </div>
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${name}`)}
+                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${id}`)}
                         ></LargeButton>
                     </div>
                 </div>
