@@ -324,7 +324,6 @@ export const getAllProveedores = () => {
               'auth-token': `${token}`
             }
             })
-            console.log(json)
             return dispatch({
             type: "GET_PROVEEDORES",
             payload: json.data.data})

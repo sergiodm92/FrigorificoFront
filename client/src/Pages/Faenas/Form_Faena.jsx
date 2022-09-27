@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
+import {getAllProveedores, postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -32,10 +32,10 @@ const formComF = {
 //var para sumar medias
 var m=0
 
-//Arrays para los selects
+//Array para select de frigorífico
 const frigorificos = ["Natilla", "El Hueco"]
-const proveedores = ["Puchulo", "Stopa", "Castillo", "Dib", "Dulio Text", "C Walter"]
 const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
+
 
 //validaciones form Faena
 export const validate = (faena) => {
@@ -77,6 +77,11 @@ const Form_Faena = () => {
 
     //Estados globales
     const alert_msj= useSelector ((state)=>state.postFaena);
+    const proveedores = useSelector((state)=>state.AllProveedores);
+    
+    useEffect(() => {
+        dispatch(getAllProveedores())
+    }, [dispatch])
     
     
     useEffect(() => {
@@ -151,15 +156,16 @@ const Form_Faena = () => {
         !error.tropa && form.tropa
         ){
             form.detalle.map((e)=>{
+                e.tropa=form.tropa
+                e.stock=true
+                dispatch(postNewRes(e))
                 m++
-                console.log(m)
                 form.total_kg=form.total_kg*1+e.kg*1
             })
             form.total_medias = m
             form.costo_total=form.costoFaenakg*1*form.total_kg*1
-            console.log(form.costo_total)
             form.saldo=form.costo_total
-            console.log(form.saldo)
+            
             dispatch(postNewFaena(form))
             console.log(form)
             setForm(formF);
@@ -251,7 +257,7 @@ const Form_Faena = () => {
                             <option value="" selected>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p) => (
-                                    <option	value={p}>{p}</option>
+                                    <option	value={p.nombre}>{p.nombre}</option>
                                     ))
                             }
                         </select>
