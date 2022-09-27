@@ -80,11 +80,21 @@ const Form_Venta = () => {
     const [error2, setError2] = useState({});
 
     //estados globales
+    const alert_msj= useSelector ((state)=>state.postVentaCarne);
     const clientes = useSelector((state)=>state.AllClientes);
     
     useEffect(() => {
         dispatch(getAllClientes())
     }, [dispatch])
+
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+    }, [alert_msj])
 
     //handleChange de la Venta completa
     const handleChange = (e) => {
@@ -160,21 +170,7 @@ const Form_Venta = () => {
         form.margen_porciento=form.margen_venta*100/(form.total*1)
         dispatch(postNewVentaCarne(form))
         console.log(form)
-        swal({
-            title: "Nueva Venta",
-            text: "Venta cargada correctamente",
-            icon: "success",
-            button: "ok",
-        })
         setForm(formV);
-        }
-        else {
-            swal({
-                title: "Alerta",
-                text: "Datos incorrectos, por favor intente nuevamente",
-                icon: "warning",
-                button: "ok",
-            })
         }
     };
 

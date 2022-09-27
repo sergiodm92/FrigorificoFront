@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { postNewVentaAchura } from "../../Redux/Actions/Actions";
+import { getAllClientes, postNewVentaAchura } from "../../Redux/Actions/Actions";
 
 import styleFormV from './Form_Venta.module.scss';
 
@@ -13,11 +13,10 @@ var formVA = {
     cliente:'',
     fecha: '',
     cantidad:'',
-    precio_unitario:''
+    precio_unitario:'',
+    total:'',
+    saldo:''
 };
-
-// Arrays para el select
-const clientes = ["Don Alberto", "Quiroga"]
 
 //validaciones form VentaAchuras
 export const validate = (venta) => {
@@ -32,14 +31,27 @@ export const validate = (venta) => {
     return error;
 };
 
-
 const Form_Venta_Achuras = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    //Estados globales
+    //estados globales
+    const alert_msj= useSelector ((state)=>state.postVentaAchuras);
+    const clientes = useSelector((state)=>state.AllClientes);
     
+    useEffect(() => {
+        dispatch(getAllClientes())
+    }, [dispatch])
+
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+    }, [alert_msj])  
 
     //Estados locales
     const [form, setForm] = useState(formVA);
@@ -69,23 +81,11 @@ const Form_Venta_Achuras = () => {
         !error.fecha && form.fecha &&
         !error.cliente && form.cliente
         ){
-        dispatch(postNewVentaAchura(form))
-        console.log(form)
-        swal({
-            title: "Nueva Venta",
-            text: "Venta cargada correctamente",
-            icon: "success",
-            button: "ok",
-        })
-        setForm(formVA);
-        }
-        else {
-            swal({
-                title: "Alerta",
-                text: "Datos incorrectos, por favor intente nuevamente",
-                icon: "warning",
-                button: "ok",
-            })
+            form.total=form.precio_unitario*1*form.cantidad
+            form.saldo=form.total
+            dispatch(postNewVentaAchura(form))
+            console.log(form)
+            setForm(formVA);
         }
     };
 
@@ -115,7 +115,7 @@ const Form_Venta_Achuras = () => {
                             <option value="" selected>-</option>
                             {clientes.length > 0 &&  
                             clientes.map((c) => (
-                                    <option	value={c}>{c}</option>
+                                    <option	value={c.nombre}>{c.nombre}</option>
                                     ))
                             }
                         </select>
