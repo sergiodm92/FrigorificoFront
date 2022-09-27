@@ -8,17 +8,24 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 
 import styleFormV from './Form_Venta.module.scss';
+import { getAllClientes, postNewVentaCarne } from "../../Redux/Actions/Actions";
 
 //Form Venta
 var formV = {
     cliente:'',
     fecha: '',
-    detalle:[]
+    detalle:[],
+    kg_total:'', //suma de kg
+    precio_kg_prom:'', //prom precio_kg
+    total:'', //total_kg*precio_kg_prom
+    margen_kg:'',//precio_kg_prom-costo_kg_promedio
+    margen_venta:'',//total-costo_total
+    margen_porciento:''
 };
 //Form para cargar el detalle de la venta
 var formComV = {
     categoria:'',
-    res: '',
+    total_media: '',
     correlativo:'',
     kg:'',
     costo_kg:'',
@@ -26,8 +33,11 @@ var formComV = {
     precio_kg:''
 };
 
+var pxk=0;
+var m=0;
+var cxk=0;
+
 // Arrays para los selects
-const clientes = ["Don Alberto", "Quiroga"]
 const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
 const res=["total", "1/4T", "1/4D"]
 
@@ -52,7 +62,7 @@ export const validate2 = (res) => {
     if (!/^([0-9])*$/.test(res.margen)) error2.margen = "Margen debe ser un número";
     if (!/^([0-9])*$/.test(res.precio_kg)) error2.precio_kg = "Precio/kg debe ser un número";
     if (!res.categoria) error2.categoria = "Falta categoría";
-    if (!res.res) error2.res = "Falta res";
+    if (!res.total_media) error2.total_media = "Falta res";
     if (!res.kg) error2.kg = "Falta kg";
     else if (!/^([0-9])*$/.test(res.kg)) error2.kg = "kg debe ser un número";
     return error2;
@@ -68,6 +78,13 @@ const Form_Venta = () => {
     const [formCV, setFormCV] = useState(formComV)
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
+
+    //estados globales
+    const clientes = useSelector((state)=>state.AllClientes);
+    
+    useEffect(() => {
+        dispatch(getAllClientes())
+    }, [dispatch])
 
     //handleChange de la Venta completa
     const handleChange = (e) => {
@@ -105,7 +122,7 @@ const Form_Venta = () => {
         if(
             !error2.categoria && formCV.categoria &&
             !error2.kg && formCV.kg &&
-            !error2.res && formCV.res &&
+            !error2.total_media && formCV.total_media &&
             !error2.margen && formCV.margen &&
             !error2.costo_kg && formCV.costo_kg &&
             !error2.precio_kg && formCV.precio_kg &&
@@ -131,7 +148,17 @@ const Form_Venta = () => {
         !error.fecha && form.fecha &&
         !error.cliente && form.cliente
         ){
-        // dispatch(postVenta(form))
+        form.detalle.map((e)=>{
+            m++
+            form.total_kg=form.total_kg*1+e.kg*1
+            pxk=pxk+(e.precio_kg*1)
+            cxk=cxk+(e.costo_kg*1)
+        })
+        form.precio_kg_prom=pxk/m
+        form.total=form.total_kg*1*form.precio_kg_prom*1
+        form.margen_venta=form.total*1-cxk
+        form.margen_porciento=form.margen_venta*100/(form.total*1)
+        dispatch(postNewVentaCarne(form))
         console.log(form)
         swal({
             title: "Nueva Venta",
@@ -163,7 +190,7 @@ const Form_Venta = () => {
     function handleSelectRes(e) {
         setFormCV({
             ...formCV,
-            res: e.target.value
+            total_media: e.target.value
         })
     }
 
@@ -201,7 +228,7 @@ const Form_Venta = () => {
                             <option value="" selected>-</option>
                             {clientes.length > 0 &&  
                             clientes.map((c) => (
-                                    <option	value={c}>{c}</option>
+                                    <option	value={c.nombre}>{c.nombre}</option>
                                     ))
                             }
                         </select>

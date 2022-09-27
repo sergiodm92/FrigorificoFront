@@ -296,7 +296,6 @@ export const getAllProveedores = () => {
               'auth-token': `${token}`
             }
             })
-            console.log(json)
             return dispatch({
             type: "GET_PROVEEDORES",
             payload: json.data.data})
@@ -470,6 +469,7 @@ export const postNewVentaAchura = (venta_json) => {
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
       try {
+          console.log(faena_json)
           const json = await axios.post(`${URL}/faenas`, faena_json,{
           headers: {
             'auth-token': `${token}`
