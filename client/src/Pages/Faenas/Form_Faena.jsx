@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
@@ -74,6 +74,19 @@ const Form_Faena = () => {
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
 
+    //Estados globales
+    const alert_msj= useSelector ((state)=>state.postFaena);
+    
+    
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Faena creada con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+    }, [alert_msj])
+
 
     //handleChange de la faena completa
     const handleChange = (e) => {  
@@ -112,11 +125,6 @@ const Form_Faena = () => {
             !error2.kg && formCF.kg &&
             !error2.correlativo && formCF.correlativo
         ){
-            form.total_kg=form.total_kg+formCF.kg
-            console.log(form.total_kg)
-            m++
-            form.total_medias = m
-            console.log(form.total_medias)
             form.detalle.push(formCF)
             setFormCF(formComF);
         }
@@ -140,27 +148,19 @@ const Form_Faena = () => {
         !error.detalle && form.detalle &&
         !error.tropa && form.tropa
         ){
-            form.costo_total=form.costoFaenakg*form.total_kg
+            form.detalle.map((e)=>{
+                m++
+                console.log(m)
+                form.total_kg=form.total_kg*1+e.kg*1
+            })
+            form.total_medias = m
+            form.costo_total=form.costoFaenakg*1*form.total_kg*1
             console.log(form.costo_total)
             form.saldo=form.costo_total
             console.log(form.saldo)
             dispatch(postNewFaena(form))
             console.log(form)
-            swal({
-                title: "Nueva Faena",
-                text: " Faena cargada correctamente",
-                icon: "success",
-                button: "ok",
-            })
             setForm(formF);
-        }
-        else {
-            swal({
-                title: "Alerta",
-                text: "Datos incorrectos, por favor intente nuevamente",
-                icon: "warning",
-                button: "ok",
-            })
         }
     };
 

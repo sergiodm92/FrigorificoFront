@@ -13,7 +13,13 @@ import styleFormV from './Form_Venta.module.scss';
 var formV = {
     cliente:'',
     fecha: '',
-    detalle:[]
+    detalle:[],
+    total_kg:'',
+    precio_kg_prom:'',
+    total:'',
+    margen_kg:'',
+    margem_venta:'',
+    margen_porc:''
 };
 //Form para cargar el detalle de la venta
 var formComV = {

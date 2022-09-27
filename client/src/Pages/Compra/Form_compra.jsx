@@ -73,6 +73,7 @@ const Form_Compra = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    //Estados globales
     const alert_msj= useSelector ((state)=>state.postCompra);
     
     

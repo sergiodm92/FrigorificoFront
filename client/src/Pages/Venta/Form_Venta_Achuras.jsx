@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
+import { postNewVentaAchura } from "../../Redux/Actions/Actions";
 
 import styleFormV from './Form_Venta.module.scss';
 
@@ -37,6 +38,9 @@ const Form_Venta_Achuras = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    //Estados globales
+    
+
     //Estados locales
     const [form, setForm] = useState(formVA);
     const [error, setError] = useState({});
@@ -65,7 +69,7 @@ const Form_Venta_Achuras = () => {
         !error.fecha && form.fecha &&
         !error.cliente && form.cliente
         ){
-        // dispatch(postVentaAchuras(form))
+        dispatch(postNewVentaAchura(form))
         console.log(form)
         swal({
             title: "Nueva Venta",
