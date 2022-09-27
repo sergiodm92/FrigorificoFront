@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {postNewCompra} from "../../Redux/Actions/Actions";
+import {getAllProveedores, postNewCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
@@ -37,8 +37,9 @@ const formC = {
     costo_kg:'', //costo_total/kg_carne
     saldo:'' //saldo de hacienda solamente
 };
+
+
 const categorias = ["Vaca", "Vaquillon", "Novillo", "Toro"]
-const proveedores = ["Puchulo", "jose"]
 
 //validaciones
 export const validate = (compra) => {
@@ -73,7 +74,13 @@ const Form_Compra = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    //Estados globales
     const alert_msj= useSelector ((state)=>state.postCompra);
+    const proveedores = useSelector((state)=>state.AllProveedores);
+    
+    useEffect(() => {
+        dispatch(getAllProveedores())
+    }, [dispatch])
     
     
     useEffect(() => {
@@ -84,11 +91,11 @@ const Form_Compra = () => {
                 button: "ok",
             })}
     }, [alert_msj])
-    
 
+    //estados locales
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
-
+    
     const handleChange = (e) => {
         e.preventDefault()
         setError(
@@ -134,24 +141,10 @@ const Form_Compra = () => {
         form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
         form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
         form.saldo = form.costo_hac
+
         dispatch(postNewCompra(form))
-        console.log(form)
-        // swal({
-        //     title: "Nueva Compra",
-        //     text: alert_msj,
-        //     icon: "success",
-        //     button: "ok",
-        // })
         setForm(formC);
         }
-        // else {
-        //     swal({
-        //         title: "Alerta",
-        //         text: alert_msj,
-        //         icon: "warning",
-        //         button: "ok",
-        //     })
-        // }
     };
 
     function handleSelectCat(e) {
@@ -190,7 +183,7 @@ const Form_Compra = () => {
                             <option value="" selected>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p) => (
-                                    <option	value={p}>{p}</option>
+                                    <option	value={p.nombre}>{p.nombre}</option>
                                     ))
                             }
                         </select>

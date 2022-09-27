@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
+import {getAllProveedores, postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -32,10 +32,10 @@ const formComF = {
 //var para sumar medias
 var m=0
 
-//Arrays para los selects
+//Array para select de frigorífico
 const frigorificos = ["Natilla", "El Hueco"]
-const proveedores = ["Puchulo", "Stopa", "Castillo", "Dib", "Dulio Text", "C Walter"]
 const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
+
 
 //validaciones form Faena
 export const validate = (faena) => {
@@ -74,6 +74,24 @@ const Form_Faena = () => {
     const [formCF, setFormCF] = useState(formComF)
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
+
+    //Estados globales
+    const alert_msj= useSelector ((state)=>state.postFaena);
+    const proveedores = useSelector((state)=>state.AllProveedores);
+    
+    useEffect(() => {
+        dispatch(getAllProveedores())
+    }, [dispatch])
+    
+    
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Faena creada con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+    }, [alert_msj])
 
 
     //handleChange de la faena completa
@@ -114,11 +132,6 @@ const Form_Faena = () => {
             !error2.kg && formCF.kg &&
             !error2.correlativo && formCF.correlativo
         ){
-            form.total_kg=form.total_kg+formCF.kg
-            console.log(form.total_kg)
-            m++
-            form.total_medias = m
-            console.log(form.total_medias)
             form.detalle.push(formCF)
             setFormCF(formComF);
         }
@@ -142,27 +155,20 @@ const Form_Faena = () => {
         !error.detalle && form.detalle &&
         !error.tropa && form.tropa
         ){
-            form.costo_total=form.costoFaenakg*form.total_kg
-            console.log(form.costo_total)
+            form.detalle.map((e)=>{
+                e.tropa=form.tropa
+                e.stock=true
+                dispatch(postNewRes(e))
+                m++
+                form.total_kg=form.total_kg*1+e.kg*1
+            })
+            form.total_medias = m
+            form.costo_total=form.costoFaenakg*1*form.total_kg*1
             form.saldo=form.costo_total
-            console.log(form.saldo)
+            
             dispatch(postNewFaena(form))
-            form.detalle.map((a)=>dispatch(postNewRes(a)))
-            swal({
-                title: "Nueva Faena",
-                text: " Faena cargada correctamente",
-                icon: "success",
-                button: "ok",
-            })
+            console.log(form)
             setForm(formF);
-        }
-        else {
-            swal({
-                title: "Alerta",
-                text: "Datos incorrectos, por favor intente nuevamente",
-                icon: "warning",
-                button: "ok",
-            })
         }
     };
 
@@ -251,7 +257,7 @@ const Form_Faena = () => {
                             <option value="" selected>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p) => (
-                                    <option	value={p}>{p}</option>
+                                    <option	value={p.nombre}>{p.nombre}</option>
                                     ))
                             }
                         </select>
