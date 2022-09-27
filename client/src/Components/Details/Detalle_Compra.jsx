@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getComrpaByID } from "../../Redux/Actions/Actions";
 import tableComprasStyle from "./tableCompraStyle.module.scss"
-const data = require("./data.json")
+
 
 
 
 export default function TableCompra({id_c}){
+        const dispatch = useDispatch()
+        useEffect(() => {
+                dispatch(getComrpaByID(id_c))
+                }, [id_c])
+    const CompraByID = useSelector((state)=>state.CompraByID)
     const array=[]
-
-    for(const [key,value] of Object.entries(data.compra.find(a=>a.ID_compra==id_c))){ //a 0 cambiar por id de compra
-
+    for(const [key,value] of Object.entries(CompraByID)){ //a 0 cambiar por id de compra
     array.push({key,value})
     }
 

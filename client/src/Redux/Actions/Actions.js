@@ -29,7 +29,6 @@ export const setlogin_state = (value) => {
 //     }
 // }
 
-
 export function postLogin(jsonUser){
   return async function (dispatch){
       try{
@@ -62,7 +61,6 @@ export function setStatus(value){
   }
 }
 
-
 //Traer Token de localstorage
 const token = localStorage.getItem("AuthLogin")
 console.log("token")
@@ -77,11 +75,9 @@ export const getAllComrpas = () => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_ALL_COMPRAS",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
@@ -98,10 +94,9 @@ export const getAllComrpasByProveedor = (proveedor) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_COMPRAS_BY_PROVEEDOR",
-            payload: json.data})
+            payload: json.data.data})
 
         }
         catch (error) {
@@ -119,18 +114,15 @@ export const getComrpaByID = (id) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_COMPRA_BY_ID",
-            payload: json.data})
-
+            payload: json.data.data})
         }
         catch (error) {
             console.log(error);
           }
         };
       };
-
 
 //Traer todas las faenas
 export const getAllFaenas = () => {
@@ -153,7 +145,6 @@ export const getAllFaenas = () => {
             type: "GET_ALL_FAENAS",
             payload: response},{
             } )
-
         }
         catch (error) {
             console.log(error);
@@ -170,18 +161,15 @@ export const getFaenasByTropa = (tropa) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_FAENA_BY_TROPA",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
           }
         };
       };
-
 
 //Traer todas las ventas
 export const getAllVentas = () => {
@@ -192,11 +180,9 @@ export const getAllVentas = () => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_ALL_VENTAS",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
@@ -217,20 +203,12 @@ export const getVentasByCliente = (name) => {
           return dispatch({
           type: "GET_ALL_VENTAS_BY_CLIENTE",
           payload: response})
-
       }
       catch (error) {
           console.log(error);
         }
       };
     }; 
-
-
-
-
-
-
-
 
 
 //Traer venta por ID
@@ -242,7 +220,6 @@ export const getVentaByID = (id) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_VENTA_BY_ID",
             payload: json.data.data})
@@ -262,11 +239,9 @@ export const getAllStock = () => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_ALL_STOCK",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
@@ -283,11 +258,9 @@ export const getAllClientes = () => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_ALL_CLIENTES",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
@@ -304,7 +277,6 @@ export const getClienteByID = (id) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_CLIENTE_BY_ID",
             payload: json.data.data})
@@ -328,17 +300,12 @@ export const getAllProveedores = () => {
             return dispatch({
             type: "GET_PROVEEDORES",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
           }
         };
       }; 
-
-
-
-
 
 //Traer Proveedor por ID
 export const getProveedorByID = (id) => {
@@ -349,7 +316,6 @@ export const getProveedorByID = (id) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_PROVEEDOR_BY_ID",
             payload: json.data.data})
@@ -371,12 +337,10 @@ export const getAllReses = () => {
             });
             const ResStock = json.data.data.filter((a)=>a.stock===true)
             const response = [json.data.data,ResStock]
-
             return dispatch({
             type: "GET_RESES",
             payload: response
             })
-
         }
         catch (error) {
             console.log(error);
@@ -395,11 +359,9 @@ export const getResByCorrelativo = (correlativo) => {
                 'auth-token': `${token}`
               }
             });
-        
             return dispatch({
             type: "GET_RES_BY_CORRELATIVO",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
@@ -419,7 +381,6 @@ export const postNewProveedor = (proveedor_json) => {
           return dispatch({
           type: "POST_NEW_PROVEEDOR",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);
@@ -440,7 +401,6 @@ export const postNewCliente = (cliente_json) => {
           return dispatch({
           type: "POST_NEW_CLIENTE",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);
@@ -461,7 +421,6 @@ export const postNewCompra = (compra_json) => {
           return dispatch({
           type: "POST_NEW_COMPRA",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);
@@ -481,7 +440,6 @@ export const postNewVentaCarne = (venta_json) => {
           return dispatch({
           type: "POST_NEW_VENTA_CARNE",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);
@@ -501,7 +459,6 @@ export const postNewVentaAchura = (venta_json) => {
           return dispatch({
           type: "POST_NEW_VENTA_ACHURA",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);
@@ -521,7 +478,6 @@ export const postNewFaena = (faena_json) => {
           return dispatch({
           type: "POST_NEW_FAENA",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);
@@ -543,7 +499,6 @@ export const postNewRes = (res_json) => {
           return dispatch({
           type: "POST_NEW_RES",
           payload: json.data.data})
-
       }
       catch (error) {
           console.log(error);

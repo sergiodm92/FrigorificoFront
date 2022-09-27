@@ -2,6 +2,7 @@ const initialState = {
     login_State: false,
     AllFaenas:[],
     AllProveedores:[],
+    ProveedorById:{},
     FaenaByTropa:[],
     postProveedor:"",
     postCliente:"",
@@ -11,7 +12,9 @@ const initialState = {
     postFaena:"",
     login_status:"",
     AllCompras:[],
+    CompraByID:{},
     AllVentas:[],
+    VentaByID:{},
     AllClientes:[],
     AllStock:[],
     faenasPendientes:[],
@@ -34,10 +37,20 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             AllCompras: action.payload,
             }
+        case "GET_COMPRA_BY_ID":
+            return {
+            ...state,
+            CompraByID: action.payload,
+            }
         case "GET_ALL_VENTAS":
             return {
             ...state,
             AllVentas: action.payload,
+            }
+        case "GET_VENTA_BY_ID":
+            return {
+                ...state,
+                VentaByID:action.payload,
             }
         case "GET_ALL_VENTAS_BY_CLIENTE":
             return {
@@ -71,6 +84,11 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             AllProveedores: action.payload,
         }
+        case "GET_PROVEEDOR_BY_ID":
+            return{
+                ...state,
+                ProveedorById: action.payload,
+            }
         case "GET_FAENA_BY_TROPA":
             return{
                 ...state,
