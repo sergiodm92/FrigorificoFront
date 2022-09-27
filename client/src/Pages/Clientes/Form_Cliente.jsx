@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import {postNewCliente} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-
 import NavBar from '../../Components/Navbar/Navbar'
-
 import styleFormCl from './Form_Cliente.module.scss';
 
 const formCl = {
-    nombreCompleto:'',
+    nombre:'',
     email: '',
     telefono:'',
     direccion:''
@@ -19,9 +18,10 @@ const formCl = {
 export const validate = (cliente) => {
     let error = {};
 
-    if (!cliente.nombreCompleto) error.nombreCompleto = "Falta Nombe";
+    if (!cliente.nombre) error.nombre = "Falta Nombe";
     else if (!/^([da-z_.-]+)@([da-z.-]+).([a-z.]{2,6})$/.test(cliente.email)) error.email = "email incorrecto";
     if (!cliente.telefono) error.telefono = "Falta Teléfono";
+    return error;
 };
 
 const Form_Cliente = () => {
@@ -33,6 +33,7 @@ const Form_Cliente = () => {
     const [error, setError] = useState({});
 
     const handleChange = (e) => {
+        e.preventDefault();
         setError(
         validate({
             ...form,
@@ -45,13 +46,14 @@ const Form_Cliente = () => {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(
-        !error.nombreCompleto && form.nombreCompleto &&
+        !error.nombre && form.nombre &&
         !error.email && form.email &&
         !error.telefono && form.telefono
         ){
-        // dispatch(postCliente(form))
+        dispatch(postNewCliente(form))
         swal({
             title: "Nuevo Cliente",
             text: "Cargado correctamente",
@@ -85,14 +87,14 @@ const Form_Cliente = () => {
                         <h5 className={styleFormCl.title}>Nombre Completo: </h5>
                         <input
                             type="text"
-                            value={form.nombreCompleto}
-                            id="nombreCompleto"
-                            name="nombreCompleto"
+                            value={form.nombre}
+                            id="nombre"
+                            name="nombre"
                             onChange={handleChange}
-                            className={error.nombreCompleto & 'danger'}
+                            className={error.nombre & 'danger'}
                         />
                     </div>
-                    <p className={error.nombreCompleto ? styleFormCl.danger : styleFormCl.pass}>{error.nombreCompleto}</p>
+                    <p className={error.nombre ? styleFormCl.danger : styleFormCl.pass}>{error.nombre}</p>
                     <div className={styleFormCl.formItem}>
                         <h5 className={styleFormCl.title}>email: </h5>
                         <input

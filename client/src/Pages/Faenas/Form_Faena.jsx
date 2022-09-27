@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import {postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar';
 import styleFormF from './Form_Faena.module.scss';
 import CardReses from "../../Components/Cards/CardReses/CardReses";
-import {postNewFaena} from "../../Redux/Actions/Actions";
+
 
 //Form Faena
 const formF = {
@@ -105,6 +106,7 @@ const Form_Faena = () => {
 
     //handleChange de reses
     const handleChangeCF = (e) => { 
+        e.preventDefault();
         setError2(
         validate2({
             ...formCF,

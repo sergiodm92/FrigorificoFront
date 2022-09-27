@@ -12,7 +12,7 @@ export default function NoAccess(){
     return(
         <div className={StyleNA.ConteinerCompras}>
             <NavBar
-            title={"Clientes"}
+            title={"Sin Acceso"}
             />
                 <div className={StyleNA.ConteinerCompras}>
 

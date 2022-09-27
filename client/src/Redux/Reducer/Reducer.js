@@ -14,7 +14,11 @@ const initialState = {
     AllVentas:[],
     AllClientes:[],
     AllStock:[],
-    faenasPendientes:[]
+    faenasPendientes:[],
+    ClienteById:{},
+    AllVentasByCliente:[],
+    AllReses:[],
+    AllResesStockTrue:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -35,15 +39,26 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             AllVentas: action.payload,
             }
+        case "GET_ALL_VENTAS_BY_CLIENTE":
+            return {
+            ...state,
+            AllVentasByCliente: action.payload
+            }
         case "GET_ALL_CLIENTES":
             return {
             ...state,
             AllClientes: action.payload,
             }
-        case "GET_ALL_STOCK":
+        case "GET_CLIENTE_BY_ID":
             return {
             ...state,
-            AllStock: action.payload,
+            ClienteById:action.payload
+            }
+        case "GET_ALL_RESES":
+            return {
+            ...state,
+            AllReses: action.payload[0],
+            AllResesStockTrue: action.payload[1],
             }
         case "GET_ALL_FAENAS":
             return{
