@@ -68,7 +68,7 @@ function App() {
     <Route exact path="/Historial_Faena" element={state_login?<Historial_Faena />:<NoAccess/>} />
     <Route exact path="/Home" element={state_login?<Home />:<NoAccess/>} />
     <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
-    <Route exact path="/Detalle_Proveedor/:name" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
+    <Route exact path="/Detalle_Proveedor/:id" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
     <Route exact path="/Form_Proveedor" element={state_login?<Form_Proveedor />:<NoAccess/>} />
     <Route exact path="/Historial_Compras_Proveedor/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
     <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
