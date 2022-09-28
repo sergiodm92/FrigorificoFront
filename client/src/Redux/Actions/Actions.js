@@ -329,7 +329,8 @@ export const getProveedorByID = (id) => {
 export const getAllReses = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/reses/all`,{
+          
+            const json = await axios.get(`${URL}/res/all`,{
               headers: {
                 'auth-token': `${token}`
               }

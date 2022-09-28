@@ -67,7 +67,7 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             ClienteById:action.payload
             }
-        case "GET_ALL_RESES":
+        case "GET_RESES":
             return {
             ...state,
             AllReses: action.payload[0],
