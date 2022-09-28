@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllProveedores, postNewCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, postNewCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
@@ -77,9 +77,11 @@ const Form_Compra = () => {
     //Estados globales
     const alert_msj= useSelector ((state)=>state.postCompra);
     const proveedores = useSelector((state)=>state.AllProveedores);
+    const faenas = useSelector((state)=>state.AllFaenas)
     
     useEffect(() => {
         dispatch(getAllProveedores())
+        dispatch(getAllFaenas())
     }, [dispatch])
 
     
@@ -143,8 +145,10 @@ const Form_Compra = () => {
         form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
         form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
         form.saldo = form.costo_hac
-
-
+        //agregando compraId a la faena seleccionada
+        faenas.map((c)=>{
+            while(c.tropa===form.n_tropa) c.compraId=form.Id
+        })
 
         dispatch(postNewCompra(form))
         setForm(formC);
@@ -162,6 +166,12 @@ const Form_Compra = () => {
         setForm({
             ...form,
             proveedor:  e.target.value
+        })
+    }
+    function handleSelectTr(e) {
+        setForm({
+            ...form,
+            n_tropa:  e.target.value
         })
     }
 
@@ -297,18 +307,18 @@ const Form_Compra = () => {
                     </div>
                     <p className={error.precio_kgv_netos ? styleFormC.danger : styleFormC.pass}>{error.precio_kgv_netos}</p>
                     <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}> N° Tropa: </h5>
-                        <input
-                            type="text"
-                            value={form.n_tropa}
-                            id="n_tropa"
-                            name="n_tropa"
-                            onChange={handleChange}
-                            placeholder="00000"
-                            className={error.n_tropa & 'danger'}
-                        />
-                    </div>
+                            <h5 className={styleFormC.title}>N° Tropa: </h5>
+                            <select className="selectform" onChange={(e)=> handleSelectTr(e)}>
+                                <option value="" selected>-</option>
+                                {faenas.length > 0 &&  
+                                faenas.map((c) => (
+                                        <option	value={c.tropa}>{c.tropa}</option>
+                                        ))
+                                }
+                            </select>
+                        </div>
                     <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>
+                    
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>kg de Carne: </h5>
                         <input

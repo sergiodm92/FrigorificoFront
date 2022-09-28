@@ -12,6 +12,7 @@ import CardReses from "../../Components/Cards/CardReses/CardReses";
 
 //Form Faena
 const formF = {
+    ID:'',
     fecha: '',
     frigorifico: '',
     tropa: '',
@@ -25,12 +26,16 @@ const formF = {
 };
 //Form para cargar las reses del detalle de Faena
 const formComF = {
+    garron:'',
+    kg1:'',
+    kg2:'',
     correlativo: '',
     categoria: '',
     kg: ''
 };
 //var para sumar medias
-var m=0
+var m=0;
+var elHueco=[];
 
 //Array para select de frigorífico
 const frigorificos = ["Natilla", "El Hueco"]
@@ -55,11 +60,12 @@ export const validate = (faena) => {
 //validaciones de reses
 export const validate2 = (res) => {
     let error2 = {};
-    if (!res.correlativo) error2.correlativo = "Falta correlativo";
-    else if (!/^([0-9])*$/.test(res.correlativo)) error2.correlativo = "Correlativo debe ser un número";
-    if (!res.categoria) error2.categoria = "Falta categoría";
-    if (!res.kg) error2.kg = "Falta kg";
+    if (!/^([0-9])*$/.test(res.correlativo)) error2.correlativo = "Correlativo debe ser un número";
+    if (!/^([0-9])*$/.test(res.garron)) error2.garron = "Garrón debe ser un número";
     else if (!/^([0-9])*$/.test(res.kg)) error2.kg = "kg debe ser un número";
+    else if (!/^([0-9])*$/.test(res.kg1)) error2.kg1 = "kg1 debe ser un número";
+    else if (!/^([0-9])*$/.test(res.kg2)) error2.kg2 = "kg2 debe ser un número";
+    if (!res.categoria) error2.categoria = "Falta categoría";
     return error2;
 };
 
@@ -127,15 +133,16 @@ const Form_Faena = () => {
     //handleSubmit de las reses
     const handleSubmitRes = (e) => {   
         e.preventDefault();
-        if(
-            !error2.categoria && formCF.categoria &&
-            !error2.kg && formCF.kg &&
-            !error2.correlativo && formCF.correlativo
-        ){
-            form.detalle.push(formCF)
+        try{
+            if(formCF.garron!==""){
+                elHueco.push(formCF)
+            }
+            else{
+                form.detalle.push(formCF)
+            }
             setFormCF(formComF);
         }
-        else {
+        catch (err) {
             swal({
                 title: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
@@ -155,13 +162,41 @@ const Form_Faena = () => {
         !error.detalle && form.detalle &&
         !error.tropa && form.tropa
         ){
-            form.detalle.map((e)=>{
-                e.tropa=form.tropa
-                e.stock=true
-                dispatch(postNewRes(e))
-                m++
-                form.total_kg=form.total_kg*1+e.kg*1
-            })
+            if(elHueco.length>0){
+                elHueco.map((e)=>{
+                    // dividimos garron en dos reses con correlativo
+                    //primera res correlativo garron-kg1
+                    formCF.categoria=e.categoria
+                    formCF.correlativo=e.garron+"-"+e.kg1
+                    formCF.kg=e.kg1
+                    formCF.tropa=form.tropa
+                    formCF.stock=true
+                    dispatch(postNewRes(formCF))
+                    m++
+                    form.total_kg=form.total_kg*1+formCF.kg*1
+                    form.detalle.push(formCF)
+                    setFormCF(formComF)
+                    //segunda res correlativo garron-kg2
+                    e.correlativo=e.garron+"-"+e.kg2
+                    e.kg=e.kg2
+                    e.tropa=form.tropa
+                    e.stock=true
+                    dispatch(postNewRes(e))
+                    m++
+                    form.total_kg=form.total_kg*1+e.kg*1
+                    form.detalle.push(e)
+                })
+            }
+            else{
+                form.detalle.map((e)=>{
+                    e.tropa=form.tropa
+                    e.stock=true
+                    dispatch(postNewRes(e))
+                    m++
+                    form.total_kg=form.total_kg*1+e.kg*1
+                })
+            }
+            form.ID=form.tropa
             form.total_medias = m
             form.costo_total=form.costoFaenakg*1*form.total_kg*1
             form.saldo=form.costo_total
@@ -265,40 +300,92 @@ const Form_Faena = () => {
 
                     {/*----------------Carga del detalle---------------------*/}
                     <div className={styleFormF.formItem2}>
-                        <div className={styleFormF.item}>
-                            <h5 className={styleFormF.title}>Correlativo: </h5>
-                            <input
-                                type="text"
-                                value={formCF.correlativo}
-                                id="correlativo"
-                                name="correlativo"
-                                onChange={handleChangeCF}
-                                placeholder="0000"
-                                className={styleFormF.size2}
-                            />
-                        </div>
-                        <div className={styleFormF.item}>
-                            <select className="selectform" onChange={(e)=> handleSelect(e)}>
-                                <option value="" selected>Categoría</option>
-                                {categorias.length > 0 &&  
-                                categorias.map((c) => (
-                                    <option	value={c}>{c}</option>
-                                ))
-                                }
-                            </select>
-                            <div className={styleFormF.numero}>
-                                <h5 className={styleFormF.title}>kg </h5>
-                                <input
-                                    type="text"
-                                    value={formCF.kg}
-                                    id="kg"
-                                    name="kg"
-                                    onChange={handleChangeCF}
-                                    placeholder="00"
-                                    className={styleFormF.size2}
-                                />
+                        {form.frigorifico==="El Hueco"?
+                            <div className={styleFormF.inbox}>
+                                <div className={styleFormF.item}>
+                                    <h5 className={styleFormF.title}>Garrón: </h5>
+                                    <input
+                                        type="text"
+                                        value={formCF.garron}
+                                        id="garron"
+                                        name="garron"
+                                        onChange={handleChangeCF}
+                                        placeholder="0000"
+                                        className={styleFormF.size2}
+                                    />
+                                </div>
+                                <div className={styleFormF.item}>
+                                    <h5 className={styleFormF.title}>kg1: </h5>
+                                    <input
+                                        type="text"
+                                        value={formCF.kg1}
+                                        id="kg1"
+                                        name="kg1"
+                                        onChange={handleChangeCF}
+                                        placeholder="0000"
+                                        className={styleFormF.size2}
+                                    />
+                                </div>
+                                <div className={styleFormF.item}>
+                                    <h5 className={styleFormF.title}>kg2: </h5>
+                                    <input
+                                        type="text"
+                                        value={formCF.kg2}
+                                        id="kg2"
+                                        name="kg2"
+                                        onChange={handleChangeCF}
+                                        placeholder="0000"
+                                        className={styleFormF.size2}
+                                    />
+                                </div>
+                                <div className={styleFormF.item}>
+                                    <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                        <option value="" selected>Categoría</option>
+                                            {categorias.length > 0 &&  
+                                            categorias.map((c) => (
+                                                <option	value={c}>{c}</option>
+                                            ))
+                                            }
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            <div className={styleFormF.inbox}>
+                                <div className={styleFormF.item}>
+                                    <h5 className={styleFormF.title}>Correlativo: </h5>
+                                    <input
+                                        type="text"
+                                        value={formCF.correlativo}
+                                        id="correlativo"
+                                        name="correlativo"
+                                        onChange={handleChangeCF}
+                                        placeholder="0000"
+                                        className={styleFormF.size2}
+                                    />
+                                </div>
+                                <div className={styleFormF.item}>
+                                    <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                        <option value="" selected>Categoría</option>
+                                            {categorias.length > 0 &&  
+                                            categorias.map((c) => (
+                                                <option	value={c}>{c}</option>
+                                            ))
+                                            }
+                                    </select>
+                                    <div className={styleFormF.numero}>
+                                        <h5 className={styleFormF.title}>kg </h5>
+                                        <input
+                                            type="text"
+                                            value={formCF.kg}
+                                            id="kg"
+                                            name="kg"
+                                            onChange={handleChangeCF}
+                                            placeholder="00"
+                                            className={styleFormF.size2}
+                                        />
+                                    </div>
+                                </div>
+                            </div>}
                     </div>
                     <div className={styleFormF.button}>
                         <ButtonNew
@@ -320,7 +407,19 @@ const Form_Faena = () => {
                                 />
                             )
                         })
-                        :null
+                        :elHueco.length?
+                            elHueco.map((e)=>{
+                                return(
+                                    <CardReses
+                                        garron={e.garron}
+                                        categoria={e.categoria}
+                                        kg1={e.kg1}
+                                        kg2={e.kg2}
+                                        onClick={()=> handleDelete(e)}
+                                    />
+                                )
+                            })
+                            :null
                     }
                     <div className={styleFormF.formItem}>
                         <div>

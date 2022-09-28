@@ -8,7 +8,7 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 
 import styleFormV from './Form_Venta.module.scss';
-import { getAllClientes, postNewVentaCarne } from "../../Redux/Actions/Actions";
+import { getAllClientes, getAllReses, postNewVentaCarne } from "../../Redux/Actions/Actions";
 
 //Form Venta
 var formV = {
@@ -36,6 +36,7 @@ var formComV = {
 var pxk=0;
 var m=0;
 var cxk=0;
+// var stockCat=[];
 
 // Arrays para los selects
 const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
@@ -81,11 +82,15 @@ const Form_Venta = () => {
 
     //estados globales
     const alert_msj= useSelector ((state)=>state.postVentaCarne);
+    const stock=useSelector((state)=>state.AllResesStockTrue)
+    console.log(stock)
     const clientes = useSelector((state)=>state.AllClientes);
     
     useEffect(() => {
         dispatch(getAllClientes())
+        dispatch(getAllReses())
     }, [dispatch])
+
 
     useEffect(() => {
         if(alert_msj!==""){
@@ -182,6 +187,14 @@ const Form_Venta = () => {
         })
     }
 
+    //Select de Correlativo
+    function handleSelectCorr(e) {
+        setForm({
+            ...form,
+            correlativo: e.target.value
+        })
+    }
+
     //Select de las reses
     function handleSelectRes(e) {
         setFormCV({
@@ -263,18 +276,18 @@ const Form_Venta = () => {
                                 }
                             </select>
                         </div>
-                        <div className={styleFormV.item}>
-                            <h5 className={styleFormV.title}>Correlativo: </h5>
-                            <input
-                                type="text"
-                                value={form.correlativo}
-                                id="correlativo"
-                                name="correlativo"
-                                onChange={handleChangeCV}
-                                placeholder="0000"
-                                className={styleFormV.size2}
-                            />
-                        </div>
+                        {/* {stockCat = stock.filter((a)=>a.categoria===form.categoria)} */}
+                        <div className={styleFormV.formItem}>
+                        <h5 className={styleFormV.title}>Correlativo: </h5>
+                        <select className="selectform" onChange={(e)=> handleSelectCorr(e)}>
+                            <option value="" selected>-</option>
+                            {stock.length > 0 &&  
+                            stock.map((c) => (
+                                    <option	value={c.correlativo}>{c.correlativo}</option>
+                                    ))
+                            }
+                        </select>
+                    </div>
                         <div className={styleFormV.item}>
                             <h5 className={styleFormV.title}>kg </h5>
                             <input
