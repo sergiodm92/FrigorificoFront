@@ -133,6 +133,7 @@ const Form_Faena = () => {
     //handleSubmit de las reses
     const handleSubmitRes = (e) => {   
         e.preventDefault();
+        console.log(formCF)
         try{
             if(formCF.garron!==""){
                 elHueco.push(formCF)
@@ -155,32 +156,28 @@ const Form_Faena = () => {
     //handleSubmit de la faena completa
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(
-        !error.fecha && form.fecha &&
-        !error.frigorífico && form.frigorifico &&
-        !error.proveedor && form.proveedor &&
-        !error.detalle && form.detalle &&
-        !error.tropa && form.tropa
-        ){
+        console.log(form)
             if(elHueco.length>0){
                 elHueco.map((e)=>{
                     // dividimos garron en dos reses con correlativo
                     //primera res correlativo garron-kg1
-                    formCF.categoria=e.categoria
-                    formCF.correlativo=e.garron+"-"+e.kg1
-                    formCF.kg=e.kg1
-                    formCF.tropa=form.tropa
-                    formCF.stock=true
-                    dispatch(postNewRes(formCF))
+                    let formRes={}
+                    formRes.categoria=e.categoria
+                    formRes.correlativo=e.garron+"-"+e.kg1
+                    formRes.kg=e.kg1
+                    formRes.tropa=form.tropa
+                    formRes.stock=true
+                    console.log(formRes)
+                    dispatch(postNewRes(formRes))
                     m++
                     form.total_kg=form.total_kg*1+formCF.kg*1
-                    form.detalle.push(formCF)
-                    setFormCF(formComF)
+                    form.detalle.push(formRes)
                     //segunda res correlativo garron-kg2
                     e.correlativo=e.garron+"-"+e.kg2
                     e.kg=e.kg2
                     e.tropa=form.tropa
                     e.stock=true
+                    console.log(e)
                     dispatch(postNewRes(e))
                     m++
                     form.total_kg=form.total_kg*1+e.kg*1
@@ -196,15 +193,12 @@ const Form_Faena = () => {
                     form.total_kg=form.total_kg*1+e.kg*1
                 })
             }
-            form.ID=form.tropa
             form.total_medias = m
             form.costo_total=form.costoFaenakg*1*form.total_kg*1
             form.saldo=form.costo_total
-            
-            dispatch(postNewFaena(form))
             console.log(form)
+            dispatch(postNewFaena(form))
             setForm(formF);
-        }
     };
 
     //Select de frigoríficos
@@ -236,6 +230,8 @@ const Form_Faena = () => {
 
     //funcion para eliminar reses del detalle
     const handleDelete = (e)=>{
+        elHueco=elHueco.filter(d => d !== e)
+        console.log(elHueco)
         setForm({
             ...form,
             detalle: form.detalle.filter(d => d !== e)
@@ -440,17 +436,25 @@ const Form_Faena = () => {
                     </div>
                     <p className={error.costoFaenakg ? styleFormF.danger : styleFormF.pass}>{error.costoFaenakg}</p>
                     <div className={styleFormF.buttons}>
-                        <ShortButton
-                            title="📃 Detalle"
-                            onClick={handleDet}
-                            color="primary"
-                        />
-                        <ShortButton
-                            title="✔ Confirmar"
-                            onClick={handleSubmit}
-                            color="green"
-
-                        />
+                        <div className={styleFormF.shortButtons}>
+                            <ShortButton
+                                title="📃 Detalle"
+                                onClick={handleDet}
+                                color="primary"
+                            />
+                            <ShortButton
+                                title="✔ Confirmar"
+                                onClick={handleSubmit}
+                                color="green"
+                            />
+                        </div>
+                        <div className={styleFormF.shortButtons}>
+                            <ShortButton
+                                title="🧹 Limpiar"
+                                onClick={window.location.reload}
+                                color="primary"
+                            />
+                        </div>
                     </div>
                 </form>
             </div>

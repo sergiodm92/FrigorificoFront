@@ -476,6 +476,7 @@ export const postNewFaena = (faena_json) => {
             'auth-token': `${token}`
           }
           })
+          console.log(json.data.data)
           return dispatch({
           type: "POST_NEW_FAENA",
           payload: json.data.data})
