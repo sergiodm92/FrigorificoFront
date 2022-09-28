@@ -8,6 +8,7 @@ import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
 const formC = {
+    id:'',
     proveedor: '',
     fecha: '',
     lugar: '',
@@ -84,8 +85,6 @@ const Form_Compra = () => {
         dispatch(getAllFaenas())
     }, [dispatch])
 
-    
-    
     useEffect(() => {
         if(alert_msj!==""){
             swal({
@@ -134,24 +133,27 @@ const Form_Compra = () => {
         !error.costo_faena_kg && form.costo_faena_kg
         ){
             //cargo el resto de las propiedades
-        form.kg_desbaste = form.kgv_brutos*1 * form.desbaste;
-        form.kgv_netos = form.kgv_brutos*1 - form.kg_desbaste*1;
-        form.rinde = form.kg_carne  * 100 / (form.kgv_netos*1) ;
-        form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1) ;
-        form.costo_hac = form.kgv_netos*1  * form.precio_kgv_netos;
-        form.costo_faena = form.costo_faena_kg*1  * form.kg_carne;
-        if(form.switch_comision===true) form.comision = 0.02 * form.costo_hac;
-        form.costo_veps = form.costo_veps_unit*1  * form.cant;
-        form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
-        form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
-        form.saldo = form.costo_hac
-        //agregando compraId a la faena seleccionada
-        faenas.map((c)=>{
-            while(c.tropa===form.n_tropa) c.compraId=form.Id
+            form.kg_desbaste = form.kgv_brutos*1 * form.desbaste;
+            form.kgv_netos = form.kgv_brutos*1 - form.kg_desbaste*1;
+            //agregando compraId a la faena seleccionada
+            faenas.map((c)=>{
+            while(c.tropa===form.n_tropa){
+                form.kg_carne=c.total_kg
+                c.compraId=form.id
+            } 
         })
-
-        dispatch(postNewCompra(form))
-        setForm(formC);
+            form.rinde = form.kg_carne  * 100 / (form.kgv_netos*1) ;
+            form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1) ;
+            form.costo_hac = form.kgv_netos*1  * form.precio_kgv_netos;
+            form.costo_faena = form.costo_faena_kg*1  * form.kg_carne;
+            if(form.switch_comision===true) form.comision = 0.02 * form.costo_hac;
+            form.costo_veps = form.costo_veps_unit*1  * form.cant;
+            form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
+            form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
+            form.saldo = form.costo_hac
+            
+            dispatch(postNewCompra(form))
+            setForm(formC);
         }
 
     };
