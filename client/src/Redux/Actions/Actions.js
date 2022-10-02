@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL=`https://frigorifico-backend.herokuapp.com`
+const URL=``
 
 
 // estado de login
@@ -470,13 +470,11 @@ export const postNewVentaAchura = (venta_json) => {
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
       try {
-          console.log(faena_json)
           const json = await axios.post(`${URL}/faenas`, faena_json,{
           headers: {
             'auth-token': `${token}`
           }
           })
-          console.log(json.data.data)
           return dispatch({
           type: "POST_NEW_FAENA",
           payload: json.data.data})
@@ -498,6 +496,7 @@ export const postNewRes = (res_json) => {
             'auth-token': `${token}`
           }
           })
+          console.log(json.data.data)
           return dispatch({
           type: "POST_NEW_RES",
           payload: json.data.data})
