@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch} from "react-redux";
 import { useNavigate } from "react-router";
+import { postNewProveedor } from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-
 import NavBar from '../../Components/Navbar/Navbar'
-
 import styleFormPr from './Form_Proveedor.module.scss';
 
 const formPr = {
-    nombreCompleto:'',
+    nombre:'',
     email: '',
     telefono:'',
     direccion:''
@@ -18,10 +17,10 @@ const formPr = {
 //validaciones
 export const validate = (proveedor) => {
     let error = {};
-
-    if (!proveedor.nombreCompleto) error.nombreCompleto = "Falta Nombe";
+    if (!proveedor.nombre) error.nombre = "Falta Nombe";
     else if (!/^([da-z_.-]+)@([da-z.-]+).([a-z.]{2,6})$/.test(proveedor.email)) error.email = "email incorrecto";
     if (!proveedor.telefono) error.telefono = "Falta Teléfono";
+    return error;
 };
 
 const Form_Proveedor = () => {
@@ -33,6 +32,7 @@ const Form_Proveedor = () => {
     const [error, setError] = useState({});
 
     const handleChange = (e) => {
+        e.preventDefault();
         setError(
         validate({
             ...form,
@@ -40,18 +40,19 @@ const Form_Proveedor = () => {
         })
         );
         setForm({
-        ...form,
-        [e.target.name]: e.target.value,
+            ...form,
+            [e.target.name]: e.target.value,
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(
-        !error.nombreCompleto && form.nombreCompleto &&
+        !error.nombre && form.nombre &&
         !error.email && form.email &&
         !error.telefono && form.telefono
         ){
-        // dispatch(postCliente(form))
+        dispatch(postNewProveedor(form))
         swal({
             title: "Nuevo Proveedor",
             text: "Cargado correctamente",
@@ -85,11 +86,11 @@ const Form_Proveedor = () => {
                         <h5 className={styleFormPr.title}>Nombre Completo: </h5>
                         <input
                             type="text"
-                            value={form.nombreCompleto}
-                            id="nombreCompleto"
-                            name="nombreCompleto"
+                            value={form.nombre}
+                            id="nombre"
+                            name="nombre"
                             onChange={handleChange}
-                            className={error.nombreCompleto & 'danger'}
+                            className={error.nombre & 'danger'}
                         />
                     </div>
                     <p className={error.nombreCompleto ? styleFormPr.danger : styleFormPr.pass}>{error.nombreCompleto}</p>
