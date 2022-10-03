@@ -40,7 +40,7 @@ export default function Clientes(){
                                 id={a.ID}
                                 fecha={a.nombre}
                                 otro="08/08/2022"
-                                monto="$125000"
+                                monto={a.saldo || 0}
                                 tipo={"Detalle_Cliente"}
                                 pago={false}
                             />

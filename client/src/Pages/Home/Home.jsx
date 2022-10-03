@@ -4,9 +4,26 @@ import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import styleH from "./Home.module.scss";
 import {useNavigate} from "react-router-dom";
 
+
+
+
 export default function Home(){
 
-    const navigate= useNavigate()
+const navigate= useNavigate()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return(
         <div className={styleH.wallpaper}>
             <div className={styleH.block1BH}><div className={styleH.logo}></div></div>
