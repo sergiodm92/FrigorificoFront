@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL=``
+const URL=``  
 
 
 // estado de login
@@ -506,5 +506,6 @@ export const postNewRes = (res_json) => {
         }
       };
     };
+
 
 

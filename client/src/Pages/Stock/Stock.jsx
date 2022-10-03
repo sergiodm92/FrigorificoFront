@@ -20,7 +20,7 @@ export default function Stock(){
     let nov=["Novillo",0,0,0]
     let toro=["Toro",0,0,0]
 
-   
+    console.log(AllResesStockTrue)
     AllResesStockTrue.map((a)=>{
             total_kg[3]+=a.kg;
             if(a.categoria==="Vaquillon"){

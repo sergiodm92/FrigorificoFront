@@ -7,9 +7,6 @@ import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import styleCom from "./Compras.module.scss"
 
-
-
-
 export default function Compras(){
     const AllCompras= useSelector((state)=>(state.AllCompras))
     const dispatch = useDispatch()
