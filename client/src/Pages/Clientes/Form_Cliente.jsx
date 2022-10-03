@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import {postNewCliente} from "../../Redux/Actions/Actions.js";
@@ -17,7 +17,6 @@ const formCl = {
 //validaciones
 export const validate = (cliente) => {
     let error = {};
-
     if (!cliente.nombre) error.nombre = "Falta Nombe";
     else if (!/^([da-z_.-]+)@([da-z.-]+).([a-z.]{2,6})$/.test(cliente.email)) error.email = "email incorrecto";
     if (!cliente.telefono) error.telefono = "Falta Teléfono";
@@ -41,8 +40,8 @@ const Form_Cliente = () => {
         })
         );
         setForm({
-        ...form,
-        [e.target.name]: e.target.value,
+            ...form,
+            [e.target.name]: e.target.value,
         });
     };
 

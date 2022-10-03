@@ -60,7 +60,7 @@ export default function Login(){
           placeholder="Ingrese el usuario"
           id="usuario"
           name="name"
-          maxlength="10"
+          maxlength="15"
           type="text"
           onChange={handleChange}
           className={styleL.user}
@@ -72,7 +72,7 @@ export default function Login(){
           placeholder="Ingrese la contraseña"
           id="password"
           name="password"
-          maxlength="8"
+          maxlength="15"
           type="password"
           onChange={handleChange}
           className={styleL.user}
