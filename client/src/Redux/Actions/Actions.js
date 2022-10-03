@@ -1,6 +1,6 @@
 import axios from "axios";
 const URL=``  
-
+const jsonproveedores = require("../../jsons/proveedores.json")
 
 // estado de login
 export const login_state = () => {
@@ -373,6 +373,7 @@ export const getResByCorrelativo = (correlativo) => {
 export const postNewProveedor = (proveedor_json) => {
   return async (dispatch) => {
       try {
+          jsonproveedores.proveedores.push(proveedor_json)
           const json = await axios.post(`${URL}/proveedores`, proveedor_json,{
           headers: {
             'auth-token': `${token}`
