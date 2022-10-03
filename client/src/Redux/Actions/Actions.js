@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL=`https://frigorifico-backend.herokuapp.com`
+const URL=``  
 
 
 // estado de login
@@ -507,5 +507,6 @@ export const postNewRes = (res_json) => {
         }
       };
     };
+
 
 
