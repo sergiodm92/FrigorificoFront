@@ -491,6 +491,7 @@ export const postNewFaena = (faena_json) => {
 export const postNewRes = (res_json) => {
   return async (dispatch) => {
       try {
+          console.log(res_json)
           const json = await axios.post(`${URL}/res`, res_json,{
           headers: {
             'auth-token': `${token}`
@@ -502,6 +503,7 @@ export const postNewRes = (res_json) => {
           payload: json.data.data})
       }
       catch (error) {
+          console.log("-----Muestra el ERROR------");
           console.log(error);
         }
       };
