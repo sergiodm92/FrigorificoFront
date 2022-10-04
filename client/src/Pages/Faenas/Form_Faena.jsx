@@ -141,12 +141,12 @@ const Form_Faena = () => {
             //primera res correlativo garron-kg1
                 var formRes={}
                 formRes.categoria=formCF.categoria
-                formRes.correlativo=formCF.garron+formCF.kg1
+                formRes.correlativo=formCF.garron+"-"+formCF.kg1
                 formRes.kg=formCF.kg1
                 console.log(formRes)
                 form.detalle.push(formRes)
             //segunda res correlativo garron-kg2
-                formCF.correlativo=formCF.garron+formCF.kg2
+                formCF.correlativo=formCF.garron+"-"+formCF.kg2
                 formCF.kg=formCF.kg2
                 console.log(formCF)
                 form.total_kg=form.total_kg*1+e.kg*1
@@ -155,6 +155,7 @@ const Form_Faena = () => {
             else{
                 form.detalle.push(formCF)
             }
+            document.getElementById("categoria").selectedIndex = 0
             setFormCF(formComF);
         }
         catch (err) {
@@ -186,6 +187,8 @@ const Form_Faena = () => {
         form.saldo=form.costo_total
         console.log(form)
         dispatch(postNewFaena(form))
+        document.getElementById("proveedor").selectedIndex = 0
+        document.getElementById("frigorifico").selectedIndex = 0
         setForm(formF);
     };
 
@@ -246,7 +249,7 @@ const Form_Faena = () => {
                     <p className={error.fecha ? styleFormF.danger : styleFormF.pass}>{error.fecha}</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Frigorífico: </h5>
-                        <select className="selectform" onChange={(e)=> handleSelectFr(e)}>
+                        <select id="frigorifico" className="selectform" onChange={(e)=> handleSelectFr(e)}>
                             <option value="" selected>-</option>
                             {frigorificos.length > 0 &&  
                             frigorificos.map((f) => (
@@ -270,7 +273,7 @@ const Form_Faena = () => {
                     <p className={error.tropa ? styleFormF.danger : styleFormF.pass}>{error.tropa}</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Proveedor: </h5>
-                        <select className="selectform" onChange={(e)=> handleSelectPr(e)}>
+                        <select id="proveedor" className="selectform" onChange={(e)=> handleSelectPr(e)}>
                             <option value="" selected>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p) => (
@@ -321,7 +324,7 @@ const Form_Faena = () => {
                                     />
                                 </div>
                                 <div className={styleFormF.item}>
-                                    <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                    <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" selected>Categoría</option>
                                             {categorias.length > 0 &&  
                                             categorias.map((c) => (
@@ -346,7 +349,7 @@ const Form_Faena = () => {
                                     />
                                 </div>
                                 <div className={styleFormF.item}>
-                                    <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                    <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" selected>Categoría</option>
                                             {categorias.length > 0 &&  
                                             categorias.map((c) => (
@@ -432,13 +435,6 @@ const Form_Faena = () => {
                                 title="✔ Confirmar"
                                 onClick={handleSubmit}
                                 color="green"
-                            />
-                        </div>
-                        <div className={styleFormF.shortButtons}>
-                            <ShortButton
-                                title="🧹 Limpiar"
-                                onClick={window.location.reload}
-                                color="primary"
                             />
                         </div>
                     </div>
