@@ -141,6 +141,9 @@ const Form_Compra = () => {
             form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
             form.saldo = form.costo_hac
             dispatch(postNewCompra(form))
+            document.getElementById("proveedor").selectedIndex = 0
+            document.getElementById("categoria").selectedIndex = 0
+            document.getElementById("tropa").selectedIndex = 0
             setForm(formC);
         }
         else{
@@ -186,7 +189,7 @@ const Form_Compra = () => {
                 <form className={styleFormC.form}>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>Proveedor: </h5>
-                        <select className="selectform" onChange={(e)=> handleSelectPr(e)}>
+                        <select id="proveedor" className="selectform" onChange={(e)=> handleSelectPr(e)}>
                             <option value="" selected>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p) => (
@@ -232,7 +235,7 @@ const Form_Compra = () => {
                     <p className={error.n_dte ? styleFormC.danger : styleFormC.pass}>{error.n_dte}</p>
                     <div className={styleFormC.formItem}>
                         <div>
-                            <select className="selectform" onChange={(e)=> handleSelectCat(e)}>
+                            <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
                                 <option value="" selected>Categoría</option>
                                 {categorias.length > 0 &&  
                                 categorias.map((c) => (
@@ -300,7 +303,7 @@ const Form_Compra = () => {
                     <p className={error.precio_kgv_netos ? styleFormC.danger : styleFormC.pass}>{error.precio_kgv_netos}</p>
                     <div className={styleFormC.formItem}>
                             <h5 className={styleFormC.title}>N° Tropa: </h5>
-                            <select className="selectform" onChange={(e)=> handleSelectTr(e)}>
+                            <select id="tropa" className="selectform" onChange={(e)=> handleSelectTr(e)}>
                                 <option value="" selected>-</option>
                                 {faenas.length > 0 &&  
                                 faenas.map((c) => (
@@ -382,13 +385,6 @@ const Form_Compra = () => {
                                 title="✔ Confirmar"
                                 onClick={handleSubmit}
                                 color="green"
-                            />
-                        </div>
-                        <div className={styleFormC.shortButtons}>
-                            <ShortButton
-                                title="🧹 Limpiar"
-                                onClick={window.location.reload}
-                                color="primary"
                             />
                         </div>
                     </div>
