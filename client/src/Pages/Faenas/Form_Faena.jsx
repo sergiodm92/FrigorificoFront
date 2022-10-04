@@ -91,6 +91,7 @@ const Form_Faena = () => {
     
     
     useEffect(() => {
+        console.log("----ALERT------")
         if(alert_msj!==""){
             swal({
                 title: alert_msj,
@@ -136,11 +137,25 @@ const Form_Faena = () => {
         console.log(formCF)
         try{
             if(formCF.garron!==""){
-                elHueco.push(formCF)
+            // dividimos garron en dos reses con correlativo
+            //primera res correlativo garron-kg1
+                var formRes={}
+                formRes.categoria=formCF.categoria
+                formRes.correlativo=formCF.garron+"-"+formCF.kg1
+                formRes.kg=formCF.kg1
+                console.log(formRes)
+                form.detalle.push(formRes)
+            //segunda res correlativo garron-kg2
+                formCF.correlativo=formCF.garron+"-"+formCF.kg2
+                formCF.kg=formCF.kg2
+                console.log(formCF)
+                form.total_kg=form.total_kg*1+e.kg*1
+                form.detalle.push(formCF)
             }
             else{
                 form.detalle.push(formCF)
             }
+            document.getElementById("categoria").selectedIndex = 0
             setFormCF(formComF);
         }
         catch (err) {
@@ -157,48 +172,24 @@ const Form_Faena = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(form)
-            if(elHueco.length>0){
-                elHueco.map((e)=>{
-                    // dividimos garron en dos reses con correlativo
-                    //primera res correlativo garron-kg1
-                    let formRes={}
-                    formRes.categoria=e.categoria
-                    formRes.correlativo=e.garron+"-"+e.kg1
-                    formRes.kg=e.kg1
-                    formRes.tropa=form.tropa
-                    formRes.stock=true
-                    console.log(formRes)
-                    dispatch(postNewRes(formRes))
-                    m++
-                    form.total_kg=form.total_kg*1+formCF.kg*1
-                    form.detalle.push(formRes)
-                    //segunda res correlativo garron-kg2
-                    e.correlativo=e.garron+"-"+e.kg2
-                    e.kg=e.kg2
-                    e.tropa=form.tropa
-                    e.stock=true
-                    console.log(e)
-                    dispatch(postNewRes(e))
-                    m++
-                    form.total_kg=form.total_kg*1+e.kg*1
-                    form.detalle.push(e)
-                })
-            }
-            else{
-                form.detalle.map((e)=>{
-                    e.tropa=form.tropa
-                    e.stock=true
-                    dispatch(postNewRes(e))
-                    m++
-                    form.total_kg=form.total_kg*1+e.kg*1
-                })
-            }
-            form.total_medias = m
-            form.costo_total=form.costoFaenakg*1*form.total_kg*1
-            form.saldo=form.costo_total
-            console.log(form)
-            dispatch(postNewFaena(form))
-            setForm(formF);
+        form.detalle.map((e)=>{
+            e.tropa=form.tropa
+            e.stock=true
+            console.log(e)
+            setTimeout(()=>{
+                dispatch(postNewRes(e))
+            }, 2000)
+            m++
+            form.total_kg=form.total_kg*1+e.kg*1
+        }) 
+        form.total_medias = m
+        form.costo_total=form.costoFaenakg*1*form.total_kg*1
+        form.saldo=form.costo_total
+        console.log(form)
+        dispatch(postNewFaena(form))
+        document.getElementById("proveedor").selectedIndex = 0
+        document.getElementById("frigorifico").selectedIndex = 0
+        setForm(formF);
     };
 
     //Select de frigoríficos
@@ -230,8 +221,6 @@ const Form_Faena = () => {
 
     //funcion para eliminar reses del detalle
     const handleDelete = (e)=>{
-        elHueco=elHueco.filter(d => d !== e)
-        console.log(elHueco)
         setForm({
             ...form,
             detalle: form.detalle.filter(d => d !== e)
@@ -260,7 +249,7 @@ const Form_Faena = () => {
                     <p className={error.fecha ? styleFormF.danger : styleFormF.pass}>{error.fecha}</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Frigorífico: </h5>
-                        <select className="selectform" onChange={(e)=> handleSelectFr(e)}>
+                        <select id="frigorifico" className="selectform" onChange={(e)=> handleSelectFr(e)}>
                             <option value="" selected>-</option>
                             {frigorificos.length > 0 &&  
                             frigorificos.map((f) => (
@@ -284,7 +273,7 @@ const Form_Faena = () => {
                     <p className={error.tropa ? styleFormF.danger : styleFormF.pass}>{error.tropa}</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Proveedor: </h5>
-                        <select className="selectform" onChange={(e)=> handleSelectPr(e)}>
+                        <select id="proveedor" className="selectform" onChange={(e)=> handleSelectPr(e)}>
                             <option value="" selected>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p) => (
@@ -335,7 +324,7 @@ const Form_Faena = () => {
                                     />
                                 </div>
                                 <div className={styleFormF.item}>
-                                    <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                    <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" selected>Categoría</option>
                                             {categorias.length > 0 &&  
                                             categorias.map((c) => (
@@ -360,7 +349,7 @@ const Form_Faena = () => {
                                     />
                                 </div>
                                 <div className={styleFormF.item}>
-                                    <select className="selectform" onChange={(e)=> handleSelect(e)}>
+                                    <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" selected>Categoría</option>
                                             {categorias.length > 0 &&  
                                             categorias.map((c) => (
@@ -446,13 +435,6 @@ const Form_Faena = () => {
                                 title="✔ Confirmar"
                                 onClick={handleSubmit}
                                 color="green"
-                            />
-                        </div>
-                        <div className={styleFormF.shortButtons}>
-                            <ShortButton
-                                title="🧹 Limpiar"
-                                onClick={window.location.reload}
-                                color="primary"
                             />
                         </div>
                     </div>
