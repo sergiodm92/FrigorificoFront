@@ -9,6 +9,9 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "fs": "^0.0.1-security",
+    "fs-js": "^1.0.6",
+    "nodejs": "^0.0.0",
     "react": "^18.2.0",
     "react-css-modules": "^4.7.11",
     "react-dom": "^18.2.0",
@@ -21,6 +24,7 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.54.8",
     "sweetalert": "^2.1.2",
+    "web-pack": "^1.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
