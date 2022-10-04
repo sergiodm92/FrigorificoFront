@@ -39,7 +39,7 @@ useEffect(() => {
                         return(
                             <CardSmall
                                 id={a.tropa}
-                                fecha={a.fecha.substr(2,6)+a.fecha.substr(0,4)}
+                                fecha={a.fecha}
                                 otro={a.frigorifico}
                                 monto={a.saldo}
                                 tipo={"Faenas"}
