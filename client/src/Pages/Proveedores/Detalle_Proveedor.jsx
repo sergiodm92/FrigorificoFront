@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import swal from "sweetalert";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
@@ -25,8 +26,34 @@ export default function Detalle_Proveedor(){
     }, [dispatch])
 
     const deleteProveedor = ()=>{
-        dispatch(deleteProveedorById(id))
-        navigate('/Proveedores')
+        swal({
+            title: "Está seguro que desea eliminar a "+ ProveedorById.nombre,
+            text: "Una vez eliminado perdera todos sus datos 😰",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal('Escriba "eliminar proveedor" para confirmar:', {
+                    content: "input",
+                    })
+                    .then((value) => {
+                    if(value==="eliminar proveedor"){
+                        swal("Se eliminó a "+ ProveedorById.nombre, {
+                            icon: "success",
+                        })
+                    dispatch(deleteProveedorById(id))
+                    navigate('/Proveedores')
+                    }
+                    else {
+                        swal("Frase incorrecta, no se eliminó a "+ ProveedorById.nombre);
+                    }
+                });
+            } else {
+                swal("No se eliminó a "+ ProveedorById.nombre);
+                }
+        })
     }
 
     return(

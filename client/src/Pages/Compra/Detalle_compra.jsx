@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams, useNavigate } from "react-router"
 import TableCompra from "../../Components/Details/Detalle_Compra"
@@ -14,8 +15,35 @@ export default function Detalle_Compra(){
     const navigate = useNavigate()
 
     const deleteCompra = ()=>{
-        dispatch(deleteCompraById(id))
-        navigate('/Compras')
+        swal({
+            title: "Está seguro que desea eliminar la compra",
+            text: "Una vez eliminada perdera todos sus datos 😰",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal('Escriba "eliminar compra" para confirmar:', {
+                    content: "input",
+                    })
+                    .then((value) => {
+                    if(value==="eliminar compra"){
+                        swal("Se eliminó la compra", {
+                            icon: "success",
+                        })
+                    dispatch(deleteCompraById(id))
+                    navigate('/Compras')
+                    }
+                    else {
+                        swal("Frase incorrecta, no se eliminó la compra");
+                    }
+                });
+            } else {
+                swal("No se eliminó la compra");
+                }
+        })
+        
     }
 
     return(

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteClienteById, getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
@@ -30,8 +31,36 @@ export default function Detalle_Cliente(){
     const VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
 
     const deleteCliente = ()=>{
-        dispatch(deleteClienteById(id))
-        navigate('/Clientes')
+        swal({
+            title: "Está seguro que desea eliminar a "+ ClienteById.nombre,
+            text: "Una vez eliminado perdera todos sus datos 😰",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal('Escriba "eliminar cliente" para confirmar:', {
+                    content: "input",
+                    })
+                    .then((value) => {
+                    if(value==="eliminar cliente"){
+                        swal("Se eliminó a "+ ClienteById.nombre, {
+                            icon: "success",
+                        })
+                    dispatch(deleteClienteById(id))
+                    navigate('/Clientes')
+                    }
+                    else {
+                        swal("Frase incorrecta, no se eliminó a "+ ClienteById.nombre);
+                    }
+                });
+            } else {
+                swal("No se eliminó a "+ ClienteById.nombre);
+                }
+        })
+
+        
     }
 
     return(
