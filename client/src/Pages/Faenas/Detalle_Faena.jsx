@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar"
@@ -28,14 +29,40 @@ export default function Detalle_Faena(){
     const tropa = AllFaenas.find(a=>a.id==id).tropa
     const arrayReses = AllReses.filter(a=>a.tropa==tropa)
     const deleteFaena = ()=>{
-        dispatch(deleteFaenaById(id))
-        arrayReses.map((a)=>{
-            setTimeout(()=>{
-                dispatch(deleteResById(a.id))
-            }, 2000)
+        swal({
+            title: "Está seguro que desea eliminar la faena con tropa:"+tropa,
+            text: "Una vez eliminada perdera todos sus datos 😰",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal('Escriba "eliminar faena" para confirmar:', {
+                    content: "input",
+                    })
+                    .then((value) => {
+                    if(value==="eliminar faena"){
+                        swal("Se eliminó la faena", {
+                            icon: "success",
+                        })
+                        dispatch(deleteFaenaById(id))
+                        arrayReses.map((a)=>{
+                        setTimeout(()=>{
+                        dispatch(deleteResById(a.id))
+                        }, 2000)
+                    })
+                        navigate('/Faenas')
+                    }
+                    else {
+                        swal("Frase incorrecta, no se eliminó la faena");
+                    }
+                });
+            } else {
+                swal("No se eliminó la faena");
+                }
         })
-        // 
-        navigate('/Faenas')
+        
     }
     
 

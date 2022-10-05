@@ -1,4 +1,5 @@
 import React from "react"
+import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams } from "react-router"
 import { useNavigate } from "react-router"
@@ -16,8 +17,35 @@ const {id}=useParams()
 const Navigate = useNavigate()
 
 const deleteVenta = ()=>{
-    dispatch(deleteVentaById(id))
-    Navigate('/Ventas')
+    swal({
+        title: "Está seguro que desea eliminar la venta?",
+        text: "Una vez eliminada perdera todos sus datos 😰",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal('Escriba "eliminar venta" para confirmar:', {
+                content: "input",
+                })
+                .then((value) => {
+                if(value==="eliminar venta"){
+                    swal("Se eliminó la venta", {
+                        icon: "success",
+                    })
+                    dispatch(deleteVentaById(id))
+                    Navigate('/Ventas')
+                }
+                else {
+                    swal("Frase incorrecta, no se eliminó la venta");
+                }
+            });
+        } else {
+            swal("No se eliminó la venta");
+            }
+    })
+  
 }
 
     return(
