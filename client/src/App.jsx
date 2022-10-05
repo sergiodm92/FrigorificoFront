@@ -61,7 +61,7 @@ function App() {
     <Route exact path="/Detalle_Cliente/:id" element={state_login?<Detalle_Cliente />:<NoAccess/>} />
     <Route exact path="/Form_Cliente" element={state_login?<Form_Cliente />:<NoAccess/>} />
     <Route exact path="/Historial_Ventas_Cliente/:id" element={state_login?<Historial_Ventas_Cliente />:<NoAccess/>} />
-    <Route exact path="/Faenas/:tropa" element={state_login?<Detalle_Faena />:<NoAccess/>} />
+    <Route exact path="/Faenas/:id" element={state_login?<Detalle_Faena />:<NoAccess/>} />
     <Route exact path="/Faenas" element={state_login?<Faenas />:<NoAccess/>} />
     <Route exact path="/Form_Faena" element={state_login?<Form_Faena />:<NoAccess/>} />
     <Route exact path="/Form_Pago_Faena/:id" element={state_login?<Form_Pago_Faena />:<NoAccess/>} />

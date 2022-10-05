@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Faenas(){
 const dispatch = useDispatch()
-   
 useEffect(() => {
     dispatch(getAllFaenas())
     }, [dispatch])
@@ -38,15 +37,15 @@ useEffect(() => {
                     {faenasPendientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.tropa}
-                                fecha={a.fecha.substr(2,6)+a.fecha.substr(0,4)}
+                                id={a.id}
+                                fecha={a.fecha}
                                 otro={a.frigorifico}
                                 monto={a.saldo}
                                 tipo={"Faenas"}
                                 pago={true}
                                 bstyle={"new"}
                                 bicon={"new"}
-                                bonClick={()=>navigate(`Form_Pago_Faena/${a.Tropa}`)}
+                                bonClick={()=>navigate(`Form_Pago_Faena/${a.id}`)}
                             />
                         )
                         

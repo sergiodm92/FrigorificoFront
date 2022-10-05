@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
+import { deleteClienteById, getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
@@ -11,18 +11,28 @@ import Table_Cliente from "../../Components/Details/Table_Cliente";
 
 
 export default function Detalle_Cliente(){
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {id}=useParams()
+
     useEffect(() => {
         dispatch(getClienteByID(id))
     }, [dispatch])
+
     const ClienteById = useSelector((state)=>(state.ClienteById))
+
     useEffect(() => {
         dispatch(getVentasByCliente(ClienteById.nombre))
     }, [ClienteById])
+
     const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
     const VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
+
+    const deleteCliente = ()=>{
+        dispatch(deleteClienteById(id))
+        navigate('/Clientes')
+    }
 
     return(
         <div className={styleCl.Conteiner}>
@@ -30,11 +40,18 @@ export default function Detalle_Cliente(){
                 title={ClienteById.nombre}
             />
             <div className={styleCl.page}>
-                <div className={styleCl.buttonEdith}>
+                <div className={styleCl.buttonEdit}>
                     <ButtonNew
-                        style={"edith"}
-                        icon={"edith"}
+                        style={"edit"}
+                        icon={"edit"}
                         onClick={()=>navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={styleCl.buttonDelete}>
+                    <ButtonNew
+                        style={"delete"}
+                        icon={"delete"}
+                        onClick={deleteCliente}
                     />
                 </div>
                 <div className={styleCl.tablecliente}>

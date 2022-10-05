@@ -58,11 +58,17 @@
     min-height: 800px;
     align-items: center
 }
-.buttonEdith{
+.buttonEdit{
     display: flex;
     position: relative;
-    margin-bottom: -25px;
-    margin-left: 370px;
+    margin-bottom: -30px;
+    margin-left: 300px;
+}
+.buttonDelete{
+    display: flex;
+    position: relative;
+    margin-left: 375px;
+    margin-bottom: -24px;
 }
 .page{
     display: flex;

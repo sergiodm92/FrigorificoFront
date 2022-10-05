@@ -8,14 +8,36 @@ import Table_Det_Faena from "../../Components/Details/Detalle_Faena";
 import { useParams } from "react-router-dom";
 import StyleDF from "./Faenadetail.module.scss"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
-const data = require("../../Components/Details/data.json")
-
+import { deleteFaenaById, deleteResById, getAllFaenas, getAllReses } from "../../Redux/Actions/Actions";
 
 
 export default function Detalle_Faena(){
 
-    const {tropa}=useParams()
+    const dispatch = useDispatch()
+    const {id}=useParams()
+    console.log(id)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        dispatch(getAllFaenas())
+        dispatch(getAllReses())
+    }, [dispatch])
+
+    const AllFaenas = useSelector((state)=>(state.AllFaenas))
+    const AllReses = useSelector((state)=>(state.AllReses))
+    const tropa = AllFaenas.find(a=>a.id==id).tropa
+    const arrayReses = AllReses.filter(a=>a.tropa==tropa)
+    const deleteFaena = ()=>{
+        dispatch(deleteFaenaById(id))
+        arrayReses.map((a)=>{
+            setTimeout(()=>{
+                dispatch(deleteResById(a.id))
+            }, 2000)
+        })
+        // 
+        navigate('/Faenas')
+    }
+    
 
     return(
         <div className={StyleDF.conteiner}>
@@ -23,11 +45,18 @@ export default function Detalle_Faena(){
                 title="Faena"    
             />
             <div className={StyleDF.page}>
-                <div className={StyleDF.buttonEdith}>
+                <div className={StyleDF.buttonEdit}>
                     <ButtonNew
-                        style={"edith"}
-                        icon={"edith"}
-                        onClick={()=>navigate(`/Faenas`)}
+                        style={"edit"}
+                        icon={"edit"}
+                        // onClick={editFaena}
+                    />
+                </div>
+                <div className={StyleDF.buttonDelete}>
+                    <ButtonNew
+                        style={"delete"}
+                        icon={"delete"}
+                        onClick={deleteFaena}
                     />
                 </div>
                 <div className={StyleDF.tablefaena}>

@@ -7,7 +7,7 @@ import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
-import { getAllComrpas, getProveedorByID } from "../../Redux/Actions/Actions";
+import { deleteProveedorById, getAllComrpas, getProveedorByID } from "../../Redux/Actions/Actions";
 
 
 
@@ -24,9 +24,10 @@ export default function Detalle_Proveedor(){
         dispatch(getAllComrpas())
     }, [dispatch])
 
-
-
-
+    const deleteProveedor = ()=>{
+        dispatch(deleteProveedorById(id))
+        navigate('/Proveedores')
+    }
 
     return(
         <div className={stylePr.ConteinerProveedor}>
@@ -34,11 +35,18 @@ export default function Detalle_Proveedor(){
                 title={ProveedorById.nombre}
             />
             <div className={stylePr.page}>
-                <div className={stylePr.buttonEdith}>
+                <div className={stylePr.buttonEdit}>
                     <ButtonNew
-                        style={"edith"}
-                        icon={"edith"}
+                        style={"edit"}
+                        icon={"edit"}
                         onClick={()=>navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={stylePr.buttonDelete}>
+                    <ButtonNew
+                        style={"delete"}
+                        icon={"delete"}
+                        onClick={deleteProveedor}
                     />
                 </div>
                 <div className={stylePr.tableproveedor}>
