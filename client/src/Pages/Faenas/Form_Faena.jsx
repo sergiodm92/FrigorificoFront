@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {getAllProveedores, postNewFaena, postNewRes} from "../../Redux/Actions/Actions";
+import {getAllProveedores, postNewFaena, postNewRes, setAlertFaena} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -12,26 +12,25 @@ import CardReses from "../../Components/Cards/CardReses/CardReses";
 
 //Form Faena
 const formF = {
-    ID:'',
     fecha: '',
     frigorifico: '',
     tropa: '',
     proveedor: '',
     detalle:[],
-    costoFaenakg:'',
-    total_kg:'',
-    total_medias:'',
-    costo_total:'',
-    saldo:''
+    costoFaenakg:null,
+    total_kg:0,
+    total_medias:0,
+    costo_total:0,
+    saldo:0
 };
 //Form para cargar las reses del detalle de Faena
 const formComF = {
-    garron:'',
-    kg1:'',
-    kg2:'',
+    garron: null,
+    kg1:null,
+    kg2:null,
     correlativo: '',
     categoria: '',
-    kg: ''
+    kg: null
 };
 //var para sumar medias
 var m=0;
@@ -81,23 +80,26 @@ const Form_Faena = () => {
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
 
-    //Estados globales
-    const alert_msj= useSelector ((state)=>state.postFaena);
-    const proveedores = useSelector((state)=>state.AllProveedores);
-    
+
     useEffect(() => {
         dispatch(getAllProveedores())
     }, [dispatch])
+
+    //Estados globales
+    const alert_msj= useSelector ((state)=>state.postFaena);
     
-    
+    const proveedores = useSelector((state)=>state.AllProveedores);
+
     useEffect(() => {
-        console.log("----ALERT------")
         if(alert_msj!==""){
             swal({
                 title: alert_msj,
                 icon: alert_msj==="Faena creada con éxito"?"success":"warning", 
                 button: "ok",
-            })}
+            })
+        dispatch(setAlertFaena())
+        form.detalle=[]
+        }
     }, [alert_msj])
 
 
@@ -136,7 +138,7 @@ const Form_Faena = () => {
         e.preventDefault();
         console.log(formCF)
         try{
-            if(formCF.garron!==""){
+            if(formCF.garron!==null){
             // dividimos garron en dos reses con correlativo
             //primera res correlativo garron-kg1
                 var formRes={}
@@ -149,7 +151,6 @@ const Form_Faena = () => {
                 formCF.correlativo=formCF.garron+"-"+formCF.kg2
                 formCF.kg=formCF.kg2
                 console.log(formCF)
-                form.total_kg=form.total_kg*1+e.kg*1
                 form.detalle.push(formCF)
             }
             else{
@@ -180,13 +181,14 @@ const Form_Faena = () => {
                 dispatch(postNewRes(e))
             }, 2000)
             m++
-            form.total_kg=form.total_kg*1+e.kg*1
+            form.total_kg= form.total_kg + e.kg*1
         }) 
         form.total_medias = m
         form.costo_total=form.costoFaenakg*1*form.total_kg*1
         form.saldo=form.costo_total
         console.log(form)
         dispatch(postNewFaena(form))
+        
         document.getElementById("proveedor").selectedIndex = 0
         document.getElementById("frigorifico").selectedIndex = 0
         setForm(formF);
@@ -375,8 +377,8 @@ const Form_Faena = () => {
                     <div className={styleFormF.button}>
                         <ButtonNew
                             onClick={handleSubmitRes}
-                            style={"rigth"}
-                            icon={"rigth"}
+                            style={"right"}
+                            icon={"right"}
                         />
                     </div>
                     {/*-----------------------------------------------------------*/}

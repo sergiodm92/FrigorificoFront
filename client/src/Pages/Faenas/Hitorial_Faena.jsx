@@ -30,7 +30,7 @@ const AllFaenas = useSelector((state)=>state.AllFaenas)
                     {AllFaenas.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.tropa}
+                                id={a.id}
                                 fecha={a.fecha}
                                 otro={a.frigorifico}
                                 monto={a.saldo}

@@ -11,6 +11,11 @@ const initialState = {
     postVentaAchura:"",
     postFaena:"",
     postRes:"",
+    deleteFaena:"",
+    deleteCompra:"",
+    deleteCliente:"",
+    deleteVenta:"",
+    deleteProveedor:"",
     login_status:"",
     AllCompras:[],
     CompraByID:{},
@@ -129,6 +134,31 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 postRes:action.payload
+            }
+        case "DELETE_FAENA":
+            return{
+                ...state,
+                deleteFaena:action.payload
+            }
+        case "DELETE_COMPRA":
+            return{
+                ...state,
+                deleteCompra:action.payload
+            }
+        case "DELETE_CLIENTE":
+            return{
+                ...state,
+                deleteCliente:action.payload
+            }
+        case "DELETE_VENTA":
+            return{
+                ...state,
+                deleteVenta:action.payload
+            }
+        case "DELETE_PROVEEDOR":
+            return{
+                ...state,
+                deleteProveedor:action.payload
             }
         case "LOGIN_STATUS":
             return{

@@ -9,7 +9,7 @@ const CardReses = ({ correlativo, categoria, kg, res, costo_kg, margen, precio_k
             <div className={styleCard.miniButton}>
                 <ButtonNew
                     onClick={onClick}
-                    style={"edith"}
+                    style={"delete"}
                     icon={"delete"}
                 />
             </div>

@@ -13,12 +13,17 @@
     max-width: 500px;
     width: 400px;
 }
-.buttonEdith{
+.buttonEdit{
+    display: flex;
+    position: relative;
+    margin-left: 330px;
+    margin-bottom: -30px;
+}
+.buttonDelete{
     display: flex;
     position: relative;
     justify-content: flex-end;
     margin-bottom: -20px;
-    margin-left: 50px;
 }
 .page{
     margin-top: 10px;

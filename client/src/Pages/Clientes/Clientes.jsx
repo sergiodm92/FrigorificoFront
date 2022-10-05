@@ -37,7 +37,7 @@ export default function Clientes(){
                     {AllClientes.length>0?AllClientes.map((a)=>{
                         return(
                             <CardSmall
-                                id={a.ID}
+                                id={a.id}
                                 fecha={a.nombre}
                                 otro="08/08/2022"
                                 monto={a.saldo || 0}

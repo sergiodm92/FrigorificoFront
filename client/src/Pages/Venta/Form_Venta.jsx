@@ -15,22 +15,22 @@ var formV = {
     cliente:'',
     fecha: '',
     detalle:[],
-    kg_total:'', //suma de kg
-    precio_kg_prom:'', //prom precio_kg
-    total:'', //total_kg*precio_kg_prom
-    margen_kg:'',//precio_kg_prom-costo_kg_promedio
-    margen_venta:'',//total-costo_total
-    margen_porciento:''
+    kg_total:0, //suma de kg
+    precio_kg_prom:0, //prom precio_kg
+    total:0, //total_kg*precio_kg_prom
+    margen_kg:0,//precio_kg_prom-costo_kg_promedio
+    margen_venta:0,//total-costo_total
+    margen_porciento:0
 };
 //Form para cargar el detalle de la venta
 var formComV = {
     categoria:'',
-    total_media: '',
+    total_media: 0,
     correlativo:'',
-    kg:'',
-    costo_kg:'',
-    margen:'',
-    precio_kg:''
+    kg:null,
+    costo_kg:0,
+    margen:null,
+    precio_kg:null
 };
 
 var pxk=0;
@@ -134,14 +134,14 @@ const Form_Venta = () => {
     //handleSubmit del detalle
     const handleSubmitRes = (e) => { 
         e.preventDefault();
-        if(
-            !error2.categoria && formCV.categoria &&
-            !error2.kg && formCV.kg &&
-            !error2.total_media && formCV.total_media &&
-            !error2.margen && formCV.margen &&
-            !error2.costo_kg && formCV.costo_kg &&
-            !error2.precio_kg && formCV.precio_kg &&
-            !error2.correlativo && formCV.correlativo
+        if(  true
+            // -!error2.categoria && formCV.categoria &&
+            // -!error2.kg && formCV.kg &&
+            // -!error2.total_media && formCV.total_media &&
+            // -!error2.margen && formCV.margen &&
+            // -!error2.costo_kg && formCV.costo_kg &&
+            // -!error2.precio_kg && formCV.precio_kg &&
+            // -!error2.correlativo && formCV.correlativo
         ){
             form.detalle.push(formCV)
             setFormCV(formComV);
@@ -159,9 +159,9 @@ const Form_Venta = () => {
     //handleSubmit de la Venta completa
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(
-        !error.fecha && form.fecha &&
-        !error.cliente && form.cliente
+        if( true
+        // -!error.fecha && form.fecha &&
+        // -!error.cliente && form.cliente
         ){
         form.detalle.map((e)=>{
             m++
@@ -339,8 +339,8 @@ const Form_Venta = () => {
                     </div>
                     <div className={styleFormV.button}>
                         <ButtonNew
-                            style={"rigth"}
-                            icon={"rigth"}
+                            style={"right"}
+                            icon={"right"}
                             onClick={handleSubmitRes}
                         />
                     </div>

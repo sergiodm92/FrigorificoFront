@@ -6,11 +6,19 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
+import { deleteVentaById } from "../../Redux/Actions/Actions"
+import { useDispatch } from "react-redux"
 
 export default function Detalle_Venta(){
 
+    const dispatch = useDispatch()
 const {id}=useParams()
 const Navigate = useNavigate()
+
+const deleteVenta = ()=>{
+    dispatch(deleteVentaById(id))
+    Navigate('/Ventas')
+}
 
     return(
         <div className={StyleDetalleVenta.ConteinerVenta}>
@@ -18,11 +26,18 @@ const Navigate = useNavigate()
                 title={"Detalle"}
             />
             <div className={StyleDetalleVenta.page}>
-                <div className={StyleDetalleVenta.buttonEdith}>
+                <div className={StyleDetalleVenta.buttonEdit}>
                     <ButtonNew
-                        style={"edith"}
-                        icon={"edith"}
+                        style={"edit"}
+                        icon={"edit"}
                         onClick={()=>Navigate(`/Faenas`)}
+                    />
+                </div>
+                <div className={StyleDetalleVenta.buttonDelete}>
+                    <ButtonNew
+                        style={"delete"}
+                        icon={"delete"}
+                        onClick={deleteVenta}
                     />
                 </div>
                 <div className={StyleDetalleVenta.TableVenta}>

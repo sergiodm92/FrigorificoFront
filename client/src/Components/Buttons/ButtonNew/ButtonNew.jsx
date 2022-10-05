@@ -5,13 +5,14 @@ const ButtonNew = ({onClick, style, icon}) => {
 
   const buttonStyle = {
     new: styleBP.NewButton,
-    rigth: styleBP.RigthButton,
-    edith: styleBP.EdithButton
+    right: styleBP.RightButton,
+    edit: styleBP.EditButton,
+    delete: styleBP.DeleteButton,
   };
   const icons = {
     new: "+",
-    rigth: "✔",
-    edith: "🖊",
+    right: "✔",
+    edit: "🖊",
     delete: "x"
   };
   

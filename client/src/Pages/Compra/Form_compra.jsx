@@ -3,38 +3,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, postNewCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, postNewCompra, setAlertCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
 const formC = {
-    id:'',
     proveedor: '',
     fecha: '',
     lugar: '',
     n_dte: '',
     categoria: '',
-    cant: '',
-    kgv_brutos: '',
-    desbaste: '',
-    kg_desbaste:'', //kgv_brutos * desbaste
-    kgv_netos:'', //kgv_brutos - kg_desbaste
-    precio_kgv_netos: '',
+    cant: null,
+    kgv_brutos: null,
+    desbaste: '0.07',
+    kg_desbaste:null, //kgv_brutos * desbaste
+    kgv_netos:null, //kgv_brutos - kg_desbaste
+    precio_kgv_netos: null,
     n_tropa: '',
-    kg_carne: '',
-    rinde:'', // kg_carne*100/kgv_netos
-    cant_achuras: '',
+    kg_carne: null,
+    rinde:1, // kg_carne*100/kgv_netos
+    cant_achuras: null,
     precio_venta_achuras: '',
-    recupero_precio_kg:'', //precio_venta_achuras/kg_carne
-    costo_hac:'',//kgv_netos * precio_kgv_netos
-    costo_faena:'', //faena.costo_total
-    switch_comision: false,
-    comision:'', //0,02*costo_hac//true or false
+    recupero_precio_kg: '', //precio_venta_achuras/kg_carne
+    costo_hac:null,//kgv_netos * precio_kgv_netos
+    costo_faena:null, //faena.costo_total
+    comision:0, //0,02*costo_hac//true or false
     costo_flete: '',
     costo_veps_unit: '',
     costo_veps: '',//costo_veps_unit * cant
     costo_total:'', //costo_faena + costo_veps + costo_flete + costo_hac
-    costo_kg:'', //costo_total/kg_carne
+    costo_kg: null, //costo_total/kg_carne
     saldo:'' //saldo de hacienda solamente
 };
 
@@ -85,12 +83,14 @@ const Form_Compra = () => {
                 icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
+        dispatch(setAlertCompra())
     }, [alert_msj])
 
 
     //estados locales
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
+    const [Switch_Comision, setSwitch_comision] = useState(false);
     
     const handleChange = (e) => {
         e.preventDefault()
@@ -109,42 +109,46 @@ const Form_Compra = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(form)
-        if(
-        !error.proveedor && form.proveedor &&
-        !error.fecha && form.fecha &&
-        !error.n_dte && form.n_dte &&
-        !error.categoria && form.categoria &&
-        !error.cant && form.cant &&
-        !error.kgv_brutos && form.kgv_brutos &&
-        !error.desbaste && form.desbaste &&
-        !error.n_tropa && form.n_tropa &&
-        !error.precio_venta_achuras && form.precio_venta_achuras &&
-        !error.costo_flete && form.costo_flete &&
-        !error.costo_veps_unit && form.costo_veps_unit
+        if(true
+        // -!error.proveedor && form.proveedor &&
+        // -!error.fecha && form.fecha &&
+        // -!error.n_dte && form.n_dte &&
+        // -!error.categoria && form.categoria &&
+        // -!error.cant && form.cant &&
+        // -!error.kgv_brutos && form.kgv_brutos &&
+        // -!error.desbaste && form.desbaste &&
+        // -!error.n_tropa && form.n_tropa &&
+        // -!error.precio_venta_achuras && form.precio_venta_achuras &&
+        // -!error.costo_flete && form.costo_flete &&
+        // -!error.costo_veps_unit && form.costo_veps_unit
         ){
             //cargo el resto de las propiedades
             form.kg_desbaste = form.kgv_brutos*1 * form.desbaste;
             form.kgv_netos = form.kgv_brutos*1 - form.kg_desbaste*1;
-            faenas.map((c)=>{
-            while(c.tropa===form.n_tropa){
-                form.kg_carne=c.total_kg
-                form.costo_faena = c.costo_total
-            } 
-        })
+            if(faenas.length>0){
+                faenas.map((c)=>{
+                if(c.tropa==form.n_tropa){
+                    form.kg_carne=c.total_kg
+                    form.costo_faena = c.costo_total
+                } 
+            })}
             form.cant_achuras=form.cant
             form.rinde = form.kg_carne  * 100 / (form.kgv_netos*1) ;
-            form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1) ;
+            if(form.kg_carne!==null){form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1)}
             form.costo_hac = form.kgv_netos*1  * form.precio_kgv_netos;
-            if(form.switch_comision===true) form.comision = 0.02 * form.costo_hac;
+            if(Switch_Comision===true) form.comision = 0.02 * form.costo_hac;
             form.costo_veps = form.costo_veps_unit*1  * form.cant;
+            if(form.costo_faena==null) form.costo_faena=1
             form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
-            form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)
+            if(form.kg_carne!==null){form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)}
             form.saldo = form.costo_hac
+            if(form.kg_carne==null) form.kg_carne=1
             dispatch(postNewCompra(form))
             document.getElementById("proveedor").selectedIndex = 0
             document.getElementById("categoria").selectedIndex = 0
             document.getElementById("tropa").selectedIndex = 0
             setForm(formC);
+            setSwitch_comision(false)
         }
         else{
             console.log("no verifica los errores")
@@ -175,9 +179,8 @@ const Form_Compra = () => {
     };
 
     const switchCom = ()=>{
-        if(form.switch_comision===false)form.switch_comision=true;
-        else if(form.switch_comision===true)form.switch_comision=false;
-        console.log(form.switch_comision)
+        if(Switch_Comision==false)setSwitch_comision(true)
+        else if(Switch_Comision==true)setSwitch_comision(false);
     }
 
     return (
@@ -335,7 +338,6 @@ const Form_Compra = () => {
                         <h5 className={styleFormC.title}>Comisión: </h5>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={()=>switchCom()}/>
-                            {/* <label class="form-check-label" for="flexSwitchCheckDefault"></label> */}
                         </div>
                     </div>
                     <div className={styleFormC.formItem}>

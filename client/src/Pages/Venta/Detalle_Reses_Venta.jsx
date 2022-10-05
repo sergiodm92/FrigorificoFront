@@ -16,10 +16,10 @@ export default function Detalle_Reses_Venta() {
                 title={"Detalle"}
             />
             <div className={StyleDetalleVenta.page}>
-                <div className={StyleDetalleVenta.buttonEdith}>
+                <div className={StyleDetalleVenta.buttonEdit}>
                     <ButtonNew
-                        style={"edith"}
-                        icon={"edith"}
+                        style={"edit"}
+                        icon={"edit"}
                         onClick={()=>Navigate(`/Faenas`)}
                     />
                 </div>

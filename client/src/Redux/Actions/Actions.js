@@ -1,6 +1,4 @@
 import axios from "axios";
-const URL=``  
-const jsonproveedores = require("../../jsons/proveedores.json")
 
 // estado de login
 export const login_state = () => {
@@ -11,7 +9,23 @@ export const setlogin_state = (value) => {
     
     return ({ type: "LOGIN_STATE", payload: value  });
         };
-
+        
+export const setAlertFaena = () => {
+    
+    return ({ type: "POST_NEW_FAENA", payload: ""  });
+              };
+export const setAlertCompra = () => {
+    
+    return ({ type: "POST_NEW_COMPRA", payload: ""  });
+};
+export const setAlertVentaCarne = () => {
+    
+  return ({ type: "POST_NEW_VENTA_CARNE", payload: ""  });
+};
+export const setAlertVentaAchuras = () => {
+    
+  return ({ type: "POST_NEW_VENTA_ACHURA", payload: ""  });
+};
 // User Login
 // export const postLogin = (payload) => {
 //     return async function (dispatch){
@@ -32,7 +46,7 @@ export const setlogin_state = (value) => {
 export function postLogin(jsonUser){
   return async function (dispatch){
       try{
-          const json = await axios.post(`${URL}/user/login`, jsonUser);
+          const json = await axios.post(`/user/login`, jsonUser);
           if(json.data.status==="ok")localStorage.setItem("AuthLogin",json.data.data)   
           return dispatch({
             type: "LOGIN_STATUS",
@@ -70,7 +84,7 @@ console.log(token)
 export const getAllComrpas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/compras/all`,{
+            const json = await axios.get(`/compras/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -89,7 +103,7 @@ export const getAllComrpas = () => {
 export const getAllComrpasByProveedor = (proveedor) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/compras/all/${proveedor}`,{
+            const json = await axios.get(`/compras/all/${proveedor}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -109,7 +123,7 @@ export const getAllComrpasByProveedor = (proveedor) => {
 export const getComrpaByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/compras/${id}`,{
+            const json = await axios.get(`/compras/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -128,19 +142,20 @@ export const getComrpaByID = (id) => {
 export const getAllFaenas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/faenas/all`,{
+            const json = await axios.get(`/faenas/all`,{
               headers: {
                 'auth-token': `${token}`
               }
             })
             var faenasPendientes=[]
             let faenasMap = json.data.data.map(e=>{
-              if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)
-              return [e.tropa,e]
+                return [e.tropa,e]
           });
           var faenasMapArr = new Map(faenasMap); 
           let unicas = [...faenasMapArr.values()]; 
+          unicas.map(e=> {if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)})
           const response = [unicas,faenasPendientes]
+          console.log(response)
             return dispatch({
             type: "GET_ALL_FAENAS",
             payload: response},{
@@ -156,7 +171,7 @@ export const getAllFaenas = () => {
 export const getFaenasByTropa = (tropa) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/faenas/${tropa}`,{
+            const json = await axios.get(`/faenas/${tropa}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -175,7 +190,7 @@ export const getFaenasByTropa = (tropa) => {
 export const getAllVentas = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/ventas/all`,{
+            const json = await axios.get(`/ventas/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -194,7 +209,7 @@ export const getAllVentas = () => {
 export const getVentasByCliente = (name) => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`${URL}/ventas/all`,{
+          const json = await axios.get(`/ventas/all`,{
             headers: {
               'auth-token': `${token}`
             }
@@ -210,12 +225,32 @@ export const getVentasByCliente = (name) => {
       };
     }; 
 
+//Pagos por ID de cliente
+// export const getPagosClienteByID = (id) => {
+//   return async (dispatch) => {
+//       try {
+//           const json = await axios.get(`${URL}/ventas/all`,{
+//             headers: {
+//               'auth-token': `${token}`
+//             }
+//           });
+//           const response = json.data.data.filter((a)=>a.cliente===name)
+//           return dispatch({
+//           type: "GET_ALL_VENTAS_BY_CLIENTE",
+//           payload: response})
+//       }
+//       catch (error) {
+//           console.log(error);
+//         }
+//       };
+//     }; 
+
 
 //Traer venta por ID
 export const getVentaByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/ventas/${id}`,{
+            const json = await axios.get(`/ventas/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -234,7 +269,7 @@ export const getVentaByID = (id) => {
 export const getAllStock = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/stock`,{
+            const json = await axios.get(`/stock`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -253,7 +288,7 @@ export const getAllStock = () => {
 export const getAllClientes = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/clientes/all`,{
+            const json = await axios.get(`/clientes/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -272,7 +307,7 @@ export const getAllClientes = () => {
 export const getClienteByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/clientes/${id}`,{
+            const json = await axios.get(`/clientes/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -291,7 +326,7 @@ export const getClienteByID = (id) => {
 export const getAllProveedores = () => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/proveedores/all/`,{
+            const json = await axios.get(`/proveedores/all/`,{
             headers: {
               'auth-token': `${token}`
             }
@@ -310,7 +345,7 @@ export const getAllProveedores = () => {
 export const getProveedorByID = (id) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/proveedores/${id}`,{
+            const json = await axios.get(`/proveedores/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -330,7 +365,7 @@ export const getAllReses = () => {
     return async (dispatch) => {
         try {
           
-            const json = await axios.get(`${URL}/res/all`,{
+            const json = await axios.get(`/res/all`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -354,7 +389,7 @@ export const getAllReses = () => {
 export const getResByCorrelativo = (correlativo) => {
     return async (dispatch) => {
         try {
-            const json = await axios.get(`${URL}/reses/${correlativo}`,{
+            const json = await axios.get(`/reses/${correlativo}`,{
               headers: {
                 'auth-token': `${token}`
               }
@@ -373,8 +408,7 @@ export const getResByCorrelativo = (correlativo) => {
 export const postNewProveedor = (proveedor_json) => {
   return async (dispatch) => {
       try {
-          jsonproveedores.proveedores.push(proveedor_json)
-          const json = await axios.post(`${URL}/proveedores`, proveedor_json,{
+          const json = await axios.post(`/proveedores`, proveedor_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -394,7 +428,7 @@ export const postNewProveedor = (proveedor_json) => {
 export const postNewCliente = (cliente_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/clientes`, cliente_json,{
+          const json = await axios.post(`/clientes`, cliente_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -414,7 +448,7 @@ export const postNewCliente = (cliente_json) => {
 export const postNewCompra = (compra_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/compras`, compra_json,{
+          const json = await axios.post(`/compras`, compra_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -433,7 +467,7 @@ export const postNewCompra = (compra_json) => {
 export const postNewVentaCarne = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/ventacarne`, venta_json,{
+          const json = await axios.post(`/ventacarne`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -452,7 +486,7 @@ export const postNewVentaCarne = (venta_json) => {
 export const postNewVentaAchura = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/ventaachuras`, venta_json,{
+          const json = await axios.post(`/ventaachuras`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -471,7 +505,7 @@ export const postNewVentaAchura = (venta_json) => {
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`${URL}/faenas`, faena_json,{
+          const json = await axios.post(`/faenas`, faena_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -492,23 +526,147 @@ export const postNewFaena = (faena_json) => {
 export const postNewRes = (res_json) => {
   return async (dispatch) => {
       try {
-          console.log(res_json)
-          const json = await axios.post(`${URL}/res`, res_json,{
+          const json = await axios.post(`/res`, res_json,{
           headers: {
             'auth-token': `${token}`
           }
           })
-          console.log(json.data.data)
           return dispatch({
           type: "POST_NEW_RES",
           payload: json.data.data})
       }
       catch (error) {
-          console.log("-----Muestra el ERROR------");
           console.log(error);
         }
       };
     };
 
+//eliminar faena
 
+    export const deleteFaenaById = (id) => {
+      return async (dispatch) => {
+          try {
+              const json = await axios.delete(`/faenas`,{
+              headers: {
+                'auth-token': `${token}`
+              },
+              data: {
+                faena_id: id
+              }
+              })
+              return dispatch({
+              type: "DELETE_FAENA",
+              payload: json.data.data})
+          }
+          catch (error) {
+              console.log(error);
+            }
+          };
+        };
+// elimina las reses cuando se elimina una faena
+export const deleteResById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/res`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            res_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_RES",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+        //eliminar compra
 
+    export const deleteCompraById = (id) => {
+      return async (dispatch) => {
+          try {
+              const json = await axios.delete(`/compras`,{
+              headers: {
+                'auth-token': `${token}`
+              },
+              data: {
+                compra_id: id
+              }
+              })
+              return dispatch({
+              type: "DELETE_COMPRA",
+              payload: json.data.data})
+          }
+          catch (error) {
+              console.log(error);
+            }
+          };
+        };
+        //eliminar cliente
+        export const deleteClienteById = (id) => {
+          return async (dispatch) => {
+              try {
+                  const json = await axios.delete(`/clientes`,{
+                  headers: {
+                    'auth-token': `${token}`
+                  },
+                  data: {
+                    cliente_id: id
+                  }
+                  })
+                  return dispatch({
+                  type: "DELETE_CLIENTE",
+                  payload: json.data.data})
+              }
+              catch (error) {
+                  console.log(error);
+                }
+              };
+            };
+            //eliminar proveedor
+export const deleteProveedorById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/proveedores`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            proveedor_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_PROVEEDOR",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+//eliminar venta
+export const deleteVentaById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/ventas`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            venta_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_VENTA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+            
