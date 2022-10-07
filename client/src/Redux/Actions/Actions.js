@@ -371,7 +371,29 @@ export const getAllReses = () => {
               }
             });
             const ResStock = json.data.data.filter((a)=>a.stock===true)
-            const response = [json.data.data,ResStock]
+            let arrayAux = []
+            let arrayResByTropa = []
+            let pos=0
+            let constTropa=ResStock[0].tropa
+            if(ResStock.length>1){
+              for(let i=0;i<ResStock.length;i++){
+                if(ResStock[i].tropa==constTropa){
+                  arrayAux.push(ResStock[i])
+                  arrayResByTropa[pos]=arrayAux
+                }
+                else{
+                  arrayResByTropa.push(arrayAux)
+                  pos++
+                  arrayAux=[]
+                  constTropa=ResStock[i].tropa
+                  arrayAux.push(ResStock[i])
+                }
+              }
+              }
+              else if(ResStock.length===1){
+                arrayResByTropa[0]=ResStock
+              }
+            const response = [json.data.data,ResStock,arrayResByTropa]
             return dispatch({
             type: "GET_RESES",
             payload: response

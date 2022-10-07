@@ -10,8 +10,10 @@ import stylePagoC from './Form_pago.module.scss';
 
 const formPC = {
     fecha: '',
-    monto: '',
-    forma_pago:''
+    monto: null,
+    forma_pago:'',
+    compra_id: null,
+    proveedor:''
 };
 
 //validaciones

@@ -27,7 +27,8 @@ const initialState = {
     ClienteById:{},
     AllVentasByCliente:[],
     AllReses:[],
-    AllResesStockTrue:[]
+    AllResesStockTrue:[],
+    arrayResByTropa:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -78,6 +79,7 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             AllReses: action.payload[0],
             AllResesStockTrue: action.payload[1],
+            arrayResByTropa: action.payload[2],
             }
         case "GET_ALL_FAENAS":
             return{

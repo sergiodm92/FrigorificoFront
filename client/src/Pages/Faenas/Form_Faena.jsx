@@ -172,11 +172,11 @@ const Form_Faena = () => {
     //handleSubmit de la faena completa
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form)
         form.detalle.map((e)=>{
             e.tropa=form.tropa
             e.stock=true
-            console.log(e)
+            e.fecha=form.fecha
+            e.frigorifico=form.frigorifico
             setTimeout(()=>{
                 dispatch(postNewRes(e))
             }, 2000)
@@ -186,9 +186,7 @@ const Form_Faena = () => {
         form.total_medias = m
         form.costo_total=form.costoFaenakg*1*form.total_kg*1
         form.saldo=form.costo_total
-        console.log(form)
         dispatch(postNewFaena(form))
-        
         document.getElementById("proveedor").selectedIndex = 0
         document.getElementById("frigorifico").selectedIndex = 0
         setForm(formF);

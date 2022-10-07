@@ -8,11 +8,14 @@ import Table_Stock from "../../Components/Details/Table_Stock";
 
 
 export default function Stock(){
-    const AllResesStockTrue= useSelector((state)=>(state.AllResesStockTrue))
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getAllReses())
     }, [dispatch])
+
+    const AllResesStockTrue = useSelector((state)=>(state.AllResesStockTrue))
+    const arrayResByTropa = useSelector((state)=>(state.arrayResByTropa))
 
     let total_kg=["Total kg","","",0]
     let vaq=["Vaquillon",0,0,0]
@@ -20,7 +23,7 @@ export default function Stock(){
     let nov=["Novillo",0,0,0]
     let toro=["Toro",0,0,0]
 
-    console.log(AllResesStockTrue)
+    // console.log(AllResesStockTrue)
     AllResesStockTrue.map((a)=>{
             total_kg[3]+=a.kg;
             if(a.categoria==="Vaquillon"){
@@ -44,7 +47,7 @@ export default function Stock(){
                 else toro[1]++
             }
         })
- 
+
 var array=[vaq,vaca,nov,toro,total_kg]
     return(
         <div className={styleSt.Conteiner}>
@@ -64,13 +67,13 @@ var array=[vaq,vaca,nov,toro,total_kg]
                 <div><b>Tropa</b></div>
             </div>
             <div className={styleSt.cardsCont}>
-                {AllResesStockTrue.map((a)=>{
+                {arrayResByTropa.map((a,i)=>{
                     return(
                         <CardSmall
-                            id={a.tropa}
-                            fecha={a.fecha}
-                            otro={a.frigorifico}
-                            monto={a.tropa}
+                            id={i}
+                            fecha={a[0].fecha}
+                            otro={a[0].frigorifico}
+                            monto={a[0].tropa}
                             tipo={"Detalle_Stock_Tropa"}
                             pago={false}
                         />

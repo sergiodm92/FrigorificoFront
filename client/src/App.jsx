@@ -72,7 +72,7 @@ function App() {
     <Route exact path="/Form_Proveedor" element={state_login?<Form_Proveedor />:<NoAccess/>} />
     <Route exact path="/Historial_Compras_Proveedor/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
     <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
-    <Route exact path="/Detalle_Stock_Tropa/:tropa" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
+    <Route exact path="/Detalle_Stock_Tropa/:index" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
     <Route exact path="/Stock" element={state_login?<Stock />:<NoAccess/>} />
     <Route exact path="/Ventas" element={state_login?<Ventas />:<NoAccess/>} />
     <Route exact path="/Historial_Ventas" element={state_login?<Historial_Ventas />:<NoAccess/>} />
