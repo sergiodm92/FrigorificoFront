@@ -7,6 +7,20 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon
 
     const navigate = useNavigate()
 
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+    const totalEstenPesos = currencyFormatter({
+        currency: "USD",
+        value : monto
+        })
+
     return (
         <div>
             <div className={styleCL.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
@@ -18,7 +32,7 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon
                 <div className={styleCL.items}><p>|</p></div>
                 <div className={styleCL.items}><p>{kg}</p></div>
                 <div className={styleCL.items}><p>|</p></div>
-                <div className={styleCL.items}><p>{monto}</p></div>
+                <div className={styleCL.items}><p>{totalEstenPesos}</p></div>
             </div>
             {pago===true?
             <div className={styleCL.button_pago}>

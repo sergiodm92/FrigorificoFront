@@ -107,7 +107,7 @@ export default function Detalle_Cliente(){
                         {VentasPendientes.map((a)=>{
                             return(
                                 <CardLarge
-                                    id={a.ID}
+                                    id={a.id}
                                     fecha={a.fecha}
                                     para={a.cliente}
                                     cant={a.cant}

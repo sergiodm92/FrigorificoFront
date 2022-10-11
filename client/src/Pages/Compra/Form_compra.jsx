@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, postNewCompra, putReses, setAlertCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, getProveedorByName, postNewCompra, putReses, putSaldoProveedor, setAlertCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
@@ -86,12 +86,21 @@ const Form_Compra = () => {
         dispatch(setAlertCompra())
     }, [alert_msj])
 
+        
 
+ 
+ 
     //estados locales
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
     const [Switch_Comision, setSwitch_comision] = useState(false);
-    
+
+    let proveedor
+    useEffect(() => {
+        if(form.proveedor!=='')proveedor=proveedores.find(a=>a.nombre==form.proveedor)
+    }, [form])
+
+
     const handleChange = (e) => {
         e.preventDefault()
         setError(
@@ -144,6 +153,8 @@ const Form_Compra = () => {
             if(form.kg_carne==null) form.kg_carne=1
             dispatch(putReses(form.costo_kg, form.n_tropa, form.categoria))
             dispatch(postNewCompra(form))
+            let saldo = proveedor.saldo + form.saldo
+            dispatch(putSaldoProveedor(proveedor.id, saldo))
             document.getElementById("proveedor").selectedIndex = 0
             document.getElementById("categoria").selectedIndex = 0
             document.getElementById("tropa").selectedIndex = 0

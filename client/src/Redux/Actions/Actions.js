@@ -418,6 +418,29 @@ export const getClienteByID = (id) => {
         };
       };
 
+      //Traer cliente por nombre
+      export const getClienteByName = (nombre) => {
+        return async (dispatch) => {
+            try {
+                const json = await axios.get(`/clientes/all`,{
+                headers: {
+                  'auth-token': `${token}`
+                }
+                })
+                let response = json.data.data
+                let clienteByNombre= response.find(a=>a.nombre==nombre)
+                console.log(clienteByNombre)
+                return dispatch({
+                type: "GET_CLIENTE_BY_NAME",
+                payload: clienteByNombre
+              })
+            }
+            catch (error) {
+                console.log(error);
+              }
+            };
+          }; 
+
 //Traer todos los proveedores
 export const getAllProveedores = () => {
     return async (dispatch) => {
@@ -440,12 +463,14 @@ export const getAllProveedores = () => {
       export const getProveedorByName = (nombre) => {
         return async (dispatch) => {
             try {
-                const json = await axios.get(`/proveedores/all/`,{
+                const json = await axios.get(`/proveedores/all`,{
                 headers: {
                   'auth-token': `${token}`
                 }
                 })
-                let provByNombre= json.data.data.find(a=>a.nombe==nombre)
+                let response = json.data.data
+                let provByNombre= response.find(a=>a.nombre==nombre)
+                console.log(provByNombre)
                 return dispatch({
                 type: "GET_PROVEEDOR_BY_NAME",
                 payload: provByNombre
@@ -914,6 +939,55 @@ export const putCuartoRes = (id, kg, correlativo)=>{
     console.log(data_json)
     try{
       const json = await axios.put(`/res/cuartoRes`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_CUARTO_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+
+
+//actualiza saldo proveedor
+export const putSaldoProveedor = (id, saldo)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      id: id,
+      saldo: saldo,
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/proveedores/saldo`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_CUARTO_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+
+//actualiza saldo Cliente
+export const putSaldoCliente = (id, saldo)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      id: id,
+      saldo: saldo,
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/clientes/saldo`,data_json,{
         headers: {
           'auth-token': `${token}`
         }

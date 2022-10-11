@@ -24,6 +24,7 @@ const initialState = {
     ultimaCompra:"",
     ultimaVenta:"",
     provByNombre:{},
+    clienteByNombre:{},
     AllCompras:[],
     CompraByID:{},
     AllVentas:[],
@@ -90,6 +91,11 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             ClienteById:action.payload
+            }
+        case "GET_CLIENTE_BY_NAME":
+            return{
+                ...state,
+                clienteByNombre: action.payload
             }
         case "GET_RESES":
             return {

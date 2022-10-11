@@ -7,7 +7,7 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import { deleteVentaById, getVentaByID, putCuartoRes, putStockResTrue } from "../../Redux/Actions/Actions"
+import { deleteVentaById, getClienteByName, getVentaByID, putCuartoRes, putSaldoCliente, putStockResTrue } from "../../Redux/Actions/Actions"
 import { useDispatch, useSelector } from "react-redux"
 
 export default function Detalle_Venta(){
@@ -21,6 +21,11 @@ useEffect(() => {
 }, [dispatch])
 
 const venta = useSelector((state)=>state.VentaByID)
+
+useEffect(() => {
+    dispatch(getClienteByName(venta.cliente))
+}, [dispatch])
+const cliente = useSelector((state)=>state.clienteByNombre)
 
 const deleteVenta = ()=>{
     swal({
@@ -55,6 +60,8 @@ const deleteVenta = ()=>{
                             }, 2000)
                         }
                     })
+                    let saldo= cliente.saldo - venta.saldo
+                    dispatch(putSaldoCliente(cliente.id, saldo))
                     dispatch(deleteVentaById(id))
                     Navigate('/Ventas')
                 }

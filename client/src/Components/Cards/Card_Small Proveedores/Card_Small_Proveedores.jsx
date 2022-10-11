@@ -14,6 +14,20 @@ dispatch(getAllComrpasByProveedor(nombre))
 const ultimaCompra = useSelector((state)=>state.ultimaCompra)
     const navigate = useNavigate()
 
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+    const totalEstenPesos = currencyFormatter({
+        currency: "USD",
+        value : monto
+        })
+
     return (
         <div className={styleCS.totalCard}>
             <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
@@ -21,7 +35,7 @@ const ultimaCompra = useSelector((state)=>state.ultimaCompra)
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{ultimaCompra}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
-                <div className={styleCS.items}><p>{monto}</p></div>
+                <div className={styleCS.items}><p>{totalEstenPesos}</p></div>
             </div>
             {pago===true?
             <div className={styleCS.button_pago}>

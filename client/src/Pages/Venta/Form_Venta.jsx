@@ -8,7 +8,7 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 
 import styleFormV from './Form_Venta.module.scss';
-import { getAllClientes, getAllReses, postNewVentaCarne, putCuartoRes, putStockRes, setAlertVentaCarne } from "../../Redux/Actions/Actions";
+import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putSaldoCliente, putStockRes, setAlertVentaCarne } from "../../Redux/Actions/Actions";
 
 //Form Venta
 var formV = {
@@ -104,6 +104,12 @@ const Form_Venta = () => {
             dispatch(setAlertVentaCarne())
     }, [alert_msj])
 
+    useEffect(() => {
+        dispatch(getClienteByName(form.cliente))
+    }, [form])
+
+    const cliente = useSelector((state)=>state.clienteByNombre);
+
     //handleChange de la Venta completa
     const handleChange = (e) => {
         e.preventDefault();
@@ -191,6 +197,8 @@ const Form_Venta = () => {
                     }
             }, 2000)
             })
+            let saldo = cliente.saldo + form.saldo
+            dispatch(putSaldoCliente(cliente.id, saldo))
             dispatch(postNewVentaCarne(form))
             console.log(form)
             setForm(formV);
