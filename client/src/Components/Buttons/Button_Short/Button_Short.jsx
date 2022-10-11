@@ -8,15 +8,16 @@ const ShortButton = ({ title, onClick, color}) => {
         secondary: styleBS.SecondaryButton,
         green: styleBS.GreenButton,
         red: styleBS.RedButton,
+        grey: styleBS.GreyButton,
       };
 
   return (
       <div className={styleBS.cont}>
-        <button
-          className={`${styleBS.button1} ${buttonColor[color]}`}
+        <div
+          className={ !onClick ? `${styleBS.button1} ${buttonColor["grey"]}` :`${styleBS.button1} ${buttonColor[color]}`}
           onClick={onClick}
         >{title}
-        </button>
+        </div>
       </div>
   );
 };

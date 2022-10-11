@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
-import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
+import CardSmall from "../../Components/Cards/Card_Small Proveedores/Card_Small_Proveedores";
 import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllProveedores} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 
 
 
@@ -18,6 +19,7 @@ export default function Proveedores(){
         dispatch(getAllProveedores())
     }, [dispatch])
     const AllProveedores = useSelector((state)=>state.AllProveedores)
+    
     console.log(AllProveedores)
     return(
         <div className={stylePr.ConteinerCompras}>
@@ -34,11 +36,11 @@ export default function Proveedores(){
                 </div>
                 <div className={stylePr.cardsCont}>
                     {AllProveedores.map((a)=>{
+
                         return(
                             <CardSmall
                                 id={a.id}
-                                fecha={a.nombre}
-                                otro={a.ultima_compra===null?"-":a.ultima_compra}
+                                nombre={a.nombre}
                                 monto={a.saldo===null?0:a.saldo}
                                 tipo={"Detalle_Proveedor"}
                                 pago={false}

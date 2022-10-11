@@ -79,7 +79,7 @@ function App() {
     <Route exact path="/Detalle_Reses_Venta/:id" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
     <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
     <Route exact path="/Form_Pago_Venta/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
-    <Route exact path="/Form_Pago_Compra/:name" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
+    <Route exact path="/Form_Pago_Compra/:id" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
     <Route exact path="/Form_Venta" element={state_login?<Form_Venta />:<NoAccess/> }/>
     <Route exact path="/Form_Venta_Achuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>
     <Route exact path="/Nueva_Venta" element={state_login?<Nueva_Venta />:<NoAccess/>} />

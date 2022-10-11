@@ -27,7 +27,7 @@ return(
 {e.stock==true?<td><b>{e.correlativo}</b></td>:<td>{e.correlativo}</td>} 
 <td>{e.categoria}</td> 
 <td>{e.kg}</td> 
-<td align="center">{e.precio_kg}</td> 
+<td align="center">{(e.precio_kg*1).toFixed(2)}</td> 
 
 </tr>
 )

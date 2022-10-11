@@ -46,9 +46,8 @@ export const validate = (faena) => {
     let error = {};
     if (!faena.fecha) error.fecha = "Falta fecha";
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
-    if (!faena.tropa) error.tropa = "Falta tropa";
-    else if (!/^([0-9])*$/.test(faena.tropa)) error.tropa = "Tropa debe ser un número";
     if (!faena.frigorifico) error.frigorifico = "Falta frigorifico";
+    if (!faena.tropa) error.tropa = "Falta tropa";
     if (!faena.proveedor) error.proveedor = "Falta proveedor";
     if (!faena.costoFaenakg) error.costoFaenakg = "Falta costo de Faena/kg";
     else if (!/^([0-9])*$/.test(faena.costoFaenakg)) error.costoFaenakg = "costo de Faena debe ser un número";
@@ -56,16 +55,23 @@ export const validate = (faena) => {
     return error;
 };
 
-//validaciones de reses
+//validaciones de reses frigorifico Natilla
 export const validate2 = (res) => {
     let error2 = {};
     if (!/^([0-9])*$/.test(res.correlativo)) error2.correlativo = "Correlativo debe ser un número";
-    if (!/^([0-9])*$/.test(res.garron)) error2.garron = "Garrón debe ser un número";
     else if (!/^([0-9])*$/.test(res.kg)) error2.kg = "kg debe ser un número";
-    else if (!/^([0-9])*$/.test(res.kg1)) error2.kg1 = "kg1 debe ser un número";
-    else if (!/^([0-9])*$/.test(res.kg2)) error2.kg2 = "kg2 debe ser un número";
     if (!res.categoria) error2.categoria = "Falta categoría";
     return error2;
+};
+
+//validaciones de reses frigorifico El Hueco
+export const validate3 = (res) => {
+    let error3 = {};
+    if (!/^([0-9])*$/.test(res.garron)) error3.garron = "Garrón debe ser un número";
+    else if (!/^([0-9])*$/.test(res.kg1)) error3.kg1 = "kg1 debe ser un número";
+    else if (!/^([0-9])*$/.test(res.kg2)) error3.kg2 = "kg2 debe ser un número";
+    if (!res.categoria) error3.categoria = "Falta categoría";
+    return error3;
 };
 
 
@@ -79,6 +85,8 @@ const Form_Faena = () => {
     const [formCF, setFormCF] = useState(formComF)
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
+    const [error3, setError3] = useState({});
+    
 
 
     useEffect(() => {
@@ -101,7 +109,6 @@ const Form_Faena = () => {
         form.detalle=[]
         }
     }, [alert_msj])
-
 
     //handleChange de la faena completa
     const handleChange = (e) => {  
@@ -136,25 +143,37 @@ const Form_Faena = () => {
     //handleSubmit de las reses
     const handleSubmitRes = (e) => {   
         e.preventDefault();
-        console.log(formCF)
         try{
-            if(formCF.garron!==null){
-            // dividimos garron en dos reses con correlativo
-            //primera res correlativo garron-kg1
-                var formRes={}
-                formRes.categoria=formCF.categoria
-                formRes.correlativo=formCF.garron+"-"+formCF.kg1
-                formRes.kg=formCF.kg1
-                console.log(formRes)
-                form.detalle.push(formRes)
-            //segunda res correlativo garron-kg2
-                formCF.correlativo=formCF.garron+"-"+formCF.kg2
-                formCF.kg=formCF.kg2
-                console.log(formCF)
-                form.detalle.push(formCF)
+            if(form.frigorifico==="El Hueco"){
+                if(
+                    !error3.garron && formCF.garron &&
+                    !error3.kg1 && formCF.kg1 &&
+                    !error3.kg2 && formCF.kg2 &&
+                    !error3.categoria && formCF.categoria
+                ){
+                    // dividimos garron en dos reses con correlativo
+                    //primera res correlativo garron-kg1
+                        var formRes={}
+                        formRes.categoria=formCF.categoria
+                        formRes.correlativo=formCF.garron+"-"+formCF.kg1
+                        formRes.kg=formCF.kg1
+                        console.log(formRes)
+                        form.detalle.push(formRes)
+                    //segunda res correlativo garron-kg2
+                        formCF.correlativo=formCF.garron+"-"+formCF.kg2
+                        formCF.kg=formCF.kg2
+                        console.log(formCF)
+                        form.detalle.push(formCF)
+                }
             }
-            else{
-                form.detalle.push(formCF)
+            else if(form.frigorifico==="Natilla"){
+                if(
+                    !error2.correlativo && formCF.correlativo &&
+                    !error2.kg && formCF.kg &&
+                    !error2.categoria && formCF.categoria
+                ){
+                    form.detalle.push(formCF)
+                }
             }
             document.getElementById("categoria").selectedIndex = 0
             setFormCF(formComF);
@@ -167,11 +186,25 @@ const Form_Faena = () => {
                 button: "ok",
             })
         }
-    };
+    }
+    const clickOff = () => {
+        return false
+    }
+
+
 
     //handleSubmit de la faena completa
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if(
+            !error.fecha && form.fecha &&
+            !error.frigorifico && form.frigorifico &&
+            !error.tropa && form.tropa &&
+            !error.proveedor && form.proveedor &&
+            !error.costoFaenakg && form.costoFaenakg &&
+            !error.detalle && form.detalle
+        ){
         form.detalle.map((e)=>{
             e.tropa=form.tropa
             e.stock=true
@@ -190,6 +223,15 @@ const Form_Faena = () => {
         document.getElementById("proveedor").selectedIndex = 0
         document.getElementById("frigorifico").selectedIndex = 0
         setForm(formF);
+        }
+        else{
+            swal({
+                title: "Alerta",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
+        }
     };
 
     //Select de frigoríficos
@@ -226,7 +268,12 @@ const Form_Faena = () => {
             detalle: form.detalle.filter(d => d !== e)
         })
     }
-
+console.log("-----ERRORES DE RES NATILLA------")
+console.log(error2)
+console.log("-----ERRORES DE RES EL HUECO------")
+console.log(error3)
+console.log("-----ERRORES DE FAENA------")
+console.log(error)
     return (
         <div className={styleFormF.wallpaper}>
             <NavBar
@@ -258,6 +305,7 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
+                    <p className={error.frigorifico ? styleFormF.danger : styleFormF.pass}>{error.frigorifico}</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Tropa: </h5>
                         <input
@@ -282,7 +330,7 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
-
+                    <p className={error.proveedor ? styleFormF.danger : styleFormF.pass}>{error.proveedor}</p>
                     {/*----------------Carga del detalle---------------------*/}
                     <div className={styleFormF.formItem2}>
                         {form.frigorifico==="El Hueco"?
@@ -299,6 +347,7 @@ const Form_Faena = () => {
                                         className={styleFormF.size2}
                                     />
                                 </div>
+                                <p className={error3.garron ? styleFormF.danger : styleFormF.pass}>{error3.garron}</p>
                                 <div className={styleFormF.item}>
                                     <h5 className={styleFormF.title}>kg1: </h5>
                                     <input
@@ -311,6 +360,7 @@ const Form_Faena = () => {
                                         className={styleFormF.size2}
                                     />
                                 </div>
+                                <p className={error3.kg1 ? styleFormF.danger : styleFormF.pass}>{error3.kg1}</p>
                                 <div className={styleFormF.item}>
                                     <h5 className={styleFormF.title}>kg2: </h5>
                                     <input
@@ -323,6 +373,7 @@ const Form_Faena = () => {
                                         className={styleFormF.size2}
                                     />
                                 </div>
+                                <p className={error3.kg2 ? styleFormF.danger : styleFormF.pass}>{error3.kg2}</p>
                                 <div className={styleFormF.item}>
                                     <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" selected>Categoría</option>
@@ -333,6 +384,7 @@ const Form_Faena = () => {
                                             }
                                     </select>
                                 </div>
+                                <p className={error3.categoria ? styleFormF.danger : styleFormF.pass}>{error3.categoria}</p>
                             </div>
                             :
                             <div className={styleFormF.inbox}>
@@ -348,6 +400,7 @@ const Form_Faena = () => {
                                         className={styleFormF.size2}
                                     />
                                 </div>
+                                <p className={error2.correlativo ? styleFormF.danger : styleFormF.pass}>{error2.correlativo}</p>
                                 <div className={styleFormF.item}>
                                     <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" selected>Categoría</option>
@@ -357,6 +410,7 @@ const Form_Faena = () => {
                                             ))
                                             }
                                     </select>
+                                    <p className={error2.categoria ? styleFormF.danger : styleFormF.pass}>{error2.categoria}</p>
                                     <div className={styleFormF.numero}>
                                         <h5 className={styleFormF.title}>kg </h5>
                                         <input
@@ -369,12 +423,13 @@ const Form_Faena = () => {
                                             className={styleFormF.size2}
                                         />
                                     </div>
+                                    <p className={error2.kg ? styleFormF.danger : styleFormF.pass}>{error2.kg}</p>
                                 </div>
                             </div>}
                     </div>
                     <div className={styleFormF.button}>
                         <ButtonNew
-                            onClick={handleSubmitRes}
+                            onClick={Object.entries(error2).length===0 || Object.entries(error3).length===0 ? handleSubmitRes : null}
                             style={"right"}
                             icon={"right"}
                         />
@@ -433,7 +488,7 @@ const Form_Faena = () => {
                             />
                             <ShortButton
                                 title="✔ Confirmar"
-                                onClick={handleSubmit}
+                                onClick={Object.entries(error).length===0? handleSubmit : null }
                                 color="green"
                             />
                         </div>

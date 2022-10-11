@@ -5,7 +5,7 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
 import { getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
-const data = require("../../Components/Details/data.json")
+
 
 export default function Historial_Ventas_Cliente(){
     const {id}=useParams()

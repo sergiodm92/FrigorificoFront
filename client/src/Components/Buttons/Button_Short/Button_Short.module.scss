@@ -4,6 +4,9 @@
     justify-content: center;
 }
 .button1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 120px;
     height: 50px;
     border-radius: 20px;
@@ -12,30 +15,37 @@
     padding: 0;
     color: black;
     font-family: 'Karla', sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     font-style: initial;
+}
+.GreyButton{
+    background-color: rgb(145, 145, 145);
 }
 .PrimaryButton{
     background-color: rgb(195, 215, 228);
 }
 .PrimaryButton:hover{
-    background-color: rgb(104, 155, 189);;
+    background-color: rgb(104, 155, 189);
+    cursor: pointer;
 }
 .SecondaryButton{
     background-color: rgb(76, 166, 226);
 }
 .SecondaryButton:hover{
     background-color: rgb(26, 127, 194);
+    cursor: pointer;
 }
 .GreenButton{
     background-color: rgb(0, 150, 0);
 }
 .GreenButton:hover{
     background-color: rgb(0, 90, 0);
+    cursor: pointer;
 }
 .RedButton{
     background-color: red;
 }
 .RedButton:hover{
     background-color: rgb(141, 0, 0);
+    cursor: pointer;
 }

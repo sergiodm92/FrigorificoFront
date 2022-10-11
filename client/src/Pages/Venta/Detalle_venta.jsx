@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams } from "react-router"
@@ -7,14 +7,20 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import { deleteVentaById } from "../../Redux/Actions/Actions"
-import { useDispatch } from "react-redux"
+import { deleteVentaById, getVentaByID, putCuartoRes, putStockResTrue } from "../../Redux/Actions/Actions"
+import { useDispatch, useSelector } from "react-redux"
 
 export default function Detalle_Venta(){
 
-    const dispatch = useDispatch()
+const dispatch = useDispatch()
 const {id}=useParams()
 const Navigate = useNavigate()
+
+useEffect(() => {
+    dispatch(getVentaByID(id))
+}, [dispatch])
+
+const venta = useSelector((state)=>state.VentaByID)
 
 const deleteVenta = ()=>{
     swal({
@@ -33,6 +39,21 @@ const deleteVenta = ()=>{
                 if(value==="eliminar venta"){
                     swal("Se eliminó la venta", {
                         icon: "success",
+                    })
+                    //dispatch(reses stock true)
+                    venta.detalle.map(a=>{
+                        if(a.total_media=="total"){
+                            setTimeout(()=>{
+                                dispatch(putStockResTrue(a.correlativo))
+                            }, 2000)}
+                        else{
+                            setTimeout(()=>{
+                                let correlativo = a.correlativo.substring(0,a.correlativo.length)// elimina la ultima letra
+                                let id= a.id
+                                let kg= a.kg_total
+                                dispatch(putCuartoRes(id, kg, correlativo))
+                            }, 2000)
+                        }
                     })
                     dispatch(deleteVentaById(id))
                     Navigate('/Ventas')
@@ -54,13 +75,6 @@ const deleteVenta = ()=>{
                 title={"Detalle"}
             />
             <div className={StyleDetalleVenta.page}>
-                <div className={StyleDetalleVenta.buttonEdit}>
-                    <ButtonNew
-                        style={"edit"}
-                        icon={"edit"}
-                        onClick={()=>Navigate(`/Faenas`)}
-                    />
-                </div>
                 <div className={StyleDetalleVenta.buttonDelete}>
                     <ButtonNew
                         style={"delete"}
@@ -70,7 +84,7 @@ const deleteVenta = ()=>{
                 </div>
                 <div className={StyleDetalleVenta.TableVenta}>
                     <TableVenta
-                        id_v={id}
+                        venta={venta}
                     />        
                 </div>
                 <LargeButton

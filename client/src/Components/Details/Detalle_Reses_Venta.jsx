@@ -1,16 +1,15 @@
 import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
-const data = require("./data.json")
 
 
-export default function TableDetRes({id_v}){
+
+export default function TableDetRes({venta}){
     var totalkg=0
     var total$=0
     var array=[]
     const array2=[]
-    const arrayDetRes=(data.venta.find(a=>a.ID_Venta==id_v)).Detalle
-    // console.log(arrayDetRes)
-    arrayDetRes.map((a)=>{
+
+    venta.detalle.map((a)=>{
     array=[]
     total$+=a.kg*a.$_kg
     totalkg+=a.kg
@@ -20,7 +19,7 @@ export default function TableDetRes({id_v}){
     
     for(const [key,value] of Object.entries(a)){ 
     
-        array.push(value) 
+        if(key!=="costo_kg" && key!=="id" && key!=="kg_total")array.push(value) 
         }
         array2.push(array)
     })
@@ -30,11 +29,12 @@ export default function TableDetRes({id_v}){
             <table className="table">
             <thead>
                 <tr>
-                    <th>Correlativo</th>
                     <th>Categoria</th>
                     <th>1/2 Res</th>
+                    <th>Correlativo</th>
                     <th>kg</th>
                     <th>$/kg</th>
+                   
                     
                 </tr>
             </thead>
@@ -59,13 +59,13 @@ export default function TableDetRes({id_v}){
             <thead>
                 <tr>
                     <th>Total KG</th>
-                    <th>{totalkg}kg</th>
+                    <th>{venta.kg_total}kg</th>
                 </tr>
             </thead>
             <thead>
                 <tr>
                     <th>Total $</th>
-                    <th>${total$}</th>
+                    <th>${venta.total}</th>
                 </tr>
             </thead>
         </table>

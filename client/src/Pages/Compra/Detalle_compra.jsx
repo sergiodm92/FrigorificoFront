@@ -52,13 +52,6 @@ export default function Detalle_Compra(){
                 title={"Detalle"}
             />
             <div className={StyleDetalleCompra.page}>
-                <div className={StyleDetalleCompra.buttonEdit}>
-                    <ButtonNew
-                        style={"edit"}
-                        icon={"edit"}
-                        onClick={()=>navigate(`/Compras`)}
-                    />
-                </div>
                 <div className={StyleDetalleCompra.buttonDelete}>
                     <ButtonNew
                         style={"delete"}

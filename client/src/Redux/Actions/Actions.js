@@ -26,6 +26,18 @@ export const setAlertVentaAchuras = () => {
     
   return ({ type: "POST_NEW_VENTA_ACHURA", payload: ""  });
 };
+export const setAlertPagoCompra = () => {
+    
+  return ({ type: "POST_NEW_PAGO_COMPRA", payload: ""  });
+};
+export const setAlertPagoFaena = () => {
+    
+  return ({ type: "POST_NEW_PAGO_FAENA", payload: ""  });
+};
+export const setAlertPagoVenta = () => {
+    
+  return ({ type: "POST_NEW_PAGO_VENTA", payload: ""  });
+};
 // User Login
 // export const postLogin = (payload) => {
 //     return async function (dispatch){
@@ -89,6 +101,7 @@ export const getAllComrpas = () => {
                 'auth-token': `${token}`
               }
             });
+            
             return dispatch({
             type: "GET_ALL_COMPRAS",
             payload: json.data.data})
@@ -108,9 +121,22 @@ export const getAllComrpasByProveedor = (proveedor) => {
                 'auth-token': `${token}`
               }
             });
+            let ultimaCompra=""
+            if(json.data.data.length>0){
+            let arrayAños=[]
+            let arrayMeses=[]
+            let arrayDias=[]
+            json.data.data.map((a)=>arrayAños.push(a.fecha.split("-")[2]))
+            let añoMayor = Math.max(...arrayAños)
+            json.data.data.map((a)=>{if(a.fecha.split("-")[2]==añoMayor)arrayMeses.push(a.fecha.split("-")[1])})
+            let mesMayor = Math.max(...arrayMeses)
+            json.data.data.map((a)=>{if(a.fecha.split("-")[1]==mesMayor && a.fecha.split("-")[2]==añoMayor)arrayDias.push(a.fecha.split("-")[0])})
+            let diaMayor = Math.max(...arrayDias)
+            ultimaCompra=diaMayor+"-"+mesMayor+"-"+añoMayor
+            }
             return dispatch({
             type: "GET_COMPRAS_BY_PROVEEDOR",
-            payload: json.data.data})
+            payload: [json.data.data,ultimaCompra]})
 
         }
         catch (error) {
@@ -195,9 +221,38 @@ export const getAllVentas = () => {
                 'auth-token': `${token}`
               }
             });
+            const venta = json.data.data;
+            const fecha = new Date()
+            let ventasUltimos30Dias = [];
+            venta.map(e=>{
+              e.cant=0
+              e.kg_total=0
+              e.total=0
+              e.margen=0
+              e.detalle.map(a=>{
+                if(a.total_media=="total")e.cant++
+                if(a.total_media!=="total")e.cant+=0.5
+                e.kg_total+=a.kg
+                e.total+=a.kg*a.precio_kg
+                e.margen+=a.precio_kg*a.kg-a.costo_kg*a.kg
+              })
+              if(e.fecha.split("-")[2]==fecha.getFullYear() 
+              && e.fecha.split("-")[1]>(fecha.getMonth()-1) 
+              && e.fecha.split("-")[0]>=fecha.getDate()){
+              ventasUltimos30Dias.push(e)
+              }
+              if(e.fecha.split("-")[2]==fecha.getFullYear() 
+              && e.fecha.split("-")[1]==(fecha.getMonth()+1)){
+              ventasUltimos30Dias.push(e)
+              }
+            
+            })
+            console.log(ventasUltimos30Dias)
+            console.log(venta)
+
             return dispatch({
             type: "GET_ALL_VENTAS",
-            payload: json.data.data})
+            payload: [venta,ventasUltimos30Dias]})
         }
         catch (error) {
             console.log(error);
@@ -215,9 +270,34 @@ export const getVentasByCliente = (name) => {
             }
           });
           const response = json.data.data.filter((a)=>a.cliente===name)
+          let ultimaVenta=""
+            if(response.length>0){
+            let arrayAños=[]
+            let arrayMeses=[]
+            let arrayDias=[]
+            response.map((a)=>arrayAños.push(a.fecha.split("-")[2]))
+            let añoMayor = Math.max(...arrayAños)
+            response.map((a)=>{if(a.fecha.split("-")[2]==añoMayor)arrayMeses.push(a.fecha.split("-")[1])})
+            let mesMayor = Math.max(...arrayMeses)
+            response.map((a)=>{if(a.fecha.split("-")[1]==mesMayor && a.fecha.split("-")[2]==añoMayor)arrayDias.push(a.fecha.split("-")[0])})
+            let diaMayor = Math.max(...arrayDias)
+            ultimaVenta=diaMayor+"-"+mesMayor+"-"+añoMayor
+            }
+            response.map(e=>{
+              e.cant=0
+              e.kg_total=0
+              e.total=0
+              e.margen=0
+              e.detalle.map(a=>{
+                if(a.total_media=="total")e.cant++
+                if(a.total_media!=="total")e.cant+=0.5
+                e.kg_total+=a.kg
+                e.total+=a.kg*a.precio_kg
+                e.margen+=a.precio_kg*a.kg-a.costo_kg*a.kg
+              })})
           return dispatch({
           type: "GET_ALL_VENTAS_BY_CLIENTE",
-          payload: response})
+          payload: [response, ultimaVenta]})
       }
       catch (error) {
           console.log(error);
@@ -248,16 +328,32 @@ export const getVentasByCliente = (name) => {
 
 //Traer venta por ID
 export const getVentaByID = (id) => {
+    let pxk=0
+    let cost=0
     return async (dispatch) => {
         try {
+            
             const json = await axios.get(`/ventas/${id}`,{
               headers: {
                 'auth-token': `${token}`
               }
             });
+            const venta = json.data.data
+            venta.kg_total=0
+            venta.total=0
+            venta.detalle.map(a=>{
+              venta.kg_total+=a.kg*1
+              pxk+=a.precio_kg
+              venta.precio_kg_prom=pxk/venta.kg_total
+              venta.total+=a.kg*a.precio_kg
+              cost+=a.costo_kg*a.kg
+            })
+            venta.margen=venta.total-cost
+            venta.margen_porc=(cost/venta.total)*100
+            console.log(venta)
             return dispatch({
             type: "GET_VENTA_BY_ID",
-            payload: json.data.data})
+            payload: venta})
         }
         catch (error) {
             console.log(error);
@@ -333,13 +429,33 @@ export const getAllProveedores = () => {
             })
             return dispatch({
             type: "GET_PROVEEDORES",
-            payload: json.data.data})
+            payload: json.data.data })
         }
         catch (error) {
             console.log(error);
           }
         };
       }; 
+
+      export const getProveedorByName = (nombre) => {
+        return async (dispatch) => {
+            try {
+                const json = await axios.get(`/proveedores/all/`,{
+                headers: {
+                  'auth-token': `${token}`
+                }
+                })
+                let provByNombre= json.data.data.find(a=>a.nombe==nombre)
+                return dispatch({
+                type: "GET_PROVEEDOR_BY_NAME",
+                payload: provByNombre
+              })
+            }
+            catch (error) {
+                console.log(error);
+              }
+            };
+          }; 
 
 //Traer Proveedor por ID
 export const getProveedorByID = (id) => {
@@ -371,10 +487,15 @@ export const getAllReses = () => {
               }
             });
             const ResStock = json.data.data.filter((a)=>a.stock===true)
+            ResStock.sort(function(a,b){
+              if(a.tropa>b.tropa){return 1}
+              if(a.tropa<b.tropa){return -1}
+              return 0}) 
             let arrayAux = []
             let arrayResByTropa = []
             let pos=0
-            let constTropa=ResStock[0].tropa
+            let constTropa=ResStock.length?ResStock[0].tropa:0
+
             if(ResStock.length>1){
               for(let i=0;i<ResStock.length;i++){
                 if(ResStock[i].tropa==constTropa){
@@ -489,7 +610,7 @@ export const postNewCompra = (compra_json) => {
 export const postNewVentaCarne = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`/ventacarne`, venta_json,{
+          const json = await axios.post(`/ventas`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -555,6 +676,25 @@ export const postNewRes = (res_json) => {
           })
           return dispatch({
           type: "POST_NEW_RES",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+    //Post pagoCompras
+export const postNewPagoCompra = (pago_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`/pagoCompras`, pago_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_PAGO_COMPRA",
           payload: json.data.data})
       }
       catch (error) {
@@ -691,4 +831,99 @@ export const deleteVentaById = (id) => {
         }
       };
     };
-            
+
+    //Se actualiza al cargar la compra
+export const putReses = (precio_kg, tropa, categoria)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      precio_kg: precio_kg,
+      tropa: tropa,
+      categoria: categoria
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/res`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+//pasa el estado de stock a false
+export const putStockRes = (correlativo)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      correlativo: correlativo,
+      stock: "false"
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/res/stock`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_STOCK_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+//pasa el estado de stock a true
+export const putStockResTrue = (correlativo)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      correlativo: correlativo,
+      stock: "true"
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/res/stock`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_STOCK_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+
+//resta cuarto de res vendida
+export const putCuartoRes = (id, kg, correlativo)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      id: id,
+      kg: kg,
+      correlativo: correlativo
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/res/cuartoRes`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_CUARTO_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 

@@ -8,6 +8,7 @@ const ButtonNew = ({onClick, style, icon}) => {
     right: styleBP.RightButton,
     edit: styleBP.EditButton,
     delete: styleBP.DeleteButton,
+    off: styleBP.offButton,
   };
   const icons = {
     new: "+",
@@ -19,7 +20,7 @@ const ButtonNew = ({onClick, style, icon}) => {
   return (
       <div className={styleBP.cont}>
         <div
-          className={`${styleBP.buttonPago} ${buttonStyle[style]}`}
+          className={!onClick ? `${styleBP.buttonPago} ${buttonStyle["off"]}` : `${styleBP.buttonPago} ${buttonStyle[style]}`}
           onClick={onClick}
         ><b>{icons[icon]}</b>
         </div>

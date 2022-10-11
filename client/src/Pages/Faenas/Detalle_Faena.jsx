@@ -73,13 +73,6 @@ export default function Detalle_Faena(){
                 title="Faena"    
             />
             <div className={StyleDF.page}>
-                <div className={StyleDF.buttonEdit}>
-                    <ButtonNew
-                        style={"edit"}
-                        icon={"edit"}
-                        // onClick={editFaena}
-                    />
-                </div>
                 <div className={StyleDF.buttonDelete}>
                     <ButtonNew
                         style={"delete"}

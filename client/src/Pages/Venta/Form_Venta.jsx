@@ -8,35 +8,27 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 
 import styleFormV from './Form_Venta.module.scss';
-import { getAllClientes, getAllReses, postNewVentaCarne } from "../../Redux/Actions/Actions";
+import { getAllClientes, getAllReses, postNewVentaCarne, putCuartoRes, putStockRes, setAlertVentaCarne } from "../../Redux/Actions/Actions";
 
 //Form Venta
 var formV = {
     cliente:'',
     fecha: '',
     detalle:[],
-    kg_total:0, //suma de kg
-    precio_kg_prom:0, //prom precio_kg
-    total:0, //total_kg*precio_kg_prom
-    margen_kg:0,//precio_kg_prom-costo_kg_promedio
-    margen_venta:0,//total-costo_total
-    margen_porciento:0
+    saldo:0
 };
 //Form para cargar el detalle de la venta
 var formComV = {
-    categoria:'',
-    total_media: 0,
+    id:null,
     correlativo:'',
+    categoria:'',
+    total_media: null,
     kg:null,
+    kg_total:null,
     costo_kg:0,
-    margen:null,
-    precio_kg:null
+    precio_kg:0
 };
 
-var pxk=0;
-var m=0;
-var cxk=0;
-// var stockCat=[];
 
 // Arrays para los selects
 const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
@@ -49,23 +41,18 @@ export const validate = (venta) => {
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
     if (!venta.cliente) error.cliente = "Falta cliente";
     if (venta.detalle.length<1) error.detalle = "Falta detalle";
-    console.log(venta.detalle.length)
     return error;
 };
-
 
 //Validacion del detalle
 export const validate2 = (res) => {
     let error2 = {};
-    if (!res.correlativo) error2.correlativo = "Falta correlativo";
-    else if (!/^([0-9])*$/.test(res.correlativo)) error2.correlativo = "Correlativo debe ser un número";
-    if (!/^([0-9])*$/.test(res.costo_kg)) error2.costo_kg = "Costo/kg debe ser un número";
-    if (!/^([0-9])*$/.test(res.margen)) error2.margen = "Margen debe ser un número";
-    if (!/^([0-9])*$/.test(res.precio_kg)) error2.precio_kg = "Precio/kg debe ser un número";
     if (!res.categoria) error2.categoria = "Falta categoría";
     if (!res.total_media) error2.total_media = "Falta res";
+    if (!res.correlativo) error2.correlativo = "Falta correlativo";
     if (!res.kg) error2.kg = "Falta kg";
     else if (!/^([0-9])*$/.test(res.kg)) error2.kg = "kg debe ser un número";
+    if (!/^([0-9])*$/.test(res.precio_kg)) error2.precio_kg = "Precio/kg debe ser un número";
     return error2;
 };
 
@@ -79,6 +66,14 @@ const Form_Venta = () => {
     const [formCV, setFormCV] = useState(formComV)
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
+    const [resSelect,setresSelect] = useState({})
+    const [margen,setMargen]=useState(0)
+    const [arrReses,setArrReses] = useState([])
+    
+    useEffect(() => {
+        dispatch(getAllClientes())
+        dispatch(getAllReses())
+    }, [dispatch])
 
     //estados globales
     const alert_msj= useSelector ((state)=>state.postVentaCarne);
@@ -86,19 +81,27 @@ const Form_Venta = () => {
     console.log(stock)
     const clientes = useSelector((state)=>state.AllClientes);
     
+    let stockByCat=stock.filter(a=> a.categoria===formCV.categoria && a.precio_kg)
+
     useEffect(() => {
-        dispatch(getAllClientes())
-        dispatch(getAllReses())
-    }, [dispatch])
+        if(formCV.correlativo!=="")setresSelect(stock.find(a=>a.correlativo===formCV.correlativo))
+        if(formCV.precio_kg!==0)setMargen((((formCV.precio_kg-(resSelect.precio_kg*1))/formCV.precio_kg)*100).toFixed(2))
+        if(formCV.total_media==="total")formCV.kg=resSelect.kg
+        if(formCV.total_media!=="total"){
+            formCV.kg_total=resSelect.kg
+            formCV.id=resSelect.id
+        }
+    }, [formCV])
 
 
     useEffect(() => {
         if(alert_msj!==""){
             swal({
                 title: alert_msj,
-                icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
+                icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
+            dispatch(setAlertVentaCarne())
     }, [alert_msj])
 
     //handleChange de la Venta completa
@@ -134,16 +137,16 @@ const Form_Venta = () => {
     //handleSubmit del detalle
     const handleSubmitRes = (e) => { 
         e.preventDefault();
-        if(  true
-            // -!error2.categoria && formCV.categoria &&
-            // -!error2.kg && formCV.kg &&
-            // -!error2.total_media && formCV.total_media &&
-            // -!error2.margen && formCV.margen &&
-            // -!error2.costo_kg && formCV.costo_kg &&
-            // -!error2.precio_kg && formCV.precio_kg &&
-            // -!error2.correlativo && formCV.correlativo
+        if(
+            !error2.categoria && formCV.categoria &&
+            !error2.total_media && formCV.total_media &&
+            !error2.correlativo && formCV.correlativo &&
+            !error2.kg && formCV.kg &&
+            !error2.precio_kg && formCV.precio_kg
         ){
+            formCV.costo_kg=resSelect.precio_kg
             form.detalle.push(formCV)
+            arrReses.push(formCV.correlativo)
             setFormCV(formComV);
         }
         else {
@@ -160,22 +163,46 @@ const Form_Venta = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if( true
-        // -!error.fecha && form.fecha &&
-        // -!error.cliente && form.cliente
+            // -!error.fecha && form.fecha &&
+            // -!error.cliente && form.cliente &&
+            // -!error.detalle && form.detalle
         ){
-        form.detalle.map((e)=>{
-            m++
-            form.total_kg=form.total_kg*1+e.kg*1
-            pxk=pxk+(e.precio_kg*1)
-            cxk=cxk+(e.costo_kg*1)
-        })
-        form.precio_kg_prom=pxk/m
-        form.total=form.total_kg*1*form.precio_kg_prom*1
-        form.margen_venta=form.total*1-cxk
-        form.margen_porciento=form.margen_venta*100/(form.total*1)
-        dispatch(postNewVentaCarne(form))
-        console.log(form)
-        setForm(formV);
+            if(form.detalle.length>0){
+                form.detalle.map(a=> {
+                    form.saldo+=a.kg*a.precio_kg
+                    if(a.total_media=="1/4T"){
+                        let correlativo=a.correlativo + "D"
+                        let kg= a.kg_total - a.kg
+                        let id=a.id
+                        dispatch(putCuartoRes(id, kg, correlativo ))
+                    }
+                    else if(a.total_media=="1/4D"){
+                        let correlativo=a.correlativo + "T"
+                        let kg= a.kg_total - a.kg
+                        let id=a.id
+                        dispatch(putCuartoRes(id, kg, correlativo ))
+                    }
+                })
+            }
+            arrReses.map(a=>{
+                setTimeout(()=>{
+                    if(a.total_media=="total"){
+                        dispatch(putStockRes(a))
+                    }
+            }, 2000)
+            })
+            dispatch(postNewVentaCarne(form))
+            console.log(form)
+            setForm(formV);
+            setArrReses([])
+        }
+        else{
+            swal({
+                title: "Alerta",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
         }
     };
 
@@ -189,8 +216,8 @@ const Form_Venta = () => {
 
     //Select de Correlativo
     function handleSelectCorr(e) {
-        setForm({
-            ...form,
+        setFormCV({
+            ...formCV,
             correlativo: e.target.value
         })
     }
@@ -276,65 +303,70 @@ const Form_Venta = () => {
                                 }
                             </select>
                         </div>
-                        {/* {stockCat = stock.filter((a)=>a.categoria===form.categoria)} */}
                         <div className={styleFormV.formItem}>
                         <h5 className={styleFormV.title}>Correlativo: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCorr(e)}>
                             <option value="" selected>-</option>
-                            {stock.length > 0 &&  
-                            stock.map((c) => (
+                            {stockByCat.length > 0 &&  
+                                stockByCat.map((c) => (
                                     <option	value={c.correlativo}>{c.correlativo}</option>
                                     ))
                             }
                         </select>
                     </div>
-                        <div className={styleFormV.item}>
-                            <h5 className={styleFormV.title}>kg </h5>
-                            <input
-                                type="text"
-                                value={form.kg}
-                                id="kg"
-                                name="kg"
-                                onChange={handleChangeCV}
-                                placeholder="000"
-                                className={styleFormV.size2}
-                            />
+                    
+                    {
+                        formCV.total_media==="total"?
+                        
+                        <div>
+                            <div className={styleFormV.item}>
+                                <h5 className={styleFormV.title}>kg </h5>
+                                <h5 className={styleFormV.title}>{resSelect.kg}</h5>
+                            </div>
+                            <div className={styleFormV.item}>
+                                <h5 className={styleFormV.title}>Costo/kg </h5>
+                                <h5 className={styleFormV.title}>{typeof(resSelect.precio_kg)!=="number"? null : (resSelect.precio_kg*1).toFixed(2)}</h5>
+                            </div>
                         </div>
-                        <div className={styleFormV.item}>
-                            <h5 className={styleFormV.title}>Costo/kg </h5>
-                            <input
-                                type="text"
-                                value={form.costo_kg}
-                                id="costo_kg"
-                                name="costo_kg"
-                                onChange={handleChangeCV}
-                                placeholder="0.00"
-                                className={styleFormV.size2}
-                            />
+                        :
+                        <div>
+                            <div className={styleFormV.item}>
+                                <h5 className={styleFormV.title}>kg total </h5>
+                                <h5 className={styleFormV.title}>{resSelect.kg}</h5>
+                            </div>
+                            <div className={styleFormV.item}>
+                                <h5 className={styleFormV.title}>Costo/kg </h5>
+                                <h5 className={styleFormV.title}>{typeof(resSelect.precio_kg)!=="number"? null : (resSelect.precio_kg*1).toFixed(2)}</h5>
+                            </div>
+                            <div className={styleFormV.item}>
+                                <h5 className={styleFormV.title}>kg </h5>
+                                <input
+                                    type="number"
+                                    value={formCV.kg}
+                                    id="kg"
+                                    name="kg"
+                                    onChange={handleChangeCV}
+                                    placeholder="000"
+                                    className={styleFormV.size2}
+                                />
+                            </div>
                         </div>
-                        <div className={styleFormV.item}>
-                            <h5 className={styleFormV.title}>Margen (%)</h5>
-                            <input
-                                type="text"
-                                value={form.margen}
-                                id="margen"
-                                name="margen"
-                                onChange={handleChangeCV}
-                                placeholder="00"
-                                className={styleFormV.size2}
-                            />
-                        </div>
+                    }
                         <div className={styleFormV.item}>
                             <h5 className={styleFormV.title}>$/kg </h5>
                             <input
-                                type="text"
-                                value={form.precio_kg}
+                                type="number"
+                                value={formCV.precio_kg}
                                 id="precio_kg"
                                 name="precio_kg"
                                 onChange={handleChangeCV}
                                 placeholder="0.00"
                                 className={styleFormV.size2}
                             />
+                        </div>
+                        <div className={styleFormV.item}>
+                            <h5 className={styleFormV.title}>Margen(%) </h5>
+                            <h5 className={styleFormV.title}>{margen}</h5>
                         </div>
                     </div>
                     <div className={styleFormV.button}>
@@ -346,7 +378,7 @@ const Form_Venta = () => {
                     </div>
                     {/*-----------------------------------------------------------*/}
 
-                    {form.detalle.length ?
+                        {form.detalle.length ?
                         form.detalle.map((e)=>{
                             return(
                                 <CardReses
@@ -374,7 +406,7 @@ const Form_Venta = () => {
                             onClick={handleSubmit}
                             color="green"
                         />
-                    </div>
+                    </div> 
                 </form>
             </div>
         </div>

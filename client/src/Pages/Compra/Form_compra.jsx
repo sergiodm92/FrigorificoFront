@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, postNewCompra, setAlertCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, postNewCompra, putReses, setAlertCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
@@ -105,10 +105,9 @@ const Form_Compra = () => {
         [e.target.name]: e.target.value,
         });
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form)
         if(
             !error.proveedor && form.proveedor &&
             !error.fecha && form.fecha &&
@@ -143,6 +142,7 @@ const Form_Compra = () => {
             if(form.kg_carne!==null){form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)}
             form.saldo = form.costo_hac
             if(form.kg_carne==null) form.kg_carne=1
+            dispatch(putReses(form.costo_kg, form.n_tropa, form.categoria))
             dispatch(postNewCompra(form))
             document.getElementById("proveedor").selectedIndex = 0
             document.getElementById("categoria").selectedIndex = 0

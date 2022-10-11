@@ -6,6 +6,7 @@ import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllFaenas} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 export default function Faenas(){
 const dispatch = useDispatch()
@@ -52,11 +53,27 @@ useEffect(() => {
                     })
                     }
                 </div>
-                <div className={styleF.buttonLarge}>
-                    <LargeButton
-                        title={"Historial de Faenas"}
-                        onClick={()=>navigate("/Historial_Faena")}
-                    ></LargeButton>
+                <div className={styleF.buttons}>
+                    <div className={styleF.buttonLarge}>
+                        <LargeButton
+                            title={"Historial de Faenas"}
+                            onClick={()=>navigate("/Historial_Faena")}
+                        ></LargeButton>
+                    </div>
+                    <div className={styleF.buttonsPagos}>
+                        <div className={styleF.buttonLarge}>
+                            <LargeButton
+                                title={"Pagos - Natilla"}
+                                onClick={()=>navigate("/Historial_Pagos_Faena/Natilla")}
+                            ></LargeButton>
+                        </div>
+                        <div className={styleF.buttonLarge}>
+                            <LargeButton
+                                title={"Pagos - El Hueco"}
+                                onClick={()=>navigate("/Historial_Pagos_Faena/ElHueco")}
+                            ></LargeButton>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

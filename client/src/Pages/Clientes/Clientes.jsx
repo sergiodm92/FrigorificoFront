@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
-import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
+import CardSmall from "../../Components/Cards/Card_Small Cliente/Card_Small_Cliente";
 import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import { getAllClientes } from "../../Redux/Actions/Actions";
@@ -38,8 +38,7 @@ export default function Clientes(){
                         return(
                             <CardSmall
                                 id={a.id}
-                                fecha={a.nombre}
-                                otro="08/08/2022"
+                                nombre={a.nombre}
                                 monto={a.saldo || 0}
                                 tipo={"Detalle_Cliente"}
                                 pago={false}

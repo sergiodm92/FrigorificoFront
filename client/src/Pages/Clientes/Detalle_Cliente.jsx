@@ -69,7 +69,7 @@ export default function Detalle_Cliente(){
                 title={ClienteById.nombre}
             />
             <div className={styleCl.page}>
-                <div className={styleCl.buttonEdit}>
+                {/* <div className={styleCl.buttonEdit}>
                     <ButtonNew
                         style={"edit"}
                         icon={"edit"}
@@ -82,7 +82,7 @@ export default function Detalle_Cliente(){
                         icon={"delete"}
                         onClick={deleteCliente}
                     />
-                </div>
+                </div> */}
                 <div className={styleCl.tablecliente}>
                 <Table_Cliente
                 email={ClienteById.email}
@@ -112,7 +112,7 @@ export default function Detalle_Cliente(){
                                     para={a.cliente}
                                     cant={a.cant}
                                     kg={a.kg_total}
-                                    monto={a.saldo}
+                                    monto={a.saldo.toFixed(2)}
                                     tipo={"Ventas"}
                                     pago={true}
                                     bstyle={"new"}
