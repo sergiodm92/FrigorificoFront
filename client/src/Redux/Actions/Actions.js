@@ -59,8 +59,7 @@ export function postLogin(jsonUser){
   return async function (dispatch){
       try{
           const json = await axios.post(`/user/login`, jsonUser);
-          // localStorage.setItem("AuthLogin",json.data.data)   
-          localStorage.setItem("AuthLogin","json.data.data") 
+          if(json.data.status==="ok")localStorage.setItem("AuthLogin",json.data.data)   
           return dispatch({
             type: "LOGIN_STATUS",
             payload: json.data.status})
@@ -89,8 +88,7 @@ export function setStatus(value){
 }
 
 //Traer Token de localstorage
-// const token = localStorage.getItem("AuthLogin")
-let token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZG9uYWxiZXJ0byIsImlkIjoyLCJpYXQiOjE2NjU2MDQxNzB9.U0Y9ikhk-uNA2yUOMgtDZvKfxry4eQelI-_yXVu88I0"
+const token = localStorage.getItem("AuthLogin")
 console.log("token")
 console.log(token)
 
