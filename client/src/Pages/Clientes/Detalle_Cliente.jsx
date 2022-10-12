@@ -69,7 +69,7 @@ export default function Detalle_Cliente(){
                 title={ClienteById.nombre}
             />
             <div className={styleCl.page}>
-                <div className={styleCl.buttonEdit}>
+                {/* <div className={styleCl.buttonEdit}>
                     <ButtonNew
                         style={"edit"}
                         icon={"edit"}
@@ -82,7 +82,7 @@ export default function Detalle_Cliente(){
                         icon={"delete"}
                         onClick={deleteCliente}
                     />
-                </div>
+                </div> */}
                 <div className={styleCl.tablecliente}>
                 <Table_Cliente
                 email={ClienteById.email}
@@ -107,17 +107,17 @@ export default function Detalle_Cliente(){
                         {VentasPendientes.map((a)=>{
                             return(
                                 <CardLarge
-                                    id={a.ID}
+                                    id={a.id}
                                     fecha={a.fecha}
                                     para={a.cliente}
                                     cant={a.cant}
                                     kg={a.kg_total}
-                                    monto={a.saldo}
+                                    monto={a.saldo.toFixed(2)}
                                     tipo={"Ventas"}
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Venta/${ClienteById.nombre}`)}
+                                    bonClick={()=>navigate(`/Form_Pago_Venta/${a.id}`)}
                                 />
                             )
                         })
@@ -132,7 +132,7 @@ export default function Detalle_Cliente(){
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Cliente/${id}`)}
+                            onClick={()=>navigate(`/Detalle_Pagos_Clientes/${ClienteById.nombre}`)}
                         ></LargeButton>
                     </div>
                 </div>

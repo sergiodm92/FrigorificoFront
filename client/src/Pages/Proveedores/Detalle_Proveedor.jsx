@@ -18,6 +18,8 @@ export default function Detalle_Proveedor(){
     const AllCompras = useSelector((state)=>(state.AllCompras))
     const {id}=useParams()
     const ComprasPendientes = AllCompras.filter((a)=>a.proveedor===ProveedorById.nombre && a.saldo>0)
+    console.log(ComprasPendientes)
+    
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -62,7 +64,7 @@ export default function Detalle_Proveedor(){
                 title={ProveedorById.nombre}
             />
             <div className={stylePr.page}>
-                <div className={stylePr.buttonEdit}>
+                {/* <div className={stylePr.buttonEdit}>
                     <ButtonNew
                         style={"edit"}
                         icon={"edit"}
@@ -75,7 +77,7 @@ export default function Detalle_Proveedor(){
                         icon={"delete"}
                         onClick={deleteProveedor}
                     />
-                </div>
+                </div> */}
                 <div className={stylePr.tableproveedor}>
                 <Table_Proveedor
                 ProveedorById={ProveedorById}
@@ -86,7 +88,7 @@ export default function Detalle_Proveedor(){
                     <div className={stylePr.title}>
                         <div><b>Fecha</b></div>
                         <div><b>|</b></div>
-                        <div><b>Cliente</b></div>
+                        <div><b>Proveedor</b></div>
                         <div><b>|</b></div>
                         <div><b>Cant</b></div>
                         <div><b>|</b></div>
@@ -98,17 +100,17 @@ export default function Detalle_Proveedor(){
                         {ComprasPendientes.map((a)=>{
                             return(
                                 <CardLarge
-                                    id={a.ID_compra}
+                                    id={a.id}
                                     fecha={a.fecha}
                                     para={a.proveedor}
                                     cant={a.cant}
                                     kg={a.kg_carne}
-                                    monto={a.saldo}
+                                    monto={a.saldo.toFixed(2)}
                                     tipo={"Compras"}
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Compra/${id}`)}
+                                    bonClick={()=>navigate(`/Form_Pago_Compra/${a.id}`)}
                                 />
                             )
                         })
@@ -117,13 +119,13 @@ export default function Detalle_Proveedor(){
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Historial de Compras"}
-                            onClick={()=>navigate(`/Historial_Compras_Proveedor/${id}`)}
+                            onClick={()=>navigate(`/Historial_Compras_Proveedor/${ProveedorById.nombre}`)}
                         ></LargeButton>
                     </div>
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${id}`)}
+                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${ProveedorById.nombre}`)}
                         ></LargeButton>
                     </div>
                 </div>

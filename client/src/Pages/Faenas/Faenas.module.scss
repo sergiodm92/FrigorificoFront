@@ -29,6 +29,17 @@
     justify-content: flex-start;
     align-items: center;
 }
+.buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.buttonsPagos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
 @media screen and (max-width: 500px) {
     .title{
         gap: 15px;

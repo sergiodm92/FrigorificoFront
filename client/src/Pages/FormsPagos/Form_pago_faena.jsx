@@ -3,21 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-
 import NavBar from '../../Components/Navbar/Navbar'
-
+import { getAllComrpas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlertPagoFaena } from "../../Redux/Actions/Actions.js";
 import stylePagoF from './Form_pago.module.scss';
 
 const formPF = {
     fecha: '',
-    monto: '',
-    forma_pago:''
+    monto: null,
+    formaDePago:'',
+    faenaID:null,
+    frigorifico:''
 };
+
+const formasDePago=["Efectivo", "Transferencia"]
 
 //validaciones
 export const validate = (pago) => {
     let error = {};
-    if (!pago.forma_pago) error.forma_pago = "Falta forma de pago";
     if (!pago.fecha) error.fecha = "Falta fecha";
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
@@ -32,10 +34,26 @@ const Form_Pago_Faena = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        dispatch(getFaenaById(id))
+    }, [dispatch])
     
+    const faena = useSelector((state)=>state.FaenaById);
+    const alert_msj= useSelector ((state)=>state.postNewPagoFaena);
+
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+            dispatch(setAlertPagoFaena())
+    }, [alert_msj])
 
     const [form, setForm] = useState(formPF);
     const [error, setError] = useState({});
+    console.log(error)
 
     const handleChange = (e) => {
         setError(
@@ -50,21 +68,19 @@ const Form_Pago_Faena = () => {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         if(
         !error.fecha && form.fecha &&
-        !error.forma_pago && form.forma_pago &&
         !error.monto && form.monto
         ){
-        // dispatch(postPagoFaena(form))
-        console.log(form)
-        swal({
-            title: "Alerta de Pago",
-            text: "Pago agregado correctamente",
-            icon: "success",
-            button: "ok",
-        })
-        setForm(formPF);
+            form.frigorifico=faena.frigorifico
+            form.faenaID=id
+            let saldo= faena.saldo - form.monto
+            dispatch(putSaldoFaena(id, saldo))
+            dispatch(postNewPagoFaena(form))
+            document.getElementById("formaDePago").selectedIndex = 0
+            setForm(formPF);
         }
         else {
             swal({
@@ -76,9 +92,30 @@ const Form_Pago_Faena = () => {
         }
     };
 
+    function handleSelectFP(e) {
+        setForm({
+            ...form,
+            formaDePago: e.target.value
+        })
+    }
+
     const handleCreate = () => {
         navigate("/Faenas")
     };
+
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+    const saldoEnPesos = currencyFormatter({
+        currency: "USD",
+        value : faena.saldo
+        })
 
     return (
         <div className={stylePagoF.wallpaper}>
@@ -89,11 +126,11 @@ const Form_Pago_Faena = () => {
                 <div className={stylePagoF.detallePro}>
                     <div className={stylePagoF.detalledivs}>
                         <h5 className={stylePagoF.title}>Tropa: </h5>
-                        <h4 className={stylePagoF.nameP}>{id}</h4>
+                        <h4 className={stylePagoF.nameP}>{faena.tropa}</h4>
                     </div>
                     <div className={stylePagoF.detalledivs}>
                         <h5 className={stylePagoF.title}>Saldo: </h5>
-                        <h4 className={stylePagoF.nameP}>"Saldo"</h4>
+                        <h4 className={stylePagoF.nameP}>{saldoEnPesos}</h4>
                     </div>
                 </div>
                 <form className={stylePagoF.form}>
@@ -124,21 +161,20 @@ const Form_Pago_Faena = () => {
                     </div>
                     <p className={error.monto ? stylePagoF.danger : stylePagoF.pass}>{error.monto}</p>
                     <div className={stylePagoF.formItem}>
-                        <h5 className={stylePagoF.title}>Forma de pago: </h5>
-                        <input
-                            type="text"
-                            value={form.forma_pago}
-                            id="forma_pago"
-                            name="forma_pago"
-                            onChange={handleChange}
-                            placeholder="0.00"
-                            className={error.forma_pago & 'danger'}
-                        />
+                        <h5 className={stylePagoF.title}>Forma de Pago: </h5>
+                        <select id="formaDePago" className="selectform" onChange={(e)=> handleSelectFP(e)}>
+                            <option value="" selected>-</option>
+                            {formasDePago.length > 0 &&  
+                                formasDePago.map((p) => (
+                                    <option	value={p}>{p}</option>
+                                    ))
+                            }
+                        </select>
                     </div>
                     <p className={error.forma_pago ? stylePagoF.danger : stylePagoF.pass}>{error.forma_pago}</p>                     
                     <div className={stylePagoF.buttons}>
                         <ShortButton
-                            title="📃Generar Factura"
+                            title="Agregar Comprobante"
                             onClick={handleCreate}
                             color="primary"
                         />

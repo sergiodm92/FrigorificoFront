@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import StyleDF from "./Faenadetail.module.scss"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import { deleteFaenaById, deleteResById, getAllFaenas, getAllReses } from "../../Redux/Actions/Actions";
+import Tabla_Detalle_Stock_Tropa from "../../Components/Details/Tabla_Detalle_Stock_Tropa";
 
 
 export default function Detalle_Faena(){
@@ -72,13 +73,6 @@ export default function Detalle_Faena(){
                 title="Faena"    
             />
             <div className={StyleDF.page}>
-                <div className={StyleDF.buttonEdit}>
-                    <ButtonNew
-                        style={"edit"}
-                        icon={"edit"}
-                        // onClick={editFaena}
-                    />
-                </div>
                 <div className={StyleDF.buttonDelete}>
                     <ButtonNew
                         style={"delete"}
@@ -89,6 +83,9 @@ export default function Detalle_Faena(){
                 <div className={StyleDF.tablefaena}>
                     <Table_Det_Faena
                         tropa={tropa}
+                    />
+                    <Tabla_Detalle_Stock_Tropa
+                        reses={arrayReses}
                     />
                 </div>
             </div>

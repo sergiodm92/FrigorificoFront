@@ -1,13 +1,13 @@
 import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
-const data = require("./data.json")
 
 
-export default function TableVenta({id_v}){
+
+export default function TableVenta({venta}){
     const array=[]
-
-    for(const [key,value] of Object.entries(data.venta.find(a=>a.ID_Venta==id_v))){ 
-    if(key!=="Detalle")array.push({key,value})   
+        console.log(venta)
+    for(const [key,value] of Object.entries(venta)){ 
+    if(key!=="detalle")array.push({key,value})   
     }
 
     return(
@@ -22,7 +22,7 @@ export default function TableVenta({id_v}){
                     <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-primary"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td className={tableVentaStyle.columnRight}>{e.value}</td>            
+                        <td className={tableVentaStyle.columnRight}>{e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.value}</td>            
                     </tr>
                     )
             })
@@ -42,7 +42,7 @@ export default function TableVenta({id_v}){
                     </tr>
                     <tr>
                             <td>Saldo</td>
-                            <td>$150000</td>
+                            <td>{venta.saldo}</td>
                     </tr>
 
                     

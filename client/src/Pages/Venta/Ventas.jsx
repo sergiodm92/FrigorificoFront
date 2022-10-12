@@ -38,7 +38,7 @@ export default function Ventas(){
                     {AllVentas.map((a)=>{
                         return(
                             <CardLarge
-                                id={a.ID}
+                                id={a.id}
                                 fecha={a.fecha}
                                 para={a.cliente}
                                 cant={a.cant}

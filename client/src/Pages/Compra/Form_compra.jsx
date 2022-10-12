@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, postNewCompra, setAlertCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, getProveedorByName, postNewCompra, putReses, putSaldoProveedor, setAlertCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 
@@ -13,27 +13,27 @@ const formC = {
     lugar: '',
     n_dte: '',
     categoria: '',
-    cant: null,
+    cant: 0,
     kgv_brutos: null,
-    desbaste: '0.07',
+    desbaste: 0.07,
     kg_desbaste:null, //kgv_brutos * desbaste
-    kgv_netos:null, //kgv_brutos - kg_desbaste
+    kgv_netos:1, //kgv_brutos - kg_desbaste
     precio_kgv_netos: null,
     n_tropa: '',
     kg_carne: null,
     rinde:1, // kg_carne*100/kgv_netos
     cant_achuras: null,
-    precio_venta_achuras: '',
-    recupero_precio_kg: '', //precio_venta_achuras/kg_carne
+    precio_venta_achuras: null,
+    recupero_precio_kg: null, //precio_venta_achuras/kg_carne
     costo_hac:null,//kgv_netos * precio_kgv_netos
     costo_faena:null, //faena.costo_total
     comision:0, //0,02*costo_hac//true or false
-    costo_flete: '',
-    costo_veps_unit: '',
-    costo_veps: '',//costo_veps_unit * cant
-    costo_total:'', //costo_faena + costo_veps + costo_flete + costo_hac
+    costo_flete: null,
+    costo_veps_unit: null,
+    costo_veps: null,//costo_veps_unit * cant
+    costo_total:null, //costo_faena + costo_veps + costo_flete + costo_hac
     costo_kg: null, //costo_total/kg_carne
-    saldo:'' //saldo de hacienda solamente
+    saldo:null //saldo de hacienda solamente
 };
 
 
@@ -86,12 +86,21 @@ const Form_Compra = () => {
         dispatch(setAlertCompra())
     }, [alert_msj])
 
+        
 
+ 
+ 
     //estados locales
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
     const [Switch_Comision, setSwitch_comision] = useState(false);
-    
+
+    let proveedor
+    useEffect(() => {
+        if(form.proveedor!=='')proveedor=proveedores.find(a=>a.nombre==form.proveedor)
+    }, [form])
+
+
     const handleChange = (e) => {
         e.preventDefault()
         setError(
@@ -105,22 +114,21 @@ const Form_Compra = () => {
         [e.target.name]: e.target.value,
         });
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(form)
-        if(true
-        // -!error.proveedor && form.proveedor &&
-        // -!error.fecha && form.fecha &&
-        // -!error.n_dte && form.n_dte &&
-        // -!error.categoria && form.categoria &&
-        // -!error.cant && form.cant &&
-        // -!error.kgv_brutos && form.kgv_brutos &&
-        // -!error.desbaste && form.desbaste &&
-        // -!error.n_tropa && form.n_tropa &&
-        // -!error.precio_venta_achuras && form.precio_venta_achuras &&
-        // -!error.costo_flete && form.costo_flete &&
-        // -!error.costo_veps_unit && form.costo_veps_unit
+        if(
+            !error.proveedor && form.proveedor &&
+            !error.fecha && form.fecha &&
+            !error.n_dte && form.n_dte &&
+            !error.categoria && form.categoria &&
+            !error.cant && form.cant &&
+            !error.kgv_brutos && form.kgv_brutos &&
+            !error.desbaste && form.desbaste &&
+            !error.n_tropa && form.n_tropa &&
+            !error.precio_venta_achuras && form.precio_venta_achuras &&
+            !error.costo_flete && form.costo_flete &&
+            !error.costo_veps_unit && form.costo_veps_unit
         ){
             //cargo el resto de las propiedades
             form.kg_desbaste = form.kgv_brutos*1 * form.desbaste;
@@ -132,18 +140,21 @@ const Form_Compra = () => {
                     form.costo_faena = c.costo_total
                 } 
             })}
-            form.cant_achuras=form.cant
-            form.rinde = form.kg_carne  * 100 / (form.kgv_netos*1) ;
-            if(form.kg_carne!==null){form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1)}
+            if(form.cant!==null)form.cant_achuras=form.cant*1
+            form.rinde = (form.kgv_netos>0 ? form.kg_carne  * 100 / (form.kgv_netos) : 0);
+            if(form.kg_carne>0){form.recupero_precio_kg = form.precio_venta_achuras*1  / (form.kg_carne*1)}
             form.costo_hac = form.kgv_netos*1  * form.precio_kgv_netos;
             if(Switch_Comision===true) form.comision = 0.02 * form.costo_hac;
-            form.costo_veps = form.costo_veps_unit*1  * form.cant;
+            form.costo_veps = form.costo_veps_unit*1  * form.cant*1;
             if(form.costo_faena==null) form.costo_faena=1
             form.costo_total = (form.costo_faena*1)  + (form.costo_veps*1)  + (form.costo_flete*1)  + (form.costo_hac*1) ;
             if(form.kg_carne!==null){form.costo_kg = (form.costo_total*1) / (form.kg_carne*1)}
             form.saldo = form.costo_hac
             if(form.kg_carne==null) form.kg_carne=1
+            dispatch(putReses(form.costo_kg, form.n_tropa, form.categoria))
             dispatch(postNewCompra(form))
+            let saldo = proveedor.saldo + form.saldo
+            dispatch(putSaldoProveedor(proveedor.id, saldo))
             document.getElementById("proveedor").selectedIndex = 0
             document.getElementById("categoria").selectedIndex = 0
             document.getElementById("tropa").selectedIndex = 0
@@ -151,7 +162,7 @@ const Form_Compra = () => {
             setSwitch_comision(false)
         }
         else{
-            console.log("no verifica los errores")
+            alert("Datos incorrectos")
         }
     };
 
@@ -250,7 +261,7 @@ const Form_Compra = () => {
                         <div className={styleFormC.numero}>
                             <h5 className={styleFormC.title}>N°: </h5>
                             <input
-                                type="text"
+                                type="number"
                                 value={form.cant}
                                 id="cant"
                                 name="cant"
@@ -263,7 +274,7 @@ const Form_Compra = () => {
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>kgV Brutos: </h5>
                         <input
-                            type="text"
+                            type="number"
                             value={form.kgv_brutos}
                             id="kgv_brutos"
                             name="kgv_brutos"
@@ -276,7 +287,7 @@ const Form_Compra = () => {
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>Desbaste: </h5>
                         <input
-                            type="text"
+                            type="number"
                             value={form.desbaste}
                             id="desbaste"
                             name="desbaste"
@@ -293,7 +304,7 @@ const Form_Compra = () => {
                         <div className={styleFormC.numero}>
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
-                                type="text"
+                                type="number"
                                 value={form.precio_kgv_netos}
                                 id="precio_kgv_netos"
                                 name="precio_kgv_netos"
@@ -323,7 +334,7 @@ const Form_Compra = () => {
                         <div className={styleFormC.numero}>
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
-                                type="text"
+                                type="number"
                                 value={form.precio_venta_achuras}
                                 id="precio_venta_achuras"
                                 name="precio_venta_achuras"
@@ -347,7 +358,7 @@ const Form_Compra = () => {
                         <div className={styleFormC.numero}>
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
-                                type="text"
+                                type="number"
                                 value={form.costo_flete}
                                 id="costo_flete"
                                 name="costo_flete"
@@ -365,7 +376,7 @@ const Form_Compra = () => {
                         <div className={styleFormC.numero}>
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
-                                type="text"
+                                type="number"
                                 value={form.costo_veps_unit}
                                 id="costo_veps_unit"
                                 name="costo_veps_unit"

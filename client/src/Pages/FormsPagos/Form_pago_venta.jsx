@@ -5,19 +5,24 @@ import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
+import { deleteCompraById, getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlertPagoVenta } from "../../Redux/Actions/Actions";
 
 import stylePagoV from './Form_pago.module.scss';
 
 const formPV = {
     fecha: '',
-    monto: '',
-    forma_pago:''
+    monto: null,
+    formaDePago:'',
+    ventaID:null,
+    cliente:''
 };
+
+const formasDePago=["Efectivo", "Transferencia"]
 
 //validaciones
 export const validate = (pago) => {
     let error = {};
-    if (!pago.forma_pago) error.forma_pago = "Falta forma de pago";
+    if (!pago.formaDePago) error.formaDePago = "Falta forma de pago";
     if (!pago.fecha) error.fecha = "Falta fecha";
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
@@ -27,10 +32,32 @@ export const validate = (pago) => {
 
 const Form_Pago_Venta = () => {
 
-    const {name}=useParams()
+    const {id}=useParams()
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        dispatch(getVentaByID(id))
+    }, [dispatch])
+
+    const venta = useSelector((state)=>state.VentaByID);
+    const alert_msj= useSelector ((state)=>state.postNewPagoVenta);
+
+    useEffect(() => {
+        dispatch(getClienteByName(venta.cliente))
+    }, [venta])
+    const cliente = useSelector((state)=>state.clienteByNombre)
+
+    useEffect(() => {
+        if(alert_msj!==""){
+            swal({
+                title: alert_msj,
+                icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
+                button: "ok",
+            })}
+            dispatch(setAlertPagoVenta())
+    }, [alert_msj])
 
     const [form, setForm] = useState(formPV);
     const [error, setError] = useState({});
@@ -53,17 +80,19 @@ const Form_Pago_Venta = () => {
         e.preventDefault();
         if(
         !error.fecha && form.fecha &&
-        !error.forma_pago && form.forma_pago &&
+        !error.formaDePago && form.formaDePago &&
         !error.monto && form.monto
         ){
-        // dispatch(postPagoVenta(form))
-        swal({
-            title: "Alerta de Pago",
-            text: "Pago agregado correctamente",
-            icon: "success",
-            button: "ok",
-        })
-        setForm(formPV);
+            form.cliente=venta.cliente
+            form.ventaID=id
+            let saldo1= cliente.saldo - form.monto
+            let saldo2= venta.saldo - form.monto
+            console.log(saldo1, saldo2)
+            dispatch(putSaldoCliente(cliente.id, saldo1))
+            dispatch(putSaldoVenta(id, saldo2))
+            dispatch(postNewPagoVenta(form))
+            document.getElementById("formaDePago").selectedIndex = 0
+            setForm(formPV);
         }
         else {
             swal({
@@ -75,9 +104,30 @@ const Form_Pago_Venta = () => {
         }
     };
 
+    function handleSelectFP(e) {
+        setForm({
+            ...form,
+            formaDePago:  e.target.value
+        })
+    }
+
     const handleCreate = () => {
         navigate("/Ventas")
     };
+
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+    const saldoEnPesos = currencyFormatter({
+        currency: "USD",
+        value : venta.saldo
+        })
 
     return (
         <div className={stylePagoV.wallpaper}>
@@ -88,11 +138,11 @@ const Form_Pago_Venta = () => {
                 <div className={stylePagoV.detallePro}>
                     <div className={stylePagoV.detalledivs}>
                         <h5 className={stylePagoV.title}>Cliente: </h5>
-                        <h4 className={stylePagoV.nameP}>{name}</h4>
+                        <h4 className={stylePagoV.nameP}>{venta.cliente}</h4>
                     </div>
                     <div className={stylePagoV.detalledivs}>
                         <h5 className={stylePagoV.title}>Saldo: </h5>
-                        <h4 className={stylePagoV.nameP}>"Saldo"</h4>
+                        <h4 className={stylePagoV.nameP}>{saldoEnPesos}</h4>
                     </div>
                 </div>
                 <form className={stylePagoV.form}>
@@ -112,7 +162,7 @@ const Form_Pago_Venta = () => {
                     <div className={stylePagoV.formItem}>
                         <h5 className={stylePagoV.title}>Monto: </h5>
                         <input
-                            type="text"
+                            type="number"
                             value={form.monto}
                             id="monto"
                             name="monto"
@@ -123,21 +173,20 @@ const Form_Pago_Venta = () => {
                     </div>
                     <p className={error.monto ? stylePagoV.danger : stylePagoV.pass}>{error.monto}</p> 
                     <div className={stylePagoV.formItem}>
-                        <h5 className={stylePagoV.title}>Forma de pago: </h5>
-                        <input
-                            type="text"
-                            value={form.forma_pago}
-                            id="forma_pago"
-                            name="forma_pago"
-                            onChange={handleChange}
-                            placeholder="0.00"
-                            className={error.monforma_pagoto & 'danger'}
-                        />
-                    </div>
+                        <h5 className={stylePagoV.title}>Forma de Pago: </h5>
+                        <select id="formaDePago" className="selectform" onChange={(e)=> handleSelectFP(e)}>
+                            <option value="" selected>-</option>
+                            {formasDePago.length > 0 &&  
+                                formasDePago.map((p) => (
+                                    <option	value={p}>{p}</option>
+                                    ))
+                            }
+                        </select>
+                    </div>  
                     <p className={error.forma_pago ? stylePagoV.danger : stylePagoV.pass}>{error.forma_pago}</p>                    
                     <div className={stylePagoV.buttons}>
                         <ShortButton
-                            title="📃Generar Factura"
+                            title="Agregar Comprobante"
                             onClick={handleCreate}
                             color="primary"
                         />

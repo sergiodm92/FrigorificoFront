@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import stylePr from "./Proveedores.module.scss";
-const data = require("../../Components/Details/data.json")
+import { getAllComrpasByProveedor } from "../../Redux/Actions/Actions";
+
 
 export default function Historial_Compras_Proveedor(){
 
     const {name}=useParams()
-    const allCompras=data.compra.filter((a)=>a.Proveedor.toString("")===name.toString(""))
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllComrpasByProveedor(name))
+    }, [dispatch])
+    
+    const AllComprasByProveedor = useSelector((state)=>state.AllComprasByProveedor)
 
     return(
         <div className={stylePr.ConteinerCompras}>
@@ -28,15 +35,15 @@ export default function Historial_Compras_Proveedor(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={stylePr.cardsCont}>
-                    {allCompras.map((a)=>{
+                    {AllComprasByProveedor.map((a)=>{
                         return(
                             <CardLarge
-                                id={a.ID_compra}
-                                fecha={a.Fecha}
-                                para={a.Proveedor}
-                                cant={a.Cant}
-                                kg={a.Kg_carne}
-                                monto={a.Costo_Total}
+                                id={a.id}
+                                fecha={a.fecha}
+                                para={a.proveedor}
+                                cant={a.cant}
+                                kg={a.kg_carne}
+                                monto={a.costo_hac}
                                 tipo={"Compras"}
                             />
                         )

@@ -1,33 +1,14 @@
 import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
-const data = require("./data.json")
 
 
-export default function Tabla_Detalle_Stock_Tropa({tropa}){
-var array=[]
-var arraydet=[]
-    for(const [key,value] of Object.entries(data.stock.find(a=>a.Tropa==tropa))){ 
-        if(key!=="Detalle")array.push({key,value}) 
-        else arraydet=value 
-        }
-
+export default function Tabla_Detalle_Stock_Tropa({reses}){
     return(
         <div className={tableVentaStyle.conteiner}>
 
 <table class="table">
 
 <tbody>
-{array.map((e,i) => {
-        return(
-
-        <tr key={i} class="table-primary">
-
-            <td colspan="2">{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-            <td colspan="2">{e.value}</td>            
-        </tr>
-        )
-})
-}
 
 <tr class="table-dark">
 
@@ -38,32 +19,21 @@ var arraydet=[]
 
 </tr>
 
-{arraydet.map((e,i) => {
+{reses.map((e,i) => {
 return(
 <tr key={i} class={"table-primary"}>
 
 
-<td>{e.Correlativo}</td> 
-<td>{e.Categoria}</td> 
+{e.stock==true?<td><b>{e.correlativo}</b></td>:<td>{e.correlativo}</td>} 
+<td>{e.categoria}</td> 
 <td>{e.kg}</td> 
-<td align="center">{e.Costo}</td> 
+<td align="center">{(e.precio_kg*1).toFixed(2)}</td> 
 
 </tr>
 )
 })
 } 
-
         </tbody>
-    
-
-
-
-
-
-
-
-
-
         </table>
         </div>
     )

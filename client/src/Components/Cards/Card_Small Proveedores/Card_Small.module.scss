@@ -1,0 +1,59 @@
+.totalCard{
+    display: flex;
+    position: relative;
+    justify-content: right;
+    align-items: center;
+    
+}
+.button_pago{
+    display: block;
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 40px;
+    cursor: pointer;
+}
+.cont{
+    display: flex;
+    position: relative;
+    border-color: black;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 50px;
+    background-color: rgb(195, 215, 228);
+    border-radius: 20px;
+    border-width: 3px;
+    margin: 10px;
+    padding: 0;
+    gap: 25px;
+    cursor: pointer;
+}
+.cont:hover{
+    background-color: rgb(104, 155, 189);;
+}
+.items{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+}
+@media screen and (max-width: 500px) {
+    .cont{
+        width: 350px;
+        height: 50px;
+        margin: 10px;
+        padding: 0;
+        gap: 15px;
+    }
+    .items{
+        font-size: 14px;
+    }
+    .button_pago{
+        margin-right: 20px;
+    }
+}

@@ -5,7 +5,7 @@ import styleVen from "./Ventas.module.scss";
 import { getAllVentas } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-const data = require("../../Components/Details/data.json")
+
 
 
 export default function Historial_Ventas(){
@@ -27,7 +27,7 @@ export default function Historial_Ventas(){
                 <div className={styleVen.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
-                    <div><b>Proveedor</b></div>
+                    <div><b>Cliente</b></div>
                     <div><b>|</b></div>
                     <div><b>Cant</b></div>
                     <div><b>|</b></div>
@@ -39,12 +39,12 @@ export default function Historial_Ventas(){
                     {AllVentas.map((a)=>{
                         return(
                             <CardLarge
-                                id={a.ID_Venta}
-                                fecha={a.Fecha}
-                                para={a.Cliente}
-                                cant={a.Cant}
-                                kg={a.kg_Total}
-                                monto={a.Total}
+                                id={a.id}
+                                fecha={a.fecha}
+                                para={a.cliente}
+                                cant={a.cant}
+                                kg={a.kg_total}
+                                monto={a.total}
                                 tipo={"Ventas"}
                             />
                         )
