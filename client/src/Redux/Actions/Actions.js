@@ -59,7 +59,7 @@ export function postLogin(jsonUser){
   return async function (dispatch){
       try{
           const json = await axios.post(`/user/login`, jsonUser);
-          if(json.data.status==="ok")localStorage.setItem("AuthLogin",json.data.data)   
+          localStorage.setItem("AuthLogin",json.data.data)   
           return dispatch({
             type: "LOGIN_STATUS",
             payload: json.data.status})
