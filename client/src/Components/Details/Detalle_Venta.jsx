@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getPagosVentaByID } from "../../Redux/Actions/Actions"
 import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 
 
 export default function TableVenta({venta}){
-    const array=[]
-        console.log(venta)
+        const dispatch = useDispatch()
+        const array=[]
+        useEffect(() => {
+                if(venta)getPagosVentaByID(venta.id)
+        }, [dispatch])
+        
+        let pagosByVentaID = useSelector((state)=>state.pagosByVentaID)
+        
+        
+
     for(const [key,value] of Object.entries(venta)){ 
     if(key!=="detalle")array.push({key,value})   
     }
@@ -31,15 +41,14 @@ export default function TableVenta({venta}){
                             <td class="table-dark" colspan="2">Pagos</td>
                        
                     </tr>
+                    {pagosByVentaID?.map((a)=>
+                    <tr>
                     
-                    <tr>
-                            <td>10/07/2022</td>
-                            <td>$60000</td>
+                            <td>{a.fecha}</td>
+                            <td>{a.monto}</td>
+                            
                     </tr>
-                    <tr>
-                            <td>20/07/2022</td>
-                            <td>$80000</td>
-                    </tr>
+                    )}
                     <tr>
                             <td>Saldo</td>
                             <td>{venta.saldo}</td>

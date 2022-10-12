@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams } from "react-router"
@@ -7,8 +8,8 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import { deleteVentaById, getClienteByName, getVentaByID, putCuartoRes, putSaldoCliente, putStockResTrue } from "../../Redux/Actions/Actions"
-import { useDispatch, useSelector } from "react-redux"
+import { deleteVentaById, getClienteByName, getPagosVentaByID, getVentaByID, putCuartoRes, putSaldoCliente, putStockResTrue } from "../../Redux/Actions/Actions"
+
 
 export default function Detalle_Venta(){
 
@@ -20,12 +21,17 @@ useEffect(() => {
     dispatch(getVentaByID(id))
 }, [dispatch])
 
-const venta = useSelector((state)=>state.VentaByID)
+let venta = useSelector((state)=>state.VentaByID)
 
 useEffect(() => {
-    dispatch(getClienteByName(venta.cliente))
+    if(venta)dispatch(getClienteByName(venta.cliente))
+    if(venta)dispatch(getPagosVentaByID(venta.id))
 }, [dispatch])
-const cliente = useSelector((state)=>state.clienteByNombre)
+
+let cliente = useSelector((state)=>state.clienteByNombre)
+
+
+
 
 const deleteVenta = ()=>{
     swal({
@@ -92,6 +98,7 @@ const deleteVenta = ()=>{
                 <div className={StyleDetalleVenta.TableVenta}>
                     <TableVenta
                         venta={venta}
+
                     />        
                 </div>
                 <LargeButton
@@ -103,3 +110,4 @@ const deleteVenta = ()=>{
 
     )
 }
+ // pagosByVentaID = {pagosByVentaID}
