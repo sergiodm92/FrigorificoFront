@@ -2,25 +2,25 @@ import React, { useEffect } from "react"
 import { useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoVentaById, getClienteByName, getPagosVentasByCliente, getVentasByCliente, putSaldoCliente, putSaldoVenta } from "../../Redux/Actions/Actions"
+import { deletePagoCompraById, getAllComrpasByProveedor, getPagosComprasByProveedor, getProveedorByName, putSaldoCompra, putSaldoProveedor } from "../../Redux/Actions/Actions"
 import style from './Detalle_Pagos.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 
-export default function Detalle_Pagos_Clientes() {
+export default function Detalle_Pagos_Proveedor() {
     
     const dispatch = useDispatch()
     const {nombre}=useParams()
 
     useEffect(() => {
-        dispatch(getPagosVentasByCliente(nombre))
-        dispatch(getClienteByName(nombre))
-        dispatch(getVentasByCliente(nombre))
+        dispatch(getPagosComprasByProveedor(nombre))
+        dispatch(getProveedorByName(nombre))
+        dispatch(getAllComrpasByProveedor(nombre))
     }, [dispatch])
 
-    const pagos = useSelector((state)=>state.pagosByCliente)
-    const cliente = useSelector((state)=>state.clienteByNombre)
-    const ventas = useSelector((state)=>state.AllVentasByCliente)
+    const pagos = useSelector((state)=>state.pagosByProveedor)
+    const proveedor = useSelector((state)=>state.provByNombre)
+    const compras = useSelector((state)=>state.AllComprasByProveedor)
     
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -32,7 +32,7 @@ export default function Detalle_Pagos_Clientes() {
     }
     let monto
 
-    const deletePago = (id, ventaID, monto)=>{
+    const deletePago = (id, compraID, monto)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -50,12 +50,12 @@ export default function Detalle_Pagos_Clientes() {
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
-                        let venta = ventas.find(a=>a.id==ventaID)
-                        let saldo1= cliente.saldo + monto
-                        let saldo2= venta.saldo + monto
-                        dispatch(putSaldoCliente( cliente.id, saldo1))
-                        dispatch(putSaldoVenta(ventaID, saldo2))
-                        dispatch(deletePagoVentaById(id))
+                        let compra = compras.find(a=>a.id==compraID)
+                        let saldo1= proveedor.saldo + monto
+                        let saldo2= compra.saldo + monto
+                        dispatch(putSaldoProveedor( proveedor.id, saldo1))
+                        dispatch(putSaldoCompra(compraID, saldo2))
+                        dispatch(deletePagoCompraById(id))
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");
@@ -97,14 +97,14 @@ export default function Detalle_Pagos_Clientes() {
                                     <ButtonNew
                                         style={"delete"}
                                         icon={"delete"}
-                                        onClick={() => {deletePago(e.id, e.ventaID, e.monto)}}
+                                        onClick={() => {deletePago(e.id, e.compraID, e.monto)}}
                                     /></td>
                                 </tr>
                             )
-                        })} 
+                        })}
                     </tbody>
                 </table>
             </div>            
-        </div>            
+        </div>
     )
 }

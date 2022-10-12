@@ -125,7 +125,7 @@ export default function Detalle_Proveedor(){
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${id}`)}
+                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${ProveedorById.nombre}`)}
                         ></LargeButton>
                     </div>
                 </div>

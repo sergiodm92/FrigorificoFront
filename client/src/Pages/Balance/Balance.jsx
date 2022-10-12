@@ -80,7 +80,6 @@ const dispatch = useDispatch()
         value : saldoPagar
         })
 
-
     return(
         <div className={styleBalance.ConteinerBalance}>
             <NavBar
@@ -92,10 +91,6 @@ const dispatch = useDispatch()
                         <tr>
                             <td class="table-success">Ganancia mensual</td>
                             <td class="table-success">{gananciaMensualEnPesos}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-success">Rentabilidad promedio</td>
-                            <td class="table-success">Valor</td>
                         </tr>
                         <tr>
                             <td class="table-dark" colspan="2">Stock</td>
@@ -135,21 +130,12 @@ const dispatch = useDispatch()
                         </tr>
                         <tr>
                             <td class="table-secondary">Saldo total a cobrar</td>
-                            <td class="table-secondary">$Valor</td>
+                            <td class="table-secondary">{saldoClientePendienteEnPesos}</td>
                         </tr>
                         <tr>
                             <td class="table-secondary">Saldo total a pagar</td>
                             <td class="table-secondary">{saldoPagarEnPesos}</td>
                         </tr>
-                        <tr>
-                            <td class="table-secondary">kg por pagar</td>
-                            <td class="table-secondary">Valor</td>
-                        </tr>
-                        <tr>
-                            <td class="table-secondary">kg por cobrar</td>
-                            <td class="table-secondary">Valor</td>
-                        </tr>
-
                     </tbody>
                 </table>
             </div>

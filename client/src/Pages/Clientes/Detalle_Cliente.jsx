@@ -117,7 +117,7 @@ export default function Detalle_Cliente(){
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Venta/${ClienteById.nombre}`)}
+                                    bonClick={()=>navigate(`/Form_Pago_Venta/${a.id}`)}
                                 />
                             )
                         })
@@ -132,7 +132,7 @@ export default function Detalle_Cliente(){
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Cliente/${id}`)}
+                            onClick={()=>navigate(`/Detalle_Pagos_Clientes/${ClienteById.nombre}`)}
                         ></LargeButton>
                     </div>
                 </div>

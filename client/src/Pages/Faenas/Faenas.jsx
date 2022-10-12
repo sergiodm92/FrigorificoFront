@@ -46,7 +46,7 @@ useEffect(() => {
                                 pago={true}
                                 bstyle={"new"}
                                 bicon={"new"}
-                                bonClick={()=>navigate(`Form_Pago_Faena/${a.id}`)}
+                                bonClick={()=>navigate(`/Form_Pago_Faena/${a.id}`)}
                             />
                         )
                         
@@ -64,13 +64,13 @@ useEffect(() => {
                         <div className={styleF.buttonLarge}>
                             <LargeButton
                                 title={"Pagos - Natilla"}
-                                onClick={()=>navigate("/Historial_Pagos_Faena/Natilla")}
+                                onClick={()=>navigate("/Detalle_Pagos_Frigorifico/Natilla")}
                             ></LargeButton>
                         </div>
                         <div className={styleF.buttonLarge}>
                             <LargeButton
                                 title={"Pagos - El Hueco"}
-                                onClick={()=>navigate("/Historial_Pagos_Faena/ElHueco")}
+                                onClick={()=>navigate("/Detalle_Pagos_Frigorifico/El Hueco")}
                             ></LargeButton>
                         </div>
                     </div>

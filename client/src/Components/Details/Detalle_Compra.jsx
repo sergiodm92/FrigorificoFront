@@ -19,13 +19,74 @@ export default function TableCompra({id_c}){
         useEffect(()=>{
                 dispatch(getFaenasByTropa(CompraByID.n_tropa))
         },[CompraByID])
-
+        console.log(CompraByID)
         const FaenaByTropa = useSelector((state)=>state.FaenaByTropa)
-        console.log(FaenaByTropa)
+        
+
+        function currencyFormatter({ currency, value}) {
+                const formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    minimumFractionDigits: 2,
+                    currency
+                }) 
+                return formatter.format(value)
+                }
+        
+                let saldoEnPesos = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.saldo
+                })
+
+                let costohenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_hac
+                        })
+                let comisionenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.comision
+                        })
+                let costofleteenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_flete
+                        })
+                let costovepsenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_veps
+                        })
+                let costofaenaenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_faena
+                        })
+                let costototalenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_total
+                        })
+                let costokgenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_kg
+                        })
+                let pagofaenanpesos = currencyFormatter({
+                        currency: "USD",
+                        value : FaenaByTropa.saldo
+                        })
+                let precioachuraspesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.precio_venta_achuras
+                                })
+                let preciokgnetospesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.precio_kgv_netos
+                                })
+        
+
+
+
+
 
         const array=[]
         for(const [key,value] of Object.entries(CompraByID)){ //a 0 cambiar por id de compra
-                array.push({key,value})
+               if(key!=="saldo")array.push({key,value})
+
         }
 
         return(
@@ -35,9 +96,13 @@ export default function TableCompra({id_c}){
                         <tbody>
                         {array.map((e,i) => {
                                 return (
-                                <tr key={i} class={e.key==="Comision"||e.key==="Costo_Hac($)"||e.key==="Costo_de_Flete"||e.key==="Costo_VEPS"||e.key==="Costo_Faena"||e.key==="Costo_Total"?"table-danger":e.key==="Kg_achuras"||e.key==="$_Venta"||e.key==="Recupero_$/kg"||e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-primary"}>
+                                <tr key={i} class={e.key==="Comision"||e.key==="Costo_Hac($)"||e.key==="Costo_de_Flete"||e.key==="Costo_VEPS"||e.key==="Costo_Faena"||e.key==="Costo_Total"?"table-danger":e.key==="Kg_achuras"||
+                                                        e.key==="$_Venta"||e.key==="Recupero_$/kg"||e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-primary"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                                        <td  className={tableComprasStyle.tdr} >{e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.value}</td>            
+                                        
+                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps" && e.key!=="costo_faena" && e.key!=="costo_total" && e.key!=="costo_kg" && 
+                                                e.key!=="comision" && e.key!=="precio_kgv_netos" && e.key!=="id" && e.key!=="precio_venta_achuras" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_hac"?costohenpesos:e.key=="comision"?comisionenpesos:e.key=="costo_flete"?
+                                                costofleteenpesos:e.key=="costo_veps"?costovepsenpesos:e.key=="costo_faena"?costofaenaenpesos:e.key=="costo_total"?costototalenpesos:e.key=="costo_kg"?costokgenpesos:e.key=="precio_venta_achuras"?precioachuraspesos:e.key=="precio_kgv_netos"?preciokgnetospesos:e.value}</td>            
                                 </tr>
                                 );
                         })}
@@ -51,7 +116,7 @@ export default function TableCompra({id_c}){
                     </tr>
                     <tr>
                             <td>Saldo</td>
-                            <td>{CompraByID.saldo}</td>
+                            <td>{saldoEnPesos}</td>
                     </tr>
 
                     <tr>
@@ -65,7 +130,7 @@ export default function TableCompra({id_c}){
                     </tr>
                     <tr>
                             <td>Saldo</td>
-                            <td>{FaenaByTropa.saldo}</td>
+                            <td>{pagofaenanpesos}</td>
                     </tr>
                     
             </tbody>

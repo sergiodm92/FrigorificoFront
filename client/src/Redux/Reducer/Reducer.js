@@ -23,6 +23,9 @@ const initialState = {
     login_status:"",
     ultimaCompra:"",
     ultimaVenta:"",
+    pagosByCliente:[],
+    pagosByProveedor:[],
+    pagosByFrigorifico:[],
     provByNombre:{},
     clienteByNombre:{},
     AllCompras:[],
@@ -34,6 +37,7 @@ const initialState = {
     AllStock:[],
     faenasPendientes:[],
     ClienteById:{},
+    FaenaById:{},
     AllVentasByCliente:[],
     AllComprasByProveedor:[],
     AllReses:[],
@@ -129,6 +133,26 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 FaenaByTropa: action.payload,
+            }
+        case "GET_FAENA_BY_ID":
+            return{
+                ...state,
+                FaenaById: action.payload,
+            }
+        case "GET_PAGOS_VENTAS_BY_CLIENTE":
+            return{
+                ...state,
+                pagosByCliente: action.payload,
+            }
+        case "GET_PAGOS_COMPRAS_BY_PROVEEDOR":
+            return{
+                ...state,
+                pagosByProveedor: action.payload,
+            }
+        case "GET_PAGOS_FAENAS_BY_FRIGORIFICO":
+            return{
+                ...state,
+                pagosByFrigorifico: action.payload,
             }
         case "POST_NEW_PROVEEDOR":
             return{
