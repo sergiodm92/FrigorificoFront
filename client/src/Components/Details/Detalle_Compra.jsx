@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getComrpaByID, getFaenasByTropa } from "../../Redux/Actions/Actions";
+import { getComrpaByID, getFaenasByTropa, getPagosComprasByID, getPagosFaenaByID } from "../../Redux/Actions/Actions";
 import tableComprasStyle from "./tableCompraStyle.module.scss"
 
 
@@ -17,12 +17,23 @@ export default function TableCompra({id_c}){
         const CompraByID = useSelector((state)=>state.CompraByID)
         console.log(CompraByID.n_tropa)
         useEffect(()=>{
-                dispatch(getFaenasByTropa(CompraByID.n_tropa))
+                if(CompraByID.n_tropa)dispatch(getFaenasByTropa(CompraByID.n_tropa))
         },[CompraByID])
         console.log(CompraByID)
-        const FaenaByTropa = useSelector((state)=>state.FaenaByTropa)
-        
 
+        const FaenaByTropa = useSelector((state)=>state.FaenaByTropa)
+
+        useEffect(() => {
+                if(id_c)dispatch(getPagosComprasByID(id_c))
+                if(FaenaByTropa.id)dispatch(getPagosFaenaByID(FaenaByTropa.id))
+        }, [FaenaByTropa])
+        const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
+
+        // useEffect(() => {
+        //  dispatch(getPagosFaenaByID(FaenaByTropa.id))
+        // }, [])
+        const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
+        console.log(AllPagosbyFaena[0])
         function currencyFormatter({ currency, value}) {
                 const formatter = new Intl.NumberFormat('en-US', {
                     style: 'currency',
@@ -77,7 +88,11 @@ export default function TableCompra({id_c}){
                         currency: "USD",
                         value : CompraByID.precio_kgv_netos
                                 })
-        
+                let pagos1
+                let pagos2
+
+
+                
 
 
 
@@ -110,10 +125,16 @@ export default function TableCompra({id_c}){
                                         <td class="table-dark">Pagos Hacienda</td>
                                         <td class="table-dark"></td>
                                 </tr>
-                    <tr>
-                            <td>10/07/2022</td>
-                            <td>$150000</td>
-                    </tr>
+                                
+                                {AllPagosbyCompra.map((e)=>
+                                        <tr>
+                                                <td>{e.fecha}</td>
+                                                <td>{pagos1 = currencyFormatter({
+                        currency: "USD",
+                        value : e.monto
+                                })}</td>
+                                        </tr>
+                                 )}
                     <tr>
                             <td>Saldo</td>
                             <td>{saldoEnPesos}</td>
@@ -124,10 +145,15 @@ export default function TableCompra({id_c}){
                             <td class="table-dark"></td>
 
                     </tr>
+                    {AllPagosbyFaena.length>0?AllPagosbyFaena.map((e)=>
                     <tr>
-                            <td>10/07/2022</td>
-                            <td>$110000</td>
+                            <td>{e.fecha}</td>
+                            <td>{pagos2 = currencyFormatter({
+                        currency: "USD",
+                        value : e.monto
+                                })}</td>
                     </tr>
+                    ):<td></td>}
                     <tr>
                             <td>Saldo</td>
                             <td>{pagofaenanpesos}</td>
