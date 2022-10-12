@@ -1007,7 +1007,7 @@ export const deleteVentaById = (id) => {
                 'auth-token': `${token}`
               },
               data: {
-                pf_id: id
+                pv_id: id
               }
               })
               return dispatch({
@@ -1030,7 +1030,7 @@ export const deleteVentaById = (id) => {
                 'auth-token': `${token}`
               },
               data: {
-                pf_id: id
+                pc_id: id
               }
               })
               return dispatch({
