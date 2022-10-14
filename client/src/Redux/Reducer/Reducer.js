@@ -23,6 +23,7 @@ const initialState = {
     login_status:"",
     ultimaCompra:"",
     ultimaVenta:"",
+    ultimaVentaAchura:"",
     pagosByCliente:[],
     pagosByProveedor:[],
     pagosByFrigorifico:[],
@@ -31,14 +32,17 @@ const initialState = {
     AllCompras:[],
     CompraByID:{},
     AllVentas:[],
+    AllVentasAchuras:[],
     VentasUltimos30Dias:[],
     VentaByID:{},
+    VentaAchuraByID:{},
     AllClientes:[],
     AllStock:[],
     faenasPendientes:[],
     ClienteById:{},
     FaenaById:{},
     AllVentasByCliente:[],
+    AllVentasAchurasByCliente:[],
     AllComprasByProveedor:[],
     AllReses:[],
     AllResesStockTrue:[],
@@ -83,11 +87,27 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 VentaByID:action.payload,
             }
+        case "GET_VENTA_ACHURA_BY_ID":
+            return {
+                ...state,
+                VentaAchuraByID:action.payload,
+            }
         case "GET_ALL_VENTAS_BY_CLIENTE":
             return {
             ...state,
             AllVentasByCliente: action.payload[0],
             ultimaVenta: action.payload[1]
+            }
+        case "GET_ALL_VENTAS_ACHURAS_BY_CLIENTE":
+            return {
+            ...state,
+            AllVentasAchurasByCliente: action.payload[0],
+            ultimaVentaAchura: action.payload[1]
+            }
+        case "GET_ALL_VENTAS_ACHURAS":
+            return {
+            ...state,
+            AllVentasAchuras: action.payload
             }
         case "GET_ALL_CLIENTES":
             return {
