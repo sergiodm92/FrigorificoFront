@@ -1,3 +1,22 @@
+.contV{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
+}
+.firstTitle{
+    font-family: 'Karla', sans-serif;
+    font-weight: bold;
+    font-style: initial;
+    font-size: 22px;
+}
 .title{
     display: flex;
     position: relative;
