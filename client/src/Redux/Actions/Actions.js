@@ -706,6 +706,68 @@ export const getPagosComprasByProveedor = (nombre) => {
       };
     };
 
+//Traer pagos por ID de compra
+export const getPagosComprasByID = (compraID) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/pagoCompras/${compraID}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_PAGOS_COMPRAS_BY_ID",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+  
+  //Traer pagos por ID de faena
+export const getPagosFaenaByID = (faenaID) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/pagoFaenas/${faenaID}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_PAGOS_FAENAS_BY_ID",
+          payload: json.data.data})     
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+
+ //Traer pagos por ID de faena
+    export const getPagosVentaByID = (ventaID) => {
+      return async (dispatch) => {
+          try {
+              const json = await axios.get(`/pagoVentas/${ventaID}`,{
+                headers: {
+                  'auth-token': `${token}`
+                }
+              });
+              console.log(json.data.data)
+              return dispatch({
+              type: "GET_PAGOS_VENTAS_BY_ID",
+              payload: json.data.data})     
+          }
+          catch (error) {
+              console.log(error);
+            }
+          };
+        };
+    
+
+
+
 //Traer pagos por Frigorifico
 export const getPagosFaenasByFrigorifico = (nombre) => {
   return async (dispatch) => {

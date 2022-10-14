@@ -51,7 +51,8 @@ function App() {
     dispatch(login_state())
   }, [])
   
-  const state_login = useSelector((state)=>state.login_State)
+  let state_login = useSelector((state)=>state.login_State)
+
 
   return (
     <Routes>
@@ -92,6 +93,7 @@ function App() {
     <Route exact path="/Detalle_Pagos_Proveedor/:nombre" element={state_login?<Detalle_Pagos_Proveedor />:<NoAccess/>} />
     <Route exact path="/Detalle_Pagos_Frigorifico/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
     </Routes>
+  
   );
 }
 

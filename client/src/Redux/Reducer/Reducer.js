@@ -46,7 +46,10 @@ const initialState = {
     AllComprasByProveedor:[],
     AllReses:[],
     AllResesStockTrue:[],
-    arrayResByTropa:[]
+    arrayResByTropa:[],
+    AllPagosbyCompra:[],
+    AllPagosbyFaena:[],
+    pagosByVentaID:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -169,10 +172,25 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pagosByProveedor: action.payload,
             }
+        case "GET_PAGOS_VENTAS_BY_ID":
+            return{
+                ...state,
+                pagosByVentaID: action.payload,
+                }
         case "GET_PAGOS_FAENAS_BY_FRIGORIFICO":
             return{
                 ...state,
                 pagosByFrigorifico: action.payload,
+            }
+        case "GET_PAGOS_COMPRAS_BY_ID":
+            return{
+                ...state,
+                AllPagosbyCompra: action.payload,
+            }
+        case "GET_PAGOS_FAENAS_BY_ID":
+            return{
+                ...state,
+                AllPagosbyFaena: action.payload,
             }
         case "POST_NEW_PROVEEDOR":
             return{
