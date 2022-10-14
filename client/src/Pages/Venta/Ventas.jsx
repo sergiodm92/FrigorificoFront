@@ -27,8 +27,8 @@ export default function Ventas(){
             title={"Ventas"}
             />
             <div>
-                <div>
-                    <h1>Ventas de Carne</h1>
+                <div className={styleVen.contV}>
+                    <h1 className={styleVen.firstTitle}>Ventas de Carne</h1>
                     <div className={styleVen.title}>
                         <div><b>Fecha</b></div>
                         <div><b>|</b></div>
@@ -63,8 +63,8 @@ export default function Ventas(){
                         />
                     </div>
                 </div>
-                <div>
-                    <h1>Ventas de Achuras</h1>
+                <div className={styleVen.contV}>
+                    <h1 className={styleVen.firstTitle}>Ventas de Achuras</h1>
                     <div className={styleVen.title}>
                         <div><b>Fecha</b></div>
                         <div><b>|</b></div>
