@@ -25,6 +25,7 @@ import Detalle_Stock_Tropa from '../src/Pages/Stock/Detalle_Stock_Tropa.jsx';
 import Stock from '../src/Pages/Stock/Stock.jsx';
 import Ventas from '../src/Pages/Venta/Ventas.jsx';
 import Historial_Ventas from './Pages/Venta/Historial_Ventas.jsx';
+import Historial_Ventas_Achuras from './Pages/Venta/Historial_Ventas_Achuras.jsx';
 import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx';
 import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
 import Form_Pago_Venta from '../src/Pages/FormsPagos/Form_pago_venta';
@@ -79,6 +80,7 @@ function App() {
     <Route exact path="/Stock" element={state_login?<Stock />:<NoAccess/>} />
     <Route exact path="/Ventas" element={state_login?<Ventas />:<NoAccess/>} />
     <Route exact path="/Historial_Ventas" element={state_login?<Historial_Ventas />:<NoAccess/>} />
+    <Route exact path="/Historial_Ventas_Achuras" element={state_login?<Historial_Ventas_Achuras />:<NoAccess/>} />
     <Route exact path="/Detalle_Reses_Venta/:id" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
     <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
     <Route exact path="/Form_Pago_Venta/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />

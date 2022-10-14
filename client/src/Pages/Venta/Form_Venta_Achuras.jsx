@@ -4,18 +4,18 @@ import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getAllClientes, postNewVentaAchura } from "../../Redux/Actions/Actions";
+import { getAllClientes, getClienteByName, postNewVentaAchura, putSaldoCliente, setAlertVentaAchuras } from "../../Redux/Actions/Actions";
 
 import styleFormV from './Form_Venta.module.scss';
 
 //Form Venta
 var formVA = {
-    cliente:'',
+    clien:'',
     fecha: '',
-    cantidad:'',
-    precio_unitario:'',
-    total:'',
-    saldo:''
+    cantidad:0,
+    precioUnitario:0,
+    total:null,
+    saldo:null
 };
 
 //validaciones form VentaAchuras
@@ -23,11 +23,11 @@ export const validate = (venta) => {
     let error = {};
     if (!venta.fecha) error.fecha = "Falta fecha";
     else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
-    if (!venta.cliente) error.cliente = "Falta cliente";
+    if (!venta.clien) error.clien = "Falta cliente";
     if (!venta.cantidad) error.cantidad = "Falta cantidad";
     else if (!/^([0-9])*$/.test(venta.cantidad)) error.cantidad = "Cantidad debe ser un número";
-    if (!venta.precio_unitario) error.precio_unitario = "Falta precio unitario";
-    else if (!/^([0-9])*$/.test(venta.precio_unitario)) error.precio_unitario = "Precio debe ser un número";
+    if (!venta.precioUnitario) error.precioUnitario = "Falta precio unitario";
+    else if (!/^([0-9])*$/.test(venta.precioUnitario)) error.precioUnitario = "Precio debe ser un número";
     return error;
 };
 
@@ -37,7 +37,7 @@ const Form_Venta_Achuras = () => {
     const navigate = useNavigate();
 
     //estados globales
-    const alert_msj= useSelector ((state)=>state.postVentaAchuras);
+    const alert_msj= useSelector ((state)=>state.postVentaAchura);
     const clientes = useSelector((state)=>state.AllClientes);
     
     useEffect(() => {
@@ -48,14 +48,21 @@ const Form_Venta_Achuras = () => {
         if(alert_msj!==""){
             swal({
                 title: alert_msj,
-                icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
+                icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
-    }, [alert_msj])  
+            dispatch(setAlertVentaAchuras())
+    }, [alert_msj]) 
 
     //Estados locales
     const [form, setForm] = useState(formVA);
     const [error, setError] = useState({});
+
+    useEffect(() => {
+        dispatch(getClienteByName(form.clien))
+    }, [form])
+
+    const cliente = useSelector((state)=>state.clienteByNombre);
 
     //handleChange de la Venta completa
     const handleChange = (e) => {
@@ -77,15 +84,25 @@ const Form_Venta_Achuras = () => {
         e.preventDefault();
         if(
         !error.cantidad && form.cantidad &&
-        !error.precio_unitario && form.precio_unitario &&
+        !error.precioUnitario && form.precioUnitario &&
         !error.fecha && form.fecha &&
-        !error.cliente && form.cliente
+        !error.clien && form.clien
         ){
-            form.total=form.precio_unitario*1*form.cantidad
+            form.total=form.precioUnitario*1*form.cantidad
             form.saldo=form.total
+            let saldo = cliente.saldo + form.saldo
+            dispatch(putSaldoCliente(cliente.id, saldo))
             dispatch(postNewVentaAchura(form))
             console.log(form)
             setForm(formVA);
+        }
+        else{
+            swal({
+                title: "Alerta",
+                text: "Datos incorrectos, por favor intente nuevamente",
+                icon: "warning",
+                button: "ok",
+            })
         }
     };
 
@@ -93,7 +110,7 @@ const Form_Venta_Achuras = () => {
     function handleSelectCl(e) {
         setForm({
             ...form,
-            cliente: e.target.value
+            clien: e.target.value
         })
     }
 
@@ -136,7 +153,7 @@ const Form_Venta_Achuras = () => {
                     <div className={styleFormV.formItem}>
                         <h5 className={styleFormV.title}>Cantidad: </h5>
                         <input
-                            type="text"
+                            type="number"
                             value={form.cantidad}
                             id="cantidad"
                             name="cantidad"
@@ -149,16 +166,16 @@ const Form_Venta_Achuras = () => {
                     <div className={styleFormV.formItem}>
                         <h5 className={styleFormV.title}>$/Un: </h5>
                         <input
-                            type="text"
-                            value={form.precio_unitario}
-                            id="precio_unitario"
-                            name="precio_unitario"
+                            type="number"
+                            value={form.precioUnitario}
+                            id="precioUnitario"
+                            name="precioUnitario"
                             onChange={handleChange}
                             placeholder="0.00"
-                            className={error.precio_unitario & 'danger'}
+                            className={error.precioUnitario & 'danger'}
                         />
                     </div>
-                    <p className={error.precio_unitario ? styleFormV.danger : styleFormV.pass}>{error.precio_unitario}</p>
+                    <p className={error.precioUnitario ? styleFormV.danger : styleFormV.pass}>{error.precioUnitario}</p>
                     <div className={styleFormV.buttons}>
                         <ShortButton
                             title="📃 Detalle"

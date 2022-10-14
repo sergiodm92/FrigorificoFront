@@ -112,6 +112,26 @@ export const getAllComrpas = () => {
         };
       };
 
+  //Traer todas las ventas de achuras
+export const getAllVentasAchuras = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventaAchuras/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          console.log(json.data.data)
+          return dispatch({
+          type: "GET_ALL_VENTAS_ACHURAS",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
 //Traer todas las compras de un proveedor
 export const getAllComrpasByProveedor = (proveedor) => {
     return async (dispatch) => {
@@ -181,7 +201,6 @@ export const getAllFaenas = () => {
           let unicas = [...faenasMapArr.values()]; 
           unicas.map(e=> {if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)})
           const response = [unicas,faenasPendientes]
-          console.log(response)
             return dispatch({
             type: "GET_ALL_FAENAS",
             payload: response},{
@@ -327,6 +346,41 @@ export const getVentasByCliente = (name) => {
       };
     }; 
 
+
+    //Ventas de achuras por cliente
+export const getVentasAchurasByCliente = (name) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventaAchuras/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          const response = json.data.data.filter((a)=>a.clien===name)
+          let ultimaVenta=""
+            if(response.length>0){
+            let arrayAños=[]
+            let arrayMeses=[]
+            let arrayDias=[]
+            response.map((a)=>arrayAños.push(a.fecha.split("-")[2]))
+            let añoMayor = Math.max(...arrayAños)
+            response.map((a)=>{if(a.fecha.split("-")[2]==añoMayor)arrayMeses.push(a.fecha.split("-")[1])})
+            let mesMayor = Math.max(...arrayMeses)
+            response.map((a)=>{if(a.fecha.split("-")[1]==mesMayor && a.fecha.split("-")[2]==añoMayor)arrayDias.push(a.fecha.split("-")[0])})
+            let diaMayor = Math.max(...arrayDias)
+            ultimaVenta=diaMayor+"-"+mesMayor+"-"+añoMayor
+            }
+          return dispatch({
+          type: "GET_ALL_VENTAS_ACHURAS_BY_CLIENTE",
+          payload: [response, ultimaVenta]})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    }; 
+
+
 //Pagos por ID de cliente
 // export const getPagosClienteByID = (id) => {
 //   return async (dispatch) => {
@@ -382,6 +436,25 @@ export const getVentaByID = (id) => {
           }
         };
       };
+
+      //Traer venta por ID
+export const getVentaAchurasByID = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventaAchuras/${id}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_VENTA_ACHURA_BY_ID",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
 
 //Traer todo el stock
 export const getAllStock = () => {
@@ -734,7 +807,7 @@ export const postNewVentaCarne = (venta_json) => {
 export const postNewVentaAchura = (venta_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`/ventaachuras`, venta_json,{
+          const json = await axios.post(`/ventaAchuras`, venta_json,{
           headers: {
             'auth-token': `${token}`
           }
