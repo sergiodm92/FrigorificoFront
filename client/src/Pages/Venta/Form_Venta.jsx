@@ -154,7 +154,7 @@ const Form_Venta = () => {
         ){
             formCV.costo_kg=resSelect.precio_kg
             form.detalle.push(formCV)
-            if(form.total_media=="total") arrResesTotales.push(formCV.correlativo)
+            if(formCV.total_media=="total") arrResesTotales.push(formCV.correlativo)
             setFormCV(formComV);
         }
         else {
