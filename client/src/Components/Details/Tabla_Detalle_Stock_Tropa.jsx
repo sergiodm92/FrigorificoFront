@@ -21,7 +21,7 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
 
 {reses.map((e,i) => {
 return(
-<tr key={i} class={"table-primary"}>
+<tr key={i} className={"table-warning"}>
 
 
 {e.stock==true?<td><b>{e.correlativo}</b></td>:<td>{e.correlativo}</td>} 

@@ -12,15 +12,15 @@ export default function Table_Proveedor({ProveedorById}){
         <div className={tableVentaStyle.conteiner}>
         <table class="table">
             <tbody>
-                <tr>
+                <tr className="table-warning">
                     <td>Teléfono</td>
                     <td>{ProveedorById.telefono}</td>
                 </tr>
-                <tr>
+                <tr className="table-warning">
                     <td>e-mail</td>
                     <td>{ProveedorById.email}</td>
                 </tr>
-                <tr>
+                <tr className="table-warning">
                     <td>Dirección</td>
                     <td>{ProveedorById.direccion}</td>
                 </tr>
