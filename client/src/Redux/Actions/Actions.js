@@ -305,7 +305,7 @@ export const getAllVentas = () => {
           }
         };
       }; 
-      
+
 //Ventas por cliente
 export const getVentasByCliente = (name) => {
   return async (dispatch) => {
@@ -315,6 +315,7 @@ export const getVentasByCliente = (name) => {
               'auth-token': `${token}`
             }
           });
+          if(json.data.data.length>0){
           const response = json.data.data.filter((a)=>a.cliente===name)
           let ultimaVenta=""
             if(response.length>0){
@@ -345,6 +346,13 @@ export const getVentasByCliente = (name) => {
           type: "GET_ALL_VENTAS_BY_CLIENTE",
           payload: [response, ultimaVenta]})
       }
+        return dispatch({
+        type: "GET_ALL_VENTAS_BY_CLIENTE",
+        payload: [[], '']})
+    
+        }
+        
+          
       catch (error) {
           console.log(error);
         }

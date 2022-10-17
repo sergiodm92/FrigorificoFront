@@ -50,29 +50,34 @@ const deleteVenta = ()=>{
                 })
                 .then((value) => {
                 if(value==="eliminar venta"){
-                    swal("Se eliminó la venta", {
-                        icon: "success",
-                    })
+                try{
                     //dispatch(reses stock true)
+                    console.log(id)
+                    dispatch(deleteVentaById(id))
                     venta.detalle.map(a=>{
                         if(a.total_media=="total"){
                             setTimeout(()=>{
                                 dispatch(putStockResTrue(a.correlativo))
-                            }, 2000)}
-                        else{
+                            }, 1000)}
+                        if(a.total_media!=="total"){
                             setTimeout(()=>{
                                 let correlativo = a.correlativo.substring(0,a.correlativo.length)// elimina la ultima letra
                                 let id= a.id
                                 let kg= a.kg_total
                                 dispatch(putCuartoRes(id, kg, correlativo))
-                            }, 2000)
+                            }, 1000)
                         }
                     })
                     let saldo= cliente.saldo - venta.saldo
                     dispatch(putSaldoCliente(cliente.id, saldo))
-                    dispatch(deleteVentaById(id))
+                    swal("Se eliminó la venta", {
+                        icon: "success",
+                    })
                     Navigate('/Ventas')
                 }
+                catch{
+                    swal(" no se pudo eliminar la venta");
+                }}
                 else {
                     swal("Frase incorrecta, no se eliminó la venta");
                 }

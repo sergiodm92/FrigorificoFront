@@ -29,7 +29,7 @@ export default function Clientes(){
                 <div className={styleCl.title}>
                     <div><b>Nombre</b></div>
                     <div><b>|</b></div>
-                    <div><b>Ultima Venta</b></div>
+                    <div><b>Cuil</b></div>
                     <div><b>|</b></div>
                     <div><b>Saldo($)</b></div>
                 </div>
@@ -42,6 +42,7 @@ export default function Clientes(){
                                 monto={a.saldo || 0}
                                 tipo={"Detalle_Cliente"}
                                 pago={false}
+                                cuil= "27-36135002-3"
                             />
                         )
                     })
