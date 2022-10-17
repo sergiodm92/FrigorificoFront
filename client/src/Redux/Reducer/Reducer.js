@@ -14,6 +14,7 @@ const initialState = {
     postNewPagoCompra:"",
     postNewPagoFaena:"",
     postNewPagoVenta:"",
+    postNewPagoVentaAchuras:"",
     deleteFaena:"",
     deleteCompra:"",
     deleteCliente:"",
@@ -25,6 +26,7 @@ const initialState = {
     ultimaVenta:"",
     ultimaVentaAchura:"",
     pagosByCliente:[],
+    pagosAchurasByCliente:[],
     pagosByProveedor:[],
     pagosByFrigorifico:[],
     provByNombre:{},
@@ -49,7 +51,8 @@ const initialState = {
     arrayResByTropa:[],
     AllPagosbyCompra:[],
     AllPagosbyFaena:[],
-    pagosByVentaID:[]
+    pagosByVentaID:[],
+    pagosByVentaAchuraID:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -167,6 +170,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pagosByCliente: action.payload,
             }
+        case "GET_PAGOS_VENTAS_ACHURAS_BY_CLIENTE":
+            return{
+                ...state,
+                pagosAchurasByCliente: action.payload,
+            }
+            
         case "GET_PAGOS_COMPRAS_BY_PROVEEDOR":
             return{
                 ...state,
@@ -176,6 +185,11 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 pagosByVentaID: action.payload,
+                }
+        case "GET_PAGOS_VENTA_ACHURAS_BY_ID":
+            return{
+                ...state,
+                pagosByVentaAchuraID: action.payload,
                 }
         case "GET_PAGOS_FAENAS_BY_FRIGORIFICO":
             return{
@@ -242,6 +256,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 postNewPagoVenta: action.payload
             }
+        case "POST_NEW_PAGO_VENTA_ACHURAS":
+            return{
+                ...state,
+                postNewPagoVentaAchuras: action.payload
+            }            
         case "DELETE_FAENA":
             return{
                 ...state,

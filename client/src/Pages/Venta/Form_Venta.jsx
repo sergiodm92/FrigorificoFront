@@ -68,7 +68,7 @@ const Form_Venta = () => {
     const [error2, setError2] = useState({});
     const [resSelect,setresSelect] = useState({})
     const [margen,setMargen]=useState(0)
-    const [arrReses,setArrReses] = useState([])
+    const [arrResesTotales,setArrResesTotales] = useState([])
     
     useEffect(() => {
         dispatch(getAllClientes())
@@ -105,7 +105,9 @@ const Form_Venta = () => {
     }, [alert_msj])
 
     useEffect(() => {
-        dispatch(getClienteByName(form.cliente))
+        if(form.cliente){
+            dispatch(getClienteByName(form.cliente))
+        }
     }, [form])
 
     const cliente = useSelector((state)=>state.clienteByNombre);
@@ -152,7 +154,7 @@ const Form_Venta = () => {
         ){
             formCV.costo_kg=resSelect.precio_kg
             form.detalle.push(formCV)
-            arrReses.push(formCV.correlativo)
+            if(formCV.total_media=="total") arrResesTotales.push(formCV.correlativo)
             setFormCV(formComV);
         }
         else {
@@ -168,10 +170,11 @@ const Form_Venta = () => {
     //handleSubmit de la Venta completa
     const handleSubmit = (e) => {
         e.preventDefault();
-        if( true
-            // -!error.fecha && form.fecha &&
-            // -!error.cliente && form.cliente &&
-            // -!error.detalle && form.detalle
+        console.log(error)
+        console.log(form)
+        if(
+            !error.fecha && form.fecha &&
+            !error.cliente && form.cliente
         ){
             if(form.detalle.length>0){
                 form.detalle.map(a=> {
@@ -190,11 +193,9 @@ const Form_Venta = () => {
                     }
                 })
             }
-            arrReses.map(a=>{
+            arrResesTotales.map(a=>{
                 setTimeout(()=>{
-                    if(a.total_media=="total"){
                         dispatch(putStockRes(a))
-                    }
             }, 2000)
             })
             let saldo = cliente.saldo + form.saldo
@@ -202,7 +203,7 @@ const Form_Venta = () => {
             dispatch(postNewVentaCarne(form))
             console.log(form)
             setForm(formV);
-            setArrReses([])
+            setArrResesTotales([])
         }
         else{
             swal({

@@ -27,8 +27,10 @@ import Ventas from '../src/Pages/Venta/Ventas.jsx';
 import Historial_Ventas from './Pages/Venta/Historial_Ventas.jsx';
 import Historial_Ventas_Achuras from './Pages/Venta/Historial_Ventas_Achuras.jsx';
 import Detalle_Reses_Venta from '../src/Pages/Venta/Detalle_Reses_Venta.jsx';
-import Detalle_Venta from '../src/Pages/Venta/Detalle_venta'
+import Detalle_Venta from '../src/Pages/Venta/Detalle_venta';
+import Detalle_Venta_Achuras from '../src/Pages/Venta/Detalle_venta_achuras';
 import Form_Pago_Venta from '../src/Pages/FormsPagos/Form_pago_venta';
+import Form_Pago_Venta_Achuras from './Pages/FormsPagos/Form_Pago_Venta_Achuras.jsx';
 import NoAccess from '../src/Pages/NoAcces/NoAcces'
 import LogOut from './Pages/LogOut/LogOut.jsx';
 import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx';
@@ -84,7 +86,9 @@ function App() {
     <Route exact path="/Historial_Ventas_Achuras" element={state_login?<Historial_Ventas_Achuras />:<NoAccess/>} />
     <Route exact path="/Detalle_Reses_Venta/:id" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
     <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
+    <Route exact path="/Detalle_Venta_Achuras/:id" element={state_login?<Detalle_Venta_Achuras />:<NoAccess/>} />
     <Route exact path="/Form_Pago_Venta/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
+    <Route exact path="/Form_Pago_Venta_Achuras/:id" element={state_login?<Form_Pago_Venta_Achuras />:<NoAccess/>} />
     <Route exact path="/Form_Pago_Compra/:id" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
     <Route exact path="/Form_Venta" element={state_login?<Form_Venta />:<NoAccess/> }/>
     <Route exact path="/Form_Venta_Achuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>

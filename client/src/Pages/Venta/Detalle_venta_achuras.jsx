@@ -8,32 +8,33 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import { deleteVentaById, getClienteByName, getPagosVentaByID, getVentaByID, putCuartoRes, putSaldoCliente, putStockResTrue } from "../../Redux/Actions/Actions"
+import { deleteVentaAchurasById, getClienteByName, getPagosVentaAchurasByID, getVentaAchurasByID, putSaldoCliente } from "../../Redux/Actions/Actions"
 
 
-export default function Detalle_Venta(){
+export default function Detalle_Venta_Achuras(){
 
-const dispatch = useDispatch()
-const {id}=useParams()
-const Navigate = useNavigate()
+    const dispatch = useDispatch()
+    const {id}=useParams()
+    const Navigate = useNavigate()
+
+    useEffect(() => {
+        dispatch(getVentaAchurasByID(id))
+    }, [dispatch])
+
+    let venta = useSelector((state)=>state.VentaAchuraByID)
+    console.log(venta)
 
 useEffect(() => {
-    dispatch(getVentaByID(id))
-}, [dispatch])
-
-let venta = useSelector((state)=>state.VentaByID)
-
-useEffect(() => {
-    if(venta)dispatch(getClienteByName(venta.cliente))
-    if(venta)dispatch(getPagosVentaByID(venta.id))
+    if(venta){
+        dispatch(getClienteByName(venta.clien))
+        dispatch(getPagosVentaAchurasByID(venta.id))
+    }
 }, [venta])
 
 let cliente = useSelector((state)=>state.clienteByNombre)
-let pagos = useSelector((state)=>state.pagosByVentaID)
+console.log(cliente)
+let pagos = useSelector((state)=>state.pagosByVentaAchuraID)
 console.log(pagos)
-
-
-
 
 const deleteVenta = ()=>{
     swal({
@@ -50,27 +51,12 @@ const deleteVenta = ()=>{
                 })
                 .then((value) => {
                 if(value==="eliminar venta"){
+                    let saldo= cliente.saldo - venta.saldo
+                    dispatch(putSaldoCliente(cliente.id, saldo))
+                    dispatch(deleteVentaAchurasById(id))
                     swal("Se eliminó la venta", {
                         icon: "success",
                     })
-                    //dispatch(reses stock true)
-                    venta.detalle.map(a=>{
-                        if(a.total_media=="total"){
-                            setTimeout(()=>{
-                                dispatch(putStockResTrue(a.correlativo))
-                            }, 2000)}
-                        else{
-                            setTimeout(()=>{
-                                let correlativo = a.correlativo.substring(0,a.correlativo.length)// elimina la ultima letra
-                                let id= a.id
-                                let kg= a.kg_total
-                                dispatch(putCuartoRes(id, kg, correlativo))
-                            }, 2000)
-                        }
-                    })
-                    let saldo= cliente.saldo - venta.saldo
-                    dispatch(putSaldoCliente(cliente.id, saldo))
-                    dispatch(deleteVentaById(id))
                     Navigate('/Ventas')
                 }
                 else {
@@ -103,10 +89,6 @@ const deleteVenta = ()=>{
                         pagos={pagos}
                     />        
                 </div>
-                <LargeButton
-                    title="Detalle de Reses"
-                    onClick={()=>Navigate(`/Detalle_Reses_Venta/${id}`)}
-                />
             </div>
         </div>
 
