@@ -25,12 +25,13 @@ const formF = {
 };
 //Form para cargar las reses del detalle de Faena
 const formComF = {
+    kg: '',
     garron: null,
     kg1:null,
     kg2:null,
     correlativo: '',
-    categoria: '',
-    kg: null
+    categoria: ''
+    
 };
 //var para sumar medias
 var m=0;
@@ -38,7 +39,7 @@ var elHueco=[];
 
 //Array para select de frigorífico
 const frigorificos = ["Natilla", "El Hueco"]
-const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
+const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 
 
 //validaciones form Faena
@@ -158,12 +159,12 @@ const Form_Faena = () => {
                         formRes.correlativo=formCF.garron+"-"+formCF.kg1
                         formRes.kg=formCF.kg1
                         console.log(formRes)
-                        form.detalle.push(formRes)
+                        form.detalle.unshift(formRes)
                     //segunda res correlativo garron-kg2
                         formCF.correlativo=formCF.garron+"-"+formCF.kg2
                         formCF.kg=formCF.kg2
                         console.log(formCF)
-                        form.detalle.push(formCF)
+                        form.detalle.unshift(formCF)
                 }
             }
             else if(form.frigorifico==="Natilla"){
@@ -172,7 +173,9 @@ const Form_Faena = () => {
                     !error2.kg && formCF.kg &&
                     !error2.categoria && formCF.categoria
                 ){
-                    form.detalle.push(formCF)
+                    formCF.kg=formCF.kg*1
+                    form.detalle.unshift(formCF)
+                    console.log(formCF)
                 }
             }
             document.getElementById("categoria").selectedIndex = 0
@@ -414,7 +417,7 @@ console.log(error)
                                     <div className={styleFormF.numero}>
                                         <h5 className={styleFormF.title}>kg </h5>
                                         <input
-                                            type="text"
+                                            type="number"
                                             value={formCF.kg}
                                             id="kg"
                                             name="kg"
