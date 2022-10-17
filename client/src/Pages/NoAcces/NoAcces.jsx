@@ -10,9 +10,9 @@ export default function NoAccess(){
     const navigate = useNavigate();
 
     return(
-        <div className={StyleNA.ConteinerCompras}>
+        <div className={StyleNA.ConteinerNoAccess}>
             <NavBar
-            title={"Sin Acceso"}
+            title={"Sin Acceso ❌"}
             />
                 <div className={StyleNA.ConteinerCompras}>
 

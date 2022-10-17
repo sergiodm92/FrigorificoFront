@@ -68,7 +68,7 @@ export default function Detalle_Cliente(){
     }
 
     return(
-        <div className={styleCl.Conteiner}>
+        <div className={styleCl.ConteinerClientes}>
             <NavBar
                 title={ClienteById.nombre}
             />

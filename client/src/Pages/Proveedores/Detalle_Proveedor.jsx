@@ -59,7 +59,7 @@ export default function Detalle_Proveedor(){
     }
 
     return(
-        <div className={stylePr.ConteinerProveedor}>
+        <div className={stylePr.ConteinerProveedores}>
             <NavBar
                 title={ProveedorById.nombre}
             />

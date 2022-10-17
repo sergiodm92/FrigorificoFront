@@ -21,7 +21,7 @@ export default function Clientes(){
 
 
     return(
-        <div className={styleCl.ConteinerCompras}>
+        <div className={styleCl.ConteinerClientes}>
             <NavBar
             title={"Clientes"}
             />

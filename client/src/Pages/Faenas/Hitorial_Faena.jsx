@@ -14,7 +14,7 @@ export default function Historial_Faena(){
 
 const AllFaenas = useSelector((state)=>state.AllFaenas)
     return(
-        <div className={styleF.ConteinerCompras}>
+        <div className={styleF.ConteinerFaenas}>
             <NavBar
             title={"Hist. Faenas"}
             />
