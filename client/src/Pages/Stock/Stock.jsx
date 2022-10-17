@@ -22,17 +22,19 @@ export default function Stock(){
     //     if(a[0].tropa<b[0].tropa){return -1}
     //     return 0}) 
     // console.log(arrayResByTropa)
+    
 
     let total_kg=["Total kg","","",0]
-    let vaq=["Vaquillon",0,0,0]
+    let vaq=["Vaquillona",0,0,0]
     let vaca=["Vaca",0,0,0]
-    let nov=["Novillo",0,0,0]
+    let nov=["Novillito",0,0,0]
     let toro=["Toro",0,0,0]
+    let Novp=["Novillo Pesado",0,0,0]
 
     // console.log(AllResesStockTrue)
     AllResesStockTrue.map((a)=>{
             total_kg[3]+=a.kg;
-            if(a.categoria==="Vaquillon"){
+            if(a.categoria==="Vaquillona"){
                 if(a.correlativo.includes("D")) vaq[2]++
                 if(a.correlativo.includes("T")) vaq[3]++
                 else vaq[1]++
@@ -42,7 +44,7 @@ export default function Stock(){
                 if(a.correlativo.includes("T")) vaca[3]++
                 else vaca[1]++
             }
-            if(a.categoria==="Novillo"){
+            if(a.categoria==="Novillito"){
                 if(a.correlativo.includes("D")) nov[2]++
                 if(a.correlativo.includes("T")) nov[3]++
                 else nov[1]++
@@ -52,9 +54,14 @@ export default function Stock(){
                 if(a.correlativo.includes("T")) toro[3]++
                 else toro[1]++
             }
+            if(a.categoria==="Novillo Pesado"){
+                if(a.correlativo.includes("D")) toro[2]++
+                if(a.correlativo.includes("T")) toro[3]++
+                else Novp[1]++
+            }
         })
 
-var array=[vaq,vaca,nov,toro,total_kg]
+var array=[vaq,vaca,nov,toro,Novp,total_kg]
     return(
         <div className={styleSt.Conteiner}>
             <NavBar

@@ -31,7 +31,7 @@ var formComV = {
 
 
 // Arrays para los selects
-const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
+const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 const res=["total", "1/4T", "1/4D"]
 
 //validaciones form Venta
