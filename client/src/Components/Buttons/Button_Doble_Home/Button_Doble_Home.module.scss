@@ -6,7 +6,7 @@
 .button1{
     width: 150px;
     height: 60px;
-    background-color: rgb(195, 215, 228);
+    background-color: rgb(255,159,0);
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-width: 3px;
@@ -19,12 +19,12 @@
     font-style: initial;
 }
 .button1:hover{
-    background-color: rgb(104, 155, 189);;
+    background-color: rgb(160, 160, 160);
 }
 .button2{
     width: 150px;
     height: 60px;
-    background-color: rgb(195, 215, 228);
+    background-color: rgb(255,159,0);
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-width: 3px;
@@ -36,5 +36,5 @@
     background-size: contain;
 }
 .button2:hover{
-    background-color: rgb(104, 155, 189);;
+    background-color: rgb(160, 160, 160);
 }
