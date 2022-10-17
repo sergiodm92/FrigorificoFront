@@ -1,8 +1,21 @@
+.wallpaper{
+    display: flex;
+    position: relative;
+    min-height: 800px;
+    flex-direction: column;
+    background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666038470/MyPortfolio/fondo_de_pantalla_don_alberto_ioflbo.png") ;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
 .formContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 .form{
     display: flex;
@@ -16,7 +29,7 @@
     align-items: center;
     width: 300px;
     height: 50px;
-    background-color: rgb(195, 215, 228);
+    background-color: rgb(255, 207, 131);
     border-radius: 20px;
     margin: 0;
     padding: 18px;

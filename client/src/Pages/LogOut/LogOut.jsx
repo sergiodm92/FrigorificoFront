@@ -16,9 +16,9 @@ export default function LogOut(){
     }
 
     return(
-        <div className={StyleNA.ConteinerCompras}>
+        <div className={StyleNA.ConteinerLogOut}>
             <NavBar
-            title={"Login status 🟢 "}
+            title={"Login status ✔ "}
             />
                 <div className={StyleNA.ConteinerCompras}>
 

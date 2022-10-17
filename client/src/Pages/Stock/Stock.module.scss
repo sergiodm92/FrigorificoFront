@@ -4,7 +4,7 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: white;
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
@@ -42,16 +42,18 @@
 }
 
 .Conteiner{
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-    align-items: center;
     display: flex;
     position: relative;
+    min-height: 800px;
     flex-direction: column;
-    width: 100%
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666038470/MyPortfolio/fondo_de_pantalla_don_alberto_ioflbo.png") ;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
-
 .TableDetTropa{
     min-width: 400px;
 }

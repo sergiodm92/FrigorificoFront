@@ -19,7 +19,7 @@ export default function Historial_Ventas(){
     }, [dispatch])
 
     return(
-        <div className={styleVen.ConteinerCompras}>
+        <div className={styleVen.ConteinerVentas}>
             <NavBar
             title={"Hist. Ventas"}
             />

@@ -22,7 +22,7 @@ export default function Proveedores(){
     
     console.log(AllProveedores)
     return(
-        <div className={stylePr.ConteinerCompras}>
+        <div className={stylePr.ConteinerProveedores}>
             <NavBar
             title={"Proveedores"}
             />
