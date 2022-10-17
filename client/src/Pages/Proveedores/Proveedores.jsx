@@ -44,7 +44,7 @@ export default function Proveedores(){
                                 monto={a.saldo===null?0:a.saldo}
                                 tipo={"Detalle_Proveedor"}
                                 pago={false}
-                                cuil= "27-36135002-3"
+                                cuil= {a.cuil}
                             />
                         )
                     })

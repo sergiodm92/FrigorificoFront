@@ -42,7 +42,7 @@ export default function Clientes(){
                                 monto={a.saldo || 0}
                                 tipo={"Detalle_Cliente"}
                                 pago={false}
-                                cuil= "27-36135002-3"
+                                cuil= {a.cuil}
                             />
                         )
                     })

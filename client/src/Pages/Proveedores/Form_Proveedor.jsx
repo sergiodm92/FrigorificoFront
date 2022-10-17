@@ -11,15 +11,14 @@ const formPr = {
     nombre:'',
     email: '',
     telefono:'',
-    direccion:''
+    direccion:'',
+    cuil:''
 };
 
 //validaciones
 export const validate = (proveedor) => {
     let error = {};
     if (!proveedor.nombre) error.nombre = "Falta Nombe";
-    else if (!/^([da-z_.-]+)@([da-z.-]+).([a-z.]{2,6})$/.test(proveedor.email)) error.email = "email incorrecto";
-    if (!proveedor.telefono) error.telefono = "Falta Teléfono";
     return error;
 };
 
@@ -48,9 +47,7 @@ const Form_Proveedor = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(
-        !error.nombre && form.nombre &&
-        !error.email && form.email &&
-        !error.telefono && form.telefono
+        !error.nombre && form.nombre 
         ){
         dispatch(postNewProveedor(form))
         swal({
@@ -106,7 +103,6 @@ const Form_Proveedor = () => {
                             className={error.email & 'danger'}
                         />
                     </div>
-                    <p className={error.email ? styleFormPr.danger : styleFormPr.pass}>{error.email}</p>
                     <div className={styleFormPr.formItem}>
                         <h5 className={styleFormPr.title}>Teléfono: </h5>
                         <input
@@ -119,7 +115,6 @@ const Form_Proveedor = () => {
                             className={error.telefono & 'danger'}
                         />
                     </div>
-                    <p className={error.telefono ? styleFormPr.danger : styleFormPr.pass}>{error.telefono}</p>
                     <div className={styleFormPr.formItem}>
                         <h5 className={styleFormPr.title}>Dirección: </h5>
                         <input
@@ -130,7 +125,17 @@ const Form_Proveedor = () => {
                             onChange={handleChange}
                             className={error.direccion & 'danger'}
                         />
-                    </div>                    
+                    </div>
+                    <div className={styleFormPr.formItem}>
+                        <h5 className={styleFormPr.title}>Cuil: </h5>
+                        <input
+                            type="text"
+                            value={form.cuil}
+                            id="cuil"
+                            name="cuil"
+                            onChange={handleChange}
+                            />
+                    </div>                                        
                     <div className={styleFormPr.buttons}>
                         <ShortButton
                             title="📃 Detalle"
