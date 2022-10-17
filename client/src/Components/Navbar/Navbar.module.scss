@@ -4,7 +4,6 @@
     height: auto;
     padding: 5px;
     width: 100%;
-    background-color: rgb(222, 239, 246);
     justify-content: center;
     align-items: center;
     gap: 10%;
@@ -14,8 +13,10 @@
     display: flex;
     position: relative;
     align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
     width: 60%;
-    margin-left: 5%;
+    color: white;
 }
 .NavTitle{
     display:flex;
@@ -28,7 +29,7 @@
 }
 
 .ConteinerButtonReturn{
-    background-color: rgb(191, 215, 228);
+    background-color: rgb(255, 159, 0);
     background-image: url("../../Media/return.svg");
     background-repeat: no-repeat;
     background-size: 70%;
@@ -45,11 +46,11 @@
 
 }
 .ConteinerButtonReturn:hover{
-    background-color: rgb(104, 155, 189);
+    background-color: rgb(160, 160, 160);
 }
 
 .ConteinerButtonHome{
-    background-color: rgb(191, 215, 228);
+    background-color: rgb(255, 159, 0);
     background-image: url("../../Media/home.svg");
     background-repeat: no-repeat;
     background-size: 80%;
@@ -67,7 +68,10 @@
 
 }
 .ConteinerButtonHome:hover{
-    background-color: rgb(104, 155, 189);
+    background-color: rgb(160, 160, 160);
+}
+.loguito{
+    display: none;
 }
 @media screen and (min-width: 500px) {
     .ConteinerButtonHome {
@@ -88,4 +92,17 @@
     .NavTitle{
         font-size: 25px;
     }
+  }
+  @media screen and (min-width: 700px){
+    .loguito{
+        display: flex;
+        position: relative;
+        background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666031351/MyPortfolio/logo_Don_Alberto_g1wuop.png");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 70px;
+        height: 70px;
+    }
+
   }

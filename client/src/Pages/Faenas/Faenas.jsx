@@ -19,7 +19,7 @@ useEffect(() => {
     const navigate = useNavigate();
 
     return(
-        <div className={styleF.ConteinerCompras}>
+        <div className={styleF.ConteinerFaenas}>
             <NavBar
             title={"Faenas"}
             />
