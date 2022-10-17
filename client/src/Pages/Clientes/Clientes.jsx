@@ -28,6 +28,12 @@ export default function Clientes(){
                 title={"Clientes"}
                 />
                 <div>
+                    <div className={styleCl.buttonLarge}>
+                        <LargeButton
+                            title={"Agregar Cliente"}
+                            onClick={()=>navigate("/Form_Cliente")}
+                        ></LargeButton>
+                    </div>
                     <div className={styleCl.title}>
                         <div><b>Nombre</b></div>
                         <div><b>|</b></div>
@@ -44,7 +50,7 @@ export default function Clientes(){
                                     monto={a.saldo || 0}
                                     tipo={"Detalle_Cliente"}
                                     pago={false}
-                                    cuil= "27-36135002-3"
+                                    cuil= {a.cuil}
                                 />
                             )
                         })

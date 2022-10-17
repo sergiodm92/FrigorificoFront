@@ -37,7 +37,7 @@ const formC = {
 };
 
 
-const categorias = ["Vaca", "Vaquillon", "Novillo", "Toro"]
+const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 
 //validaciones
 export const validate = (compra) => {

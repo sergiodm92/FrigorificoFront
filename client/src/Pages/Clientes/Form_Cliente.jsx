@@ -11,15 +11,14 @@ const formCl = {
     nombre:'',
     email: '',
     telefono:'',
-    direccion:''
+    direccion:'',
+    cuil:''
 };
 
 //validaciones
 export const validate = (cliente) => {
     let error = {};
     if (!cliente.nombre) error.nombre = "Falta Nombe";
-    else if (!/^([da-z_.-]+)@([da-z.-]+).([a-z.]{2,6})$/.test(cliente.email)) error.email = "email incorrecto";
-    if (!cliente.telefono) error.telefono = "Falta Teléfono";
     return error;
 };
 
@@ -48,11 +47,11 @@ const Form_Cliente = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(
-        !error.nombre && form.nombre &&
-        !error.email && form.email &&
-        !error.telefono && form.telefono
+        !error.nombre && form.nombre 
         ){
+        console.log("🚀 ~ file: Form_Cliente.jsx ~ line 53 ~ handleSubmit ~ form", form)
         dispatch(postNewCliente(form))
+   
         swal({
             title: "Nuevo Cliente",
             text: "Cargado correctamente",
@@ -130,7 +129,17 @@ const Form_Cliente = () => {
                             onChange={handleChange}
                             className={error.direccion & 'danger'}
                         />
-                    </div>                    
+                    </div>   
+                    <div className={styleFormCl.formItem}>
+                        <h5 className={styleFormCl.title}>Cuil: </h5>
+                        <input
+                            type="text"
+                            value={form.cuil}
+                            id="cuil"
+                            name="cuil"
+                            onChange={handleChange}
+                        />
+                    </div>                                     
                     <div className={styleFormCl.buttons}>
                         <ShortButton
                             title="📃 Detalle"

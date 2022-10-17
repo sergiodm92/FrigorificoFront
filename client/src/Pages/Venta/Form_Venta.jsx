@@ -31,7 +31,7 @@ var formComV = {
 
 
 // Arrays para los selects
-const categorias = ["Vaquillon", "Novillo", "Vaca", "Toro"]
+const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 const res=["total", "1/4T", "1/4D"]
 
 //validaciones form Venta
@@ -153,7 +153,7 @@ const Form_Venta = () => {
             !error2.precio_kg && formCV.precio_kg
         ){
             formCV.costo_kg=resSelect.precio_kg
-            form.detalle.push(formCV)
+            form.detalle.unshift(formCV)
             if(formCV.total_media=="total") arrResesTotales.push(formCV.correlativo)
             setFormCV(formComV);
         }
