@@ -30,7 +30,7 @@ export default function Proveedores(){
                 <div className={stylePr.title}>
                     <div><b>Nombre</b></div>
                     <div><b>|</b></div>
-                    <div><b>Ultima Compra</b></div>
+                    <div><b>Cuil</b></div>
                     <div><b>|</b></div>
                     <div><b>Saldo($)</b></div>
                 </div>
@@ -44,6 +44,7 @@ export default function Proveedores(){
                                 monto={a.saldo===null?0:a.saldo}
                                 tipo={"Detalle_Proveedor"}
                                 pago={false}
+                                cuil= "27-36135002-3"
                             />
                         )
                     })

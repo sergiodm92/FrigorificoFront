@@ -5,7 +5,7 @@ import { getVentasByCliente } from "../../../Redux/Actions/Actions";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
 
-const CardSmall = ({ id, nombre, monto, tipo, pago, bstyle, bicon, bonClick}) => {
+const CardSmall = ({ id, nombre, monto, tipo, pago, bstyle, bicon, bonClick, cuil}) => {
 const dispatch = useDispatch()
 useEffect(() => {
 dispatch(getVentasByCliente(nombre))
@@ -33,7 +33,7 @@ const ultimaVenta = useSelector((state)=>state.ultimaVenta)
             <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
                 <div className={styleCS.items}><p>{nombre}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
-                <div className={styleCS.items}><p>{ultimaVenta}</p></div>
+                <div className={styleCS.items}><p>{cuil}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{totalEstenPesos}</p></div>
             </div>
