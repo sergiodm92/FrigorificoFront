@@ -42,11 +42,11 @@ export default function Historial_Ventas_Achuras(){
                             <CardLarge
                                 id={a.id}
                                 fecha={a.fecha}
-                                para={a.cliente}
-                                cant={a.cant}
+                                para={a.clien}
+                                cant={a.cantidad}
                                 kg={a.total}
                                 monto={a.saldo}
-                                tipo={"ventasAchuras"}
+                                tipo={"Detalle_Venta_Achuras"}
                             />
                         )
                     })}

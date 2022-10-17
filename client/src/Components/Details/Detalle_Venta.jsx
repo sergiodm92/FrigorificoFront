@@ -5,14 +5,14 @@ import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 
 
-export default function TableVenta({venta}){
+export default function TableVenta({venta, pagos}){
         const dispatch = useDispatch()
         const array=[]
-        useEffect(() => {
-                if(venta)getPagosVentaByID(venta.id)
-        }, [dispatch])
+        // useEffect(() => {
+        //         if(venta)getPagosVentaByID(venta.id)
+        // }, [dispatch])
         
-        let pagosByVentaID = useSelector((state)=>state.pagosByVentaID)
+        // let pagosByVentaID = useSelector((state)=>state.pagosByVentaID)
         
         
 
@@ -41,7 +41,7 @@ export default function TableVenta({venta}){
                             <td class="table-dark" colspan="2">Pagos</td>
                        
                     </tr>
-                    {pagosByVentaID?.map((a)=>
+                    {pagos?.map((a)=>
                     <tr>
                     
                             <td>{a.fecha}</td>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteClienteById, getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
+import { deleteClienteById, getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from "../../Redux/Actions/Actions";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
@@ -24,11 +24,15 @@ export default function Detalle_Cliente(){
     const ClienteById = useSelector((state)=>(state.ClienteById))
 
     useEffect(() => {
-        dispatch(getVentasByCliente(ClienteById.nombre))
+        if(ClienteById)dispatch(getVentasByCliente(ClienteById.nombre))
+        if(ClienteById)dispatch(getVentasAchurasByCliente(ClienteById.nombre))
     }, [ClienteById])
 
     const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
     const VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
+    const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
+    const VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)
+    console.log(VentasAchurasPendientes)
 
     const deleteCliente = ()=>{
         swal({
@@ -118,6 +122,23 @@ export default function Detalle_Cliente(){
                                     bstyle={"new"}
                                     bicon={"new"}
                                     bonClick={()=>navigate(`/Form_Pago_Venta/${a.id}`)}
+                                />
+                            )
+                        })
+                        }
+                        {VentasAchurasPendientes.map((a)=>{
+                            return(
+                                <CardLarge
+                                    id={a.id}
+                                    fecha={a.fecha}
+                                    para={a.clien}
+                                    cant={a.cantidad}
+                                    monto={a.saldo.toFixed(2)}
+                                    tipo={"Detalle_Venta_Achuras"}
+                                    pago={true}
+                                    bstyle={"new"}
+                                    bicon={"new"}
+                                    bonClick={()=>navigate(`/Form_Pago_Venta_Achuras/${a.id}`)}
                                 />
                             )
                         })

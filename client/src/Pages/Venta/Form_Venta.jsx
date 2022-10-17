@@ -196,7 +196,6 @@ const Form_Venta = () => {
             arrResesTotales.map(a=>{
                 setTimeout(()=>{
                         dispatch(putStockRes(a))
-                    
             }, 2000)
             })
             let saldo = cliente.saldo + form.saldo

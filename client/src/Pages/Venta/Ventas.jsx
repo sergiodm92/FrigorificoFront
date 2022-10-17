@@ -86,7 +86,7 @@ export default function Ventas(){
                                     cant={a.cantidad}
                                     kg={a.total}
                                     monto={a.saldo}
-                                    tipo={"ventasAchuras"}
+                                    tipo={"Detalle_Venta_Achuras"}
                                 />
                             )
                         })

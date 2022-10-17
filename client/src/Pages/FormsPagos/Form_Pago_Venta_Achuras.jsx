@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
-import { deleteCompraById, getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlertPagoVenta } from "../../Redux/Actions/Actions";
+import { getClienteByName, getVentaAchurasByID, postNewPagoVentaAchuras, putSaldoCliente, putSaldoVentaAchuras, setAlertPagoVentaAchuras } from "../../Redux/Actions/Actions";
 
 import stylePagoV from './Form_pago.module.scss';
 
@@ -14,7 +14,7 @@ const formPV = {
     monto: null,
     formaDePago:'',
     ventaID:null,
-    cliente:''
+    clien:''
 };
 
 const formasDePago=["Efectivo", "Transferencia"]
@@ -30,7 +30,7 @@ export const validate = (pago) => {
     return error;
 };
 
-const Form_Pago_Venta = () => {
+const Form_Pago_Venta_Achuras = () => {
 
     const {id}=useParams()
 
@@ -38,14 +38,14 @@ const Form_Pago_Venta = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getVentaByID(id))
+        dispatch(getVentaAchurasByID(id))
     }, [dispatch])
 
-    const venta = useSelector((state)=>state.VentaByID);
-    const alert_msj= useSelector ((state)=>state.postNewPagoVenta);
+    const venta = useSelector((state)=>state.VentaAchuraByID);
+    const alert_msj= useSelector ((state)=>state.postNewPagoVentaAchuras);
 
     useEffect(() => {
-        dispatch(getClienteByName(venta.cliente))
+        dispatch(getClienteByName(venta.clien))
     }, [venta])
     const cliente = useSelector((state)=>state.clienteByNombre)
 
@@ -56,7 +56,7 @@ const Form_Pago_Venta = () => {
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
-            dispatch(setAlertPagoVenta())
+            dispatch(setAlertPagoVentaAchuras())
     }, [alert_msj])
 
     const [form, setForm] = useState(formPV);
@@ -78,18 +78,21 @@ const Form_Pago_Venta = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(error)
         if(
         !error.fecha && form.fecha &&
         !error.monto && form.monto
         ){
-            form.cliente=venta.cliente
+            form.cliente=venta.clien
             form.ventaID=id
             let saldo1= cliente.saldo - form.monto
+            if(!saldo1) saldo1="0"
             let saldo2= venta.saldo - form.monto
+            if(!saldo2) saldo2="0"
             console.log(saldo1, saldo2)
             dispatch(putSaldoCliente(cliente.id, saldo1))
-            dispatch(putSaldoVenta(id, saldo2))
-            dispatch(postNewPagoVenta(form))
+            dispatch(putSaldoVentaAchuras(id, saldo2))
+            dispatch(postNewPagoVentaAchuras(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPV);
         }
@@ -201,4 +204,4 @@ const Form_Pago_Venta = () => {
     );
 };
 
-export default Form_Pago_Venta;
+export default Form_Pago_Venta_Achuras;

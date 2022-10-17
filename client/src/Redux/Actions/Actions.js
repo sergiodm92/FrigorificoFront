@@ -38,6 +38,11 @@ export const setAlertPagoVenta = () => {
     
   return ({ type: "POST_NEW_PAGO_VENTA", payload: ""  });
 };
+export const setAlertPagoVentaAchuras = () => {
+    
+  return ({ type: "POST_NEW_PAGO_VENTA_ACHURAS", payload: ""  });
+};
+
 // User Login
 // export const postLogin = (payload) => {
 //     return async function (dispatch){
@@ -687,6 +692,25 @@ export const getPagosVentasByCliente = (nombre) => {
       };
     };
 
+    //Traer pagos por clientes
+export const getPagosVentaAchurasByCliente = (nombre) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/pagoVentaAchuras/all/${nombre}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_PAGOS_VENTAS_ACHURAS_BY_CLIENTE",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
 //Traer pagos por Proveedor
 export const getPagosComprasByProveedor = (nombre) => {
   return async (dispatch) => {
@@ -745,7 +769,7 @@ export const getPagosFaenaByID = (faenaID) => {
     };
 
 
- //Traer pagos por ID de faena
+ //Traer pagos por ID de venta
     export const getPagosVentaByID = (ventaID) => {
       return async (dispatch) => {
           try {
@@ -754,9 +778,28 @@ export const getPagosFaenaByID = (faenaID) => {
                   'auth-token': `${token}`
                 }
               });
-              console.log(json.data.data)
               return dispatch({
               type: "GET_PAGOS_VENTAS_BY_ID",
+              payload: json.data.data})     
+          }
+          catch (error) {
+              console.log(error);
+            }
+          };
+        };
+
+        //Traer pagos por ID de venta
+    export const getPagosVentaAchurasByID = (ventaID) => {
+      return async (dispatch) => {
+          try {
+              console.log(ventaID)
+              const json = await axios.get(`/pagoVentaAchuras/${ventaID}`,{
+                headers: {
+                  'auth-token': `${token}`
+                }
+              });
+              return dispatch({
+              type: "GET_PAGOS_VENTA_ACHURAS_BY_ID",
               payload: json.data.data})     
           }
           catch (error) {
@@ -961,6 +1004,26 @@ export const postNewPagoVenta = (pago_json) => {
         }
       };
     };
+
+     //Post pagoVentaAchuras
+export const postNewPagoVentaAchuras = (pago_json) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.post(`/pagoVentaAchuras`, pago_json,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "POST_NEW_PAGO_VENTA_ACHURAS",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
     //Post pagoFaena
 export const postNewPagoFaena = (pago_json) => {
   return async (dispatch) => {
@@ -1108,6 +1171,27 @@ export const deleteVentaById = (id) => {
         }
       };
     };
+//eliminar venta de Achuras
+export const deleteVentaAchurasById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/ventaAchuras`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            venta_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_VENTA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
 
     //eliminar pago faena por id
 
@@ -1147,6 +1231,29 @@ export const deleteVentaById = (id) => {
               })
               return dispatch({
               type: "DELETE_PAGO_VENTA",
+              payload: json.data.data})
+          }
+          catch (error) {
+              console.log(error);
+            }
+          };
+        };
+
+        //eliminar pago venta achuras por id
+
+    export const deletePagoVentaAchurasById = (id) => {
+      return async (dispatch) => {
+          try {
+              const json = await axios.delete(`/pagoVentaAchuras`,{
+              headers: {
+                'auth-token': `${token}`
+              },
+              data: {
+                pv_id: id
+              }
+              })
+              return dispatch({
+              type: "DELETE_PAGO_VENTA_ACHURAS",
               payload: json.data.data})
           }
           catch (error) {
@@ -1357,6 +1464,30 @@ export const putSaldoVenta = (id, saldo)=>{
     console.log(data_json)
     try{
       const json = await axios.put(`/ventas/saldo`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_CUARTO_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+
+//actualiza saldo Venta Achuras
+export const putSaldoVentaAchuras = (id, saldo)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      id: id,
+      saldo: saldo,
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/ventaAchuras/saldo`,data_json,{
         headers: {
           'auth-token': `${token}`
         }
