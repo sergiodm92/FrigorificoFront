@@ -1,9 +1,13 @@
 .wallpaper{
+    display: flex;
     position: absolute;
-    display: block;
+    flex-direction: column;
+    background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666031352/MyPortfolio/fondo_de_pantalla_don_alberto_e3fgl3.jpg") ;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
     height: 100%;
     width: 100%;
-    margin:auto;
 }
 .block1BH{
     display: flex;
@@ -18,9 +22,9 @@
 .logo{
     display: flex;
     position: relative;
-    width: 100%;
-    height: 80%;
-    background-image: url("../../Media/logo.svg") ;
+    width: 200px;
+    height: 200px;
+    background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666031351/MyPortfolio/logo_Don_Alberto_g1wuop.png") ;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -36,10 +40,4 @@
     gap: 12px;
     width: 100%;
     height: 70%;    
-}
-@media only screen and (min-width: 500px) {
-    .wallpaper{
-        background-color: rgb(255, 255, 255);
-        border-radius: 30px;
-    }
 }
