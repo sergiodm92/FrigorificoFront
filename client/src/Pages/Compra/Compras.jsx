@@ -50,7 +50,7 @@ export default function Compras(){
                 </div>
                 <div className={styleCom.buttonLarge}>
                     <LargeButton
-                        title={"Mostrar todas"}
+                        title={"Historial Compras"}
                         onClick={()=>navigate("/Historial_Compras")}
                     />
                 </div>

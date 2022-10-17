@@ -20,7 +20,7 @@ export default function Historial_Ventas_Achuras(){
     const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchuras))
 
     return(
-        <div className={styleVen.ConteinerCompras}>
+        <div className={styleVen.ConteinerVentas}>
             <NavBar
             title={"Hist. Ventas de Achuras"}
             />

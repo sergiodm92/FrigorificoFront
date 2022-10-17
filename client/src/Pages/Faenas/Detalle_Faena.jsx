@@ -68,7 +68,7 @@ export default function Detalle_Faena(){
     
 
     return(
-        <div className={StyleDF.conteiner}>
+        <div className={StyleDF.conteinerDetalle}>
             <NavBar
                 title="Faena"    
             />

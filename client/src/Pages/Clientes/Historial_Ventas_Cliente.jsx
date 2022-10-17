@@ -22,7 +22,7 @@ export default function Historial_Ventas_Cliente(){
 
 
     return(
-        <div className={styleCl.ConteinerCompras}>
+        <div className={styleCl.ConteinerClientes}>
             <NavBar
             title={ClienteById.nombre}
             />

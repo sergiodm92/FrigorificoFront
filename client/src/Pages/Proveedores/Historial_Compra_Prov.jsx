@@ -18,7 +18,7 @@ export default function Historial_Compras_Proveedor(){
     const AllComprasByProveedor = useSelector((state)=>state.AllComprasByProveedor)
 
     return(
-        <div className={stylePr.ConteinerCompras}>
+        <div className={stylePr.ConteinerProveedores}>
             <NavBar
             title={name}
             />
