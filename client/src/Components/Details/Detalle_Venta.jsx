@@ -29,7 +29,7 @@ export default function TableVenta({venta, pagos}){
             {array.map((e,i) => {
                     return(
 
-                    <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-primary"}>
+                    <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-warning"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                         <td className={tableVentaStyle.columnRight}>{e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.value}</td>            

@@ -11,15 +11,15 @@ export default function Table_Cliente({email,telefono,direccion}){
         <div className={tableVentaStyle.conteiner}>
         <table class="table">
             <tbody>
-                <tr>
+                <tr className="table-warning">
                     <td>Teléfono</td>
                     <td className={tableVentaStyle.tdr}>{telefono}</td>
                 </tr>
-                <tr>
+                <tr className="table-warning">
                     <td>e-mail</td>
                     <td className={tableVentaStyle.tdr}>{email}</td>
                 </tr>
-                <tr>
+                <tr className="table-warning">
                     <td>Dirección</td>
                     <td className={tableVentaStyle.tdr}>{direccion}</td>
                 </tr>

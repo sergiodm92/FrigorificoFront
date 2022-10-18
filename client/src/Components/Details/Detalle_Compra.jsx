@@ -112,7 +112,7 @@ export default function TableCompra({id_c}){
                         {array.map((e,i) => {
                                 return (
                                 <tr key={i} class={e.key==="Comision"||e.key==="Costo_Hac($)"||e.key==="Costo_de_Flete"||e.key==="Costo_VEPS"||e.key==="Costo_Faena"||e.key==="Costo_Total"?"table-danger":e.key==="Kg_achuras"||
-                                                        e.key==="$_Venta"||e.key==="Recupero_$/kg"||e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-primary"}>
+                                                        e.key==="$_Venta"||e.key==="Recupero_$/kg"||e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-warning"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                                         
                                         <td  className={tableComprasStyle.tdr}>{e.key!=="costo_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps" && e.key!=="costo_faena" && e.key!=="costo_total" && e.key!=="costo_kg" && 
