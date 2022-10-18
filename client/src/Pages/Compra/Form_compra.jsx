@@ -6,39 +6,49 @@ import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import {getAllFaenas, getAllProveedores, getProveedorByName, postNewCompra, putReses, putSaldoProveedor, setAlertCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 
-const formC = {
+let formC = {
     proveedor: '',
     fecha: '',
     lugar: '',
     n_dte: '',
-    categoria: '',
-    cant: 0,
-    kgv_brutos: null,
-    desbaste: 0.07,
-    kg_desbaste:null, //kgv_brutos * desbaste
+    
     kgv_netos:1, //kgv_brutos - kg_desbaste
-    precio_kgv_netos: null,
-    n_tropa: '',
-    kg_carne: null,
-    rinde:1, // kg_carne*100/kgv_netos
+    costo_flete: null,
     cant_achuras: null,
     precio_venta_achuras: null,
     recupero_precio_kg: null, //precio_venta_achuras/kg_carne
     costo_hac:null,//kgv_netos * precio_kgv_netos
-    costo_faena:null, //faena.costo_total
     comision:0, //0,02*costo_hac//true or false
     costo_flete: null,
     costo_veps_unit: null,
-    costo_veps: null,//costo_veps_unit * cant
-    costo_total:null, //costo_faena + costo_veps + costo_flete + costo_hac
-    costo_kg: null, //costo_total/kg_carne
+    grupos:[],
     saldo:null //saldo de hacienda solamente
+};
+
+let FormGCT = {
+    categoria: '',            //ingresa                    //costo total=(costo de hacienda)+(costo de flete)+(comision)+(costo Veps)+(costo faena)
+    n_tropa: '',              //ingresa                    //costo/kg =   costo total/
+    kgv_brutos: null,         //ingresa
+    desbaste: 0.07,           //ingresa 
+    kg_desbaste:null,       //calcula                      //kgv_brutos * desbaste
+    kgv_netos:0,            //calcula
+    kg_carne: null,              //trae                    //costo de hacienda = kgneto*precio_kgv_netos
+    costo_flete: null,      //calcula d                      //costo flete  
+    costo_hac:0,            //calcula  
+    costo_faena_kg:0,            //trae
+    cosoVeps:0,             //calcula d       
+    cant: 0,                  //ingresa
+    precio_kgv_netos: null,   //ingresa
+    pesoProm:0,             //calcula 
+    rinde:0,                //calcula   
+    n_grupo:0,              //calcula
 };
 
 
 const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
-
+let n=0
 //validaciones
 export const validate = (compra) => {
     let error = {};
@@ -93,6 +103,8 @@ const Form_Compra = () => {
     //estados locales
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
+    const [formGCT, setFormCGT] = useState(FormGCT);
+    const [error2, setError2] = useState({});
     const [Switch_Comision, setSwitch_comision] = useState(false);
 
     let proveedor
@@ -114,7 +126,24 @@ const Form_Compra = () => {
         [e.target.name]: e.target.value,
         });
     };
-    
+    const handleSubmitGrupos = (e)=>{
+        e.preventDefault();
+        try{
+            if(true){
+                formGCT.kg_desbaste = formGCT.kgv_brutos*formGCT.desbaste
+                formGCT.kgv_netos = formGCT.kgv_brutos - formGCT.kg_desbaste
+                formGCT.costo_hac = formGCT.kgv_netos * formGCT.precio_kgv_netos
+                formGCT.pesoProm = formGCT.kg_carne/formGCT.cant
+                formGCT.rinde = formGCT.kg_carne  * 100 / (formGCT.kgv_netos)
+                formGCT.n_grupo = n+1
+                form.grupos.unshift(formGCT)
+                setFormCGT(FormGCT)
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         if(
@@ -162,7 +191,11 @@ const Form_Compra = () => {
             setSwitch_comision(false)
         }
         else{
-            alert("Datos incorrectos")
+            swal({
+                title: "Faltan Datos",
+                icon: "warning", 
+                button: "ok",
+            })
         }
     };
 
@@ -247,6 +280,10 @@ const Form_Compra = () => {
                         />
                     </div>
                     <p className={error.n_dte ? styleFormC.danger : styleFormC.pass}>{error.n_dte}</p>
+
+{/* -----------------------------------------------------------------------------------------------------------------------------------*/}
+                    <div className={styleFormC.cardGrupo}>
+
                     <div className={styleFormC.formItem}>
                         <div>
                             <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
@@ -326,7 +363,69 @@ const Form_Compra = () => {
                                 }
                             </select>
                         </div>
-                    <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>                    
+                    <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>        
+                    </div>
+                    <div className={styleFormC.button}>
+                        <ButtonNew
+                            onClick={handleSubmitGrupos}
+                            style={"right"}
+                            icon={"right"}
+                        />
+                    </div>
+
+
+{/*----------------------------------------------------------------------------------------------------------------------------*/}
+                        {/* <div className={styleFormF.formItem2}>
+                            <div className={styleFormF.inbox}>
+                                <div className={styleFormF.item}>
+                                    <h5 className={styleFormF.title}>Correlativo: </h5>
+                                    <input
+                                        type="text"
+                                        value={formGCT.correlativo}
+                                        id="correlativo"
+                                        name="correlativo"
+                                        onChange={handleChangeCF}
+                                        placeholder="0000"
+                                        className={styleFormF.size2}
+                                    />
+                                </div>
+                                <p className={error2.correlativo ? styleFormF.danger : styleFormF.pass}>{error2.correlativo}</p>
+                                <div className={styleFormF.item}>
+                                    <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
+                                        <option value="" selected>Categoría</option>
+                                            {categorias.length > 0 &&  
+                                            categorias.map((c) => (
+                                                <option	value={c}>{c}</option>
+                                            ))
+                                            }
+                                    </select>
+                                    <p className={error2.categoria ? styleFormF.danger : styleFormF.pass}>{error2.categoria}</p>
+                                    <div className={styleFormF.numero}>
+                                        <h5 className={styleFormF.title}>kg </h5>
+                                        <input
+                                            type="number"
+                                            value={formGCT.kg}
+                                            id="kg"
+                                            name="kg"
+                                            onChange={handleChangeCF}
+                                            placeholder="00"
+                                            className={styleFormF.size2}
+                                        />
+                                    </div>
+                                    <p className={error2.kg ? styleFormF.danger : styleFormF.pass}>{error2.kg}</p>
+                                </div>
+                            </div>
+                    </div>
+                    <div className={styleFormF.button}>
+                        <ButtonNew
+                            onClick={Object.entries(error2).length===0 || Object.entries(error3).length===0 ? handleSubmitRes : null}
+                            style={"right"}
+                            icon={"right"}
+                        />
+                    </div> */}
+{/* ----------------------------------------------------------------------------------------------------------------------------------------------------- */}
+
+                                
                     <div className={styleFormC.formItem}>
                         <div>
                             <h5 className={styleFormC.title}>$ Ventas de Ach.: </h5>

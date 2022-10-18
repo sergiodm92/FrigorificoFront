@@ -78,3 +78,19 @@ select{
     border-color: rgba(0, 0, 0, 0);
     height: 30px;
 }
+
+.cardGrupo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+}
+.button{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-top: -15px;
+}
