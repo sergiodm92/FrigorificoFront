@@ -28,12 +28,6 @@ export default function Clientes(){
                 title={"Clientes"}
                 />
                 <div>
-                    <div className={styleCl.buttonLarge}>
-                        <LargeButton
-                            title={"Agregar Cliente"}
-                            onClick={()=>navigate("/Form_Cliente")}
-                        ></LargeButton>
-                    </div>
                     <div className={styleCl.title}>
                         <div><b>Nombre</b></div>
                         <div><b>|</b></div>

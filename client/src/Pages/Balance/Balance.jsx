@@ -83,63 +83,64 @@ const dispatch = useDispatch()
 
     return(
         <div className={styleBalance.ConteinerBalance}>
-            <NavBar
-            title="Balance"    
-            />
-            <div className={styleBalance.tableBalance}>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td class="table-warning">Ganancia mensual</td>
-                            <td class="table-warning">{gananciaMensualEnPesos}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-dark" colspan="2">Stock</td>
-                        </tr>
-                        <tr>
-                            <td class="table-warning">Cantidad</td>
-                            <td class="table-warning">{kgStock} kg</td>
-                        </tr>
-                        <tr>
-                            <td class="table-warning">Valor estimado</td>
-                            <td class="table-warning">{totalEstenPesos}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-dark" colspan="2">Proveedores</td>
-                        </tr>
-                        <tr>
-                            <td class="table-warning">Saldo pendiente</td>
-                            <td class="table-warning">{saldoProvPendienteEnPesos}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-dark" colspan="2">Clientes</td>
-                        </tr>
-                        <tr>
-                            <td class="table-warning">Saldo pendiente</td>
-                            <td class="table-warning">{saldoClientePendienteEnPesos}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-dark" colspan="2">Faena</td>
-                        </tr>
-                        <tr>
-                            <td class="table-warning">Saldo pendiente</td>
-                            <td class="table-warning">{saldoFaenaPendienteEnPesos}</td>
-                        </tr>
-                    
-                        <tr>
-                            <td class="table-dark" colspan="2">General</td>
-                        </tr>
-                        <tr>
-                            <td class="table-success">Saldo total a cobrar</td>
-                            <td class="table-success">{saldoClientePendienteEnPesos}</td>
-                        </tr>
-                        <tr>
-                            <td class="table-danger">Saldo total a pagar</td>
-                            <td class="table-danger">{saldoPagarEnPesos}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <NavBar
+                title="Balance"    
+                />
+                <div className={styleBalance.tableBalance}>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="table-warning">Ganancia mensual</td>
+                                <td class="table-warning">{gananciaMensualEnPesos}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark" colspan="2">Stock</td>
+                            </tr>
+                            <tr>
+                                <td class="table-warning">Cantidad</td>
+                                <td class="table-warning">{kgStock} kg</td>
+                            </tr>
+                            <tr>
+                                <td class="table-warning">Valor estimado</td>
+                                <td class="table-warning">{totalEstenPesos}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark" colspan="2">Proveedores</td>
+                            </tr>
+                            <tr>
+                                <td class="table-warning">Saldo pendiente</td>
+                                <td class="table-warning">{saldoProvPendienteEnPesos}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark" colspan="2">Clientes</td>
+                            </tr>
+                            <tr>
+                                <td class="table-warning">Saldo pendiente</td>
+                                <td class="table-warning">{saldoClientePendienteEnPesos}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-dark" colspan="2">Faena</td>
+                            </tr>
+                            <tr>
+                                <td class="table-warning">Saldo pendiente</td>
+                                <td class="table-warning">{saldoFaenaPendienteEnPesos}</td>
+                            </tr>
+                        
+                            <tr>
+                                <td class="table-dark" colspan="2">General</td>
+                            </tr>
+                            <tr>
+                                <td class="table-success">Saldo total a cobrar</td>
+                                <td class="table-success">{saldoClientePendienteEnPesos}</td>
+                            </tr>
+                            <tr>
+                                <td class="table-danger">Saldo total a pagar</td>
+                                <td class="table-danger">{saldoPagarEnPesos}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             <div className={styleBalance.marca}>
                 <Marca/>
             </div>
