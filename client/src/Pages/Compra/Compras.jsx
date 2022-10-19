@@ -39,9 +39,9 @@ export default function Compras(){
                                 id={a.id}
                                 fecha={a.fecha}
                                 para={a.proveedor}
-                                cant={a.cant}
-                                kg={a.kg_carne}
-                                monto={a.costo_hac}
+                                cant={a.cant_total}
+                                kg={a.kg_carne_totales}
+                                monto={a.costo_total_hac}
                                 tipo={"Compras"}
                             />
                         )
