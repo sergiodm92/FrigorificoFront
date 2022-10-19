@@ -36,9 +36,9 @@ export default function TableCompra({id_c}){
         console.log(AllPagosbyFaena[0])
         function currencyFormatter({ currency, value}) {
                 const formatter = new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    minimumFractionDigits: 2,
-                    currency
+                        style: 'currency',
+                        minimumFractionDigits: 2,
+                        currency
                 }) 
                 return formatter.format(value)
                 }
@@ -50,11 +50,7 @@ export default function TableCompra({id_c}){
 
                 let costohenpesos = currencyFormatter({
                         currency: "USD",
-                        value : CompraByID.costo_hac
-                        })
-                let comisionenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.comision
+                        value : CompraByID.costo_total_hac
                         })
                 let costofleteenpesos = currencyFormatter({
                         currency: "USD",
@@ -62,19 +58,7 @@ export default function TableCompra({id_c}){
                         })
                 let costovepsenpesos = currencyFormatter({
                         currency: "USD",
-                        value : CompraByID.costo_veps
-                        })
-                let costofaenaenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_faena
-                        })
-                let costototalenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_total
-                        })
-                let costokgenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_kg
+                        value : CompraByID.costo_veps_unit
                         })
                 let pagofaenanpesos = currencyFormatter({
                         currency: "USD",
@@ -82,11 +66,7 @@ export default function TableCompra({id_c}){
                         })
                 let precioachuraspesos = currencyFormatter({
                         currency: "USD",
-                        value : CompraByID.precio_venta_achuras
-                                })
-                let preciokgnetospesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.precio_kgv_netos
+                        value : CompraByID.precio_venta_achuras_unit
                                 })
                 let pagos1
                 let pagos2
@@ -111,13 +91,13 @@ export default function TableCompra({id_c}){
                         <tbody>
                         {array.map((e,i) => {
                                 return (
-                                <tr key={i} class={e.key==="Comision"||e.key==="Costo_Hac($)"||e.key==="Costo_de_Flete"||e.key==="Costo_VEPS"||e.key==="Costo_Faena"||e.key==="Costo_Total"?"table-danger":e.key==="Kg_achuras"||
+                                <tr key={i} class={e.key==="costo_total_hac"||e.key==="costo_flete"||e.key==="costo_veps_unit"?"table-danger":e.key==="Kg_achuras"||
                                                         e.key==="$_Venta"||e.key==="Recupero_$/kg"||e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-warning"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                                         
-                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps" && e.key!=="costo_faena" && e.key!=="costo_total" && e.key!=="costo_kg" && 
-                                                e.key!=="comision" && e.key!=="precio_kgv_netos" && e.key!=="id" && e.key!=="precio_venta_achuras" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_hac"?costohenpesos:e.key=="comision"?comisionenpesos:e.key=="costo_flete"?
-                                                costofleteenpesos:e.key=="costo_veps"?costovepsenpesos:e.key=="costo_faena"?costofaenaenpesos:e.key=="costo_total"?costototalenpesos:e.key=="costo_kg"?costokgenpesos:e.key=="precio_venta_achuras"?precioachuraspesos:e.key=="precio_kgv_netos"?preciokgnetospesos:e.value}</td>            
+                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit"  && e.key!=="costo_total" && e.key!=="costo_kg" && 
+                                                e.key!=="id" && e.key!=="precio_venta_achuras_unit" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_total_hac"?costohenpesos:e.key=="costo_flete"?
+                                                costofleteenpesos:e.key=="costo_veps_unit"?costovepsenpesos:e.key=="precio_venta_achuras_unit"?precioachuraspesos:e.value}</td>            
                                 </tr>
                                 );
                         })}
@@ -165,3 +145,21 @@ export default function TableCompra({id_c}){
         </div>
     )
 }
+
+// proveedor: '',//
+//     fecha: '',//
+//     lugar: '',//
+//     n_dte: '',//
+//     kgv_brutos_totales:0,//
+//     kgv_netos_totales:0,//
+//     kg_carne_totales:0,//
+//     costo_flete: null,//
+//     cant_achuras: 0,//
+//     precio_venta_achuras_unit: null,//
+//     recupero_precio_kg: null, //precio_venta_achuras/kg_carne//
+//     costo_total_hac:null,//kgv_netos * precio_kgv_netos//
+//     costo_flete: null,//
+//     costo_veps_unit: null,//
+//     cant_total:1,//
+//     grupos:[],//
+//     saldo:null //saldo
