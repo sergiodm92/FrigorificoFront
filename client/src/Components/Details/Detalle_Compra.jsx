@@ -15,23 +15,17 @@ export default function TableCompra({id_c}){
         }, [id_c])
 
         const CompraByID = useSelector((state)=>state.CompraByID)
-        console.log(CompraByID.n_tropa)
-        useEffect(()=>{
-                if(CompraByID.n_tropa)dispatch(getFaenasByTropa(CompraByID.n_tropa))
-        },[CompraByID])
-        console.log(CompraByID)
-
-        const FaenaByTropa = useSelector((state)=>state.FaenaByTropa)
+        // useEffect(()=>{
+        //         if(CompraByID.n_tropa)dispatch(getFaenasByTropa(CompraByID.n_tropa))
+        // },[CompraByID])
+        // console.log(CompraByID)
 
         useEffect(() => {
                 if(id_c)dispatch(getPagosComprasByID(id_c))
-                if(FaenaByTropa.id)dispatch(getPagosFaenaByID(FaenaByTropa.id))
-        }, [FaenaByTropa])
+                
+        }, [dispatch])
         const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
 
-        // useEffect(() => {
-        //  dispatch(getPagosFaenaByID(FaenaByTropa.id))
-        // }, [])
         const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
         console.log(AllPagosbyFaena[0])
         function currencyFormatter({ currency, value}) {
@@ -60,25 +54,19 @@ export default function TableCompra({id_c}){
                         currency: "USD",
                         value : CompraByID.costo_veps_unit
                         })
-                let pagofaenanpesos = currencyFormatter({
-                        currency: "USD",
-                        value : FaenaByTropa.saldo
-                        })
+                // let pagofaenanpesos = currencyFormatter({
+                //         currency: "USD",
+                //         value : FaenaByTropa.saldo
+                //         })
                 let precioachuraspesos = currencyFormatter({
                         currency: "USD",
                         value : CompraByID.precio_venta_achuras_unit
                                 })
                 let pagos1
-                let pagos2
+                // let pagos2
 
 
-                
-
-
-
-
-
-        const array=[]
+                const array=[]
         for(const [key,value] of Object.entries(CompraByID)){ //a 0 cambiar por id de compra
                if(key!=="saldo")array.push({key,value})
 
@@ -120,12 +108,12 @@ export default function TableCompra({id_c}){
                             <td>{saldoEnPesos}</td>
                     </tr>
 
-                    <tr>
+                    {/* <tr>
                             <td class="table-dark">Pagos Faena</td>
                             <td class="table-dark"></td>
 
-                    </tr>
-                    {AllPagosbyFaena.length>0?AllPagosbyFaena.map((e)=>
+                    </tr> */}
+                    {/* {AllPagosbyFaena.length>0?AllPagosbyFaena.map((e)=>
                     <tr>
                             <td>{e.fecha}</td>
                             <td>{pagos2 = currencyFormatter({
@@ -133,11 +121,11 @@ export default function TableCompra({id_c}){
                         value : e.monto
                                 })}</td>
                     </tr>
-                    ):<td></td>}
-                    <tr>
+                    ):<td></td>} */}
+                    {/* <tr>
                             <td>Saldo</td>
                             <td>{pagofaenanpesos}</td>
-                    </tr>
+                    </tr> */}
                     
             </tbody>
         </table>

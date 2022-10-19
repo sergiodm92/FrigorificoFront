@@ -6,7 +6,7 @@ import TableCompra from "../../Components/Details/Detalle_Compra"
 import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteCompraById, getAllComrpas, getComrpaByID, getProveedorByName, putSaldoProveedor } from "../../Redux/Actions/Actions"
+import { deleteCompraById, getComrpaByID, getProveedorByName, putSaldoProveedor } from "../../Redux/Actions/Actions"
 
 export default function Detalle_Compra(){
 
