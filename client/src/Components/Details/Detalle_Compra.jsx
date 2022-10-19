@@ -92,10 +92,10 @@ export default function TableCompra({id_c}){
                         {array.map((e,i) => {
                                 return (
                                 <tr key={i} class={e.key==="costo_total_hac"||e.key==="costo_flete"||e.key==="costo_veps_unit"?"table-danger":e.key==="Kg_achuras"||
-                                                        e.key==="$_Venta"||e.key==="Recupero_$/kg"||e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-warning"}>
+                                                        e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-warning"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                                         
-                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit"  && e.key!=="costo_total" && e.key!=="costo_kg" && 
+                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit"  && 
                                                 e.key!=="id" && e.key!=="precio_venta_achuras_unit" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_total_hac"?costohenpesos:e.key=="costo_flete"?
                                                 costofleteenpesos:e.key=="costo_veps_unit"?costovepsenpesos:e.key=="precio_venta_achuras_unit"?precioachuraspesos:e.value}</td>            
                                 </tr>
