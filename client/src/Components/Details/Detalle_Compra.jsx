@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getComrpaByID, getFaenasByTropa, getPagosComprasByID, getPagosFaenaByID } from "../../Redux/Actions/Actions";
+import { getComrpaByID, getPagosComprasByID } from "../../Redux/Actions/Actions";
 import tableComprasStyle from "./tableCompraStyle.module.scss"
 
 
@@ -24,10 +24,12 @@ export default function TableCompra({id_c}){
                 if(id_c)dispatch(getPagosComprasByID(id_c))
                 
         }, [dispatch])
-        const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
+        // const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
 
-        const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
-        console.log(AllPagosbyFaena[0])
+        // const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
+        // console.log(AllPagosbyFaena[0])
+
+
         function currencyFormatter({ currency, value}) {
                 const formatter = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -62,7 +64,7 @@ export default function TableCompra({id_c}){
                         currency: "USD",
                         value : CompraByID.precio_venta_achuras_unit
                                 })
-                let pagos1
+                // let pagos1
                 // let pagos2
 
 
@@ -79,8 +81,7 @@ export default function TableCompra({id_c}){
                         <tbody>
                         {array.map((e,i) => {
                                 return (
-                                <tr key={i} class={e.key==="costo_total_hac"||e.key==="costo_flete"||e.key==="costo_veps_unit"?"table-danger":e.key==="Kg_achuras"||
-                                                        e.key==="Cant"||e.key==="Categoria"?"table-secondary":"table-warning"}>
+                                <tr key={i} className={"table-warning"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                                         
                                         <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit"  && 
@@ -89,12 +90,12 @@ export default function TableCompra({id_c}){
                                 </tr>
                                 );
                         })}
-                                <tr>
+                                {/* <tr>
                                         <td class="table-dark">Pagos Hacienda</td>
                                         <td class="table-dark"></td>
-                                </tr>
+                                </tr> */}
                                 
-                                {AllPagosbyCompra.map((e)=>
+                                {/* {AllPagosbyCompra.map((e)=>
                                         <tr>
                                                 <td>{e.fecha}</td>
                                                 <td>{pagos1 = currencyFormatter({
@@ -106,7 +107,7 @@ export default function TableCompra({id_c}){
                     <tr>
                             <td>Saldo</td>
                             <td>{saldoEnPesos}</td>
-                    </tr>
+                    </tr> */}
 
                     {/* <tr>
                             <td class="table-dark">Pagos Faena</td>
