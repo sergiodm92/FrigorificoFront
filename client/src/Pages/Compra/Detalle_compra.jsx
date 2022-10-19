@@ -70,11 +70,11 @@ export default function Detalle_Compra(){
                         onClick={deleteCompra}
                     />
                 </div>
-                <div className={StyleDetalleCompra.TableCompras}>
+                {/* <div className={StyleDetalleCompra.TableCompras}>
                     <TableCompra
                         id_c={id}
                     />
-                </div>
+                </div> */}
             </div>
         </div>
 
