@@ -3,7 +3,7 @@ const initialState = {
     AllFaenas:[],
     AllProveedores:[],
     ProveedorById:{},
-    FaenaByTropa:[],
+    FaenaByTropa:{},
     postProveedor:"",
     postCliente:"",
     postCompra:"",
