@@ -6,7 +6,7 @@ import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllFaenas} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
+
 
 export default function Faenas(){
 const dispatch = useDispatch()
@@ -15,7 +15,8 @@ useEffect(() => {
     }, [dispatch])
 
     const faenasPendientes = useSelector((state)=>state.faenasPendientes)
-    console.log(faenasPendientes)
+
+
     const navigate = useNavigate();
 
     return(

@@ -26,9 +26,9 @@ const formF = {
 //Form para cargar las reses del detalle de Faena
 const formComF = {
     kg: '',
-    garron: null,
-    kg1:null,
-    kg2:null,
+    garron: '',
+    kg1: '',
+    kg2:'',
     correlativo: '',
     categoria: ''
     
@@ -46,12 +46,12 @@ const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 export const validate = (faena) => {
     let error = {};
     if (!faena.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
+    if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
     if (!faena.frigorifico) error.frigorifico = "Falta frigorifico";
     if (!faena.tropa) error.tropa = "Falta tropa";
     if (!faena.proveedor) error.proveedor = "Falta proveedor";
     if (!faena.costoFaenakg) error.costoFaenakg = "Falta costo de Faena/kg";
-    else if (!/^([0-9])*$/.test(faena.costoFaenakg)) error.costoFaenakg = "costo de Faena debe ser un número";
+    if (!/^\d*(\.\d{1})?\d{0,1}$/.test(faena.costoFaenakg)) error.costoFaenakg = "costo de Faena debe ser un número";
     if (faena.detalle.length<1) error.detalle = "Falta detalle";
     return error;
 };
@@ -59,8 +59,7 @@ export const validate = (faena) => {
 //validaciones de reses frigorifico Natilla
 export const validate2 = (res) => {
     let error2 = {};
-    if (!/^([0-9])*$/.test(res.correlativo)) error2.correlativo = "Correlativo debe ser un número";
-    else if (!/^([0-9])*$/.test(res.kg)) error2.kg = "kg debe ser un número";
+    if (!/^\d*(\.\d{1})?\d{0,1}$/.test(res.kg)) error2.kg = "kg debe ser un número";
     if (!res.categoria) error2.categoria = "Falta categoría";
     return error2;
 };
@@ -68,9 +67,8 @@ export const validate2 = (res) => {
 //validaciones de reses frigorifico El Hueco
 export const validate3 = (res) => {
     let error3 = {};
-    if (!/^([0-9])*$/.test(res.garron)) error3.garron = "Garrón debe ser un número";
-    else if (!/^([0-9])*$/.test(res.kg1)) error3.kg1 = "kg1 debe ser un número";
-    else if (!/^([0-9])*$/.test(res.kg2)) error3.kg2 = "kg2 debe ser un número";
+    if (!/^\d*(\.\d{1})?\d{0,1}$/.test(res.kg1)) error3.kg1 = "kg1 debe ser un número";
+    if (!/^\d*(\.\d{1})?\d{0,1}$/.test(res.kg2)) error3.kg2 = "kg2 debe ser un número";
     if (!res.categoria) error3.categoria = "Falta categoría";
     return error3;
 };
@@ -147,29 +145,26 @@ const Form_Faena = () => {
         try{
             if(form.frigorifico==="El Hueco"){
                 if(
-                    !error3.garron && formCF.garron &&
                     !error3.kg1 && formCF.kg1 &&
-                    !error3.kg2 && formCF.kg2 &&
-                    !error3.categoria && formCF.categoria
+                    !error3.kg2 && formCF.kg2 
                 ){
                     // dividimos garron en dos reses con correlativo
                     //primera res correlativo garron-kg1
                         var formRes={}
                         formRes.categoria=formCF.categoria
                         formRes.correlativo=formCF.garron+"-"+formCF.kg1
-                        formRes.kg=formCF.kg1
+                        formRes.kg=formCF.kg1*1
                         console.log(formRes)
                         form.detalle.unshift(formRes)
                     //segunda res correlativo garron-kg2
                         formCF.correlativo=formCF.garron+"-"+formCF.kg2
-                        formCF.kg=formCF.kg2
+                        formCF.kg=formCF.kg2*1
                         console.log(formCF)
                         form.detalle.unshift(formCF)
                 }
             }
             else if(form.frigorifico==="Natilla"){
                 if(
-                    !error2.correlativo && formCF.correlativo &&
                     !error2.kg && formCF.kg &&
                     !error2.categoria && formCF.categoria
                 ){
@@ -223,6 +218,7 @@ const Form_Faena = () => {
         form.costo_total=form.costoFaenakg*1*form.total_kg*1
         form.saldo=form.costo_total
         dispatch(postNewFaena(form))
+        console.log("🚀 ~ file: Form_Faena.jsx ~ line 221 ~ handleSubmit ~ form", form)
         document.getElementById("proveedor").selectedIndex = 0
         document.getElementById("frigorifico").selectedIndex = 0
         setForm(formF);
@@ -271,12 +267,6 @@ const Form_Faena = () => {
             detalle: form.detalle.filter(d => d !== e)
         })
     }
-console.log("-----ERRORES DE RES NATILLA------")
-console.log(error2)
-console.log("-----ERRORES DE RES EL HUECO------")
-console.log(error3)
-console.log("-----ERRORES DE FAENA------")
-console.log(error)
     return (
         <div className={styleFormF.wallpaper}>
             <NavBar
@@ -437,7 +427,6 @@ console.log(error)
                             icon={"right"}
                         />
                     </div>
-                    {/*-----------------------------------------------------------*/}
                     
                     {form.detalle.length ?
                         form.detalle.map((e)=>{

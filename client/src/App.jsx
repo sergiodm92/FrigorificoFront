@@ -39,6 +39,7 @@ import Nueva_Venta from './Pages/Venta/Nueva_Venta.jsx';
 import Detalle_Pagos_Clientes from './Pages/Clientes/Detalle_Pagos_Cliente.jsx';
 import Detalle_Pagos_Proveedor from './Pages/Proveedores/Detalle_Pagos_Proveedor.jsx';
 import Detalle_Pagos_Frigorifico from './Pages/Faenas/Detalle_Pagos_Frigorifico.jsx';
+import DetalleGrupos from './Pages/Compra/DetalleGrupos.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from 'react';
@@ -63,6 +64,7 @@ function App() {
     <Route exact path="/Clientes" element={state_login?<Clientes />:<NoAccess/>} />
     <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
     <Route exact path="/Compras/:id" element={state_login?<Detalle_Compra />:<NoAccess/>} />
+    <Route exact path="/DetalleGrupos/:id" element={state_login?<DetalleGrupos />:<NoAccess/>} />
     <Route exact path="/Form_Compra" element={state_login?<Form_Compra />:<NoAccess/>} />
     <Route exact path="/Historial_Compras" element={state_login?<Historial_Compras />:<NoAccess/>} />
     <Route exact path="/Detalle_Cliente/:id" element={state_login?<Detalle_Cliente />:<NoAccess/>} />

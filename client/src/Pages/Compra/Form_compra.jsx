@@ -33,7 +33,7 @@ let formC = {
 let FormGCT = {
     categoria: '',            //ingresa                    //costo total=(costo de hacienda)+(costo de flete)+(comision)+(costo Veps)+(costo faena)
     n_tropa: '',              //ingresa                    //costo/kg =   costo total/
-    kgv_brutos: null,         //ingresa
+    kgv_brutos: '',         //ingresa
     desbaste: 0.07,           //ingresa 
     kg_desbaste:null,       //calcula                      //kgv_brutos * desbaste
     kgv_netos:0,            //calcula
@@ -45,8 +45,8 @@ let FormGCT = {
     cosoVeps:0,             //calculad
     costo_total:0,          //calcula d
     costo_kg:0,              //calcula d       
-    cant: 0,                  //ingresa
-    precio_kgv_netos: null,   //ingresa
+    cant:'',                  //ingresa
+    precio_kgv_netos: '',   //ingresa
     pesoProm:0,             //calcula 
     rinde:0,                //calcula   
     n_grupo:0,              //calcula
@@ -60,20 +60,20 @@ export const validate = (compra) => {
     let error = {};
     if (!compra.proveedor) error.proveedor = "Falta proveedor";
     if (!compra.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(compra.fecha)) error.fecha = "Fecha incorrecta";
+    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(compra.fecha)) error.fecha = "Fecha incorrecta";
     if (!compra.n_dte) error.n_dte = "Falta N° DTE";
     if (!compra.categoria) error.categoria = "Falta categoria";
     if (!compra.cant) error.cant = "Falta cant";
     else if (!/^([0-9])*$/.test(compra.cant)) error.cant = "N° debe ser un número";
     if (!compra.kgv_brutos) error.kgv_brutos = "Falta kgV Brutos";
-    else if (!/^([0-9])*$/.test(compra.kgv_brutos)) error.kgv_brutos = "kgV Brutos debe ser un número";
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(compra.kgv_brutos)) error.kgv_brutos = "kgV Brutos debe ser un número";
     // if (!compra.n_tropa) error.n_tropa = "Falta tropa";
     // else if (!/^([0-9])*$/.test(compra.n_tropa)) error.n_tropa = "Tropa debe ser un número";
-    else if (!/^([0-9])*$/.test(compra.precio_venta_achuras)) error.precio_venta_achuras = "$ Venta de Achuras debe ser un número";
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(compra.precio_venta_achuras)) error.precio_venta_achuras = "$ Venta de Achuras debe ser un número";
     if (!compra.costo_flete) error.costo_flete = "Falta Costo de Flete";
-    else if (!/^([0-9])*$/.test(compra.costo_flete)) error.costo_flete = "Costo de Flete debe ser un número";
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(compra.costo_flete)) error.costo_flete = "Costo de Flete debe ser un número";
     if (!compra.costo_veps_unit) error.costo_veps_unit = "Falta costo de VEP/Un";
-    else if (!/^([0-9])*$/.test(compra.costo_veps_unit)) error.costo_veps_unit = "costo de VEP/Un debe ser un número";
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(compra.costo_veps_unit)) error.costo_veps_unit = "costo de VEP/Un debe ser un número";
     return error;
 };
 
@@ -101,6 +101,7 @@ const Form_Compra = () => {
                 button: "ok",
             })}
         dispatch(setAlertCompra())
+        form.grupos=[]
     }, [alert_msj])
 
 
@@ -125,8 +126,9 @@ const Form_Compra = () => {
     let proveedor
     useEffect(() => {
         if(form.proveedor!=='')proveedor=proveedores.find(a=>a.nombre==form.proveedor)
+        console.log(proveedor)
     }, [form])
-
+    
     
     const handleChangeG = (e) => {
         e.preventDefault()
@@ -165,14 +167,14 @@ const Form_Compra = () => {
                             formGCT.kg_carne+=a.kg*1
                         }
                     })
-                    formGCT.pesoProm = formGCT.kgv_brutos/formGCT.cant
-                    formGCT.kg_desbaste = formGCT.kgv_brutos*formGCT.desbaste
-                    formGCT.kgv_netos = formGCT.kgv_brutos - formGCT.kg_desbaste
-                    formGCT.costo_hac = formGCT.kgv_netos * formGCT.precio_kgv_netos
+                    formGCT.pesoProm = (formGCT.kgv_brutos*1)/(formGCT.cant*1)
+                    formGCT.kg_desbaste = formGCT.kgv_brutos*1*formGCT.desbaste
+                    formGCT.kgv_netos = (formGCT.kgv_brutos*1) - (formGCT.kg_desbaste*1)
+                    formGCT.costo_hac = (formGCT.kgv_netos) * (formGCT.precio_kgv_netos*1)
                     formGCT.costo_faena_kg = faenabytropa.costo_total/faenabytropa.total_kg
                     formGCT.costo_faena = formGCT.costo_faena_kg*formGCT.kg_carne
                     formGCT.rinde = formGCT.kg_carne  * 100 / (formGCT.kgv_netos)
-                    formGCT.n_grupo = n+1
+                    formGCT.n_grupo = n++;
                     form.grupos.unshift(formGCT)
                     document.getElementById("categoria").selectedIndex = 0
                     document.getElementById("tropa").selectedIndex = 0
@@ -215,14 +217,13 @@ const Form_Compra = () => {
                 a.cosoVeps=form.costo_veps_unit*a.cant
                 if(Switch_Comision==true) a.comision = 0.02 * a.costo_hac;
                 a.costo_total = a.cosoVeps + a.comision + a.costo_faena + a.costo_hac + a.costo_flete
-                a.costo_kg = a.costo_total/a.kg_carne
+                a.costo_kg = a.costo_total/(a.kg_carne*1)
             })
             form.saldo = form.costo_total_hac
             form.grupos.map(e=>
                 setTimeout(()=>{
                     dispatch(putReses(e.costo_kg, e.n_tropa, e.categoria))
                 }, 2000)
-                // allReses.filter((a)=>a.tropa==e.tropa && a.categoria==e.categoria)
             )
             dispatch(postNewCompra(form))
             let saldo = proveedor.saldo + form.saldo
@@ -387,7 +388,6 @@ const Form_Compra = () => {
                         </div>
                     </div>
                     <p className={error.costo_veps_unit ? styleFormC.danger : styleFormC.pass}>{error.costo_veps_unit}</p>
-                    {/* -----------------------------------------------------------------------------------------------------------------------------------*/}
                     <div className={styleFormC.cardGrupo}>
 
                     <div className={styleFormC.formItem}>
@@ -479,8 +479,6 @@ const Form_Compra = () => {
                         />
                     </div>
 
-{/* ----------------------------------------------------------------------------------------------------------------------------------------------------- */}
-
                             {form.grupos.length ?
                     form.grupos.map((e)=>{
                         return(
@@ -498,8 +496,6 @@ const Form_Compra = () => {
                     })
                     : null
 }
-
-{/*----------------------------------------------------------------------------------------------------------------------------*/}
                     <div className={styleFormC.buttons}>
                         <div className={styleFormC.shortButtons}>
                             <ShortButton

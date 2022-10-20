@@ -38,7 +38,7 @@ const res=["total", "1/4T", "1/4D"]
 export const validate = (venta) => {
     let error = {};
     if (!venta.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
+    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
     if (!venta.cliente) error.cliente = "Falta cliente";
     if (venta.detalle.length<1) error.detalle = "Falta detalle";
     return error;
@@ -51,8 +51,8 @@ export const validate2 = (res) => {
     if (!res.total_media) error2.total_media = "Falta res";
     if (!res.correlativo) error2.correlativo = "Falta correlativo";
     if (!res.kg) error2.kg = "Falta kg";
-    else if (!/^([0-9])*$/.test(res.kg)) error2.kg = "kg debe ser un número";
-    if (!/^([0-9])*$/.test(res.precio_kg)) error2.precio_kg = "Precio/kg debe ser un número";
+    if (!/^\d*(\.\d{1})?\d{0,1}$/.test(res.kg)) error2.kg = "kg debe ser un número";
+    if (!/^\d*(\.\d{1})?\d{0,1}$/.test(res.precio_kg)) error2.precio_kg = "Precio/kg debe ser un número";
     return error2;
 };
 

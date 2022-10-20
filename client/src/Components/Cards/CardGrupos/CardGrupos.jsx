@@ -2,7 +2,7 @@ import React from "react";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCard from "./CardGrupos.module.scss";
 
-const CardGrupos = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos, pesoProm, rinde, onClick}) => {
+const CardGrupos = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos, onClick}) => {
 
     return (
         <div>

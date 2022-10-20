@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getComrpaByID, getPagosComprasByID } from "../../Redux/Actions/Actions";
+import CardGruposDetalle from "../Cards/CardGruposDetalle/CardGruposDetalle.jsx";
 import tableComprasStyle from "./tableCompraStyle.module.scss"
 
 
@@ -12,24 +13,21 @@ export default function TableCompra({id_c}){
 
         useEffect(() => {
                 dispatch(getComrpaByID(id_c))
+                dispatch(getPagosComprasByID(id_c))
         }, [id_c])
 
         const CompraByID = useSelector((state)=>state.CompraByID)
         // useEffect(()=>{
         //         if(CompraByID.n_tropa)dispatch(getFaenasByTropa(CompraByID.n_tropa))
         // },[CompraByID])
-        // console.log(CompraByID)
 
-        useEffect(() => {
-                if(id_c)dispatch(getPagosComprasByID(id_c))
-                
-        }, [dispatch])
-        // const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
+        const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
 
         // const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
         // console.log(AllPagosbyFaena[0])
 
-
+       
+        console.log("🚀 ~ file: Detalle_Compra.jsx ~ line 30 ~ TableCompra ~  CompraByID.grupos",  CompraByID.grupos)
         function currencyFormatter({ currency, value}) {
                 const formatter = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -64,20 +62,20 @@ export default function TableCompra({id_c}){
                         currency: "USD",
                         value : CompraByID.precio_venta_achuras_unit
                                 })
-                // let pagos1
+                let pagos1
                 // let pagos2
 
 
                 const array=[]
         for(const [key,value] of Object.entries(CompraByID)){ //a 0 cambiar por id de compra
-               if(key!=="saldo")array.push({key,value})
+               if(key!=="saldo" && key!=="grupos")array.push({key,value})
 
         }
+        console.log(array)
 
         return(
                 <div className={tableComprasStyle.conteiner}>
-                        <table class="table">
-
+                        <table className="table">
                         <tbody>
                         {array.map((e,i) => {
                                 return (
@@ -90,12 +88,12 @@ export default function TableCompra({id_c}){
                                 </tr>
                                 );
                         })}
-                                {/* <tr>
+                                <tr>
                                         <td class="table-dark">Pagos Hacienda</td>
                                         <td class="table-dark"></td>
-                                </tr> */}
+                                </tr>
                                 
-                                {/* {AllPagosbyCompra.map((e)=>
+                                {AllPagosbyCompra.map((e)=>
                                         <tr>
                                                 <td>{e.fecha}</td>
                                                 <td>{pagos1 = currencyFormatter({
@@ -107,7 +105,7 @@ export default function TableCompra({id_c}){
                     <tr>
                             <td>Saldo</td>
                             <td>{saldoEnPesos}</td>
-                    </tr> */}
+                    </tr>
 
                     {/* <tr>
                             <td class="table-dark">Pagos Faena</td>
@@ -131,24 +129,24 @@ export default function TableCompra({id_c}){
             </tbody>
         </table>
 
+        <div>
+        {CompraByID.grupos?CompraByID.grupos.map((a)=>{
+                
+                <CardGruposDetalle
+                tropa={a.n_tropa}
+                categoria={a.categoria}
+                kgv_brutos={a.kgv_brutos}
+                desbaste={a.desbaste}
+                kgv_netos={a.kgv_netos}
+                cant={a.cant}
+                precio_kgv_netos={a.precio_kgv_netos}
+                />
+
+})
+        :null}
+        </div>
         </div>
     )
 }
 
-// proveedor: '',//
-//     fecha: '',//
-//     lugar: '',//
-//     n_dte: '',//
-//     kgv_brutos_totales:0,//
-//     kgv_netos_totales:0,//
-//     kg_carne_totales:0,//
-//     costo_flete: null,//
-//     cant_achuras: 0,//
-//     precio_venta_achuras_unit: null,//
-//     recupero_precio_kg: null, //precio_venta_achuras/kg_carne//
-//     costo_total_hac:null,//kgv_netos * precio_kgv_netos//
-//     costo_flete: null,//
-//     costo_veps_unit: null,//
-//     cant_total:1,//
-//     grupos:[],//
-//     saldo:null //saldo
+// ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos, onClick})

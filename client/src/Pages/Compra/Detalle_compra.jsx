@@ -5,15 +5,17 @@ import { useParams, useNavigate } from "react-router"
 import TableCompra from "../../Components/Details/Detalle_Compra"
 import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteCompraById, getComrpaByID, getProveedorByName, putSaldoProveedor } from "../../Redux/Actions/Actions"
+
 
 export default function Detalle_Compra(){
 
     const dispatch = useDispatch()
     const {id}=useParams()
     const navigate = useNavigate()
-
+console.log(id)
     useEffect(() => {
         dispatch(getComrpaByID(id))
     }, [dispatch])
@@ -22,7 +24,7 @@ export default function Detalle_Compra(){
         dispatch(getProveedorByName(compra.proveedor))
     }, [dispatch])
     const proveedor = useSelector((state)=>state.provByNombre)
-
+console.log(compra)
     const deleteCompra = ()=>{
         swal({
             title: "Está seguro que desea eliminar la compra",
@@ -70,14 +72,18 @@ export default function Detalle_Compra(){
                         onClick={deleteCompra}
                     />
                 </div>
-                {/* <div className={StyleDetalleCompra.TableCompras}>
+                <div className={StyleDetalleCompra.TableCompras}>
                     <TableCompra
                         id_c={id}
                     />
-                </div> */}
+                </div>
+
             </div>
+            <LargeButton
+                    title={"Detalle de Grupos"}
+                    onClick={()=>navigate(`/DetalleGrupos/${id}`)}
+                />
         </div>
 
     )
 }
-// 

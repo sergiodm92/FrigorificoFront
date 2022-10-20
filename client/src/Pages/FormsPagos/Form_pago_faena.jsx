@@ -21,9 +21,9 @@ const formasDePago=["Efectivo", "Transferencia"]
 export const validate = (pago) => {
     let error = {};
     if (!pago.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
+    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
-    else if (!/^([0-9])*$/.test(pago.monto)) error.monto = "Monto debe ser un número";
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     return error;
 };
 

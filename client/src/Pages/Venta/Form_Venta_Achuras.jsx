@@ -22,7 +22,7 @@ var formVA = {
 export const validate = (venta) => {
     let error = {};
     if (!venta.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
+    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(venta.fecha)) error.fecha = "Fecha incorrecta";
     if (!venta.clien) error.clien = "Falta cliente";
     if (!venta.cantidad) error.cantidad = "Falta cantidad";
     else if (!/^([0-9])*$/.test(venta.cantidad)) error.cantidad = "Cantidad debe ser un número";
