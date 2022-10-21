@@ -58,9 +58,9 @@ export default function Clientes(){
                     </div>
                 </div>
             </div>
-            <div className={styleCl.marca}>
+            {/* <div className={styleCl.marca}>
                 <Marca/>
-            </div>
+            </div> */}
         </div>
     )
 }
