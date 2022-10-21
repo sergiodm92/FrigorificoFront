@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoCompraById, getAllComrpasByProveedor, getPagosComprasByProveedor, getProveedorByName, putSaldoCompra, putSaldoProveedor } from "../../Redux/Actions/Actions"
+import { deletePagoCompraById, getAllComrpasByProveedor, getPagosComprasByProveedor, getProveedorByName, putSaldoCompra} from "../../Redux/Actions/Actions"
 import style from './Detalle_Pagos.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
@@ -51,10 +51,8 @@ export default function Detalle_Pagos_Proveedor() {
                             icon: "success",
                         })
                         let compra = compras.find(a=>a.id==compraID)
-                        let saldo1= proveedor.saldo + monto
-                        let saldo2= compra.saldo + monto
-                        dispatch(putSaldoProveedor( proveedor.id, saldo1))
-                        dispatch(putSaldoCompra(compraID, saldo2))
+                        let saldo= compra.saldo + monto
+                        dispatch(putSaldoCompra(compraID, saldo))
                         dispatch(deletePagoCompraById(id))
                     }
                     else {

@@ -25,6 +25,7 @@ const initialState = {
     ultimaCompra:"",
     ultimaVenta:"",
     ultimaVentaAchura:"",
+    saldoprov:0,
     pagosByCliente:[],
     pagosAchurasByCliente:[],
     pagosByProveedor:[],
@@ -205,6 +206,11 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 AllPagosbyFaena: action.payload,
+            }
+        case "GET_SALDO_BY_PROVEEDOR":
+            return{
+                ...state,
+                saldoprov: action.payload,
             }
         case "POST_NEW_PROVEEDOR":
             return{

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import {getComrpaByID, getProveedorByName, postNewPagoCompra, putSaldoCompra, putSaldoProveedor, setAlertPagoCompra } from "../../Redux/Actions/Actions";
+import {getComrpaByID, getProveedorByName, postNewPagoCompra, putSaldoCompra, setAlertPagoCompra } from "../../Redux/Actions/Actions";
 
 import stylePagoC from './Form_pago.module.scss';
 
@@ -84,10 +84,8 @@ const Form_Pago_Compra = () => {
         ){
         form.proveedor=compra.proveedor
         form.compraID=id
-        let saldo1= proveedor.saldo - form.monto
-        let saldo2= compra.saldo - form.monto
-        dispatch(putSaldoProveedor(proveedor.id, saldo1))
-        dispatch(putSaldoCompra(id, saldo2))
+        let saldo= compra.saldo - form.monto
+        dispatch(putSaldoCompra(id, saldo))
         dispatch(postNewPagoCompra(form))
         document.getElementById("formaDePago").selectedIndex = 0
         setForm(formPC);

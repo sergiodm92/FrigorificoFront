@@ -43,23 +43,6 @@ export const setAlertPagoVentaAchuras = () => {
   return ({ type: "POST_NEW_PAGO_VENTA_ACHURAS", payload: ""  });
 };
 
-// User Login
-// export const postLogin = (payload) => {
-//     return async function (dispatch){
-//         try{
-//             const json = await axios.post(`${URL}/user/login`, payload);
-//             localStorage.setItem("auth_token",json.data)
-//             return dispatch ({
-//               type:"LOGIN_TOKEN",
-//               payload: json
-//           })
-//         }
-//         catch(err){
-//             console.log(err)
-//         }
-//     }
-// }
-
 export function postLogin(jsonUser){
   return async function (dispatch){
       try{
@@ -188,6 +171,29 @@ export const getComrpaByID = (id) => {
           }
         };
       };
+
+
+//Traer compra por ID
+export const getSaldoByProveedor = (proveedor) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/proveedores/saldo/${proveedor}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          console.log(json)
+          return dispatch({
+          type: "GET_SALDO_BY_PROVEEDOR",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+
 
 //Traer todas las faenas
 export const getAllFaenas = () => {
@@ -1390,29 +1396,7 @@ export const putCuartoRes = (id, kg, correlativo)=>{
 } 
 
 
-//actualiza saldo proveedor
-export const putSaldoProveedor = (id, saldo)=>{
-  return async (dispatch)=>{
-    let data_json= {
-      id: id,
-      saldo: saldo,
-    }
-    console.log(data_json)
-    try{
-      const json = await axios.put(`/proveedores/saldo`,data_json,{
-        headers: {
-          'auth-token': `${token}`
-        }
-        })
-        return dispatch({
-        type: "PUT_CUARTO_RESES",
-        payload: json.data.data})
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
-} 
+
 
 //actualiza saldo Cliente
 export const putSaldoCliente = (id, saldo)=>{

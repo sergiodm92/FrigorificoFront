@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import {useNavigate} from 'react-router-dom';
-import { getAllComrpasByProveedor } from "../../../Redux/Actions/Actions";
+import { useSelector, useDispatch } from "react-redux";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
+import { getSaldoByProveedor } from "../../../Redux/Actions/Actions";
 
-const CardSmall = ({ id, nombre, monto, tipo, pago, bstyle, bicon, bonClick, cuil}) => {
-const dispatch = useDispatch()
-useEffect(() => {
-dispatch(getAllComrpasByProveedor(nombre))
-}, [dispatch])
 
-const ultimaCompra = useSelector((state)=>state.ultimaCompra)
+const CardSmallProveedor = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick}) => {
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getSaldoByProveedor(nombre))
+    }, [dispatch])
+
+    let saldoprov = useSelector((state)=>state.saldoprov)
     const navigate = useNavigate()
-
+    
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -25,7 +27,7 @@ const ultimaCompra = useSelector((state)=>state.ultimaCompra)
 
     const totalEstenPesos = currencyFormatter({
         currency: "USD",
-        value : monto
+        value : saldoprov
         })
 
     return (
@@ -33,7 +35,7 @@ const ultimaCompra = useSelector((state)=>state.ultimaCompra)
             <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
                 <div className={styleCS.items}><p>{nombre}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
-                <div className={styleCS.items}><p>{cuil}</p></div>
+                <div className={styleCS.items}><p>{saldoprov}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{totalEstenPesos}</p></div>
             </div>
@@ -51,4 +53,4 @@ const ultimaCompra = useSelector((state)=>state.ultimaCompra)
     );
 };
 
-export default CardSmall;
+export default CardSmallProveedor;

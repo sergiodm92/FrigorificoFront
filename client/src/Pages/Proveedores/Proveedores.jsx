@@ -1,16 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
-import CardSmall from "../../Components/Cards/Card_Small Proveedores/Card_Small_Proveedores";
 import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllProveedores} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import CardSmallProveedor from "../../Components/Cards/Card_Small_Proveedor/Card_Small";
 
-
-
-
-// const data = require("../../Components/Details/data.json")
 
 export default function Proveedores(){
     const navigate = useNavigate();
@@ -18,7 +14,8 @@ export default function Proveedores(){
     useEffect(() => {
         dispatch(getAllProveedores())
     }, [dispatch])
-    const AllProveedores = useSelector((state)=>state.AllProveedores)
+    let AllProveedores = useSelector((state)=>state.AllProveedores)
+
     
     console.log(AllProveedores)
     return(
@@ -38,10 +35,9 @@ export default function Proveedores(){
                     {AllProveedores.map((a)=>{
 
                         return(
-                            <CardSmall
+                            <CardSmallProveedor
                                 id={a.id}
                                 nombre={a.nombre}
-                                monto={a.saldo===null?0:a.saldo}
                                 tipo={"Detalle_Proveedor"}
                                 pago={false}
                                 cuil= {a.cuil}
