@@ -173,7 +173,7 @@ export const getComrpaByID = (id) => {
       };
 
 
-//Traer compra por ID
+//Traer saldo de un proveedor por nombre del proveedor
 export const getSaldoByProveedor = (proveedor) => {
   return async (dispatch) => {
       try {
@@ -193,6 +193,25 @@ export const getSaldoByProveedor = (proveedor) => {
       };
     };
 
+//Traer saldo de un cliente por nombre del cliente
+export const getSaldoByCliente = (cliente) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/clientes/saldo/${cliente}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          console.log(json)
+          return dispatch({
+          type: "GET_SALDO_BY_CLIENTE",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
 
 
 //Traer todas las faenas
