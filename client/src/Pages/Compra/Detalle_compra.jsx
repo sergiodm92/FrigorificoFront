@@ -6,8 +6,8 @@ import TableCompra from "../../Components/Details/Detalle_Compra"
 import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
-import { useDispatch, useSelector } from "react-redux"
-import { deleteCompraById, getComrpaByID, getProveedorByName, putSaldoProveedor } from "../../Redux/Actions/Actions"
+import { useDispatch } from "react-redux"
+import { deleteCompraById } from "../../Redux/Actions/Actions"
 
 
 export default function Detalle_Compra(){
@@ -15,16 +15,8 @@ export default function Detalle_Compra(){
     const dispatch = useDispatch()
     const {id}=useParams()
     const navigate = useNavigate()
-console.log(id)
-    useEffect(() => {
-        dispatch(getComrpaByID(id))
-    }, [dispatch])
-    const compra = useSelector((state)=>state.CompraByID)
-    useEffect(() => {
-        dispatch(getProveedorByName(compra.proveedor))
-    }, [dispatch])
-    const proveedor = useSelector((state)=>state.provByNombre)
-console.log(compra)
+
+
     const deleteCompra = ()=>{
         swal({
             title: "Está seguro que desea eliminar la compra",
@@ -43,8 +35,6 @@ console.log(compra)
                         swal("Se eliminó la compra", {
                             icon: "success",
                         })
-                    let saldo= proveedor.saldo - compra.saldo
-                    dispatch(putSaldoProveedor(proveedor.id, saldo))
                     dispatch(deleteCompraById(id))
                     navigate('/Compras')
                     }

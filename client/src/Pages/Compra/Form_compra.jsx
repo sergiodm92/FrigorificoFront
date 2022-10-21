@@ -87,6 +87,7 @@ const Form_Compra = () => {
     let proveedores = useSelector((state)=>state.AllProveedores);
     let faenas = useSelector((state)=>state.AllFaenas)
 
+
     useEffect(() => {
         dispatch(getAllProveedores())
         dispatch(getAllFaenas())
@@ -106,8 +107,6 @@ const Form_Compra = () => {
 
 
 
- 
- 
     //estados locales
     const [form, setForm] = useState(formC);
     const [error, setError] = useState({});
@@ -122,7 +121,6 @@ const Form_Compra = () => {
         
     }, [formGCT])
     let faenabytropa = useSelector((state)=>state.FaenaByTropa)
-    let allReses = useSelector((state)=>state.AllReses)
     let proveedor
     useEffect(() => {
         if(form.proveedor!=='')proveedor=proveedores.find(a=>a.nombre==form.proveedor)
@@ -226,8 +224,6 @@ const Form_Compra = () => {
                 }, 2000)
             )
             dispatch(postNewCompra(form))
-            let saldo = proveedor.saldo + form.saldo
-            dispatch(putSaldoProveedor(proveedor.id, saldo))
             document.getElementById("proveedor").selectedIndex = 0
             setForm(formC);
             setSwitch_comision(false)

@@ -17,7 +17,7 @@ export default function Detalle_Proveedor(){
     const ProveedorById = useSelector((state)=>(state.ProveedorById))
     const AllCompras = useSelector((state)=>(state.AllCompras))
     const {id}=useParams()
-    const ComprasPendientes = AllCompras.filter((a)=>a.proveedor===ProveedorById.nombre && a.saldo>0)
+    const ComprasPendientes = AllCompras.filter((a)=>a.proveedor===ProveedorById.nombre)
     console.log(ComprasPendientes)
     
 
@@ -103,8 +103,8 @@ export default function Detalle_Proveedor(){
                                     id={a.id}
                                     fecha={a.fecha}
                                     para={a.proveedor}
-                                    cant={a.cant}
-                                    kg={a.kg_carne}
+                                    cant={a.cant_total}
+                                    kg={a.kg_carne_totales}
                                     monto={a.saldo.toFixed(2)}
                                     tipo={"Compras"}
                                     pago={true}
