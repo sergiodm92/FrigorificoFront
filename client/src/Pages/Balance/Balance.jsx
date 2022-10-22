@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getAllClientes, getAllFaenas, getAllProveedores, getAllReses, getAllVentas} from "../../Redux/Actions/Actions.js"
+import {getAllClientes, getAllFaenas, getAllProveedores, getAllReses, getAllVentas, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
@@ -13,40 +13,35 @@ export default function Balance(){
 const dispatch = useDispatch()
 
     useEffect(() => {
-    dispatch(getAllClientes())
-    dispatch(getAllProveedores())
+
     dispatch(getAllFaenas())
     dispatch(getAllReses())
     dispatch(getAllVentas())
+    dispatch(getSaldoAllComrpas())
+    dispatch(getSaldoAllVentas())
+    dispatch(getSaldoAllFaenas())
     }, [dispatch])
 
 
     const Stock = useSelector((state)=>state.AllResesStockTrue)
-    console.log(Stock)
-    const Clientes = useSelector((state)=>state.AllClientes)
-    const Proveedores = useSelector((state)=>state.AllProveedores)
-    const Faenas = useSelector((state)=>state.AllFaenas)
-    const Ventas = useSelector((state)=>state.AllVentas)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
+    const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
+    const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
+    const saldoTotalFaenas = useSelector((state)=>state.saldoAllFaenas)
+
 
     let [kgStock,setKgStock] = useState(0)
     let [totalEst,setTotalEst] = useState(0)
-    let [saldoTotalClientes,setSaldoTotalClientes] = useState(0)
-    let [saldoTotalProveedores,setSaldoTotalProveedores] = useState(0)
-    let [saldoTotalFaena,setSaldoTotalFaena] = useState(0)
     let [gananciaMensual,setGananciaMensual] = useState(0)
-    let [saldoPagar,setSaldoPagar] = useState(0)
+
 
     Stock.map((a)=>{
                     kgStock+=a.kg 
                     totalEst+=a.precio_kg*a.kg*1.07
         })
-    Clientes.map((a)=>saldoTotalClientes+=a.saldo)
-    Proveedores.map((a)=>saldoTotalProveedores+=a.saldo)
-    Faenas.map((a)=>saldoTotalFaena+=a.saldo)
-    if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>gananciaMensual+=a.margen)
-    saldoPagar=saldoTotalFaena+saldoTotalProveedores
-    console.log(Proveedores)
+     if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>gananciaMensual+=a.margen)
+
+
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -66,7 +61,7 @@ const dispatch = useDispatch()
         })
     const saldoFaenaPendienteEnPesos = currencyFormatter({
         currency: "USD",
-        value : saldoTotalFaena
+        value : saldoTotalFaenas
         })
     const saldoProvPendienteEnPesos = currencyFormatter({
         currency: "USD",
@@ -78,7 +73,7 @@ const dispatch = useDispatch()
         })
     const saldoPagarEnPesos = currencyFormatter({
         currency: "USD",
-        value : saldoPagar
+        value : (saldoTotalFaenas+saldoTotalProveedores)
         })
 
     return(

@@ -13,6 +13,10 @@ export default function Table_Proveedor({ProveedorById}){
         <table class="table">
             <tbody>
                 <tr className="table-warning">
+                    <td>Nombre</td>
+                    <td>{ProveedorById.nombre}</td>
+                </tr>
+                <tr className="table-warning">
                     <td>Teléfono</td>
                     <td>{ProveedorById.telefono}</td>
                 </tr>

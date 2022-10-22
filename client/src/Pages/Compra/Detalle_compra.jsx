@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams, useNavigate } from "react-router"
@@ -52,7 +52,7 @@ export default function Detalle_Compra(){
     return(
         <div className={StyleDetalleCompra.ConteinerCompras}>
             <NavBar
-                title={"Detalle"}
+                title={"Detalle de la Compra"}
             />
             <div className={StyleDetalleCompra.page}>
                 <div className={StyleDetalleCompra.buttonDelete}>

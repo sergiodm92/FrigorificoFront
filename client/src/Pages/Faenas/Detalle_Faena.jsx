@@ -3,8 +3,6 @@ import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar"
-import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
-import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import Table_Det_Faena from "../../Components/Details/Detalle_Faena";
 import { useParams } from "react-router-dom";
 import StyleDF from "./Faenadetail.module.scss"
@@ -17,7 +15,6 @@ export default function Detalle_Faena(){
 
     const dispatch = useDispatch()
     const {id}=useParams()
-    console.log(id)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -70,7 +67,7 @@ export default function Detalle_Faena(){
     return(
         <div className={StyleDF.conteinerDetalle}>
             <NavBar
-                title="Faena"    
+                title="Detalle de Faena"    
             />
             <div className={StyleDF.page}>
                 <div className={StyleDF.buttonDelete}>

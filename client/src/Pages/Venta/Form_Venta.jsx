@@ -6,7 +6,6 @@ import CardReses from "../../Components/Cards/CardReses/CardReses";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
-
 import styleFormV from './Form_Venta.module.scss';
 import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putSaldoCliente, putStockRes, setAlertVentaCarne } from "../../Redux/Actions/Actions";
 

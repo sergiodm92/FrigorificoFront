@@ -27,6 +27,9 @@ const initialState = {
     ultimaVentaAchura:"",
     saldoprov:0,
     saldoCliente:0,
+    saldoAllCompras:0,
+    saldoAllVentas:0,
+    saldoAllFaenas:0,
     pagosByCliente:[],
     pagosAchurasByCliente:[],
     pagosByProveedor:[],
@@ -69,6 +72,21 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             AllCompras: action.payload,
+            }
+        case "GET_SALDO_ALL_COMPRAS":
+            return {
+            ...state,
+            saldoAllCompras: action.payload,
+            }
+        case "GET_SALDO_ALL_VENTAS":
+            return {
+            ...state,
+            saldoAllVentas: action.payload,
+            }
+        case "GET_SALDO_ALL_FAENAS":
+            return {
+            ...state,
+            saldoAllFaenas: action.payload,
             }
         case "GET_COMPRAS_BY_PROVEEDOR":
             return {

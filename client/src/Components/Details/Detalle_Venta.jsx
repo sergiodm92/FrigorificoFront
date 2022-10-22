@@ -17,28 +17,52 @@ export default function TableVenta({venta, pagos}){
         
 
     for(const [key,value] of Object.entries(venta)){ 
-    if(key!=="detalle")array.push({key,value})   
+        if(key!=="detalle" && key!=="saldo" && key!=="total")array.push({key,value})   
     }
+
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+        const saldoTotalEstenPesos = currencyFormatter({
+        currency: "USD",
+        value : venta.saldo
+        })
+
+        const TotalEstenPesos = currencyFormatter({
+                currency: "USD",
+                value : venta.total
+                })
 
     return(
         <div className={tableVentaStyle.conteiner}>
 
-            <table class="table">
+            <table className="table">
 
             <tbody>
             {array.map((e,i) => {
                     return(
 
-                    <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-warning"}>
+                    <tr key={i} className={e.key.includes("Margen")?"table-secondary":"table-warning"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td className={tableVentaStyle.columnRight}>{e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.value}</td>            
+                        <td className={tableVentaStyle.columnRight}>{e.key!=="margen_porc" && e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="margen_porc"?e.value.toFixed(2)+"%":e.value}</td>            
                     </tr>
                     )
             })
             }
+                    <tr className="table-warning">
+                            <td >Total</td>
+                            <td className={tableVentaStyle.columnRight} >{TotalEstenPesos}</td>
+                       
+                    </tr>
                     <tr>
-                            <td class="table-dark" colspan="2">Pagos</td>
+                            <td className="table-dark" colspan="2">Pagos</td>
                        
                     </tr>
                     {pagos?.map((a)=>
@@ -51,7 +75,7 @@ export default function TableVenta({venta, pagos}){
                     )}
                     <tr>
                             <td>Saldo</td>
-                            <td>{venta.saldo}</td>
+                            <td>{saldoTotalEstenPesos}</td>
                     </tr>
 
                     

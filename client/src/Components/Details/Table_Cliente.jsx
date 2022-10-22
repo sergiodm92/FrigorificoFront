@@ -2,7 +2,7 @@ import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 
-export default function Table_Cliente({email,telefono,direccion}){
+export default function Table_Cliente({email,nombre,telefono,direccion}){
 
 
 
@@ -11,6 +11,10 @@ export default function Table_Cliente({email,telefono,direccion}){
         <div className={tableVentaStyle.conteiner}>
         <table class="table">
             <tbody>
+                <tr className="table-warning">
+                    <td>Nombre</td>
+                    <td className={tableVentaStyle.tdr}>{nombre}</td>
+                </tr>
                 <tr className="table-warning">
                     <td>Teléfono</td>
                     <td className={tableVentaStyle.tdr}>{telefono}</td>
