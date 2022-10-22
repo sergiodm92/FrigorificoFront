@@ -77,7 +77,6 @@ const Form_Venta = () => {
     //estados globales
     const alert_msj= useSelector ((state)=>state.postVentaCarne);
     const stock=useSelector((state)=>state.AllResesStockTrue)
-    console.log(stock)
     const clientes = useSelector((state)=>state.AllClientes);
     
     let stockByCat=stock.filter(a=> a.categoria===formCV.categoria && a.precio_kg)
@@ -94,6 +93,7 @@ const Form_Venta = () => {
 
 
     useEffect(() => {
+        
         if(alert_msj!==""){
             swal({
                 title: alert_msj,
@@ -101,6 +101,7 @@ const Form_Venta = () => {
                 button: "ok",
             })}
             dispatch(setAlertVentaCarne())
+            form.detalle=[]
     }, [alert_msj])
 
     useEffect(() => {
@@ -154,6 +155,8 @@ const Form_Venta = () => {
             formCV.costo_kg=resSelect.precio_kg
             form.detalle.unshift(formCV)
             if(formCV.total_media=="total") arrResesTotales.push(formCV.correlativo)
+            document.getElementById("categoria").selectedIndex = 0
+            document.getElementById("res").selectedIndex = 0
             setFormCV(formComV);
         }
         else {
@@ -169,8 +172,6 @@ const Form_Venta = () => {
     //handleSubmit de la Venta completa
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(error)
-        console.log(form)
         if(
             !error.fecha && form.fecha &&
             !error.cliente && form.cliente
@@ -197,12 +198,12 @@ const Form_Venta = () => {
                         dispatch(putStockRes(a))
             }, 2000)
             })
-            let saldo = cliente.saldo + form.saldo
-            dispatch(putSaldoCliente(cliente.id, saldo))
+            
             dispatch(postNewVentaCarne(form))
             console.log(form)
+            document.getElementById("categoria").selectedIndex = 0
+            document.getElementById("res").selectedIndex = 0
             setForm(formV);
-            setArrResesTotales([])
         }
         else{
             swal({
@@ -294,7 +295,7 @@ const Form_Venta = () => {
                     {/*----------------Carga del detalle---------------------*/}
                     <div className={styleFormV.formItem2}>
                         <div className={styleFormV.item}>
-                            <select className="selectform" onChange={(e)=> handleSelectCat(e)}>
+                            <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
                                 <option value="" selected>Categoría</option>
                                 {categorias.length > 0 &&  
                                 categorias.map((c) => (
@@ -302,7 +303,7 @@ const Form_Venta = () => {
                                 ))
                                 }
                             </select>
-                            <select className="selectform" onChange={(e)=> handleSelectRes(e)}>
+                            <select id="res" className="selectform" onChange={(e)=> handleSelectRes(e)}>
                                 <option value="" selected>res</option>
                                 {res.length > 0 &&  
                                 res.map((c) => (
