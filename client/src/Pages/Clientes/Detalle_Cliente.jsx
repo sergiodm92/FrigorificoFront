@@ -70,7 +70,7 @@ export default function Detalle_Cliente(){
     return(
         <div className={styleCl.ConteinerClientes}>
             <NavBar
-                title={ClienteById.nombre}
+                title={"Detalle del Cliente"}
             />
             <div className={styleCl.page}>
                 {/* <div className={styleCl.buttonEdit}>
@@ -90,6 +90,7 @@ export default function Detalle_Cliente(){
                 <div className={styleCl.tablecliente}>
                 <Table_Cliente
                 email={ClienteById.email}
+                nombre={ClienteById.nombre}
                 telefono={ClienteById.telefono}
                 direccion={ClienteById.direccion}
                 />

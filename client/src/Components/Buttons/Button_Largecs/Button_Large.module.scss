@@ -1,0 +1,22 @@
+.cont{
+    display: flex;
+    position: relative;
+    border-color: rgb(253, 251, 251);
+    justify-content: center;
+}
+.button1{
+    width: 300px;
+    height: 50px;
+    background-color: rgb(107, 0, 0);
+    border-radius: 20px;
+    border-width: 3px;
+    margin: 0;
+    padding: 0;
+    color: rgb(248, 245, 245);
+    font-family: 'Karla', sans-serif;
+    font-size: 20px;
+    font-style: initial;
+}
+.button1:hover{
+    background-color: rgb(160, 160, 160);
+}

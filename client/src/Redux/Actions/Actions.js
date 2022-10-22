@@ -100,6 +100,27 @@ export const getAllComrpas = () => {
         };
       };
 
+//Calcula el saldo total de todas las compras
+export const getSaldoAllComrpas = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/compras/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          let saldo=0
+          json.data.data.map((a)=>saldo+=a.saldo)
+          return dispatch({
+          type: "GET_SALDO_ALL_COMPRAS",
+          payload: saldo})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
   //Traer todas las ventas de achuras
 export const getAllVentasAchuras = () => {
   return async (dispatch) => {
@@ -331,6 +352,49 @@ export const getAllVentas = () => {
         };
       }; 
 
+//Calcula el saldo total de todas las ventas
+export const getSaldoAllVentas = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventas/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          let saldo=0
+          json.data.data.map((a)=>saldo+=a.saldo)
+          return dispatch({
+          type: "GET_SALDO_ALL_VENTAS",
+          payload: saldo})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+//Calcula el saldo total de todas las faenas
+export const getSaldoAllFaenas = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/faenas/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          let saldo=0
+          json.data.data.map((a)=>saldo+=a.saldo)
+          return dispatch({
+          type: "GET_SALDO_ALL_FAENAS",
+          payload: saldo})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+    
+
 //Ventas por cliente
 export const getVentasByCliente = (name) => {
   return async (dispatch) => {
@@ -463,7 +527,7 @@ export const getVentaByID = (id) => {
               cost+=a.costo_kg*a.kg
             })
             venta.margen=venta.total-cost
-            venta.margen_porc=(cost/venta.total)*100
+            venta.margen_porc=(venta.margen/venta.total)*100
             console.log(venta)
             return dispatch({
             type: "GET_VENTA_BY_ID",
@@ -592,6 +656,8 @@ export const getAllProveedores = () => {
           }
         };
       }; 
+
+
 
       export const getProveedorByName = (nombre) => {
         return async (dispatch) => {

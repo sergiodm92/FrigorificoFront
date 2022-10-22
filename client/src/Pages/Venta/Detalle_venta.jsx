@@ -92,7 +92,7 @@ const deleteVenta = ()=>{
     return(
         <div className={StyleDetalleVenta.ConteinerVenta}>
             <NavBar
-                title={"Detalle"}
+                title={"Detalle de la Venta"}
             />
             <div className={StyleDetalleVenta.page}>
                 <div className={StyleDetalleVenta.buttonDelete}>
