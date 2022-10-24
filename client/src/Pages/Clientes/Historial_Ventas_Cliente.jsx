@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
-import { getClienteByID, getVentasByCliente } from "../../Redux/Actions/Actions";
+import { getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from "../../Redux/Actions/Actions";
 
 
 export default function Historial_Ventas_Cliente(){
@@ -16,8 +16,11 @@ export default function Historial_Ventas_Cliente(){
     const ClienteById = useSelector((state)=>(state.ClienteById))
     useEffect(() => {
         dispatch(getVentasByCliente(ClienteById.nombre))
+        dispatch(getVentasAchurasByCliente(ClienteById.nombre))
     }, [])
     const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
+    const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
+
 
 
 
@@ -26,7 +29,8 @@ export default function Historial_Ventas_Cliente(){
             <NavBar
             title={ClienteById.nombre}
             />
-            <div>
+            <div className={styleCl.conteiner}>
+                <h5 className={styleCl.firstTitle}>Ventas de Carne</h5>
                 <div className={styleCl.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
@@ -42,7 +46,7 @@ export default function Historial_Ventas_Cliente(){
                     {AllVentasByCliente.map((a)=>{
                         return(
                             <CardLarge
-                                id={a.ID_Venta}
+                                id={a.id}
                                 fecha={a.fecha}
                                 para={a.cliente}
                                 cant={a.cant}
@@ -54,6 +58,36 @@ export default function Historial_Ventas_Cliente(){
                         )
                     })
                     }
+                </div>
+                <div className={styleCl.cardsCont}>
+                        <h5 className={styleCl.firstTitle}>Ventas de Achuras</h5>
+                        <div className={styleCl.title}>
+                            <div><b>Fecha</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cliente</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cant</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Monto($)</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Saldo($)</b></div>
+                        </div>
+                        <div className={styleCl.cardsCont}>
+                            {AllVentasAchurasByCliente.map((a)=>{
+                                return(
+                                    <CardLarge
+                                        id={a.id}
+                                        fecha={a.fecha}
+                                        para={a.clien}
+                                        cant={a.cantidad}
+                                        kg={a.total}
+                                        monto={a.saldo}
+                                        tipo={"Detalle_Venta_Achuras"}
+                                    />
+                                )
+                            })
+                            }
+                        </div>
                 </div>
             </div>
         </div>

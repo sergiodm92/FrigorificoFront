@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {getAllReses} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar";
-import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleSt from "./Stock.module.scss";
 import Table_Stock from "../../Components/Details/Table_Stock";
+import CardSmallStock from "../../Components/Cards/Card_Small_stock/Card_Small.jsx";
 
 
 export default function Stock(){
@@ -82,13 +82,12 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
             <div className={styleSt.cardsCont}>
                 {arrayResByTropa.map((a,i)=>{
                     return(
-                        <CardSmall
+                        <CardSmallStock
                             id={i}
                             fecha={a[0].fecha}
-                            otro={a[0].frigorifico}
-                            monto={a[0].tropa}
+                            frigorifico={a[0].frigorifico}
+                            tropa={a[0].tropa}
                             tipo={"Detalle_Stock_Tropa"}
-                            pago={false}
                         />
                     )
                 })}

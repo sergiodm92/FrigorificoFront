@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams, useNavigate } from "react-router"
@@ -6,8 +6,8 @@ import TableCompra from "../../Components/Details/Detalle_Compra"
 import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
-import { useDispatch } from "react-redux"
-import { deleteCompraById } from "../../Redux/Actions/Actions"
+import { useDispatch, useSelector } from "react-redux"
+import { deleteCompraById, getComrpaByID, getFaenasByTropa, putEstadoCompraFaenaFalse } from "../../Redux/Actions/Actions"
 
 
 export default function Detalle_Compra(){
@@ -16,6 +16,19 @@ export default function Detalle_Compra(){
     const {id}=useParams()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        dispatch(getComrpaByID(id))
+    }, [dispatch])
+
+    let compra = useSelector((state)=>state.CompraByID)
+    let arrTropas=[]
+    if(compra.grupos){
+        compra.grupos.map(a=>{
+            arrTropas.push(a.n_tropa)
+        })
+    }
+    
+    
 
     const deleteCompra = ()=>{
         swal({
@@ -35,6 +48,11 @@ export default function Detalle_Compra(){
                         swal("Se eliminó la compra", {
                             icon: "success",
                         })
+                    arrTropas.map(a=>{
+                        setTimeout(()=>{
+                            dispatch(putEstadoCompraFaenaFalse(a))
+                        }, 2000)
+                    })
                     dispatch(deleteCompraById(id))
                     navigate('/Compras')
                     }

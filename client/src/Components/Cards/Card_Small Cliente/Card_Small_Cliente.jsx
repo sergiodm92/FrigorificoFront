@@ -5,7 +5,7 @@ import { getSaldoByCliente } from "../../../Redux/Actions/Actions";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
 
-const CardSmall = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick, cuil}) => {
+const CardSmallCliente = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick, cuil}) => {
 const dispatch = useDispatch()
 useEffect(() => {
 dispatch(getSaldoByCliente(nombre))
@@ -52,4 +52,4 @@ let saldoCliente = useSelector((state)=>state.saldoCliente)
     );
 };
 
-export default CardSmall;
+export default CardSmallCliente;

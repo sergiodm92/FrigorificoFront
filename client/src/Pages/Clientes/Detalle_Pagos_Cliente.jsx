@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoVentaById, getClienteByName, getPagosVentasByCliente, getVentasByCliente, putSaldoCliente, putSaldoVenta } from "../../Redux/Actions/Actions"
+import { deletePagoVentaById, getClienteByName, getPagosVentaAchurasByCliente, getPagosVentasByCliente, getVentasByCliente, putSaldoCliente, putSaldoVenta } from "../../Redux/Actions/Actions"
 import style from './Detalle_Pagos.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
@@ -14,14 +14,19 @@ export default function Detalle_Pagos_Clientes() {
 
     useEffect(() => {
         dispatch(getPagosVentasByCliente(nombre))
+        dispatch(getPagosVentaAchurasByCliente(nombre))
         dispatch(getClienteByName(nombre))
         dispatch(getVentasByCliente(nombre))
     }, [dispatch])
 
     const pagos = useSelector((state)=>state.pagosByCliente)
+    const pagosAchuras = useSelector((state)=>state.pagosAchurasByCliente)
     const cliente = useSelector((state)=>state.clienteByNombre)
     const ventas = useSelector((state)=>state.AllVentasByCliente)
-    
+
+    let pagosT=[ ...pagos, ...pagosAchuras]
+    console.log("🚀 ~ file: Detalle_Pagos_Cliente.jsx ~ line 28 ~ Detalle_Pagos_Clientes ~ pagosAchuras", pagosAchuras)
+    console.log(pagosT)
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -82,7 +87,7 @@ export default function Detalle_Pagos_Clientes() {
                             <td>Monto</td>
                             <td>Eliminar</td>
                         </tr>
-                        {pagos.map((e,i) => {
+                        {pagosT.map((e,i) => {
                             return(
                                 <tr key={i} class={"table-primary"}> 
                                     <td>{e.fecha}</td> 

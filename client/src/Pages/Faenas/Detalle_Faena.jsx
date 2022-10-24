@@ -7,7 +7,7 @@ import Table_Det_Faena from "../../Components/Details/Detalle_Faena";
 import { useParams } from "react-router-dom";
 import StyleDF from "./Faenadetail.module.scss"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
-import { deleteFaenaById, deleteResById, getAllFaenas, getAllReses } from "../../Redux/Actions/Actions";
+import { deleteFaenaById, deleteResById, getAllFaenas, getAllReses, getFaenaById } from "../../Redux/Actions/Actions";
 import Tabla_Detalle_Stock_Tropa from "../../Components/Details/Tabla_Detalle_Stock_Tropa";
 
 
@@ -18,14 +18,19 @@ export default function Detalle_Faena(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getAllFaenas())
         dispatch(getAllReses())
+        dispatch(getFaenaById(id))
     }, [dispatch])
 
-    const AllFaenas = useSelector((state)=>(state.AllFaenas))
+    const faena= useSelector((state)=>(state.FaenaById))
     const AllReses = useSelector((state)=>(state.AllReses))
-    const tropa = AllFaenas.find(a=>a.id==id).tropa
-    const arrayReses = AllReses.filter(a=>a.tropa==tropa)
+    const tropa = faena.tropa
+    let arrayReses = AllReses.filter(a=>a.tropa==tropa)
+    
+    arrayReses.sort(function(a,b){
+        if(a.correlativo>b.correlativo){return 1}
+        if(a.correlativo<b.correlativo){return -1}
+        return 0})
     const deleteFaena = ()=>{
         swal({
             title: "Está seguro que desea eliminar la faena con tropa:"+tropa,
@@ -79,7 +84,7 @@ export default function Detalle_Faena(){
                 </div>
                 <div className={StyleDF.tablefaena}>
                     <Table_Det_Faena
-                        tropa={tropa}
+                        id={id}
                     />
                     <Tabla_Detalle_Stock_Tropa
                         reses={arrayReses}

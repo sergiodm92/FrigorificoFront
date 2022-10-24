@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getAllClientes, getAllFaenas, getAllProveedores, getAllReses, getAllVentas, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllReses, getAllVentas, getAllVentasAchuras, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
@@ -19,12 +19,14 @@ const dispatch = useDispatch()
     dispatch(getAllVentas())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
+    dispatch(getAllVentasAchuras())
     dispatch(getSaldoAllFaenas())
     }, [dispatch])
 
 
     const Stock = useSelector((state)=>state.AllResesStockTrue)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
+    const ventAchurasult30 = useSelector((state)=>state.ventAchurasult30)
     const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
     const saldoTotalFaenas = useSelector((state)=>state.saldoAllFaenas)
@@ -35,12 +37,13 @@ const dispatch = useDispatch()
     let [gananciaMensual,setGananciaMensual] = useState(0)
 
 
+
     Stock.map((a)=>{
                     kgStock+=a.kg 
                     totalEst+=a.precio_kg*a.kg*1.07
         })
      if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>gananciaMensual+=a.margen)
-
+     if(ventAchurasult30.length)ventAchurasult30.map(a=>gananciaMensual+=a.total)
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {

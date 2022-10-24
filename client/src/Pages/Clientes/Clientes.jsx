@@ -7,6 +7,7 @@ import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import { getAllClientes } from "../../Redux/Actions/Actions";
 import Marca from "../../Components/Marca/Marca";
+import CardSmallCliente from "../../Components/Cards/Card_Small Cliente/Card_Small_Cliente";
 
 
 export default function Clientes(){
@@ -36,19 +37,19 @@ export default function Clientes(){
                         <div><b>Saldo($)</b></div>
                     </div>
                     <div className={styleCl.cardsCont}>
-                        {AllClientes.length>0?AllClientes.map((a)=>{
-                            return(
-                                <CardSmall
-                                    id={a.id}
-                                    nombre={a.nombre}
-                                    monto={a.saldo || 0}
-                                    tipo={"Detalle_Cliente"}
-                                    pago={false}
-                                    cuil= {a.cuil}
-                                />
-                            )
-                        })
-                            : (<></>) }
+                    {AllClientes.map((a)=>{
+
+                    return(
+                        <CardSmallCliente
+                            id={a.id}
+                            nombre={a.nombre}
+                            tipo={"Detalle_Cliente"}
+                            pago={false}
+                            cuil= {a.cuil}
+                        />
+                    )
+                    })
+                    }
                     </div>
                     <div className={styleCl.buttonLarge}>
                         <LargeButton

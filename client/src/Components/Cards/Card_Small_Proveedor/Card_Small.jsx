@@ -6,7 +6,7 @@ import styleCS from "./Card_Small.module.scss";
 import { getSaldoByProveedor } from "../../../Redux/Actions/Actions";
 
 
-const CardSmallProveedor = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick}) => {
+const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -35,20 +35,10 @@ const CardSmallProveedor = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick}) 
             <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
                 <div className={styleCS.items}><p>{nombre}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
-                <div className={styleCS.items}><p>{saldoprov}</p></div>
+                <div className={styleCS.items}><p>{cuil}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{totalEstenPesos}</p></div>
             </div>
-            {pago===true?
-            <div className={styleCS.button_pago}>
-                <ButtonNew
-                    style={bstyle}
-                    icon={bicon}
-                    onClick={bonClick}
-                />
-            </div>
-            : null
-            }
         </div>
     );
 };

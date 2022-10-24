@@ -41,6 +41,7 @@ const initialState = {
     AllVentas:[],
     AllVentasAchuras:[],
     VentasUltimos30Dias:[],
+    ventAchurasult30:[],
     VentaByID:{},
     VentaAchuraByID:{},
     AllClientes:[],
@@ -130,7 +131,8 @@ const rootReducer = (state = initialState, action) => {
         case "GET_ALL_VENTAS_ACHURAS":
             return {
             ...state,
-            AllVentasAchuras: action.payload
+            AllVentasAchuras: action.payload[0],
+            ventAchurasult30: action.payload[1]
             }
         case "GET_ALL_CLIENTES":
             return {

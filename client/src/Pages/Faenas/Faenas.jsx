@@ -1,23 +1,35 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
-import CardSmall from "../../Components/Cards/Card_Small/Card_Small";
 import styleF from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllFaenas} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import CardSmallFaenas from "../../Components/Cards/Card_Small_faenas/Card_Small";
 
 
 export default function Faenas(){
-const dispatch = useDispatch()
-useEffect(() => {
-    dispatch(getAllFaenas())
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllFaenas())
     }, [dispatch])
 
     const faenasPendientes = useSelector((state)=>state.faenasPendientes)
 
-
     const navigate = useNavigate();
+
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+    
+        let saldoEstenPesos
 
     return(
         <div className={styleF.ConteinerFaenas}>
@@ -33,16 +45,23 @@ useEffect(() => {
                     <div><b>|</b></div>
                     <div><b>Frigorífico</b></div>
                     <div><b>|</b></div>
+                    <div><b>Tropa</b></div>
+                    <div><b>|</b></div>
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={styleF.cardsCont}>
                     {faenasPendientes.map((a)=>{
+                        saldoEstenPesos = currencyFormatter({
+                            currency: "USD",
+                            value : a.saldo
+                        })
                         return(
-                            <CardSmall
+                            <CardSmallFaenas
                                 id={a.id}
                                 fecha={a.fecha}
-                                otro={a.frigorifico}
-                                monto={a.saldo}
+                                frigorifico={a.frigorifico}
+                                tropa={a.tropa}
+                                saldo={saldoEstenPesos}
                                 tipo={"Faenas"}
                                 pago={true}
                                 bstyle={"new"}

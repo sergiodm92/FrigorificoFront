@@ -58,7 +58,7 @@ const CardGruposDetalle = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, 
                 </div>
                 <div className={styleCard.items}>
                     <div><b>kg vivos brutos: </b></div>
-                    <div><p>{kgv_brutos}</p></div>
+                    <div><p>{kgv_brutos} kg</p></div>
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Desbaste: </b></div>
@@ -66,7 +66,7 @@ const CardGruposDetalle = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, 
                 </div>
                 <div className={styleCard.items}>
                     <div><b>kg vivos netos: </b></div>
-                    <div><p>{kgv_netos}</p></div>
+                    <div><p>{kgv_netos} kg</p></div>
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Precio/kgvNetos: </b></div>
@@ -78,7 +78,7 @@ const CardGruposDetalle = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, 
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Peso promedio: </b></div>
-                    <div><p>${pesoProm}</p></div>
+                    <div><p>{pesoProm} kg</p></div>
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Costo/kg: </b></div>

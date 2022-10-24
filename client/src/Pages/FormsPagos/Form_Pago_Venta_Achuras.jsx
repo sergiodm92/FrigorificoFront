@@ -83,7 +83,7 @@ const Form_Pago_Venta_Achuras = () => {
         !error.fecha && form.fecha &&
         !error.monto && form.monto
         ){
-            form.cliente=venta.clien
+            form.clien=venta.clien
             form.ventaID=id
             let saldo1= cliente.saldo - form.monto
             if(!saldo1) saldo1="0"
@@ -140,7 +140,7 @@ const Form_Pago_Venta_Achuras = () => {
                 <div className={stylePagoV.detallePro}>
                     <div className={stylePagoV.detalledivs}>
                         <h5 className={stylePagoV.title}>Cliente: </h5>
-                        <h4 className={stylePagoV.nameP}>{venta.cliente}</h4>
+                        <h4 className={stylePagoV.nameP}>{venta.clien}</h4>
                     </div>
                     <div className={stylePagoV.detalledivs}>
                         <h5 className={stylePagoV.title}>Saldo: </h5>

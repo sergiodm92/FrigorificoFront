@@ -20,9 +20,7 @@ export default function Detalle_Venta_Achuras(){
     useEffect(() => {
         dispatch(getVentaAchurasByID(id))
     }, [dispatch])
-
     let venta = useSelector((state)=>state.VentaAchuraByID)
-    console.log(venta)
 
 useEffect(() => {
     if(venta){

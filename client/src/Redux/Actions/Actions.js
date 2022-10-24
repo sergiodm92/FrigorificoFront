@@ -130,10 +130,26 @@ export const getAllVentasAchuras = () => {
               'auth-token': `${token}`
             }
           });
-          console.log(json.data.data)
+          const fecha = new Date()
+          let ventas=json.data.data;
+          let ventasUltimos30Dias=[]
+          console.log(ventas[0].fecha)
+          ventas.map((e)=>{
+            if(e.fecha.split("-")[2]==fecha.getFullYear() 
+            && e.fecha.split("-")[1]>(fecha.getMonth()-1) 
+            && e.fecha.split("-")[0]>=fecha.getDate()){
+            ventasUltimos30Dias.push(e)
+            }
+            if(e.fecha.split("-")[2]==fecha.getFullYear() 
+            && e.fecha.split("-")[1]==(fecha.getMonth()+1)){
+            ventasUltimos30Dias.push(e)
+            }
+          
+          })
+        
           return dispatch({
           type: "GET_ALL_VENTAS_ACHURAS",
-          payload: json.data.data})
+          payload: [ventas,ventasUltimos30Dias]})
       }
       catch (error) {
           console.log(error);
@@ -183,9 +199,11 @@ export const getComrpaByID = (id) => {
                 'auth-token': `${token}`
               }
             });
+            let response = json.data.data
+            response.costo_veps_total= response.costo_veps_unit*response.cant_total
             return dispatch({
             type: "GET_COMPRA_BY_ID",
-            payload: json.data.data})
+            payload: response})
         }
         catch (error) {
             console.log(error);
@@ -361,11 +379,19 @@ export const getSaldoAllVentas = () => {
               'auth-token': `${token}`
             }
           });
+          const json2 = await axios.get(`/ventaAchuras/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
           let saldo=0
           json.data.data.map((a)=>saldo+=a.saldo)
+          let saldo2=0
+          json2.data.data.map((a)=>saldo2+=a.saldo)
+          let saldoTotal = saldo + saldo2
           return dispatch({
           type: "GET_SALDO_ALL_VENTAS",
-          payload: saldo})
+          payload: saldoTotal})
       }
       catch (error) {
           console.log(error);
@@ -770,8 +796,7 @@ export const getResByCorrelativo = (correlativo) => {
           }
         };
       }; 
-
-
+      
 //Traer pagos por clientes
 export const getPagosVentasByCliente = (nombre) => {
   return async (dispatch) => {
@@ -1602,3 +1627,51 @@ export const putSaldoFaena = (id, saldo)=>{
     }
   }
 } 
+
+//actualiza saldo Faenas
+export const putEstadoCompraFaena = (tropa)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      tropa: tropa,
+      estado_compra: "true",
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/faenas/estadoCompra`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_ESTADO_COMPRA_FAENA",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+}
+
+//actualiza saldo Faenas
+export const putEstadoCompraFaenaFalse = (tropa)=>{
+  return async (dispatch)=>{
+    let data_json= {
+      tropa: tropa,
+      estado_compra: "false",
+    }
+    console.log(data_json)
+    try{
+      const json = await axios.put(`/faenas/estadoCompra`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_ESTADO_COMPRA_FAENA",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+}

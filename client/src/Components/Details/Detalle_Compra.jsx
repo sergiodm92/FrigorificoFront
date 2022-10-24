@@ -25,9 +25,6 @@ export default function TableCompra({id_c}){
 
         // const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
         // console.log(AllPagosbyFaena[0])
-
-       
-        console.log("🚀 ~ file: Detalle_Compra.jsx ~ line 30 ~ TableCompra ~  CompraByID.grupos",  CompraByID.grupos)
         function currencyFormatter({ currency, value}) {
                 const formatter = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -53,6 +50,10 @@ export default function TableCompra({id_c}){
                 let costovepsenpesos = currencyFormatter({
                         currency: "USD",
                         value : CompraByID.costo_veps_unit
+                        })
+                let costovepstotalenpesos = currencyFormatter({
+                        currency: "USD",
+                        value : CompraByID.costo_veps_total
                         })
                 // let pagofaenanpesos = currencyFormatter({
                 //         currency: "USD",
@@ -82,9 +83,9 @@ export default function TableCompra({id_c}){
                                 <tr key={i} className={"table-warning"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                                         
-                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit"  && 
+                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit" && e.key!=="costo_veps_total"  && 
                                                 e.key!=="id" && e.key!=="precio_venta_achuras_unit" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_total_hac"?costohenpesos:e.key=="costo_flete"?
-                                                costofleteenpesos:e.key=="costo_veps_unit"?costovepsenpesos:e.key=="precio_venta_achuras_unit"?precioachuraspesos:e.value}</td>            
+                                                costofleteenpesos:e.key=="costo_veps_unit"?costovepsenpesos:e.key=="costo_veps_total"?costovepstotalenpesos:e.key=="precio_venta_achuras_unit"?precioachuraspesos:e.value}</td>            
                                 </tr>
                                 );
                         })}

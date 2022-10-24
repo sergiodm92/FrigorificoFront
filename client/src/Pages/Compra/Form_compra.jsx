@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getProveedorByName, postNewCompra, putReses, putSaldoProveedor, setAlertCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlertCompra} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -25,7 +25,7 @@ let formC = {
     costo_total_hac:null,//kgv_netos * precio_kgv_netos//
     costo_flete: null,//
     costo_veps_unit: null,//
-    cant_total:1,//
+    cant_total:0,//
     grupos:[],//
     saldo:null //saldo de hacienda solamente
 };
@@ -50,6 +50,7 @@ let FormGCT = {
     pesoProm:0,             //calcula 
     rinde:0,                //calcula   
     n_grupo:0,              //calcula
+    comision:0,
 };
 
 
@@ -86,6 +87,7 @@ const Form_Compra = () => {
     let alert_msj= useSelector ((state)=>state.postCompra);
     let proveedores = useSelector((state)=>state.AllProveedores);
     let faenas = useSelector((state)=>state.AllFaenas)
+    let faenasDisp = faenas.filter(a=>a.estado_compra!==true)
 
 
     useEffect(() => {
@@ -124,7 +126,6 @@ const Form_Compra = () => {
     let proveedor
     useEffect(() => {
         if(form.proveedor!=='')proveedor=proveedores.find(a=>a.nombre==form.proveedor)
-        console.log(proveedor)
     }, [form])
     
     
@@ -173,6 +174,7 @@ const Form_Compra = () => {
                     formGCT.costo_faena = formGCT.costo_faena_kg*formGCT.kg_carne
                     formGCT.rinde = formGCT.kg_carne  * 100 / (formGCT.kgv_netos)
                     formGCT.n_grupo = n++;
+                    
                     form.grupos.unshift(formGCT)
                     document.getElementById("categoria").selectedIndex = 0
                     document.getElementById("tropa").selectedIndex = 0
@@ -214,15 +216,17 @@ const Form_Compra = () => {
                 if(form.kg_carne_totales*1!==0){a.costo_flete=(form.costo_flete*1*a.kg_carne)/(form.kg_carne_totales*1)}
                 a.cosoVeps=form.costo_veps_unit*a.cant
                 if(Switch_Comision==true) a.comision = 0.02 * a.costo_hac;
-                a.costo_total = a.cosoVeps + a.comision + a.costo_faena + a.costo_hac + a.costo_flete
+                a.costo_total = a.cosoVeps*1 + a.comision*1 + a.costo_faena*1 + a.costo_hac*1 + a.costo_flete*1
                 a.costo_kg = a.costo_total/(a.kg_carne*1)
             })
             form.saldo = form.costo_total_hac
-            form.grupos.map(e=>
+            form.grupos.map((e)=>
                 setTimeout(()=>{
                     dispatch(putReses(e.costo_kg, e.n_tropa, e.categoria))
+                    dispatch(putEstadoCompraFaena(e.n_tropa))
                 }, 2000)
             )
+            
             dispatch(postNewCompra(form))
             document.getElementById("proveedor").selectedIndex = 0
             setForm(formC);
@@ -385,87 +389,87 @@ const Form_Compra = () => {
                     </div>
                     <p className={error.costo_veps_unit ? styleFormC.danger : styleFormC.pass}>{error.costo_veps_unit}</p>
                     <div className={styleFormC.cardGrupo}>
-
-                    <div className={styleFormC.formItem}>
-                        <div>
-                            <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
-                                <option value="" selected>Categoría</option>
-                                {categorias.length > 0 &&  
-                                categorias.map((c) => (
-                                        <option	value={c}>{c}</option>
-                                        ))
-                                }
-                            </select>
-                        </div>
-                        <div className={styleFormC.numero}>
-                            <h5 className={styleFormC.title}>N°: </h5>
-                            <input
-                                type="number"
-                                value={formGCT.cant}
-                                id="cant"
-                                name="cant"
-                                onChange={handleChangeG}
-                                className={styleFormC.size1}
-                            />
-                        </div>
-                    </div>
-                    {/* <p className={error.cant ? styleFormC.danger : styleFormC.pass}>{error.cant}</p> */}
-                    <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>kgV Brutos: </h5>
-                        <input
-                            type="number"
-                            value={formGCT.kgv_brutos}
-                            id="kgv_brutos"
-                            name="kgv_brutos"
-                            onChange={handleChangeG}
-                            placeholder="00"
-                            className={styleFormC.size2}
-                        />
-                    </div>
-                    {/* <p className={error.kgv_brutos ? styleFormC.danger : styleFormC.pass}>{error.kgv_brutos}</p> */}
-                    <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>Desbaste: </h5>
-                        <input
-                            type="number"
-                            value={formGCT.desbaste}
-                            id="desbaste"
-                            name="desbaste"
-                            onChange={handleChangeG}
-                            placeholder="00"
-                            className={error.desbaste & styleFormC.danger}
-                        />
-                    </div>
-                    {/* <p className={error.desbaste ? styleFormC.danger : styleFormC.pass}>{error.desbaste}</p> */}
-                    <div className={styleFormC.formItem}>
-                        <div>
-                            <h5 className={styleFormC.title}>$/kgV Neto: </h5>
-                        </div>
-                        <div className={styleFormC.numero}>
-                            <h5 className={styleFormC.title}>$ </h5>
-                            <input
-                                type="number"
-                                value={formGCT.precio_kgv_netos}
-                                id="precio_kgv_netos"
-                                name="precio_kgv_netos"
-                                onChange={handleChangeG}
-                                placeholder="0.00"
-                                className={styleFormC.size2}
-                            />
-                        </div>
-                    </div>
-                    {/* <p className={error.precio_kgv_netos ? styleFormC.danger : styleFormC.pass}>{error.precio_kgv_netos}</p> */}
-                    <div className={styleFormC.formItem}>
+                        <div className={styleFormC.formItem}>
                             <h5 className={styleFormC.title}>N° Tropa: </h5>
                             <select id="tropa" className="selectform" onChange={(e)=> handleSelectTr(e)}>
                                 <option value="" selected>-</option>
-                                {faenas.length > 0 &&  
-                                faenas.map((c) => (
+                                {faenasDisp.length > 0 &&  
+                                    faenasDisp.map((c) => (
                                         <option	value={c.tropa}>{c.tropa}</option>
                                         ))
                                 }
                             </select>
                         </div>
-                    {/* <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>         */}
+                        {/* <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>         */}
+                        <div className={styleFormC.formItem}>
+                            <div>
+                                <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
+                                    <option value="" selected>Categoría</option>
+                                    {categorias.length > 0 &&  
+                                    categorias.map((c) => (
+                                            <option	value={c}>{c}</option>
+                                            ))
+                                    }
+                                </select>
+                            </div>
+                            <div className={styleFormC.numero}>
+                                <h5 className={styleFormC.title}>N°: </h5>
+                                <input
+                                    type="number"
+                                    value={formGCT.cant}
+                                    id="cant"
+                                    name="cant"
+                                    onChange={handleChangeG}
+                                    className={styleFormC.size1}
+                                />
+                            </div>
+                        </div>
+                        {/* <p className={error.cant ? styleFormC.danger : styleFormC.pass}>{error.cant}</p> */}
+                        <div className={styleFormC.formItem}>
+                            <h5 className={styleFormC.title}>kgV Brutos: </h5>
+                            <input
+                                type="number"
+                                value={formGCT.kgv_brutos}
+                                id="kgv_brutos"
+                                name="kgv_brutos"
+                                onChange={handleChangeG}
+                                placeholder="00"
+                                className={styleFormC.size2}
+                            />
+                        </div>
+                        {/* <p className={error.kgv_brutos ? styleFormC.danger : styleFormC.pass}>{error.kgv_brutos}</p> */}
+                        <div className={styleFormC.formItem}>
+                            <h5 className={styleFormC.title}>Desbaste: </h5>
+                            <input
+                                type="number"
+                                value={formGCT.desbaste}
+                                id="desbaste"
+                                name="desbaste"
+                                onChange={handleChangeG}
+                                placeholder="00"
+                                className={error.desbaste & styleFormC.danger}
+                            />
+                        </div>
+                        {/* <p className={error.desbaste ? styleFormC.danger : styleFormC.pass}>{error.desbaste}</p> */}
+                        <div className={styleFormC.formItem}>
+                            <div>
+                                <h5 className={styleFormC.title}>$/kgV Neto: </h5>
+                            </div>
+                            <div className={styleFormC.numero}>
+                                <h5 className={styleFormC.title}>$ </h5>
+                                <input
+                                    type="number"
+                                    value={formGCT.precio_kgv_netos}
+                                    id="precio_kgv_netos"
+                                    name="precio_kgv_netos"
+                                    onChange={handleChangeG}
+                                    placeholder="0.00"
+                                    className={styleFormC.size2}
+                                />
+                            </div>
+                        </div>
+                        {/* <p className={error.precio_kgv_netos ? styleFormC.danger : styleFormC.pass}>{error.precio_kgv_netos}</p> */}
+                        
                     </div>
                     <div className={styleFormC.button}>
                         <ButtonNew

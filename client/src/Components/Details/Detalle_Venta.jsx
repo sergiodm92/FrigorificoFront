@@ -37,7 +37,8 @@ export default function TableVenta({venta, pagos}){
         const TotalEstenPesos = currencyFormatter({
                 currency: "USD",
                 value : venta.total
-                })
+        })
+
 
     return(
         <div className={tableVentaStyle.conteiner}>
@@ -51,14 +52,19 @@ export default function TableVenta({venta, pagos}){
                     <tr key={i} className={e.key.includes("Margen")?"table-secondary":"table-warning"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td className={tableVentaStyle.columnRight}>{e.key!=="margen_porc" && e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="margen_porc"?e.value.toFixed(2)+"%":e.value}</td>            
+                        <td className={tableVentaStyle.columnRight}>{e.key=="kg_total"?e.value.toFixed(2):e.key=="margen_porc"?e.value.toFixed(2)+"%":
+                        e.key!=="id" && e.key!=="fecha" && e.key!=="cliente" && e.key!=="clien"?
+                        currencyFormatter({
+                                currency: "USD",
+                                value : e.value
+                        }):e.value}</td>            
                     </tr>
                     )
             })
             }
                     <tr className="table-warning">
                             <td >Total</td>
-                            <td className={tableVentaStyle.columnRight} >{TotalEstenPesos}</td>
+                            <td className={tableVentaStyle.columnRight}>{TotalEstenPesos}</td>
                        
                     </tr>
                     <tr>
@@ -69,7 +75,10 @@ export default function TableVenta({venta, pagos}){
                     <tr>
                     
                             <td>{a.fecha}</td>
-                            <td>{a.monto}</td>
+                            <td>{currencyFormatter({
+                                currency: "USD",
+                                value : a.monto
+                        })}</td>
                             
                     </tr>
                     )}

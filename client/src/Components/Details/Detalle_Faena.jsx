@@ -1,23 +1,30 @@
 import tableVentaStyle from "./tableVentaStyle.module.scss"
-import {getFaenasByTropa} from "../../Redux/Actions/Actions.js"
+import {getFaenaById} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Table_Det_Faena({tropa}){
+export default function Table_Det_Faena({id}){
 
     const dispatch = useDispatch()
     useEffect(() => {
-    dispatch(getFaenasByTropa(tropa))
+        dispatch(getFaenaById(id))
     }, [dispatch])
-    const FaenaByTropa = useSelector((state)=>state.FaenaByTropa)
-    console.log(FaenaByTropa)
+    const FaenaById = useSelector((state)=>state.FaenaById)
 
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
 
     const array=[];
-    for(const [key,value] of Object.entries(FaenaByTropa)){ 
-        if(key!=="detalle" && key !=="updatedAt" && key !=="createdAt")array.push({key,value}) 
+    for(const [key,value] of Object.entries(FaenaById)){ 
+        if(key!=="detalle" && key !=="estado_compra")array.push({key,value}) 
     }
-
+    console.log(array)
 
 
     return(
@@ -28,33 +35,18 @@ export default function Table_Det_Faena({tropa}){
             <tbody>
             {array.map((e,i) => {
                     return(
-
                     <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-warning"}>
-
                         <td>{e.key.includes("_")?(e.key.replaceAll("_"," ")):(e.key)}</td>
-                        <td className={tableVentaStyle.tdDF}>{e.key!=="id" && typeof(e.value)=="number"?e.value.toFixed(2):e.value}</td>            
+                        <td className={tableVentaStyle.tdDF}>{e.key!=="costo_total" && e.key!=="saldo" && e.key!=="costo_faena_kg"? e.value :
+                            currencyFormatter({
+                                currency: "USD",
+                                value : e.value
+                            })}
+                        </td>            
                     </tr>
                     )
             })
             }
-                    {/* <tr>
-                        <td>categoria</td>
-                        <td>correlativo</td>
-                        <td>kg</td>
-                        
-                    </tr>
-                    {FaenaByTropa.detalle.map((e,i) => {
-                    return(
-
-                    <tr key={i}>
-                        <td>{e.categoria}</td>
-                        <td>{e.correlativo}</td>
-                        <td>{e.kg}</td>
-
-                    </tr>
-                    )
-            })
-            } */}
             </tbody>
         </table>
        
