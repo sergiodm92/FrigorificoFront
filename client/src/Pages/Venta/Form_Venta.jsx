@@ -198,9 +198,7 @@ const Form_Venta = () => {
                         dispatch(putStockRes(a))
             }, 2000)
             })
-            
             dispatch(postNewVentaCarne(form))
-            console.log(form)
             document.getElementById("categoria").selectedIndex = 0
             document.getElementById("res").selectedIndex = 0
             setForm(formV);
@@ -388,9 +386,10 @@ const Form_Venta = () => {
                     {/*-----------------------------------------------------------*/}
 
                         {form.detalle.length ?
-                        form.detalle.map((e)=>{
+                        form.detalle.map((e,i)=>{
                             return(
                                 <CardReses
+                                    key={i}
                                     correlativo={e.correlativo}
                                     categoria={e.categoria}
                                     kg={e.kg}

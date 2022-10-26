@@ -15,7 +15,7 @@ export default function NavBar({title, onClick}){
                 <div className={styleNavbar.loguito}></div>
                 <p className={styleNavbar.NavTitle}>{title}</p>
             </div>
-            <div className={styleNavbar.ConteinerButtonReturn} onClick={()=>navigate(onClick)}>
+            <div className={styleNavbar.ConteinerButtonReturn} onClick={onClick? ()=>navigate(onClick) : ()=>navigate(-1)}>
                 <div className={styleNavbar.ButtonReturn}>
                 </div>
             </div>

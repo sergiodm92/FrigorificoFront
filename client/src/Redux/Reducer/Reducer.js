@@ -69,7 +69,7 @@ const initialState = {
     allPagosExtras:[],
     allIngresosExtras:[]
 }
-
+//GET_COMPRAS_BY_PROVEEDOR
 const rootReducer = (state = initialState, action) => {
     const { type, payload } = action;
     switch (action.type) {
@@ -101,8 +101,8 @@ const rootReducer = (state = initialState, action) => {
         case "GET_COMPRAS_BY_PROVEEDOR":
             return {
             ...state,
-            AllComprasByProveedor:action.payload[0],
-            ultimaCompra:action.payload[1]
+            AllComprasByProveedor:action.payload,
+            
             }
         case "GET_COMPRA_BY_ID":
             return {

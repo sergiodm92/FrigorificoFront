@@ -35,6 +35,7 @@ export default function Faenas(){
         <div className={styleF.ConteinerFaenas}>
             <NavBar
             title={"Faenas"}
+            onClick={"/home"}
             />
             <div>
                 <div className={styleF.contTitle}>

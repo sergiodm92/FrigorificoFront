@@ -78,7 +78,6 @@ const Form_Pago_Venta_Achuras = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(error)
         if(
         !error.fecha && form.fecha &&
         !error.monto && form.monto
@@ -89,7 +88,6 @@ const Form_Pago_Venta_Achuras = () => {
             if(!saldo1) saldo1="0"
             let saldo2= venta.saldo - form.monto
             if(!saldo2) saldo2="0"
-            console.log(saldo1, saldo2)
             dispatch(putSaldoCliente(cliente.id, saldo1))
             dispatch(putSaldoVentaAchuras(id, saldo2))
             dispatch(postNewPagoVentaAchuras(form))

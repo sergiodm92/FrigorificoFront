@@ -34,7 +34,7 @@ export default function Historial_Compras(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleCom.cardsCont}>
-                    {AllCompras.map((a,i)=>{
+                    {AllCompras?.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}

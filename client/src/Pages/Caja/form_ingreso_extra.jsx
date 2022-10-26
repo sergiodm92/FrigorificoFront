@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from "../../Components/Navbar/Navbar";
-import { postNewIngresoExtra, setAlertPagoCompra } from "../../Redux/Actions/Actions";
+import { postNewIngresoExtra, setAlertPagoExtra } from "../../Redux/Actions/Actions";
 import style from "./caja.module.scss";
 
 const formPE = {
@@ -42,7 +42,7 @@ export default function FormIngresoExtra(){
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
-        dispatch(setAlertPagoCompra())
+            dispatch(setAlertPagoExtra())
     }, [alert_msj])
 
     const [form, setForm] = useState(formPE);
