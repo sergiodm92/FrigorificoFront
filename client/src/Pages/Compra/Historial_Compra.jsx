@@ -34,15 +34,16 @@ export default function Historial_Compras(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleCom.cardsCont}>
-                    {AllCompras.map((a)=>{
+                    {AllCompras.map((a,i)=>{
                         return(
                             <CardLarge
+                                key={i}
                                 id={a.id}
                                 fecha={a.fecha}
                                 para={a.proveedor}
-                                cant={a.cant}
-                                kg={a.kg_carne}
-                                monto={a.costo_total}
+                                cant={a.cant_total}
+                                kg={a.kg_carne_totales}
+                                monto={a.costo_total_hac}
                                 tipo={"Compras"}
                             />
                         )

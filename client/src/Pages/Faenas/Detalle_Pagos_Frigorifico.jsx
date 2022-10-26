@@ -29,6 +29,7 @@ export default function Detalle_Pagos_Frigorifico() {
         return formatter.format(value)
     }
     let monto
+    let faena = {}
 
     const deletePago = (id, faenaID, monto)=>{
         swal({
@@ -48,10 +49,9 @@ export default function Detalle_Pagos_Frigorifico() {
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
-                        let faena = faenas.find(a=>a.id==faenaID)
+                        let faena = faenas?.find(a=>a.id==faenaID)
                         let saldo = faena.saldo + monto
                         dispatch(putSaldoFaena(faenaID, saldo))
-                        console.log(faenaID, saldo)
                         dispatch(deletePagoFaenaById(id))
                     }
                     else {
@@ -71,19 +71,19 @@ export default function Detalle_Pagos_Frigorifico() {
                 title={`Pagos de ${nombre}`}
             />
             <div className={style.tablefaena}>
-                <table class="table">
+                <table className="table">
                     <tbody>
-                        <tr class="table-dark">
+                        <tr className="table-dark">
                             <td>Tropa</td>
                             <td>Fecha</td>  
                             <td>Forma de Pago</td>
                             <td>Monto</td>
                             <td>Eliminar</td>
                         </tr>
-                        {pagos.map((e,i) => {
-                            let faena=faenas.find(a=>a.id==e.faenaID)
+                        {pagos.length!==0 && faenas.length!==0?pagos.map((e,i) => {
+                            faena=faenas.find(a=>a.id==e.faenaID)
                             return(
-                                <tr key={i} class={"table-primary"}>
+                                <tr key={i} className="table-primary">
                                     <td>{faena.tropa}</td> 
                                     <td>{e.fecha}</td> 
                                     <td>{e.formaDePago}</td>
@@ -101,7 +101,7 @@ export default function Detalle_Pagos_Frigorifico() {
                                     /></td>
                                 </tr>
                             )
-                        })} 
+                        }):null} 
                     </tbody>
                 </table>
             </div>            

@@ -18,12 +18,12 @@ var formV = {
 };
 //Form para cargar el detalle de la venta
 var formComV = {
-    id:null,
+    id:0,
     correlativo:'',
     categoria:'',
-    total_media: null,
-    kg:null,
-    kg_total:null,
+    total_media: 0,
+    kg:0,
+    kg_total:0,
     costo_kg:0,
     precio_kg:0
 };
@@ -270,10 +270,10 @@ const Form_Venta = () => {
                     <div className={styleFormV.formItem}>
                         <h5 className={styleFormV.title}>Cliente: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCl(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {clientes.length > 0 &&  
-                            clientes.map((c) => (
-                                    <option	value={c.nombre}>{c.nombre}</option>
+                            clientes.map((c,i) => (
+                                    <option key={i}	value={c.nombre}>{c.nombre}</option>
                                     ))
                             }
                         </select>
@@ -296,18 +296,18 @@ const Form_Venta = () => {
                     <div className={styleFormV.formItem2}>
                         <div className={styleFormV.item}>
                             <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
-                                <option value="" selected>Categoría</option>
+                                <option defaultValue>Categoría</option>
                                 {categorias.length > 0 &&  
-                                categorias.map((c) => (
-                                    <option	value={c}>{c}</option>
+                                categorias.map((c,i) => (
+                                    <option key={i}	value={c}>{c}</option>
                                 ))
                                 }
                             </select>
                             <select id="res" className="selectform" onChange={(e)=> handleSelectRes(e)}>
-                                <option value="" selected>res</option>
+                                <option defaultValue>res</option>
                                 {res.length > 0 &&  
-                                res.map((c) => (
-                                    <option	value={c}>{c}</option>
+                                res.map((c,i) => (
+                                    <option key={i}	value={c}>{c}</option>
                                 ))
                                 }
                             </select>
@@ -315,10 +315,10 @@ const Form_Venta = () => {
                         <div className={styleFormV.formItem}>
                         <h5 className={styleFormV.title}>Correlativo: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCorr(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {stockByCat.length > 0 &&  
-                                stockByCat.map((c) => (
-                                    <option	value={c.correlativo}>{c.correlativo}</option>
+                                stockByCat.map((c,i) => (
+                                    <option	key={i} value={c.correlativo}>{c.correlativo}</option>
                                     ))
                             }
                         </select>
@@ -351,7 +351,7 @@ const Form_Venta = () => {
                                 <h5 className={styleFormV.title}>kg </h5>
                                 <input
                                     type="number"
-                                    value={formCV.kg}
+                                    value={formCV.kg?formCV.kg:''}
                                     id="kg"
                                     name="kg"
                                     onChange={handleChangeCV}
@@ -365,7 +365,7 @@ const Form_Venta = () => {
                             <h5 className={styleFormV.title}>$/kg </h5>
                             <input
                                 type="number"
-                                value={formCV.precio_kg}
+                                value={formCV.precio_kg?formCV.precio_kg:''}
                                 id="precio_kg"
                                 name="precio_kg"
                                 onChange={handleChangeCV}

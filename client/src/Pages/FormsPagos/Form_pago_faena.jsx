@@ -53,7 +53,6 @@ const Form_Pago_Faena = () => {
 
     const [form, setForm] = useState(formPF);
     const [error, setError] = useState({});
-    console.log(error)
 
     const handleChange = (e) => {
         setError(

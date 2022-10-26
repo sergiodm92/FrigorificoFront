@@ -37,9 +37,10 @@ export default function Historial_Ventas_Achuras(){
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={styleVen.cardsCont}>
-                    {AllVentasAchuras.map((a)=>{
+                    {AllVentasAchuras.map((a,i)=>{
                         return(
                             <CardLarge
+                                key={i}
                                 id={a.id}
                                 fecha={a.fecha}
                                 para={a.clien}

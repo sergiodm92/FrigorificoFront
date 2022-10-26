@@ -8,21 +8,23 @@ import { getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from ".
 
 
 export default function Historial_Ventas_Cliente(){
+
     const {id}=useParams()
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getClienteByID(id))
-    }, [])
+    }, [dispatch])
+
     const ClienteById = useSelector((state)=>(state.ClienteById))
+
     useEffect(() => {
         dispatch(getVentasByCliente(ClienteById.nombre))
         dispatch(getVentasAchurasByCliente(ClienteById.nombre))
-    }, [])
+    }, [ClienteById])
+
     const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
     const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
-
-
-
 
     return(
         <div className={styleCl.ConteinerClientes}>
@@ -43,9 +45,10 @@ export default function Historial_Ventas_Cliente(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleCl.cardsCont}>
-                    {AllVentasByCliente.map((a)=>{
+                    {AllVentasByCliente.length!==0? AllVentasByCliente.map((a,i)=>{
                         return(
                             <CardLarge
+                                key={i}
                                 id={a.id}
                                 fecha={a.fecha}
                                 para={a.cliente}
@@ -57,7 +60,7 @@ export default function Historial_Ventas_Cliente(){
                             />
                         )
                     })
-                    }
+                    :null}
                 </div>
                 <div className={styleCl.cardsCont}>
                         <h5 className={styleCl.firstTitle}>Ventas de Achuras</h5>
@@ -73,9 +76,10 @@ export default function Historial_Ventas_Cliente(){
                             <div><b>Saldo($)</b></div>
                         </div>
                         <div className={styleCl.cardsCont}>
-                            {AllVentasAchurasByCliente.map((a)=>{
+                            {AllVentasAchurasByCliente.length!==0? AllVentasAchurasByCliente.map((a,i)=>{
                                 return(
                                     <CardLarge
+                                        key={i}
                                         id={a.id}
                                         fecha={a.fecha}
                                         para={a.clien}
@@ -86,7 +90,7 @@ export default function Historial_Ventas_Cliente(){
                                     />
                                 )
                             })
-                            }
+                            :null}
                         </div>
                 </div>
             </div>

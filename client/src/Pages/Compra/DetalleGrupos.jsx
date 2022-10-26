@@ -24,9 +24,10 @@ export default function DetalleGrupos(){
             />
             <div className={StyleDetalleCompra.grupos}>
 
-        {compra.grupos?compra.grupos.map((a)=>{
+        {compra.grupos?compra.grupos.map((a, i)=>{
                 return(
                 <CardGruposDetalle
+                key={i}
                 tropa={a.n_tropa}
                 categoria={a.categoria}
                 kgv_brutos={a.kgv_brutos}

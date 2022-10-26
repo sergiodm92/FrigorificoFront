@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar";
 import StyleNA from "./StyleNA.module.scss";
-import {login_state, setlogin_state} from '../../Redux/Actions/Actions.js'
+import {setlogin_state} from '../../Redux/Actions/Actions.js'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 
 

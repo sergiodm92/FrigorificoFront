@@ -30,9 +30,7 @@ useEffect(() => {
 }, [venta])
 
 let cliente = useSelector((state)=>state.clienteByNombre)
-console.log(cliente)
 let pagos = useSelector((state)=>state.pagosByVentaAchuraID)
-console.log(pagos)
 
 const deleteVenta = ()=>{
     swal({

@@ -36,9 +36,10 @@ export default function Historial_Ventas(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleVen.cardsCont}>
-                    {AllVentas.map((a)=>{
+                    {AllVentas.map((a, i)=>{
                         return(
                             <CardLarge
+                                key={i}
                                 id={a.id}
                                 fecha={a.fecha}
                                 para={a.cliente}

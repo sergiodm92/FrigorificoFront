@@ -886,7 +886,6 @@ export const getPagosFaenaByID = (faenaID) => {
     export const getPagosVentaAchurasByID = (ventaID) => {
       return async (dispatch) => {
           try {
-              console.log(ventaID)
               const json = await axios.get(`/pagoVentaAchuras/${ventaID}`,{
                 headers: {
                   'auth-token': `${token}`

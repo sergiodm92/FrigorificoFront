@@ -77,7 +77,7 @@ export default function Detalle_Pagos_Clientes() {
             <div className={style.tablefaena}>
                 <table className="table">
                     <tbody>
-                        <tr class="table-dark">
+                        <tr className="table-dark">
                             <td>ID</td> 
                             <td>Fecha</td>  
                             <td>Forma de Pago</td>
@@ -86,7 +86,7 @@ export default function Detalle_Pagos_Clientes() {
                         </tr>
                         {pagosT.map((e,i) => {
                             return(
-                                <tr key={i} class={"table-primary"}> 
+                                <tr key={i} className={"table-primary"}> 
                                     <td>{e.cliente?e.ventaID+"-V":e.ventaID+"-VAch"}</td> 
                                     <td>{e.fecha}</td> 
                                     <td>{e.formaDePago}</td>
