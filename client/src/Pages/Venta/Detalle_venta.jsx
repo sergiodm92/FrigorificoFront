@@ -105,7 +105,7 @@ const deleteVenta = ()=>{
                 </div>
                 <LargeButton
                     title="Detalle de Reses"
-                    onClick={()=>Navigate(`/Detalle_Reses_Venta/${id}`)}
+                    onClick={()=>Navigate(`/Ventas/${id}/DetalleReses`)}
                 />
             </div>
         </div>

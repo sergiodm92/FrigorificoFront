@@ -40,7 +40,8 @@ export const setAlertPagoVenta = () => {
 };
 export const setAlertPagoVentaAchuras = () => {
     
-  return ({ type: "POST_NEW_PAGO_VENTA_ACHURAS", payload: ""  });
+  return ({ type: "POST_NEW_PAGO_VENTA_ACHURAS"
+  , payload: ""  });
 };
 
 export function postLogin(jsonUser){
@@ -1586,7 +1587,6 @@ export const putReses = (precio_kg, tropa, categoria)=>{
       tropa: tropa,
       categoria: categoria
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/res`,data_json,{
         headers: {
@@ -1603,13 +1603,31 @@ export const putReses = (precio_kg, tropa, categoria)=>{
   }
 } 
 //pasa el estado de stock a false
+export const putkgRes = (data_json)=>{
+  return async (dispatch)=>{
+    try{
+      const json = await axios.put(`/res/kg`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_KG_RESES",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+}
+
+//pasa el estado de stock a false
 export const putStockRes = (correlativo)=>{
   return async (dispatch)=>{
     let data_json= {
       correlativo: correlativo,
       stock: "false"
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/res/stock`,data_json,{
         headers: {
@@ -1632,7 +1650,6 @@ export const putStockResTrue = (correlativo)=>{
       correlativo: correlativo,
       stock: "true"
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/res/stock`,data_json,{
         headers: {
@@ -1657,7 +1674,6 @@ export const putCuartoRes = (id, kg, correlativo)=>{
       kg: kg,
       correlativo: correlativo
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/res/cuartoRes`,data_json,{
         headers: {
@@ -1684,7 +1700,6 @@ export const putSaldoCliente = (id, saldo)=>{
       id: id,
       saldo: saldo,
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/clientes/saldo`,data_json,{
         headers: {
@@ -1708,7 +1723,6 @@ export const putSaldoCompra = (id, saldo)=>{
       id: id,
       saldo: saldo,
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/compras/saldo`,data_json,{
         headers: {
@@ -1732,7 +1746,6 @@ export const putSaldoVenta = (id, saldo)=>{
       id: id,
       saldo: saldo,
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/ventas/saldo`,data_json,{
         headers: {
@@ -1756,7 +1769,6 @@ export const putSaldoVentaAchuras = (id, saldo)=>{
       id: id,
       saldo: saldo,
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/ventaAchuras/saldo`,data_json,{
         headers: {
@@ -1780,7 +1792,6 @@ export const putSaldoFaena = (id, saldo)=>{
       id: id,
       saldo: saldo,
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/faenas/saldo`,data_json,{
         headers: {
@@ -1804,7 +1815,6 @@ export const putEstadoCompraFaena = (tropa)=>{
       tropa: tropa,
       estado_compra: "true",
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/faenas/estadoCompra`,data_json,{
         headers: {
@@ -1828,7 +1838,6 @@ export const putEstadoCompraFaenaFalse = (tropa)=>{
       tropa: tropa,
       estado_compra: "false",
     }
-    console.log(data_json)
     try{
       const json = await axios.put(`/faenas/estadoCompra`,data_json,{
         headers: {
@@ -1844,3 +1853,42 @@ export const putEstadoCompraFaenaFalse = (tropa)=>{
     }
   }
 }
+
+//resta cuarto de res vendida
+export const putEditarCliente = (data_json)=>{
+  return async (dispatch)=>{
+    try{
+      const json = await axios.put(`/clientes`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_EDITAR_CLIENTE",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 
+
+//resta cuarto de res vendida
+export const putEditarProveedor = (data_json)=>{
+  return async (dispatch)=>{
+    try{
+      console.log(data_json)
+      const json = await axios.put(`/proveedores`,data_json,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+        return dispatch({
+        type: "PUT_EDITAR_PROVEEDOR",
+        payload: json.data.data})
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+} 

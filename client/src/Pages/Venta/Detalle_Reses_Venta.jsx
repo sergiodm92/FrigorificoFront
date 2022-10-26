@@ -18,6 +18,7 @@ useEffect(() => {
 }, [dispatch])
 
 const venta = useSelector((state)=>state.VentaByID)
+
     
 
 

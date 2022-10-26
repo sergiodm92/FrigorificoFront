@@ -6,12 +6,8 @@ import styleNavbar from './Navbar.module.scss'
 
 
 
-export default function NavBar({title}){
+export default function NavBar({title, onClick}){
     const navigate = useNavigate()
-
-    function navigateFunction(e){
-        navigate("/home")
-    }
 
     return(
         <div className={styleNavbar.NavConteiner}>
@@ -19,7 +15,7 @@ export default function NavBar({title}){
                 <div className={styleNavbar.loguito}></div>
                 <p className={styleNavbar.NavTitle}>{title}</p>
             </div>
-            <div className={styleNavbar.ConteinerButtonReturn} onClick={navigateFunction}>
+            <div className={styleNavbar.ConteinerButtonReturn} onClick={()=>navigate(onClick)}>
                 <div className={styleNavbar.ButtonReturn}>
                 </div>
             </div>

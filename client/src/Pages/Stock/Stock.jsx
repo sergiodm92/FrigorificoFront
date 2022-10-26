@@ -24,7 +24,6 @@ export default function Stock(){
     let toro=["Toro",0,0,0]
     let Novp=["Novillo Pesado",0,0,0]
 
-    // console.log(AllResesStockTrue)
     AllResesStockTrue.map((a)=>{
             total_kg[3]+=a.kg;
             if(a.categoria==="Vaquillona"){
@@ -81,7 +80,7 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
                             fecha={a[0].fecha}
                             frigorifico={a[0].frigorifico}
                             tropa={a[0].tropa}
-                            tipo={"Detalle_Stock_Tropa"}
+                            tipo={"Stock/DetalleTropa"}
                         />
                     )
                 })}

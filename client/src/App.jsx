@@ -45,6 +45,7 @@ import Detalle_Pagos_Frigorifico from './Pages/Faenas/Detalle_Pagos_Frigorifico.
 import DetalleGrupos from './Pages/Compra/DetalleGrupos.jsx';
 import Detalle_Pagos_Extras from './Pages/Caja/Detalle_Pagos_Extras.jsx';
 import Detalle_Ingresos_Extras from './Pages/Caja/Detalle_Ingresos_Extras.jsx';
+import Form_Editar_Res from './Pages/Faenas/Editar_Res.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from 'react';
@@ -64,51 +65,63 @@ function App() {
 
   return (
     <Routes>
-    <Route exact path="/" element={state_login?<LogOut/>:<Login/>} />
-    <Route exact path="/Balance" element={state_login?<Balance/>:<NoAccess/>} />
-    <Route exact path="/Clientes" element={state_login?<Clientes />:<NoAccess/>} />
-    <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
-    <Route exact path="/Compras/:id" element={state_login?<Detalle_Compra />:<NoAccess/>} />
-    <Route exact path="/DetalleGrupos/:id" element={state_login?<DetalleGrupos />:<NoAccess/>} />
-    <Route exact path="/Form_Compra" element={state_login?<Form_Compra />:<NoAccess/>} />
-    <Route exact path="/Historial_Compras" element={state_login?<Historial_Compras />:<NoAccess/>} />
-    <Route exact path="/Detalle_Cliente/:id" element={state_login?<Detalle_Cliente />:<NoAccess/>} />
-    <Route exact path="/Form_Cliente" element={state_login?<Form_Cliente />:<NoAccess/>} />
-    <Route exact path="/Historial_Ventas_Cliente/:id" element={state_login?<Historial_Ventas_Cliente />:<NoAccess/>} />
-    <Route exact path="/Faenas/:id" element={state_login?<Detalle_Faena />:<NoAccess/>} />
-    <Route exact path="/Faenas" element={state_login?<Faenas />:<NoAccess/>} />
-    <Route exact path="/Form_Faena" element={state_login?<Form_Faena />:<NoAccess/>} />
-    <Route exact path="/Form_Pago_Faena/:id" element={state_login?<Form_Pago_Faena />:<NoAccess/>} />
-    <Route exact path="/Historial_Faena" element={state_login?<Historial_Faena />:<NoAccess/>} />
-    <Route exact path="/Home" element={state_login?<Home />:<NoAccess/>} />
-    <Route exact path="/Caja" element={state_login?<Caja />:<NoAccess/>} />
-    <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
-    <Route exact path="/Detalle_Proveedor/:id" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
-    <Route exact path="/Form_Proveedor" element={state_login?<Form_Proveedor />:<NoAccess/>} />
-    <Route exact path="/Form_Extraccion" element={state_login?<FormExtraccion />:<NoAccess/>} />
-    <Route exact path="/Form_IngresoExtra" element={state_login?<FormIngresoExtra />:<NoAccess/>} />
-    <Route exact path="/Historial_Compras_Proveedor/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
-    <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
-    <Route exact path="/Detalle_Stock_Tropa/:index" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
-    <Route exact path="/Stock" element={state_login?<Stock />:<NoAccess/>} />
-    <Route exact path="/Ventas" element={state_login?<Ventas />:<NoAccess/>} />
-    <Route exact path="/Historial_Ventas" element={state_login?<Historial_Ventas />:<NoAccess/>} />
-    <Route exact path="/Historial_Ventas_Achuras" element={state_login?<Historial_Ventas_Achuras />:<NoAccess/>} />
-    <Route exact path="/Detalle_Reses_Venta/:id" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
-    <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
-    <Route exact path="/Detalle_Venta_Achuras/:id" element={state_login?<Detalle_Venta_Achuras />:<NoAccess/>} />
-    <Route exact path="/Form_Pago_Venta/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
-    <Route exact path="/Form_Pago_Venta_Achuras/:id" element={state_login?<Form_Pago_Venta_Achuras />:<NoAccess/>} />
-    <Route exact path="/Form_Pago_Compra/:id" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
-    <Route exact path="/Form_Venta" element={state_login?<Form_Venta />:<NoAccess/> }/>
-    <Route exact path="/Form_Venta_Achuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>
-    <Route exact path="/Nueva_Venta" element={state_login?<Nueva_Venta />:<NoAccess/>} />
-    <Route exact path="/Detalle_Pagos_Clientes/:nombre" element={state_login?<Detalle_Pagos_Clientes />:<NoAccess/>} />
-    <Route exact path="/Detalle_Pagos_Proveedor/:nombre" element={state_login?<Detalle_Pagos_Proveedor />:<NoAccess/>} />
-    <Route exact path="/Detalle_Pagos_Frigorifico/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
-    <Route exact path="/Detalle_Extraccion" element={state_login?<Detalle_Pagos_Extras />:<NoAccess/>} />
-    <Route exact path="/Detalle_Ingresos" element={state_login?<Detalle_Ingresos_Extras />:<NoAccess/>} />
     
+    <Route exact path="/" element={state_login?<LogOut/>:<Login/>} />
+
+    <Route exact path="/Home" element={state_login?<Home />:<NoAccess/>} />
+    
+    <Route exact path="/Faenas" element={state_login?<Faenas />:<NoAccess/>} />
+      <Route exact path="/Faenas/:id" element={state_login?<Detalle_Faena />:<NoAccess/>} />
+      <Route exact path="/Faenas/Historial" element={state_login?<Historial_Faena />:<NoAccess/>} />
+      <Route exact path="/Faenas/FormPagos/:id" element={state_login?<Form_Pago_Faena />:<NoAccess/>} />
+      <Route exact path="/Faenas/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
+      <Route exact path="/Faenas/editarRes/:tropa" element={state_login?<Form_Editar_Res />:<NoAccess/>} />
+      <Route exact path="/FormFaena" element={state_login?<Form_Faena />:<NoAccess/>} />
+
+    <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
+      <Route exact path="/Compras/:id" element={state_login?<Detalle_Compra />:<NoAccess/>} />
+      <Route exact path="/Compras/:id/DetalleGrupos" element={state_login?<DetalleGrupos />:<NoAccess/>} />
+      <Route exact path="/Compras/Historial" element={state_login?<Historial_Compras />:<NoAccess/>} />
+      <Route exact path="/FormCompra" element={state_login?<Form_Compra />:<NoAccess/>} />
+
+    <Route exact path="/Ventas" element={state_login?<Ventas />:<NoAccess/>} />
+      <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
+      <Route exact path="/Ventas/:id/DetalleReses" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
+      <Route exact path="/Ventas/Historial" element={state_login?<Historial_Ventas />:<NoAccess/>} />
+      <Route exact path="/Ventas/Achuras/:id" element={state_login?<Detalle_Venta_Achuras />:<NoAccess/>} />
+      <Route exact path="/Ventas/HistorialAchuras" element={state_login?<Historial_Ventas_Achuras />:<NoAccess/>} />
+      <Route exact path="/NuevaVenta" element={state_login?<Nueva_Venta />:<NoAccess/>} />
+      <Route exact path="/NuevaVenta/FormCarne" element={state_login?<Form_Venta />:<NoAccess/> }/>
+      <Route exact path="/NuevaVenta/FormAchuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>
+
+    <Route exact path="/Clientes" element={state_login?<Clientes />:<NoAccess/>} />
+      <Route exact path="/Clientes/:id" element={state_login?<Detalle_Cliente />:<NoAccess/>} />
+      <Route exact path="/Clientes/Form/:id" element={state_login?<Form_Cliente />:<NoAccess/>} />
+      <Route exact path="/Clientes/HistorialVentas/:id" element={state_login?<Historial_Ventas_Cliente />:<NoAccess/>} />
+      <Route exact path="/Clientes/FormPagoVC/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
+      <Route exact path="/Clientes/FormPagoVAch/:id" element={state_login?<Form_Pago_Venta_Achuras />:<NoAccess/>} />
+      <Route exact path="/Clientes/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Clientes />:<NoAccess/>} />
+
+    <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
+      <Route exact path="/Proveedores/:id" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
+      <Route exact path="/Proveedores/Form/:id" element={state_login?<Form_Proveedor />:<NoAccess/>} />
+      <Route exact path="/Proveedores/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Proveedor />:<NoAccess/>} />
+      <Route exact path="/Proveedores/HistorialCompras/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
+      <Route exact path="/Proveedores/FormPago/:id" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
+
+    <Route exact path="/Stock" element={state_login?<Stock />:<NoAccess/>} />
+      <Route exact path="/Stock/DetalleTropa/:index" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
+
+    <Route exact path="/Caja" element={state_login?<Caja />:<NoAccess/>} />
+      <Route exact path="/Caja/DetalleExtracciones" element={state_login?<Detalle_Pagos_Extras />:<NoAccess/>} />
+      <Route exact path="/Caja/DetalleIngresos" element={state_login?<Detalle_Ingresos_Extras />:<NoAccess/>} />
+      <Route exact path="/Caja/FormExtraccion" element={state_login?<FormExtraccion />:<NoAccess/>} />
+      <Route exact path="/Caja/FormIngresoExtra" element={state_login?<FormIngresoExtra />:<NoAccess/>} />
+    
+    <Route exact path="/Balance" element={state_login?<Balance/>:<NoAccess/>} />
+
+    <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
+
     </Routes>
   
   );

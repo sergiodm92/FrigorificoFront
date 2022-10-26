@@ -46,14 +46,14 @@ export default function Detalle_Faena(){
                     })
                     .then((value) => {
                     if(value==="eliminar faena"){
-                        swal("Se eliminó la faena", {
-                            icon: "success",
-                        })
                         dispatch(deleteFaenaById(id))
                         arrayReses.map((a)=>{
                         setTimeout(()=>{
                         dispatch(deleteResById(a.id))
                         }, 2000)
+                    })
+                    swal("Se eliminó la faena", {
+                        icon: "success",
                     })
                         navigate('/Faenas')
                     }
@@ -86,6 +86,13 @@ export default function Detalle_Faena(){
                     <Table_Det_Faena
                         id={id}
                     />
+                    <div className={StyleDF.buttonEdit}>
+                        <ButtonNew
+                            style={"edit"}
+                            icon={"edit"}
+                            onClick={()=>navigate(`/Faenas/editarRes/${tropa}`)}
+                        />
+                    </div>
                     <Tabla_Detalle_Stock_Tropa
                         reses={arrayReses}
                     />

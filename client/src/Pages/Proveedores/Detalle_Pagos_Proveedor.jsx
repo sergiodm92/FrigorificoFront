@@ -47,13 +47,14 @@ export default function Detalle_Pagos_Proveedor() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        swal("Se eliminó el pago", {
-                            icon: "success",
-                        })
                         let compra = compras.find(a=>a.id==compraID)
                         let saldo= compra.saldo + monto
                         dispatch(putSaldoCompra(compraID, saldo))
                         dispatch(deletePagoCompraById(id))
+                        swal("Se eliminó el pago", {
+                            icon: "success",
+                        })
+                        dispatch(getPagosComprasByProveedor(nombre))
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");

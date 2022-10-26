@@ -4,28 +4,30 @@ const initialState = {
     AllProveedores:[],
     ProveedorById:{},
     FaenaByTropa:{},
-    postProveedor:"",
-    postCliente:"",
-    postCompra:"",
-    postVentaCarne:"",
-    postVentaAchura:"",
-    postFaena:"",
-    postRes:"",
-    postNewPagoCompra:"",
-    postNewPagoFaena:"",
-    postNewPagoVenta:"",
-    postNewPagoVentaAchuras:"",
+    postProveedor:'',
+    postCliente:'',
+    postCompra:'',
+    postVentaCarne:'',
+    postVentaAchura:'',
+    postFaena:'',
+    postRes:'',
+    postNewPagoCompra:'',
+    postNewPagoFaena:'',
+    postNewPagoVenta:'',
+    postNewPagoVentaAchuras:'',
     postNewPagoExtra:'',
-    deleteFaena:"",
-    deleteCompra:"",
-    deleteCliente:"",
-    deleteVenta:"",
-    deleteProveedor:"",
-    resesAct: "",
-    login_status:"",
-    ultimaCompra:"",
-    ultimaVenta:"",
-    ultimaVentaAchura:"",
+    editarCliente:'',
+    deleteFaena:'',
+    deleteCompra:'',
+    deleteCliente:'',
+    deleteVenta:'',
+    deleteProveedor:'',
+    resesAct: '',
+    kgReses:'',
+    login_status:'',
+    ultimaCompra:'',
+    ultimaVenta:'',
+    ultimaVentaAchura:'',
     saldoprov:0,
     saldoCliente:0,
     saldoAllCompras:0,
@@ -369,6 +371,16 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 resesAct: action.payload
+            }
+        case "PUT_KG_RESES":
+            return{
+                ...state,
+                kgReses: action.payload
+            }
+        case "PUT_EDITAR_CLIENTE":
+            return{
+                ...state,
+                editarCliente: action.payload
             }
         case "LOGIN_STATUS":
             return{

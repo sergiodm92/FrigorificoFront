@@ -49,22 +49,22 @@ export default function Caja(){
             <div className={style.divButtons}>
                 <ShortButton
                     title={"Detalle de Extracciones"}
-                    onClick={()=>navigate('/Detalle_Extraccion')}
+                    onClick={()=>navigate('/Caja/DetalleExtracciones')}
                     color={"secondary"}
                 />
                 <ShortButton
                     title={"Agregar Extracción"}
-                    onClick={()=>navigate('/Form_Extraccion')}
+                    onClick={()=>navigate('/Caja/FormExtraccion')}
                     color={"primary"}
                 />
                         <ShortButton
                     title={"Detalle de Ingresos Extras"}
-                    onClick={()=>navigate('/Detalle_Ingresos')}
+                    onClick={()=>navigate('/Caja/DetalleIngresos')}
                     color={"secondary"}
                 />
                                 <ShortButton
                     title={"Agregar ingreso Extra"}
-                    onClick={()=>navigate('/Form_IngresoExtra')}
+                    onClick={()=>navigate('/Caja/FormIngresoExtra')}
                     color={"primary"}
                 />
             </div>

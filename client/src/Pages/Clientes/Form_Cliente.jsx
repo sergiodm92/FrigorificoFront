@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import {postNewCliente} from "../../Redux/Actions/Actions.js";
+import { useNavigate, useParams } from "react-router";
+import {postNewCliente, putEditarCliente} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
@@ -26,6 +26,7 @@ const Form_Cliente = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {id}=useParams()
 
     const [form, setForm] = useState(formCl);
     const [error, setError] = useState({});
@@ -49,8 +50,12 @@ const Form_Cliente = () => {
         if(
         !error.nombre && form.nombre 
         ){
-        console.log("🚀 ~ file: Form_Cliente.jsx ~ line 53 ~ handleSubmit ~ form", form)
-        dispatch(postNewCliente(form))
+            
+            if(id==0)dispatch(postNewCliente(form))
+            else{
+                form.id=id*1
+                dispatch(putEditarCliente(form))
+            } 
    
         swal({
             title: "Nuevo Cliente",
