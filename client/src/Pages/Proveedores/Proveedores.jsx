@@ -20,6 +20,7 @@ export default function Proveedores(){
         <div className={stylePr.ConteinerProveedores}>
             <NavBar
             title={"Proveedores"}
+            onClick={"/home"}
             />
             <div>
                 <div className={stylePr.title}>

@@ -8,7 +8,7 @@ import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
-import { deleteProveedorById, getAllComrpas, getProveedorByID } from "../../Redux/Actions/Actions";
+import { deleteProveedorById, getAllComrpas, getAllProveedores, getProveedorByID } from "../../Redux/Actions/Actions";
 
 export default function Detalle_Proveedor(){
     const dispatch = useDispatch()
@@ -43,7 +43,9 @@ export default function Detalle_Proveedor(){
                             icon: "success",
                         })
                     dispatch(deleteProveedorById(id))
+                    dispatch(getAllProveedores())
                     navigate('/Proveedores')
+
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó a "+ ProveedorById.nombre);

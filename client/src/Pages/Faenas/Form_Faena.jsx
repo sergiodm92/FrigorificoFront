@@ -337,7 +337,6 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
-                    <p className={error.proveedor ? styleFormF.danger : styleFormF.pass}>{error.proveedor}</p>
                     {/*----------------Carga del detalle---------------------*/}
                     <div className={styleFormF.formItem2}>
                         {form.frigorifico==="El Hueco"?

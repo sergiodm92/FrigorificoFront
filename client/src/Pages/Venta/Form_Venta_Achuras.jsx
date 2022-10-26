@@ -91,7 +91,6 @@ const Form_Venta_Achuras = () => {
             form.total=form.precioUnitario*1*form.cantidad
             form.saldo=form.total
             dispatch(postNewVentaAchura(form))
-            console.log(form)
             setForm(formVA);
         }
         else{

@@ -19,6 +19,7 @@ export default function Compras(){
         <div className={styleCom.ConteinerCompras}>
             <NavBar
             title={"Compras"}
+            onClick={"/home"}
             />
             <div>
                 <div className={styleCom.title}>

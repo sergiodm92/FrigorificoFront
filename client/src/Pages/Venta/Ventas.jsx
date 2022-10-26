@@ -25,6 +25,7 @@ export default function Ventas(){
         <div className={styleVen.ConteinerVentas}>
             <NavBar
             title={"Ventas"}
+            onClick={"/home"}
             />
             <div>
                 <div className={styleVen.contV}>

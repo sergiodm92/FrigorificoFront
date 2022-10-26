@@ -26,6 +26,7 @@ export default function Clientes(){
             <div>
                 <NavBar
                 title={"Clientes"}
+                onClick={"/home"}
                 />
                 <div>
                     <div className={styleCl.title}>

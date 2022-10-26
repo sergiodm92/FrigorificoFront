@@ -44,6 +44,12 @@ export const setAlertPagoVentaAchuras = () => {
   , payload: ""  });
 };
 
+export const setAlertPagoExtra = () => {
+    
+  return ({ type: "POST_NEW_PAGO_EXTRA"
+  , payload: ""  });
+};
+
 export function postLogin(jsonUser){
   return async function (dispatch){
       try{

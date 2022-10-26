@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteClienteById, getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from "../../Redux/Actions/Actions";
+import { deleteClienteById, getAllClientes, getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from "../../Redux/Actions/Actions";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import styleCl from "./Clientes.module.scss";
@@ -53,6 +53,7 @@ export default function Detalle_Cliente(){
                             icon: "success",
                         })
                     dispatch(deleteClienteById(id))
+                    dispatch(getAllClientes())
                     navigate('/Clientes')
                     }
                     else {
