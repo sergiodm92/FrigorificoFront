@@ -6,7 +6,7 @@ import styleNavbar from './Navbar.module.scss'
 
 
 
-export default function NavBar({title, onClick}){
+export default function NavBar({title}){
     const navigate = useNavigate()
 
     return(
@@ -15,7 +15,7 @@ export default function NavBar({title, onClick}){
                 <div className={styleNavbar.loguito}></div>
                 <p className={styleNavbar.NavTitle}>{title}</p>
             </div>
-            <div className={styleNavbar.ConteinerButtonReturn} onClick={()=>navigate(onClick)}>
+            <div className={styleNavbar.ConteinerButtonReturn} onClick={()=>navigate(window.history.back())}>
                 <div className={styleNavbar.ButtonReturn}>
                 </div>
             </div>
