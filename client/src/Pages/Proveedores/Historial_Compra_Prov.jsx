@@ -35,7 +35,7 @@ export default function Historial_Compras_Proveedor(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={stylePr.cardsCont}>
-                    {AllComprasByProveedor.map((a,i)=>{
+                    {AllComprasByProveedor?.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}

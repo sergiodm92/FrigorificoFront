@@ -61,8 +61,8 @@ export default function TableVenta({venta, pagos}){
                             <td className="table-dark" colSpan="2">Pagos</td>
                        
                     </tr>
-                    {pagos?.map((a)=>
-                    <tr>
+                    {pagos?.map((a,i)=>
+                    <tr key={i}>
                     
                             <td>{a.fecha}</td>
                             <td>{currencyFormatter({

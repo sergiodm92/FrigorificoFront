@@ -67,7 +67,7 @@ export function postLogin(jsonUser){
       
   }
 }
-
+//getAllComrpasByProveedor
 export function setStatus(value){
   return async function (dispatch){
       try{
@@ -171,22 +171,10 @@ export const getAllComrpasByProveedor = (proveedor) => {
                 'auth-token': `${token}`
               }
             });
-            let ultimaCompra=""
-            if(json.data.data.length>0){
-            let arrayAños=[]
-            let arrayMeses=[]
-            let arrayDias=[]
-            json.data.data.map((a)=>arrayAños.push(a.fecha.split("-")[2]))
-            let añoMayor = Math.max(...arrayAños)
-            json.data.data.map((a)=>{if(a.fecha.split("-")[2]==añoMayor)arrayMeses.push(a.fecha.split("-")[1])})
-            let mesMayor = Math.max(...arrayMeses)
-            json.data.data.map((a)=>{if(a.fecha.split("-")[1]==mesMayor && a.fecha.split("-")[2]==añoMayor)arrayDias.push(a.fecha.split("-")[0])})
-            let diaMayor = Math.max(...arrayDias)
-            ultimaCompra=diaMayor+"-"+mesMayor+"-"+añoMayor
-            }
+
             return dispatch({
             type: "GET_COMPRAS_BY_PROVEEDOR",
-            payload: [json.data.data,ultimaCompra]})
+            payload: json.data.data})
 
         }
         catch (error) {
