@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch} from "react-redux";
-import { useNavigate } from "react-router";
-import { postNewProveedor } from "../../Redux/Actions/Actions";
+import { useNavigate, useParams } from "react-router";
+import { postNewProveedor, putEditarProveedor } from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
@@ -9,8 +9,8 @@ import styleFormPr from './Form_Proveedor.module.scss';
 
 const formPr = {
     nombre:'',
-    email: '',
     telefono:'',
+    email: '',
     direccion:'',
     cuil:''
 };
@@ -26,6 +26,7 @@ const Form_Proveedor = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {id}=useParams()
 
     const [form, setForm] = useState(formPr);
     const [error, setError] = useState({});
@@ -49,14 +50,19 @@ const Form_Proveedor = () => {
         if(
         !error.nombre && form.nombre 
         ){
-        dispatch(postNewProveedor(form))
-        swal({
-            title: "Nuevo Proveedor",
-            text: "Cargado correctamente",
-            icon: "success",
-            button: "ok",
-        })
-        setForm(formPr);
+            if(id==0) dispatch(postNewProveedor(form))
+            else{
+                form.id=id*1
+                console.log(form)
+                dispatch(putEditarProveedor(form))
+            }
+            swal({
+                title: "Nuevo Proveedor",
+                text: "Cargado correctamente",
+                icon: "success",
+                button: "ok",
+            })
+            setForm(formPr);
         }
         else {
             swal({

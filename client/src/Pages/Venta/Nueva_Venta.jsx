@@ -17,13 +17,13 @@ const Nueva_Venta = ()=>{
                 <div>
                     <LargeButton
                         title={"Venta de Achuras"}
-                        onClick={()=>navigate("/Form_Venta_Achuras")}
+                        onClick={()=>navigate("/NuevaVenta/FormAchuras")}
                     />
                 </div>
                 <div>
                     <LargeButton
                         title={"Venta de Carne"}
-                        onClick={()=>navigate("/Form_Venta")}
+                        onClick={()=>navigate("/NuevaVenta/FormCarne")}
                     />
                 </div>
             </div>

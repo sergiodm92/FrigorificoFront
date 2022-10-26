@@ -45,15 +45,15 @@ export default function Detalle_Compra(){
                     })
                     .then((value) => {
                     if(value==="eliminar compra"){
-                        swal("Se eliminó la compra", {
-                            icon: "success",
-                        })
                     arrTropas.map(a=>{
                         setTimeout(()=>{
                             dispatch(putEstadoCompraFaenaFalse(a))
                         }, 2000)
                     })
                     dispatch(deleteCompraById(id))
+                    swal("Se eliminó la compra", {
+                        icon: "success",
+                    })
                     navigate('/Compras')
                     }
                     else {
@@ -89,7 +89,7 @@ export default function Detalle_Compra(){
             </div>
             <LargeButton
                     title={"Detalle de Grupos"}
-                    onClick={()=>navigate(`/DetalleGrupos/${id}`)}
+                    onClick={()=>navigate(`/Compras/${id}/DetalleGrupos`)}
                 />
         </div>
 

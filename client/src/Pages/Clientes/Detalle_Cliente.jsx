@@ -73,11 +73,11 @@ export default function Detalle_Cliente(){
                 title={"Detalle del Cliente"}
             />
             <div className={styleCl.page}>
-                {/* <div className={styleCl.buttonEdit}>
+                <div className={styleCl.buttonEdit}>
                     <ButtonNew
                         style={"edit"}
                         icon={"edit"}
-                        onClick={()=>navigate(`/Faenas`)}
+                        onClick={()=>navigate(`/Clientes/Form/${id}`)}
                     />
                 </div>
                 <div className={styleCl.buttonDelete}>
@@ -86,13 +86,14 @@ export default function Detalle_Cliente(){
                         icon={"delete"}
                         onClick={deleteCliente}
                     />
-                </div> */}
+                </div>
                 <div className={styleCl.tablecliente}>
                 <Table_Cliente
                 email={ClienteById.email}
                 nombre={ClienteById.nombre}
                 telefono={ClienteById.telefono}
                 direccion={ClienteById.direccion}
+                cuil={ClienteById.cuil}
                 />
                 </div>
                 <div className={styleCl.cont}>
@@ -123,7 +124,7 @@ export default function Detalle_Cliente(){
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Venta/${a.id}`)}
+                                    bonClick={()=>navigate(`/Clientes/FormPagoVC/${a.id}`)}
                                 />
                             )
                         })
@@ -136,12 +137,13 @@ export default function Detalle_Cliente(){
                                     fecha={a.fecha}
                                     para={a.clien}
                                     cant={a.cantidad}
+                                    kg={"achuras"}
                                     monto={a.saldo.toFixed(2)}
-                                    tipo={"Detalle_Venta_Achuras"}
+                                    tipo={"Ventas/Achuras"}
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Venta_Achuras/${a.id}`)}
+                                    bonClick={()=>navigate(`/Clientes/FormPagoVAch/${a.id}`)}
                                 />
                             )
                         })
@@ -150,13 +152,13 @@ export default function Detalle_Cliente(){
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Historial de Ventas"}
-                            onClick={()=>navigate(`/Historial_Ventas_Cliente/${id}`)}
+                            onClick={()=>navigate(`/Clientes/HistorialVentas/${id}`)}
                         ></LargeButton>
                     </div>
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Clientes/${ClienteById.nombre}`)}
+                            onClick={()=>navigate(`/Clientes/DetallePagos/${ClienteById.nombre}`)}
                         ></LargeButton>
                     </div>
                 </div>

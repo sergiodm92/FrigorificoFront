@@ -43,7 +43,7 @@ export default function Clientes(){
                             key={a.id}
                             id={a.id}
                             nombre={a.nombre}
-                            tipo={"Detalle_Cliente"}
+                            tipo={"Clientes"}
                             pago={false}
                             cuil= {a.cuil}
                         />
@@ -54,7 +54,7 @@ export default function Clientes(){
                     <div className={styleCl.buttonLarge}>
                         <LargeButton
                             title={"Agregar Cliente"}
-                            onClick={()=>navigate("/Form_Cliente")}
+                            onClick={()=>navigate("/Clientes/Form/0")}
                         ></LargeButton>
                     </div>
                 </div>

@@ -78,7 +78,8 @@ const dispatch = useDispatch()
     return(
         <div className={styleBalance.ConteinerBalance}>
                 <NavBar
-                title="Balance"    
+                title="Balance"
+                onClick="/home"   
                 />
                 <div className={styleBalance.tableBalance}>
                     <table className="table">

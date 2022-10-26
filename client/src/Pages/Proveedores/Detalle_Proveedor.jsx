@@ -61,11 +61,11 @@ export default function Detalle_Proveedor(){
                 title={"Detalle del Proveedor"}
             />
             <div className={stylePr.page}>
-                {/* <div className={stylePr.buttonEdit}>
+                <div className={stylePr.buttonEdit}>
                     <ButtonNew
                         style={"edit"}
                         icon={"edit"}
-                        onClick={()=>navigate(`/Faenas`)}
+                        onClick={()=>navigate(`/Proveedores/Form/${id}`)}
                     />
                 </div>
                 <div className={stylePr.buttonDelete}>
@@ -74,7 +74,7 @@ export default function Detalle_Proveedor(){
                         icon={"delete"}
                         onClick={deleteProveedor}
                     />
-                </div> */}
+                </div>
                 <div className={stylePr.tableproveedor}>
                 <Table_Proveedor
                 ProveedorById={ProveedorById}
@@ -108,7 +108,7 @@ export default function Detalle_Proveedor(){
                                     pago={true}
                                     bstyle={"new"}
                                     bicon={"new"}
-                                    bonClick={()=>navigate(`/Form_Pago_Compra/${a.id}`)}
+                                    bonClick={()=>navigate(`/Proveedores/FormPago/${a.id}`)}
                                 />
                             )
                         })
@@ -117,13 +117,13 @@ export default function Detalle_Proveedor(){
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Historial de Compras"}
-                            onClick={()=>navigate(`/Historial_Compras_Proveedor/${ProveedorById.nombre}`)}
+                            onClick={()=>navigate(`/Proveedores/HistorialCompras/${ProveedorById.nombre}`)}
                         ></LargeButton>
                     </div>
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
-                            onClick={()=>navigate(`/Detalle_Pagos_Proveedor/${ProveedorById.nombre}`)}
+                            onClick={()=>navigate(`/Proveedores/DetallePagos/${ProveedorById.nombre}`)}
                         ></LargeButton>
                     </div>
                 </div>

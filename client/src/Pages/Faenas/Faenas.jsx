@@ -67,7 +67,7 @@ export default function Faenas(){
                                 pago={true}
                                 bstyle={"new"}
                                 bicon={"new"}
-                                bonClick={()=>navigate(`/Form_Pago_Faena/${a.id}`)}
+                                bonClick={()=>navigate(`/Faenas/FormPagos/${a.id}`)}
                             />
                         )
                         
@@ -78,20 +78,20 @@ export default function Faenas(){
                     <div className={styleF.buttonLarge}>
                         <LargeButton
                             title={"Historial de Faenas"}
-                            onClick={()=>navigate("/Historial_Faena")}
+                            onClick={()=>navigate("/Faenas/Historial")}
                         ></LargeButton>
                     </div>
                     <div className={styleF.buttonsPagos}>
                         <div className={styleF.buttonLarge}>
                             <LargeButton
                                 title={"Pagos - Natilla"}
-                                onClick={()=>navigate("/Detalle_Pagos_Frigorifico/Natilla")}
+                                onClick={()=>navigate("/Faenas/DetallePagos/Natilla")}
                             ></LargeButton>
                         </div>
                         <div className={styleF.buttonLarge}>
                             <LargeButton
                                 title={"Pagos - El Hueco"}
-                                onClick={()=>navigate("/Detalle_Pagos_Frigorifico/El Hueco")}
+                                onClick={()=>navigate("/Faenas/DetallePagos/El Hueco")}
                             ></LargeButton>
                         </div>
                     </div>

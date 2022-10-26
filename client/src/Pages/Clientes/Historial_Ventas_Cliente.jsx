@@ -86,7 +86,7 @@ export default function Historial_Ventas_Cliente(){
                                         cant={a.cantidad}
                                         kg={a.total}
                                         monto={a.saldo}
-                                        tipo={"Detalle_Venta_Achuras"}
+                                        tipo={"Ventas/Achuras"}
                                     />
                                 )
                             })

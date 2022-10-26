@@ -47,6 +47,7 @@ export default function Detalle_Ingresos_Extras() {
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
+                        dispatch(getAllIngresosExtras())
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");

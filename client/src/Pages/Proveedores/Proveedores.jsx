@@ -37,7 +37,7 @@ export default function Proveedores(){
                                 key={a.id}
                                 id={a.id}
                                 nombre={a.nombre}
-                                tipo={"Detalle_Proveedor"}
+                                tipo={"Proveedores"}
                                 pago={false}
                                 cuil= {a.cuil}
                             />
@@ -48,7 +48,7 @@ export default function Proveedores(){
                 <div className={stylePr.buttonLarge}>
                     <LargeButton
                         title={"Agregar Proveedor"}
-                        onClick={()=>navigate("/Form_Proveedor")}
+                        onClick={()=>navigate("/Proveedores/Form/0")}
                     ></LargeButton>
                 </div>
             </div>

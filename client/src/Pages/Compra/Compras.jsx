@@ -52,7 +52,7 @@ export default function Compras(){
                 <div className={styleCom.buttonLarge}>
                     <LargeButton
                         title={"Historial Compras"}
-                        onClick={()=>navigate("/Historial_Compras")}
+                        onClick={()=>navigate("/Compras/Historial")}
                     />
                 </div>
             </div>

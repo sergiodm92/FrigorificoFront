@@ -9,18 +9,24 @@ export default function TableDetRes({venta}){
     var array=[]
     const array2=[]
 
-    venta.detalle?.map((a)=>{
+    venta.detalle?.map((a,i)=>{
     array=[]
     total$+=a.kg*a.$_kg
     totalkg+=a.kg
     
-    if(a.Total_Media=="1/4D")a.Correlativo=a.Correlativo.concat(" D")
-    if(a.Total_Media=="1/4T")a.Correlativo=a.Correlativo.concat(" T")
+    if(a.total_media=="1/4D")a.correlativo=a.correlativo.concat(" D")
+    if(a.total_media=="1/4T")a.correlativo=a.correlativo.concat(" T")
     
     for(const [key,value] of Object.entries(a)){ 
     
-        if(key!=="costo_kg" && key!=="id" && key!=="kg_total")array.push(value) 
+        if(key!=="costo_kg" && key!=="id" && key!=="kg_total"){
+            array.push(value)
+            
+        } 
         }
+        if(venta.detalle[i].correlativo.includes("-"))array.unshift("El hueco")
+        else (array.unshift("Natilla"))
+        array.unshift(venta.fecha)
         array2.push(array)
     })
     return(
@@ -29,6 +35,8 @@ export default function TableDetRes({venta}){
             <table className="table">
             <thead>
                 <tr>
+                    <th>fecha</th>
+                    <th>Frigorífico</th>
                     <th>Correlativo</th>
                     <th>Categoria</th>
                     <th>1/2 Res</th>
@@ -40,11 +48,15 @@ export default function TableDetRes({venta}){
             {array2.length!==0?array2.map((e,j) => {
 
                     return(
-
+                    
                     <tr key={j}  className={"table-warning"}>
+
                     {e.length!==0?e.map((a,i) => {
+                        
                         return(
-                        <td key={i}>{a}</td>    
+
+                        <td key={i}>{a}</td>
+
                         )
                     })
                     :null }   

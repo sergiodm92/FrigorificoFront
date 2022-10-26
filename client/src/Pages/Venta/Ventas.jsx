@@ -60,7 +60,7 @@ export default function Ventas(){
                     <div className={styleVen.buttonLarge}>
                         <LargeButton
                             title={"Historial Ventas de Carne"}
-                            onClick={()=>navigate("/Historial_Ventas")}
+                            onClick={()=>navigate("/Ventas/Historial")}
                         />
                     </div>
                 </div>
@@ -88,7 +88,7 @@ export default function Ventas(){
                                     cant={a.cantidad}
                                     kg={a.total}
                                     monto={a.saldo}
-                                    tipo={"Detalle_Venta_Achuras"}
+                                    tipo={"Ventas/Achuras"}
                                 />
                             )
                         })
@@ -97,7 +97,7 @@ export default function Ventas(){
                     <div className={styleVen.buttonLarge}>
                         <LargeButton
                             title={"Historial Ventas de Achuras"}
-                            onClick={()=>navigate("/Historial_Ventas_Achuras")}
+                            onClick={()=>navigate("/Ventas/HistorialAchuras")}
                         />
                     </div>
                 </div>

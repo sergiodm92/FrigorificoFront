@@ -46,13 +46,14 @@ export default function Detalle_Pagos_Frigorifico() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        swal("Se eliminó el pago", {
-                            icon: "success",
-                        })
                         let faena = faenas?.find(a=>a.id==faenaID)
                         let saldo = faena.saldo + monto
                         dispatch(putSaldoFaena(faenaID, saldo))
                         dispatch(deletePagoFaenaById(id))
+                        swal("Se eliminó el pago", {
+                            icon: "success",
+                        })
+                        dispatch(getPagosFaenasByFrigorifico(nombre))
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");
