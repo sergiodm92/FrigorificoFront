@@ -1,19 +1,30 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useNavigate} from 'react-router-dom';
-import { getSaldoByCliente } from "../../../Redux/Actions/Actions";
+import { getAllVentas, getAllVentasAchuras} from "../../../Redux/Actions/Actions";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
 
 const CardSmallCliente = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick, cuil}) => {
-const dispatch = useDispatch()
-useEffect(() => {
-dispatch(getSaldoByCliente(nombre))
-}, [dispatch])
 
-
-let saldoCliente = useSelector((state)=>state.saldoCliente)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllVentas())
+        dispatch(getAllVentasAchuras())
+    }, [dispatch])
+
+
+    let ventasC = useSelector((state)=>state.AllVentas)
+    let ventasA = useSelector((state)=>state.AllVentasAchuras)
+    let saldo = 0
+    ventasC.map(a=>{
+        if(a.cliente==nombre) saldo+=a.saldo
+    })
+    ventasA.map(a=>{
+        if(a.clien==nombre) saldo+=a.saldo
+    })
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -26,7 +37,7 @@ let saldoCliente = useSelector((state)=>state.saldoCliente)
 
     const totalEstenPesos = currencyFormatter({
         currency: "USD",
-        value : saldoCliente
+        value : saldo
         })
 
     return (

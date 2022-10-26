@@ -1,6 +1,5 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom';
-import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
 
 const CardSmallStock = ({ id, fecha, frigorifico, tropa, tipo}) => {

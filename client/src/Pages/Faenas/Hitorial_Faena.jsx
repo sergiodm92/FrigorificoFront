@@ -27,10 +27,11 @@ const AllFaenas = useSelector((state)=>state.AllFaenas)
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleF.cardsCont}>
-                    {AllFaenas.map((a)=>{
+                    {AllFaenas.map((a,i)=>{
                         return(
                             <CardSmall
                                 id={a.id}
+                                key={i}
                                 fecha={a.fecha}
                                 otro={a.frigorifico}
                                 monto={a.saldo}

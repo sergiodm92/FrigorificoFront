@@ -9,9 +9,9 @@ import stylePagoF from './Form_pago.module.scss';
 
 const formPF = {
     fecha: '',
-    monto: null,
+    monto: 0,
     formaDePago:'',
-    faenaID:null,
+    faenaID:0,
     frigorifico:''
 };
 
@@ -151,7 +151,7 @@ const Form_Pago_Faena = () => {
                         <h5 className={stylePagoF.title}>Monto: </h5>
                         <input
                             type="text"
-                            value={form.monto}
+                            value={form.monto?form.monto:''}
                             id="monto"
                             name="monto"
                             onChange={handleChange}
@@ -163,10 +163,10 @@ const Form_Pago_Faena = () => {
                     <div className={stylePagoF.formItem}>
                         <h5 className={stylePagoF.title}>Forma de Pago: </h5>
                         <select id="formaDePago" className="selectform" onChange={(e)=> handleSelectFP(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {formasDePago.length > 0 &&  
-                                formasDePago.map((p) => (
-                                    <option	value={p}>{p}</option>
+                                formasDePago.map((p,i) => (
+                                    <option	key={i} value={p}>{p}</option>
                                     ))
                             }
                         </select>

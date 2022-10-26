@@ -11,9 +11,9 @@ import stylePagoV from './Form_pago.module.scss';
 
 const formPV = {
     fecha: '',
-    monto: null,
+    monto: 0,
     formaDePago:'',
-    ventaID:null,
+    ventaID:0,
     cliente:''
 };
 
@@ -162,7 +162,7 @@ const Form_Pago_Venta = () => {
                         <h5 className={stylePagoV.title}>Monto: </h5>
                         <input
                             type="number"
-                            value={form.monto}
+                            value={form.monto?form.monto:''}
                             id="monto"
                             name="monto"
                             onChange={handleChange}
@@ -174,10 +174,10 @@ const Form_Pago_Venta = () => {
                     <div className={stylePagoV.formItem}>
                         <h5 className={stylePagoV.title}>Forma de Pago: </h5>
                         <select id="formaDePago" className="selectform" onChange={(e)=> handleSelectFP(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {formasDePago.length > 0 &&  
-                                formasDePago.map((p) => (
-                                    <option	value={p}>{p}</option>
+                                formasDePago.map((p,i) => (
+                                    <option	key={i} value={p}>{p}</option>
                                     ))
                             }
                         </select>

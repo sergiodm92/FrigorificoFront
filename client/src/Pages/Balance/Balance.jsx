@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllReses, getAllVentas, getAllVentasAchuras, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
-import { useNavigate } from "react-router-dom";
+import { getAllFaenas, getAllReses, getAllVentas, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import Marca from "../../Components/Marca/Marca.jsx";
@@ -19,14 +18,12 @@ const dispatch = useDispatch()
     dispatch(getAllVentas())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
-    dispatch(getAllVentasAchuras())
     dispatch(getSaldoAllFaenas())
     }, [dispatch])
 
 
     const Stock = useSelector((state)=>state.AllResesStockTrue)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
-    const ventAchurasult30 = useSelector((state)=>state.ventAchurasult30)
     const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
     const saldoTotalFaenas = useSelector((state)=>state.saldoAllFaenas)
@@ -43,7 +40,6 @@ const dispatch = useDispatch()
                     totalEst+=a.precio_kg*a.kg*1.07
         })
      if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>gananciaMensual+=a.margen)
-     if(ventAchurasult30.length)ventAchurasult30.map(a=>gananciaMensual+=a.total)
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -85,55 +81,55 @@ const dispatch = useDispatch()
                 title="Balance"    
                 />
                 <div className={styleBalance.tableBalance}>
-                    <table class="table">
+                    <table className="table">
                         <tbody>
                             <tr>
-                                <td class="table-warning">Ganancia mensual</td>
-                                <td class="table-warning">{gananciaMensualEnPesos}</td>
+                                <td className="table-warning">Ganancia mensual</td>
+                                <td className="table-warning">{gananciaMensualEnPesos}</td>
                             </tr>
                             <tr>
-                                <td class="table-dark" colspan="2">Stock</td>
+                                <td className="table-dark" colSpan="2">Stock</td>
                             </tr>
                             <tr>
-                                <td class="table-warning">Cantidad</td>
-                                <td class="table-warning">{kgStock} kg</td>
+                                <td className="table-warning">Cantidad</td>
+                                <td className="table-warning">{kgStock} kg</td>
                             </tr>
                             <tr>
-                                <td class="table-warning">Valor estimado</td>
-                                <td class="table-warning">{totalEstenPesos}</td>
+                                <td className="table-warning">Valor estimado</td>
+                                <td className="table-warning">{totalEstenPesos}</td>
                             </tr>
                             <tr>
-                                <td class="table-dark" colspan="2">Proveedores</td>
+                                <td className="table-dark" colSpan="2">Proveedores</td>
                             </tr>
                             <tr>
-                                <td class="table-warning">Saldo pendiente</td>
-                                <td class="table-warning">{saldoProvPendienteEnPesos}</td>
+                                <td className="table-warning">Saldo pendiente</td>
+                                <td className="table-warning">{saldoProvPendienteEnPesos}</td>
                             </tr>
                             <tr>
-                                <td class="table-dark" colspan="2">Clientes</td>
+                                <td className="table-dark" colSpan="2">Clientes</td>
                             </tr>
                             <tr>
-                                <td class="table-warning">Saldo pendiente</td>
-                                <td class="table-warning">{saldoClientePendienteEnPesos}</td>
+                                <td className="table-warning">Saldo pendiente</td>
+                                <td className="table-warning">{saldoClientePendienteEnPesos}</td>
                             </tr>
                             <tr>
-                                <td class="table-dark" colspan="2">Faena</td>
+                                <td className="table-dark" colSpan="2">Faena</td>
                             </tr>
                             <tr>
-                                <td class="table-warning">Saldo pendiente</td>
-                                <td class="table-warning">{saldoFaenaPendienteEnPesos}</td>
+                                <td className="table-warning">Saldo pendiente</td>
+                                <td className="table-warning">{saldoFaenaPendienteEnPesos}</td>
                             </tr>
                         
                             <tr>
-                                <td class="table-dark" colspan="2">General</td>
+                                <td className="table-dark" colSpan="2">General</td>
                             </tr>
                             <tr>
-                                <td class="table-success">Saldo total a cobrar</td>
-                                <td class="table-success">{saldoClientePendienteEnPesos}</td>
+                                <td className="table-success">Saldo total a cobrar</td>
+                                <td className="table-success">{saldoClientePendienteEnPesos}</td>
                             </tr>
                             <tr>
-                                <td class="table-danger">Saldo total a pagar</td>
-                                <td class="table-danger">{saldoPagarEnPesos}</td>
+                                <td className="table-danger">Saldo total a pagar</td>
+                                <td className="table-danger">{saldoPagarEnPesos}</td>
                             </tr>
                         </tbody>
                     </table>

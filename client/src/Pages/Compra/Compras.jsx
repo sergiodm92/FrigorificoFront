@@ -33,10 +33,11 @@ export default function Compras(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={styleCom.cardsCont}>
-                    {AllCompras.map((a)=>{
+                    {AllCompras.map((a,i)=>{
                         return(
                             <CardLarge
                                 id={a.id}
+                                key={i}
                                 fecha={a.fecha}
                                 para={a.proveedor}
                                 cant={a.cant_total}

@@ -3,19 +3,26 @@ import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
-import { getSaldoByProveedor } from "../../../Redux/Actions/Actions";
+import { getAllComrpas, getSaldoByProveedor } from "../../../Redux/Actions/Actions";
 
 
 const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     useEffect(() => {
-        dispatch(getSaldoByProveedor(nombre))
+        dispatch(getAllComrpas())
     }, [dispatch])
 
-    let saldoprov = useSelector((state)=>state.saldoprov)
-    const navigate = useNavigate()
-    
+
+    let compras = useSelector((state)=>state.AllCompras)
+
+    let saldo = 0
+    compras.map(a=>{
+        if(a.proveedor==nombre) saldo+=a.saldo
+    })
+
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -27,7 +34,7 @@ const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {
 
     const totalEstenPesos = currencyFormatter({
         currency: "USD",
-        value : saldoprov
+        value : saldo
         })
 
     return (

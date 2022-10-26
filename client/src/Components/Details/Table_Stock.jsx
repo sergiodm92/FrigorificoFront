@@ -22,7 +22,7 @@ export default function Table_Stock({array}){
 
                     return(
 
-                    <tr key={j}  class={"table-warning"}>
+                    <tr key={j}  className={"table-warning"}>
                     {e.map((a,i) => {
                         return(
                         <td key={i}>{a}</td>    

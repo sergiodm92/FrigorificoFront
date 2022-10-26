@@ -75,6 +75,7 @@ export default function Detalle_Pagos_Proveedor() {
                 <table class="table">
                     <tbody>
                         <tr class="table-dark">
+                            <td>ID</td> 
                             <td>Fecha</td>  
                             <td>Forma de Pago</td>
                             <td>Monto</td>
@@ -82,7 +83,8 @@ export default function Detalle_Pagos_Proveedor() {
                         </tr>
                         {pagos.map((e,i) => {
                             return(
-                                <tr key={i} class={"table-primary"}> 
+                                <tr key={i} class={"table-primary"}>
+                                    <td>{e.id}</td> 
                                     <td>{e.fecha}</td> 
                                     <td>{e.formaDePago}</td>
                                     <td align="center">{

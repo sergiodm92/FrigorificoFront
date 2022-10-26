@@ -50,7 +50,7 @@ export default function Faenas(){
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={styleF.cardsCont}>
-                    {faenasPendientes.map((a)=>{
+                    {faenasPendientes.map((a,i)=>{
                         saldoEstenPesos = currencyFormatter({
                             currency: "USD",
                             value : a.saldo
@@ -58,6 +58,7 @@ export default function Faenas(){
                         return(
                             <CardSmallFaenas
                                 id={a.id}
+                                key={i}
                                 fecha={a.fecha}
                                 frigorifico={a.frigorifico}
                                 tropa={a.tropa}

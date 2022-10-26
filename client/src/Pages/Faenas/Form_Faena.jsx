@@ -304,10 +304,10 @@ const Form_Faena = () => {
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Frigorífico: </h5>
                         <select id="frigorifico" className="selectform" onChange={(e)=> handleSelectFr(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {frigorificos.length > 0 &&  
-                            frigorificos.map((f) => (
-                                    <option	value={f}>{f}</option>
+                            frigorificos.map((f,i) => (
+                                    <option key={i}	value={f}>{f}</option>
                                     ))
                             }
                         </select>
@@ -328,11 +328,11 @@ const Form_Faena = () => {
                     <p className={error.tropa ? styleFormF.danger : styleFormF.pass}>{error.tropa}</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Proveedor: </h5>
-                        <select id="proveedor" className="selectform" onChange={(e)=> handleSelectPr(e)}>
-                            <option value="" selected>-</option>
+                        <select id="proveedor" className="selectform" defaultValue="-" onChange={(e)=> handleSelectPr(e)}>
+                            <option defaultValue>-</option>
                             {proveedores.length > 0 &&  
-                            proveedores.map((p) => (
-                                    <option	value={p.nombre}>{p.nombre}</option>
+                            proveedores.map((p,i) => (
+                                    <option key={i}	value={p.nombre}>{p.nombre}</option>
                                     ))
                             }
                         </select>
@@ -383,10 +383,10 @@ const Form_Faena = () => {
                                 <p className={error3.kg2 ? styleFormF.danger : styleFormF.pass}>{error3.kg2}</p>
                                 <div className={styleFormF.item}>
                                     <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
-                                        <option value="" selected>Categoría</option>
+                                        <option  defaultValue>Categoría</option>
                                             {categorias.length > 0 &&  
-                                            categorias.map((c) => (
-                                                <option	value={c}>{c}</option>
+                                            categorias.map((c,i) => (
+                                                <option key={i}	value={c}>{c}</option>
                                             ))
                                             }
                                     </select>
@@ -409,10 +409,10 @@ const Form_Faena = () => {
                                 <p className={error2.correlativo ? styleFormF.danger : styleFormF.pass}>{error2.correlativo}</p>
                                 <div className={styleFormF.item}>
                                     <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
-                                        <option value="" selected>Categoría</option>
+                                        <option value="" defaultValue>Categoría</option>
                                             {categorias.length > 0 &&  
-                                            categorias.map((c) => (
-                                                <option	value={c}>{c}</option>
+                                            categorias.map((c,i) => (
+                                                <option	value={c} key={i} >{c}</option>
                                             ))
                                             }
                                     </select>
@@ -441,9 +441,10 @@ const Form_Faena = () => {
                     </div>
                     
                     {form.detalle.length ?
-                        form.detalle.map((e)=>{
+                        form.detalle.map((e,i)=>{
                             return(
                                 <CardReses
+                                    key={i}
                                     correlativo={e.correlativo}
                                     categoria={e.categoria}
                                     kg={e.kg}
@@ -452,9 +453,10 @@ const Form_Faena = () => {
                             )
                         })
                         :elHueco.length?
-                            elHueco.map((e)=>{
+                            elHueco.map((e,i)=>{
                                 return(
                                     <CardReses
+                                        key={i}
                                         garron={e.garron}
                                         categoria={e.categoria}
                                         kg1={e.kg1}

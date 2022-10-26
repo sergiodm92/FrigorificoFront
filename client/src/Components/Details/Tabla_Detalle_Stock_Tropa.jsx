@@ -45,9 +45,9 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
 
     return(
         <div className={tableVentaStyle.conteiner}>
-            <table class="table">
+            <table className="table">
                 <tbody>
-                    <tr class="table-dark">
+                    <tr className="table-dark">
                         <td>Correlativo</td> 
                         <td>Categoria</td> 
                         <td>kg</td> 
@@ -60,7 +60,7 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
                         })
                         return(
                             <tr key={i} className={"table-warning"}>
-                                {e.stock?e.stock==true?<td><b>{e.correlativo?e.correlativo:null}</b></td>:<td>{e.correlativo?e.correlativo:null}</td>:null} 
+                                {e.stock==true?<td><b>{e.correlativo}</b></td>:<td>{e.correlativo}</td>} 
                                 <td>{e.categoria?e.categoria:null}</td> 
                                 <td>{e.kg?e.kg:null}</td> 
                                 <td align="center">{totalEstenPesos?totalEstenPesos:null}</td> 
@@ -69,28 +69,28 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
                     })}
                     {kgNovillito?
                     <tr className={"table-secondary"}>
-                        <td colspan="2"><b>Total kg Novillito</b></td>
-                        <td colspan="2">{kgNovillito}</td>
+                        <td colSpan="2"><b>Total kg Novillito</b></td>
+                        <td colSpan="2">{kgNovillito}</td>
                     </tr>:null}
                     {kgNovPes?
                     <tr className={"table-secondary"}>
-                        <td colspan="2"><b>Total kg Novillo Pesado</b></td>
-                        <td colspan="2">{kgNovPes}</td>
+                        <td colSpan="2"><b>Total kg Novillo Pesado</b></td>
+                        <td colSpan="2">{kgNovPes}</td>
                     </tr>:null}
                     {kgToro?
                     <tr className={"table-secondary"}>
-                        <td colspan="2"><b>Total kg Toro</b></td>
-                        <td colspan="2">{kgToro}</td>
+                        <td colSpan="2"><b>Total kg Toro</b></td>
+                        <td colSpan="2">{kgToro}</td>
                     </tr>:null}
                     {kgVaca?
                     <tr className={"table-secondary"}>
-                        <td colspan="2"><b>Total kg Vaca</b></td>
-                        <td colspan="2">{kgVaca}</td>
+                        <td colSpan="2"><b>Total kg Vaca</b></td>
+                        <td colSpan="2">{kgVaca}</td>
                     </tr>:null}
                     {kgVaquillona?
                     <tr className={"table-secondary"}>
-                        <td colspan="2"><b>Total kg Vaquillona</b></td>
-                        <td colspan="2">{kgVaquillona}</td>
+                        <td colSpan="2"><b>Total kg Vaquillona</b></td>
+                        <td colSpan="2">{kgVaquillona}</td>
                     </tr>:null}
                 </tbody>
             </table>

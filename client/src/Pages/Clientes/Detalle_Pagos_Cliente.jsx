@@ -25,8 +25,6 @@ export default function Detalle_Pagos_Clientes() {
     const ventas = useSelector((state)=>state.AllVentasByCliente)
 
     let pagosT=[ ...pagos, ...pagosAchuras]
-    console.log("🚀 ~ file: Detalle_Pagos_Cliente.jsx ~ line 28 ~ Detalle_Pagos_Clientes ~ pagosAchuras", pagosAchuras)
-    console.log(pagosT)
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -56,9 +54,7 @@ export default function Detalle_Pagos_Clientes() {
                             icon: "success",
                         })
                         let venta = ventas.find(a=>a.id==ventaID)
-                        let saldo1= cliente.saldo + monto
                         let saldo2= venta.saldo + monto
-                        dispatch(putSaldoCliente( cliente.id, saldo1))
                         dispatch(putSaldoVenta(ventaID, saldo2))
                         dispatch(deletePagoVentaById(id))
                     }
@@ -79,9 +75,10 @@ export default function Detalle_Pagos_Clientes() {
                 title={`Pagos de ${nombre}`}
             />
             <div className={style.tablefaena}>
-                <table class="table">
+                <table className="table">
                     <tbody>
                         <tr class="table-dark">
+                            <td>ID</td> 
                             <td>Fecha</td>  
                             <td>Forma de Pago</td>
                             <td>Monto</td>
@@ -90,6 +87,7 @@ export default function Detalle_Pagos_Clientes() {
                         {pagosT.map((e,i) => {
                             return(
                                 <tr key={i} class={"table-primary"}> 
+                                    <td>{e.cliente?e.ventaID+"-V":e.ventaID+"-VAch"}</td> 
                                     <td>{e.fecha}</td> 
                                     <td>{e.formaDePago}</td>
                                     <td align="center">{

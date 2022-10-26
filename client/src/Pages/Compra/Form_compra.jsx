@@ -18,13 +18,13 @@ let formC = {
     kgv_brutos_totales:0,//
     kgv_netos_totales:0,//
     kg_carne_totales:0,//
-    costo_flete: null,//
+    costo_flete: 0,//
     cant_achuras: 0,//
-    precio_venta_achuras_unit: null,//
-    recupero_precio_kg: null, //precio_venta_achuras/kg_carne//
-    costo_total_hac:null,//kgv_netos * precio_kgv_netos//
-    costo_flete: null,//
-    costo_veps_unit: null,//
+    precio_venta_achuras_unit: 0,//
+    recupero_precio_kg: 0, //precio_venta_achuras/kg_carne//
+    costo_total_hac:0,//kgv_netos * precio_kgv_netos//
+    costo_flete: 0,//
+    costo_veps_unit: 0,//
     cant_total:0,//
     grupos:[],//
     saldo:null //saldo de hacienda solamente
@@ -35,10 +35,10 @@ let FormGCT = {
     n_tropa: '',              //ingresa                    //costo/kg =   costo total/
     kgv_brutos: '',         //ingresa
     desbaste: 0.07,           //ingresa 
-    kg_desbaste:null,       //calcula                      //kgv_brutos * desbaste
+    kg_desbaste:0,       //calcula                      //kgv_brutos * desbaste
     kgv_netos:0,            //calcula
     kg_carne: 0,              //trae                    //costo de hacienda = kgneto*precio_kgv_netos
-    costo_flete: null,      //calcula d                      //costo flete  
+    costo_flete: 0,      //calcula d                      //costo flete  
     costo_hac:0,            //calcula  
     costo_faena_kg:0,         //trae
     costo_faena:0,          //calcula
@@ -48,7 +48,8 @@ let FormGCT = {
     cant:'',                  //ingresa
     precio_kgv_netos: '',   //ingresa
     pesoProm:0,             //calcula 
-    rinde:0,                //calcula   
+    rinde:0,
+    recupero:0,                //calcula   
     n_grupo:0,              //calcula
     comision:0,
 };
@@ -118,7 +119,7 @@ const Form_Compra = () => {
 
 
     useEffect(() => {
-        console.log(formGCT.n_tropa)
+
         if(formGCT.n_tropa)dispatch(getFaenasByTropa(formGCT.n_tropa))
         
     }, [formGCT])
@@ -216,7 +217,8 @@ const Form_Compra = () => {
                 if(form.kg_carne_totales*1!==0){a.costo_flete=(form.costo_flete*1*a.kg_carne)/(form.kg_carne_totales*1)}
                 a.cosoVeps=form.costo_veps_unit*a.cant
                 if(Switch_Comision==true) a.comision = 0.02 * a.costo_hac;
-                a.costo_total = a.cosoVeps*1 + a.comision*1 + a.costo_faena*1 + a.costo_hac*1 + a.costo_flete*1
+                a.recupero=(form.precio_venta_achuras_unit*1*a.cant )/a.kg_carne
+                a.costo_total = a.cosoVeps*1 + a.comision*1 + a.costo_faena*1 + a.costo_hac*1 + a.costo_flete*1 - (form.precio_venta_achuras_unit*1*a.cant )
                 a.costo_kg = a.costo_total/(a.kg_carne*1)
             })
             form.saldo = form.costo_total_hac
@@ -274,7 +276,7 @@ const Form_Compra = () => {
         if(Switch_Comision==false)setSwitch_comision(true)
         else if(Switch_Comision==true)setSwitch_comision(false);
     }
-
+//input
     return (
         <div className={styleFormC.wallpaper}>
             <NavBar
@@ -285,10 +287,10 @@ const Form_Compra = () => {
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>Proveedor: </h5>
                         <select id="proveedor" className="selectform" onChange={(e)=> handleSelectPr(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {proveedores.length > 0 &&  
-                            proveedores.map((p) => (
-                                    <option	value={p.nombre}>{p.nombre}</option>
+                            proveedores.map((p,i) => (
+                                    <option	key={i} value={p.nombre}>{p.nombre}</option>
                                     ))
                             }
                         </select>
@@ -336,7 +338,7 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="number"
-                                value={form.precio_venta_achuras_unit}
+                                value={form.precio_venta_achuras_unit?form.precio_venta_achuras_unit:""}
                                 id="precio_venta_achuras_unit"
                                 name="precio_venta_achuras_unit"
                                 onChange={handleChange}
@@ -348,8 +350,8 @@ const Form_Compra = () => {
                     <p className={error.precio_venta_achuras ? styleFormC.danger : styleFormC.pass}>{error.precio_venta_achuras}</p>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>Comisión: </h5>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={()=>switchCom()}/>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={()=>switchCom()}/>
                         </div>
                     </div>
                     <div className={styleFormC.formItem}>
@@ -360,7 +362,7 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="number"
-                                value={form.costo_flete}
+                                value={form.costo_flete?form.costo_flete:''}
                                 id="costo_flete"
                                 name="costo_flete"
                                 onChange={handleChange}
@@ -378,7 +380,7 @@ const Form_Compra = () => {
                             <h5 className={styleFormC.title}>$ </h5>
                             <input
                                 type="number"
-                                value={form.costo_veps_unit}
+                                value={form.costo_veps_unit?form.costo_veps_unit:''}
                                 id="costo_veps_unit"
                                 name="costo_veps_unit"
                                 onChange={handleChange}
@@ -392,10 +394,10 @@ const Form_Compra = () => {
                         <div className={styleFormC.formItem}>
                             <h5 className={styleFormC.title}>N° Tropa: </h5>
                             <select id="tropa" className="selectform" onChange={(e)=> handleSelectTr(e)}>
-                                <option value="" selected>-</option>
+                                <option defaultValue>-</option>
                                 {faenasDisp.length > 0 &&  
-                                    faenasDisp.map((c) => (
-                                        <option	value={c.tropa}>{c.tropa}</option>
+                                    faenasDisp.map((c,i) => (
+                                        <option key={i}	value={c.tropa}>{c.tropa}</option>
                                         ))
                                 }
                             </select>
@@ -404,10 +406,10 @@ const Form_Compra = () => {
                         <div className={styleFormC.formItem}>
                             <div>
                                 <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
-                                    <option value="" selected>Categoría</option>
+                                    <option value="" defaultValue>Categoría</option>
                                     {categorias.length > 0 &&  
-                                    categorias.map((c) => (
-                                            <option	value={c}>{c}</option>
+                                    categorias.map((c,i) => (
+                                            <option	key={i} value={c}>{c}</option>
                                             ))
                                     }
                                 </select>
@@ -480,9 +482,10 @@ const Form_Compra = () => {
                     </div>
 
                             {form.grupos.length ?
-                    form.grupos.map((e)=>{
+                    form.grupos.map((e,i)=>{
                         return(
                             <CardGrupos
+                                key={i}
                                 tropa={e.n_tropa}
                                 categoria={e.categoria}
                                 kgv_brutos={e.kgv_brutos}

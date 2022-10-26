@@ -1,7 +1,7 @@
 import React from "react";
 import styleCard from "./CardGruposDetalle.module.scss";
 
-const CardGruposDetalle = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos,rinde,pesoProm,costo_kg,costo_total,cosoVeps,costo_faena,costo_hac,costo_flete}) => {
+const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos,rinde,pesoProm,costo_kg,costo_total,cosoVeps,costo_faena,costo_hac,costo_flete}) => {
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -75,6 +75,10 @@ const CardGruposDetalle = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, 
                 <div className={styleCard.items}>
                     <div><b>Rinde: </b></div>
                     <div><p>{rinde.toFixed(2)}%</p></div>
+                </div>
+                <div className={styleCard.items}>
+                    <div><b>Recupero: </b></div>
+                    <div><p>${recupero.toFixed(2)}</p></div>
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Peso promedio: </b></div>

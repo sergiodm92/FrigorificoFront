@@ -32,7 +32,7 @@ export default function Detalle_Cliente(){
     const VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
     const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
     const VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)
-    console.log(VentasAchurasPendientes)
+
 
     const deleteCliente = ()=>{
         swal({
@@ -109,10 +109,11 @@ export default function Detalle_Cliente(){
                         <div><b>Saldo($)</b></div>
                     </div>
                     <div className={styleCl.cardsCont}>
-                        {VentasPendientes.map((a)=>{
+                        {VentasPendientes.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
+                                    key={i}
                                     fecha={a.fecha}
                                     para={a.cliente}
                                     cant={a.cant}
@@ -127,10 +128,11 @@ export default function Detalle_Cliente(){
                             )
                         })
                         }
-                        {VentasAchurasPendientes.map((a)=>{
+                        {VentasAchurasPendientes.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
+                                    key={i}
                                     fecha={a.fecha}
                                     para={a.clien}
                                     cant={a.cantidad}

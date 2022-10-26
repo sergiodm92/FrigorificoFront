@@ -17,13 +17,6 @@ export default function Stock(){
     const AllResesStockTrue = useSelector((state)=>(state.AllResesStockTrue))
     const arrayResByTropa = useSelector((state)=>(state.arrayResByTropa))
     
-    // arrayResByTropa.sort(function(a,b){
-    //     if(a[0].tropa>b[0].tropa){return 1}
-    //     if(a[0].tropa<b[0].tropa){return -1}
-    //     return 0}) 
-    // console.log(arrayResByTropa)
-    
-
     let total_kg=["Total kg","","",0]
     let vaq=["Vaquillona",0,0,0]
     let vaca=["Vaca",0,0,0]
@@ -84,6 +77,7 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
                     return(
                         <CardSmallStock
                             id={i}
+                            key={i}
                             fecha={a[0].fecha}
                             frigorifico={a[0].frigorifico}
                             tropa={a[0].tropa}

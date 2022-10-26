@@ -16,8 +16,6 @@ export default function Proveedores(){
     }, [dispatch])
     let AllProveedores = useSelector((state)=>state.AllProveedores)
 
-    
-    console.log(AllProveedores)
     return(
         <div className={stylePr.ConteinerProveedores}>
             <NavBar
@@ -36,6 +34,7 @@ export default function Proveedores(){
 
                         return(
                             <CardSmallProveedor
+                                key={a.id}
                                 id={a.id}
                                 nombre={a.nombre}
                                 tipo={"Detalle_Proveedor"}

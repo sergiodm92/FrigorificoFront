@@ -1,0 +1,115 @@
+.conteiner{
+    width: 100%;
+    height: 100%;
+    min-height: 800px;
+    align-items: center;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666038470/MyPortfolio/fondo_de_pantalla_don_alberto_ioflbo.png") ;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.wallpaper{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    background-image: url("https://res.cloudinary.com/dk2al2urj/image/upload/v1666038470/MyPortfolio/fondo_de_pantalla_don_alberto_ioflbo.png") ;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+.formItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    
+}
+.title{
+    font-size: 16px;
+}
+p.danger {
+	color: red;
+	text-align: center;
+	margin: 0;
+    font-size: 12px;
+}
+p.pass{
+    display: none;
+}
+.size1 {
+	width: 50px;
+}
+.size2{
+    width: 100px;
+}
+.numero{
+    display: flex;
+}
+input{
+    border-radius: 10px;
+    border-color: rgba(0, 0, 0, 0);
+}
+select{
+    border-radius: 10px;
+    border-color: rgba(0, 0, 0, 0);
+    height: 30px;
+}
+.detallePro{
+    display: flex;
+    flex-direction: column;
+    justify-content:  center;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+    margin: 0;
+    padding: 10px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+}
+.detalledivs{
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    gap: 10px;
+}
+.nameP{
+    font-size: 18px;
+    font-weight: bold;
+}
+.divButtons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}

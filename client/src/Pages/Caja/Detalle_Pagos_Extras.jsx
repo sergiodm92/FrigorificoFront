@@ -1,24 +1,23 @@
 import React, { useEffect } from "react"
-import { useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoFaenaById, getAllFaenas, getPagosFaenasByFrigorifico, putSaldoFaena } from "../../Redux/Actions/Actions"
-import style from './Detalle_Pagos.module.scss'
-import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
+import { deletePagoExtra, getAllPagosExtras} from "../../Redux/Actions/Actions"
+import style from './caja.module.scss'
 import swal from "sweetalert"
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
+import moment from "moment"
 
-export default function Detalle_Pagos_Frigorifico() {
+export default function Detalle_Pagos_Extras() {
+    
     
     const dispatch = useDispatch()
-    const {nombre}=useParams()
 
     useEffect(() => {
-        dispatch(getPagosFaenasByFrigorifico(nombre))
-        dispatch(getAllFaenas())
+        dispatch(getAllPagosExtras())
     }, [dispatch])
 
-    const pagos = useSelector((state)=>state.pagosByFrigorifico)
-    const faenas = useSelector((state)=>state.AllFaenas)
+    const pagos = useSelector((state)=>state.allPagosExtras)
+
     
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -30,7 +29,7 @@ export default function Detalle_Pagos_Frigorifico() {
     }
     let monto
 
-    const deletePago = (id, faenaID, monto)=>{
+    const deletePago = (id)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -45,14 +44,10 @@ export default function Detalle_Pagos_Frigorifico() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
+                        dispatch(deletePagoExtra(id))
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
-                        let faena = faenas.find(a=>a.id==faenaID)
-                        let saldo = faena.saldo + monto
-                        dispatch(putSaldoFaena(faenaID, saldo))
-                        console.log(faenaID, saldo)
-                        dispatch(deletePagoFaenaById(id))
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");
@@ -68,24 +63,23 @@ export default function Detalle_Pagos_Frigorifico() {
     return(
         <div className={style.conteiner}>
             <NavBar
-                title={`Pagos de ${nombre}`}
+                title={`Detalle de Extracciones`}
             />
             <div className={style.tablefaena}>
-                <table class="table">
+                <table className="table">
                     <tbody>
-                        <tr class="table-dark">
-                            <td>Tropa</td>
-                            <td>Fecha</td>  
+                        <tr className="table-dark">
+                            <td>Fecha</td>
+                            <td>Concepto</td>  
                             <td>Forma de Pago</td>
                             <td>Monto</td>
                             <td>Eliminar</td>
                         </tr>
                         {pagos.map((e,i) => {
-                            let faena=faenas.find(a=>a.id==e.faenaID)
                             return(
-                                <tr key={i} class={"table-primary"}>
-                                    <td>{faena.tropa}</td> 
-                                    <td>{e.fecha}</td> 
+                                <tr key={i} className={"table-primary"}>
+                                    <td>{e.fecha}</td>
+                                    <td>{e.concepto}</td>
                                     <td>{e.formaDePago}</td>
                                     <td align="center">{
                                         monto = currencyFormatter({
@@ -97,7 +91,7 @@ export default function Detalle_Pagos_Frigorifico() {
                                     <ButtonNew
                                         style={"delete"}
                                         icon={"delete"}
-                                        onClick={() => {deletePago(e.id, e.faenaID, e.monto)}}
+                                        onClick={() => {deletePago(e.id)}}
                                     /></td>
                                 </tr>
                             )
@@ -105,6 +99,6 @@ export default function Detalle_Pagos_Frigorifico() {
                     </tbody>
                 </table>
             </div>            
-        </div>
+        </div>            
     )
 }

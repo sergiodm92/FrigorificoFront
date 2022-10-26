@@ -20,7 +20,7 @@ export default function Ventas(){
 
     const AllVentas= useSelector((state)=>(state.AllVentas))
     const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchuras))
-    console.log(AllVentasAchuras)
+
     return(
         <div className={styleVen.ConteinerVentas}>
             <NavBar
@@ -41,10 +41,11 @@ export default function Ventas(){
                         <div><b>Monto($)</b></div>
                     </div>
                     <div className={styleVen.cardsCont}>
-                        {AllVentas.map((a)=>{
+                        {AllVentas.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
+                                    key={i}
                                     fecha={a.fecha}
                                     para={a.cliente}
                                     cant={a.cant}
@@ -77,10 +78,11 @@ export default function Ventas(){
                         <div><b>Saldo($)</b></div>
                     </div>
                     <div className={styleVen.cardsCont}>
-                        {AllVentasAchuras.map((a)=>{
+                        {AllVentasAchuras.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
+                                    key={i}
                                     fecha={a.fecha}
                                     para={a.clien}
                                     cant={a.cantidad}

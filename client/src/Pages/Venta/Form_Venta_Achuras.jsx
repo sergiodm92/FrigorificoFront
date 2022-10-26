@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getAllClientes, getClienteByName, postNewVentaAchura, putSaldoCliente, setAlertVentaAchuras } from "../../Redux/Actions/Actions";
+import { getAllClientes, getClienteByName, postNewVentaAchura, setAlertVentaAchuras } from "../../Redux/Actions/Actions";
 
 import styleFormV from './Form_Venta.module.scss';
 
@@ -90,8 +90,6 @@ const Form_Venta_Achuras = () => {
         ){
             form.total=form.precioUnitario*1*form.cantidad
             form.saldo=form.total
-            let saldo = cliente.saldo + form.saldo
-            dispatch(putSaldoCliente(cliente.id, saldo))
             dispatch(postNewVentaAchura(form))
             console.log(form)
             setForm(formVA);
@@ -129,10 +127,10 @@ const Form_Venta_Achuras = () => {
                     <div className={styleFormV.formItem}>
                         <h5 className={styleFormV.title}>Cliente: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCl(e)}>
-                            <option value="" selected>-</option>
+                            <option defaultValue>-</option>
                             {clientes.length > 0 &&  
-                            clientes.map((c) => (
-                                    <option	value={c.nombre}>{c.nombre}</option>
+                            clientes.map((c,i) => (
+                                    <option	key={i} value={c.nombre}>{c.nombre}</option>
                                     ))
                             }
                         </select>

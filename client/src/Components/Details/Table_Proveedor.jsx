@@ -10,7 +10,7 @@ export default function Table_Proveedor({ProveedorById}){
 
     return(
         <div className={tableVentaStyle.conteiner}>
-        <table class="table">
+        <table className="table">
             <tbody>
                 <tr className="table-warning">
                     <td>Nombre</td>

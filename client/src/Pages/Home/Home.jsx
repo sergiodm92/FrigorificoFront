@@ -44,6 +44,7 @@ export default function Home(){
                 <LargeButton title={"Clientes"} onClick={()=> navigate("/Clientes")}/>
                 <LargeButton title={"Proveedores"} onClick={()=> navigate("/Proveedores")}/>
                 <LargeButton title={"Stock"} onClick={()=> navigate("/Stock")}/>
+                <LargeButton title={"Caja"} onClick={()=> navigate("/Caja")}/>
                 <LargeButton title={"Balance"} onClick={()=> navigate("/Balance")}/>
                 <LargeButtoncs title={"Cerrar Sesión"} onClick={cerrarSesion}/>
             </div>

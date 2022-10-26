@@ -11,9 +11,7 @@ import CardSmallCliente from "../../Components/Cards/Card_Small Cliente/Card_Sma
 
 
 export default function Clientes(){
-    const AllClientes = useSelector((state)=>(state.AllClientes))
-    console.log(AllClientes)
-    console.log(AllClientes.length)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -21,6 +19,7 @@ export default function Clientes(){
         dispatch(getAllClientes())
     }, [dispatch])
 
+    const AllClientes = useSelector((state)=>(state.AllClientes))
 
     return(
         <div className={styleCl.ConteinerClientes}>
@@ -41,6 +40,7 @@ export default function Clientes(){
 
                     return(
                         <CardSmallCliente
+                            key={a.id}
                             id={a.id}
                             nombre={a.nombre}
                             tipo={"Detalle_Cliente"}

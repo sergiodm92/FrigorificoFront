@@ -10,15 +10,12 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
 import { deleteProveedorById, getAllComrpas, getProveedorByID } from "../../Redux/Actions/Actions";
 
-
-
 export default function Detalle_Proveedor(){
     const dispatch = useDispatch()
     const ProveedorById = useSelector((state)=>(state.ProveedorById))
     const AllCompras = useSelector((state)=>(state.AllCompras))
     const {id}=useParams()
     const ComprasPendientes = AllCompras.filter((a)=>a.proveedor===ProveedorById.nombre)
-    console.log(ComprasPendientes)
     
 
     const navigate = useNavigate();
@@ -100,6 +97,7 @@ export default function Detalle_Proveedor(){
                         {ComprasPendientes.map((a)=>{
                             return(
                                 <CardLarge
+                                    key={a.id}
                                     id={a.id}
                                     fecha={a.fecha}
                                     para={a.proveedor}

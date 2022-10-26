@@ -30,9 +30,6 @@ useEffect(() => {
 
 let cliente = useSelector((state)=>state.clienteByNombre)
 let pagos = useSelector((state)=>state.pagosByVentaID)
-console.log(pagos)
-
-
 
 
 const deleteVenta = ()=>{
@@ -51,8 +48,6 @@ const deleteVenta = ()=>{
                 .then((value) => {
                 if(value==="eliminar venta"){
                 try{
-                    //dispatch(reses stock true)
-                    console.log(id)
                     dispatch(deleteVentaById(id))
                     venta.detalle.map(a=>{
                         if(a.total_media=="total"){
@@ -117,4 +112,3 @@ const deleteVenta = ()=>{
 
     )
 }
- // pagosByVentaID = {pagosByVentaID}

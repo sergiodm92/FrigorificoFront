@@ -24,18 +24,16 @@ export default function Table_Det_Faena({id}){
     for(const [key,value] of Object.entries(FaenaById)){ 
         if(key!=="detalle" && key !=="estado_compra")array.push({key,value}) 
     }
-    console.log(array)
-
 
     return(
         <div className={tableVentaStyle.conteiner}>
 
-            <table class="table">
+            <table className="table">
 
             <tbody>
             {array.map((e,i) => {
                     return(
-                    <tr key={i} class={e.key.includes("Margen")?"table-secondary":"table-warning"}>
+                    <tr key={i} className={e.key.includes("Margen")?"table-secondary":"table-warning"}>
                         <td>{e.key.includes("_")?(e.key.replaceAll("_"," ")):(e.key)}</td>
                         <td className={tableVentaStyle.tdDF}>{e.key!=="costo_total" && e.key!=="saldo" && e.key!=="costo_faena_kg"? e.value :
                             currencyFormatter({

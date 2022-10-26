@@ -43,6 +43,7 @@ export default function DetalleGrupos(){
                 costo_kg={a.costo_kg}
                 pesoProm={a.pesoProm}
                 rinde={a.rinde}
+                recupero={a.recupero}
                 />
                 )
             })

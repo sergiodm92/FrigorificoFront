@@ -9,7 +9,7 @@ export default function TableDetRes({venta}){
     var array=[]
     const array2=[]
 
-    venta.detalle.map((a)=>{
+    venta.detalle?.map((a)=>{
     array=[]
     total$+=a.kg*a.$_kg
     totalkg+=a.kg
@@ -29,33 +29,32 @@ export default function TableDetRes({venta}){
             <table className="table">
             <thead>
                 <tr>
+                    <th>Correlativo</th>
                     <th>Categoria</th>
                     <th>1/2 Res</th>
-                    <th>Correlativo</th>
                     <th>kg</th>
-                    <th>$/kg</th>
-                   
-                    
+                    <th>$/kg</th>                    
                 </tr>
             </thead>
             <tbody>
-            {array2.map((e,j) => {
+            {array2.length!==0?array2.map((e,j) => {
 
                     return(
 
-                    <tr key={j}  class={"table-warning"}>
-                    {e.map((a,i) => {
+                    <tr key={j}  className={"table-warning"}>
+                    {e.length!==0?e.map((a,i) => {
                         return(
                         <td key={i}>{a}</td>    
                         )
-                    })}    
+                    })
+                    :null }   
                     </tr>
                     )
-            })
+            }):null
             }
             </tbody>
         </table>
-        <table class="table">
+        <table className="table">
             <thead>
                 <tr>
                     <th>Total KG</th>

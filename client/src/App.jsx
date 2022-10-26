@@ -15,6 +15,8 @@ import Form_Pago_Faena from '../src/Pages/FormsPagos/Form_pago_faena';
 import Form_Pago_Compra from '../src/Pages/FormsPagos/Form_pago_compra';
 import Historial_Faena from '../src/Pages/Faenas/Hitorial_Faena';
 import Home from '../src/Pages/Home/Home.jsx';
+import Caja from '../src/Pages/Caja/caja.jsx'
+import FormExtraccion from './Pages/Caja/form_extraccion.jsx';
 import Reestablecer_Login from '../src/Pages/Login/Reestablecer_Login.jsx';
 import Login from '../src/Pages/Login/Login.jsx';
 import Detalle_Proveedor from '../src/Pages/Proveedores/Detalle_Proveedor';
@@ -34,12 +36,15 @@ import Form_Pago_Venta_Achuras from './Pages/FormsPagos/Form_Pago_Venta_Achuras.
 import NoAccess from '../src/Pages/NoAcces/NoAcces'
 import LogOut from './Pages/LogOut/LogOut.jsx';
 import Form_Venta from '../src/Pages/Venta/Form_Venta.jsx';
+import FormIngresoExtra from '../src/Pages/Caja/form_ingreso_extra.jsx'
 import Form_Venta_Achuras from './Pages/Venta/Form_Venta_Achuras.jsx';
 import Nueva_Venta from './Pages/Venta/Nueva_Venta.jsx';
 import Detalle_Pagos_Clientes from './Pages/Clientes/Detalle_Pagos_Cliente.jsx';
 import Detalle_Pagos_Proveedor from './Pages/Proveedores/Detalle_Pagos_Proveedor.jsx';
 import Detalle_Pagos_Frigorifico from './Pages/Faenas/Detalle_Pagos_Frigorifico.jsx';
 import DetalleGrupos from './Pages/Compra/DetalleGrupos.jsx';
+import Detalle_Pagos_Extras from './Pages/Caja/Detalle_Pagos_Extras.jsx';
+import Detalle_Ingresos_Extras from './Pages/Caja/Detalle_Ingresos_Extras.jsx';
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from 'react';
@@ -76,9 +81,12 @@ function App() {
     <Route exact path="/Form_Pago_Faena/:id" element={state_login?<Form_Pago_Faena />:<NoAccess/>} />
     <Route exact path="/Historial_Faena" element={state_login?<Historial_Faena />:<NoAccess/>} />
     <Route exact path="/Home" element={state_login?<Home />:<NoAccess/>} />
+    <Route exact path="/Caja" element={state_login?<Caja />:<NoAccess/>} />
     <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
     <Route exact path="/Detalle_Proveedor/:id" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
     <Route exact path="/Form_Proveedor" element={state_login?<Form_Proveedor />:<NoAccess/>} />
+    <Route exact path="/Form_Extraccion" element={state_login?<FormExtraccion />:<NoAccess/>} />
+    <Route exact path="/Form_IngresoExtra" element={state_login?<FormIngresoExtra />:<NoAccess/>} />
     <Route exact path="/Historial_Compras_Proveedor/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
     <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
     <Route exact path="/Detalle_Stock_Tropa/:index" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
@@ -98,6 +106,9 @@ function App() {
     <Route exact path="/Detalle_Pagos_Clientes/:nombre" element={state_login?<Detalle_Pagos_Clientes />:<NoAccess/>} />
     <Route exact path="/Detalle_Pagos_Proveedor/:nombre" element={state_login?<Detalle_Pagos_Proveedor />:<NoAccess/>} />
     <Route exact path="/Detalle_Pagos_Frigorifico/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
+    <Route exact path="/Detalle_Extraccion" element={state_login?<Detalle_Pagos_Extras />:<NoAccess/>} />
+    <Route exact path="/Detalle_Ingresos" element={state_login?<Detalle_Ingresos_Extras />:<NoAccess/>} />
+    
     </Routes>
   
   );

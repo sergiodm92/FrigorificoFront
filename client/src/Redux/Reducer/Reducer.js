@@ -15,6 +15,7 @@ const initialState = {
     postNewPagoFaena:"",
     postNewPagoVenta:"",
     postNewPagoVentaAchuras:"",
+    postNewPagoExtra:'',
     deleteFaena:"",
     deleteCompra:"",
     deleteCliente:"",
@@ -58,7 +59,13 @@ const initialState = {
     AllPagosbyCompra:[],
     AllPagosbyFaena:[],
     pagosByVentaID:[],
-    pagosByVentaAchuraID:[]
+    pagosByVentaAchuraID:[],
+    allPagosVentas:[],
+    allPagosVentasAchuras:[],
+    allPagosCompras:[],
+    allPagosFaenas:[],
+    allPagosExtras:[],
+    allIngresosExtras:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -228,6 +235,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 AllPagosbyFaena: action.payload,
             }
+        case "GET_ALL_INGRESOS_EXTRAS":
+            return{
+                ...state,
+                allIngresosExtras: action.payload,
+                }
         case "GET_SALDO_BY_PROVEEDOR":
             return{
                 ...state,
@@ -238,6 +250,26 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 saldoCliente: action.payload,
                 }
+        case "GET_ALL_PAGOS_VENTAS":
+            return {
+            ...state,
+            allPagosVentas: action.payload,
+            }
+        case "GET_ALL_PAGOS_VENTAS_ACHURAS":
+            return {
+            ...state,
+            allPagosVentasAchuras: action.payload,
+        }
+        case "GET_ALL_PAGOS_COMPRAS":
+            return {
+            ...state,
+            allPagosCompras: action.payload,
+            }
+        case "GET_ALL_PAGOS_FAENAS":
+            return {
+            ...state,
+            allPagosFaenas: action.payload,
+            }
         case "POST_NEW_PROVEEDOR":
             return{
                 ...state,
@@ -262,6 +294,11 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 postVentaAchura:action.payload
+            }
+        case "GET_ALL_PAGOS_EXTRAS":
+            return{
+                ...state,
+                allPagosExtras:action.payload
             }
         case "POST_NEW_FAENA":
             return{
@@ -292,7 +329,12 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 postNewPagoVentaAchuras: action.payload
-            }            
+            }          
+        case "POST_NEW_PAGO_EXTRA":
+            return{
+                ...state,
+                postNewPagoExtra: action.payload
+            } 
         case "DELETE_FAENA":
             return{
                 ...state,

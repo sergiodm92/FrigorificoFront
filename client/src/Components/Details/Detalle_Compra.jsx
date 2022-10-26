@@ -72,7 +72,6 @@ export default function TableCompra({id_c}){
                if(key!=="saldo" && key!=="grupos")array.push({key,value})
 
         }
-        console.log(array)
 
         return(
                 <div className={tableComprasStyle.conteiner}>
@@ -90,8 +89,8 @@ export default function TableCompra({id_c}){
                                 );
                         })}
                                 <tr>
-                                        <td class="table-dark">Pagos Hacienda</td>
-                                        <td class="table-dark"></td>
+                                        <td className="table-dark">Pagos Hacienda</td>
+                                        <td className="table-dark"></td>
                                 </tr>
                                 
                                 {AllPagosbyCompra.map((e)=>
@@ -134,6 +133,7 @@ export default function TableCompra({id_c}){
         {CompraByID.grupos?CompraByID.grupos.map((a)=>{
                 
                 <CardGruposDetalle
+                key={a.id}
                 tropa={a.n_tropa}
                 categoria={a.categoria}
                 kgv_brutos={a.kgv_brutos}
