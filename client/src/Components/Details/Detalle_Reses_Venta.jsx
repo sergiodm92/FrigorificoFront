@@ -30,7 +30,7 @@ export default function TableDetRes({venta}){
         array2.push(array)
     })
     return(
-        <div className={tableVentaStyle.conteiner}>
+        <div className={tableVentaStyle.conteinerDet}>
 
             <table className="table">
             <thead>

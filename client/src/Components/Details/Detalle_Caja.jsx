@@ -20,7 +20,7 @@ pagos.sort((a, b) => moment(a.fecha, "DD-MM-YYYY").unix() - moment(b.fecha, "DD-
         }
 
     return(
-        <div className={Style.conteiner}>
+        <div className={Style.conteinerCaja}>
             <table className="table">
                 <thead className={"table-dark"}>
                     <tr>

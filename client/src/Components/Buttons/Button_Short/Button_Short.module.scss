@@ -50,3 +50,29 @@
     background-color: rgb(141, 0, 0);
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    .cont{
+        display: flex;
+        position: relative;
+        justify-content: center;
+        text-align: center;
+        
+    }
+    .button1{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 45px;
+        border-radius: 10px;
+        border-color: rgba(0, 0, 0, 0);
+        margin: 0;
+        padding: 0;
+        color: black;
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+    }
+    
+}
