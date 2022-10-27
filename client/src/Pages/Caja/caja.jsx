@@ -37,7 +37,7 @@ export default function Caja(){
         else total-=a.monto
         })
     return(
-        <div className={style.conteiner}>
+        <div className={style.conteinerCaja}>
             <NavBar
                     title={"Caja"}
             />
@@ -57,6 +57,10 @@ export default function Caja(){
                     onClick={()=>navigate('/Caja/FormExtraccion')}
                     color={"primary"}
                 />
+
+            </div>
+            <div className={style.divButtons}>
+
                         <ShortButton
                     title={"Detalle de Ingresos Extras"}
                     onClick={()=>navigate('/Caja/DetalleIngresos')}
