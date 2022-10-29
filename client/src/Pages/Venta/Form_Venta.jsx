@@ -7,7 +7,7 @@ import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormV from './Form_Venta.module.scss';
-import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putSaldoCliente, putStockRes, setAlertVentaCarne } from "../../Redux/Actions/Actions";
+import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putSaldoCliente, putStockRes, setAlert } from "../../Redux/Actions/Actions";
 
 //Form Venta
 var formV = {
@@ -75,7 +75,7 @@ const Form_Venta = () => {
     }, [dispatch])
 
     //estados globales
-    const alert_msj= useSelector ((state)=>state.postVentaCarne);
+    const alert_msj= useSelector ((state)=>state.alert_msj);
     const stock=useSelector((state)=>state.AllResesStockTrue)
     const clientes = useSelector((state)=>state.AllClientes);
     
@@ -100,7 +100,7 @@ const Form_Venta = () => {
                 icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
-            dispatch(setAlertVentaCarne())
+            dispatch(setAlert())
             form.detalle=[]
     }, [alert_msj])
 

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getAllComrpas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlertPagoFaena } from "../../Redux/Actions/Actions.js";
+import { getAllComrpas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlert } from "../../Redux/Actions/Actions.js";
 import stylePagoF from './Form_pago.module.scss';
 
 const formPF = {
@@ -39,7 +39,7 @@ const Form_Pago_Faena = () => {
     }, [dispatch])
     
     const faena = useSelector((state)=>state.FaenaById);
-    const alert_msj= useSelector ((state)=>state.postNewPagoFaena);
+    const alert_msj= useSelector ((state)=>state.alert_msj);
 
     useEffect(() => {
         if(alert_msj!==""){
@@ -48,7 +48,7 @@ const Form_Pago_Faena = () => {
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
-            dispatch(setAlertPagoFaena())
+            dispatch(setAlert())
     }, [alert_msj])
 
     const [form, setForm] = useState(formPF);

@@ -1,21 +1,10 @@
 const initialState = {
     login_State: false,
+    alert_msj:'',
     AllFaenas:[],
     AllProveedores:[],
     ProveedorById:{},
     FaenaByTropa:{},
-    postProveedor:'',
-    postCliente:'',
-    postCompra:'',
-    postVentaCarne:'',
-    postVentaAchura:'',
-    postFaena:'',
-    postRes:'',
-    postNewPagoCompra:'',
-    postNewPagoFaena:'',
-    postNewPagoVenta:'',
-    postNewPagoVentaAchuras:'',
-    postNewPagoExtra:'',
     editarCliente:'',
     deleteFaena:'',
     deleteCompra:'',
@@ -25,9 +14,6 @@ const initialState = {
     resesAct: '',
     kgReses:'',
     login_status:'',
-    ultimaCompra:'',
-    ultimaVenta:'',
-    ultimaVentaAchura:'',
     saldoprov:0,
     saldoCliente:0,
     saldoAllCompras:0,
@@ -69,7 +55,7 @@ const initialState = {
     allPagosExtras:[],
     allIngresosExtras:[]
 }
-//GET_COMPRAS_BY_PROVEEDOR
+
 const rootReducer = (state = initialState, action) => {
     const { type, payload } = action;
     switch (action.type) {
@@ -78,6 +64,11 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             login_State: action.payload,
             };
+        case "ALERT_MSJ":
+            return{
+                ...state,
+                alert_msj:action.payload
+            }
         case "GET_ALL_COMPRAS":
             return {
             ...state,
@@ -102,7 +93,6 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             AllComprasByProveedor:action.payload,
-            
             }
         case "GET_COMPRA_BY_ID":
             return {
@@ -207,7 +197,6 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pagosAchurasByCliente: action.payload,
             }
-            
         case "GET_PAGOS_COMPRAS_BY_PROVEEDOR":
             return{
                 ...state,
@@ -273,71 +262,11 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             allPagosFaenas: action.payload,
             }
-        case "POST_NEW_PROVEEDOR":
-            return{
-                ...state,
-                postProveedor:action.payload
-            }
-        case "POST_NEW_CLIENTE":
-            return{
-                ...state,
-                postCliente:action.payload
-            }
-        case "POST_NEW_COMPRA":
-            return{
-                ...state,
-                postCompra:action.payload
-            }
-        case "POST_NEW_VENTA_CARNE":
-            return{
-                ...state,
-                postVentaCarne:action.payload
-            }
-        case "POST_NEW_VENTA_ACHURA":
-            return{
-                ...state,
-                postVentaAchura:action.payload
-            }
         case "GET_ALL_PAGOS_EXTRAS":
             return{
                 ...state,
                 allPagosExtras:action.payload
             }
-        case "POST_NEW_FAENA":
-            return{
-                ...state,
-                postFaena:action.payload
-            }
-        case "POST_NEW_RES":
-            return{
-                ...state,
-                postRes:action.payload
-            }
-        case "POST_NEW_PAGO_COMPRA":
-            return{
-                ...state,
-                postNewPagoCompra: action.payload
-            }
-        case "POST_NEW_PAGO_FAENA":
-            return{
-                ...state,
-                postNewPagoFaena: action.payload
-            }
-        case "POST_NEW_PAGO_VENTA":
-            return{
-                ...state,
-                postNewPagoVenta: action.payload
-            }
-        case "POST_NEW_PAGO_VENTA_ACHURAS":
-            return{
-                ...state,
-                postNewPagoVentaAchuras: action.payload
-            }          
-        case "POST_NEW_PAGO_EXTRA":
-            return{
-                ...state,
-                postNewPagoExtra: action.payload
-            } 
         case "DELETE_FAENA":
             return{
                 ...state,

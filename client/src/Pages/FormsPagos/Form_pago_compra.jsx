@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import {getComrpaByID, getProveedorByName, postNewPagoCompra, putSaldoCompra, setAlertPagoCompra } from "../../Redux/Actions/Actions";
+import {getComrpaByID, getProveedorByName, postNewPagoCompra, putSaldoCompra, setAlert } from "../../Redux/Actions/Actions";
 
 import stylePagoC from './Form_pago.module.scss';
 
@@ -41,7 +41,7 @@ const Form_Pago_Compra = () => {
     }, [dispatch])
 
     const compra = useSelector((state)=>state.CompraByID);
-    const alert_msj= useSelector ((state)=>state.postNewPagoCompra);
+    const alert_msj= useSelector ((state)=>state.alert_msj);
 
     useEffect(() => {
         dispatch(getProveedorByName(compra.proveedor))
@@ -55,7 +55,7 @@ const Form_Pago_Compra = () => {
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
-            dispatch(setAlertPagoCompra())
+            dispatch(setAlert())
     }, [alert_msj])
 
     const [form, setForm] = useState(formPC);

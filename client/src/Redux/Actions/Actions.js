@@ -4,50 +4,16 @@ import axios from "axios";
 export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
-        };
-export const setlogin_state = (value) => {
-    
-    return ({ type: "LOGIN_STATE", payload: value  });
-        };
-        
-export const setAlertFaena = () => {
-    
-    return ({ type: "POST_NEW_FAENA", payload: ""  });
-              };
-export const setAlertCompra = () => {
-    
-    return ({ type: "POST_NEW_COMPRA", payload: ""  });
-};
-export const setAlertVentaCarne = () => {
-    
-  return ({ type: "POST_NEW_VENTA_CARNE", payload: ""  });
-};
-export const setAlertVentaAchuras = () => {
-    
-  return ({ type: "POST_NEW_VENTA_ACHURA", payload: ""  });
-};
-export const setAlertPagoCompra = () => {
-    
-  return ({ type: "POST_NEW_PAGO_COMPRA", payload: ""  });
-};
-export const setAlertPagoFaena = () => {
-    
-  return ({ type: "POST_NEW_PAGO_FAENA", payload: ""  });
-};
-export const setAlertPagoVenta = () => {
-    
-  return ({ type: "POST_NEW_PAGO_VENTA", payload: ""  });
-};
-export const setAlertPagoVentaAchuras = () => {
-    
-  return ({ type: "POST_NEW_PAGO_VENTA_ACHURAS"
-  , payload: ""  });
 };
 
-export const setAlertPagoExtra = () => {
-    
-  return ({ type: "POST_NEW_PAGO_EXTRA"
-  , payload: ""  });
+//setear estado de login
+export const setlogin_state = (value) => {
+    return ({ type: "LOGIN_STATE", payload: value  });
+};
+
+//SETIAR ALERTAS
+export const setAlert = () => {
+  return ({ type: "ALERT_MSJ", payload: ""  });
 };
 
 export function postLogin(jsonUser){
@@ -66,7 +32,8 @@ export function postLogin(jsonUser){
       }
       
   }
-}
+};
+
 //getAllComrpasByProveedor
 export function setStatus(value){
   return async function (dispatch){
@@ -80,11 +47,10 @@ export function setStatus(value){
       }
       
   }
-}
+};
 
 //Traer Token de localstorage
 const token = localStorage.getItem("AuthLogin")
-
 
 //Traer todas las compras
 export const getAllComrpas = () => {
@@ -104,7 +70,7 @@ export const getAllComrpas = () => {
             console.log(error);
           }
         };
-      };
+};
 
 //Calcula el saldo total de todas las compras
 export const getSaldoAllComrpas = () => {
@@ -125,11 +91,9 @@ export const getSaldoAllComrpas = () => {
           console.log(error);
         }
       };
-    };
+};
 
-
-
-  //Traer todas las ventas de achuras
+//Traer todas las ventas de achuras
 export const getAllVentasAchuras = () => {
   return async (dispatch) => {
       try {
@@ -146,9 +110,7 @@ export const getAllVentasAchuras = () => {
           console.log(error);
         }
       };
-    };
-
-
+};
 
 //Traer todas las compras de un proveedor
 export const getAllComrpasByProveedor = (proveedor) => {
@@ -159,17 +121,15 @@ export const getAllComrpasByProveedor = (proveedor) => {
                 'auth-token': `${token}`
               }
             });
-
             return dispatch({
             type: "GET_COMPRAS_BY_PROVEEDOR",
             payload: json.data.data})
-
         }
         catch (error) {
             console.log(error);
           }
         };
-      };
+};
 
 //Traer compra por ID
 export const getComrpaByID = (id) => {
@@ -190,8 +150,7 @@ export const getComrpaByID = (id) => {
             console.log(error);
           }
         };
-      };
-
+};
 
 //Traer saldo de un proveedor por nombre del proveedor
 export const getSaldoByProveedor = (proveedor) => {
@@ -211,7 +170,7 @@ export const getSaldoByProveedor = (proveedor) => {
           console.log(error);
         }
       };
-    };
+};
 
 //Traer saldo de un cliente por nombre del cliente
 export const getSaldoByCliente = (cliente) => {
@@ -231,8 +190,7 @@ export const getSaldoByCliente = (cliente) => {
           console.log(error);
         }
       };
-    };
-
+};
 
 //Traer todas las faenas
 export const getAllFaenas = () => {
@@ -260,8 +218,7 @@ export const getAllFaenas = () => {
             console.log(error);
           }
         };
-      };
-
+};
 
 //Traer todas las faenas
 export const getFaenaById = (id) => {
@@ -282,7 +239,7 @@ export const getFaenaById = (id) => {
           console.log(error);
         }
       };
-    };
+};
 
 //Traer faena por numero de tropa
 export const getFaenasByTropa = (tropa) => {
@@ -301,7 +258,7 @@ export const getFaenasByTropa = (tropa) => {
             console.log(error);
           }
         };
-      };
+};
 
 //Traer todas las ventas
 export const getAllVentas = () => {
@@ -320,8 +277,7 @@ export const getAllVentas = () => {
             console.log(error);
           }
         };
-      }; 
-
+}; 
 
 //Traer las ventas de los ultimos 30 dias a partir de la fecha actual
 export const getAllVentasultimos30dias = () => {
@@ -340,8 +296,7 @@ export const getAllVentasultimos30dias = () => {
           console.log(error);
         }
       };
-    }; 
-
+}; 
 
 //Calcula el saldo total de todas las ventas
 export const getSaldoAllVentas = () => {
@@ -370,7 +325,7 @@ export const getSaldoAllVentas = () => {
           console.log(error);
         }
       };
-    };
+};
 
 //Calcula el saldo total de todas las faenas
 export const getSaldoAllFaenas = () => {
@@ -391,8 +346,8 @@ export const getSaldoAllFaenas = () => {
           console.log(error);
         }
       };
-    };
-    
+};
+
 
 //Ventas por nombre de cliente
 export const getVentasByCliente = (clientName) => {
@@ -411,8 +366,7 @@ export const getVentasByCliente = (clientName) => {
           console.log(error);
         }
       };
-    }; 
-
+}; 
 
     //Ventas de achuras por cliente
 export const getVentasAchurasByCliente = (clientName) => {
@@ -431,7 +385,7 @@ export const getVentasAchurasByCliente = (clientName) => {
           console.log(error);
         }
       };
-    }; 
+}; 
 
 //Traer venta por ID
 export const getVentaByID = (id) => {
@@ -464,7 +418,7 @@ export const getVentaByID = (id) => {
             console.log(error);
           }
         };
-      };
+};
 
       //Traer venta por ID
 export const getVentaAchurasByID = (id) => {
@@ -483,7 +437,7 @@ export const getVentaAchurasByID = (id) => {
           console.log(error);
         }
       };
-    };
+};
 
 //Traer todo el stock
 export const getAllStock = () => {
@@ -502,7 +456,7 @@ export const getAllStock = () => {
             console.log(error);
           }
         };
-      };  
+};  
 
 //Traer todos los clientes
 export const getAllClientes = () => {
@@ -521,7 +475,7 @@ export const getAllClientes = () => {
             console.log(error);
           }
         };
-      };   
+};   
 
 //Traer cliente por ID
 export const getClienteByID = (id) => {
@@ -540,29 +494,29 @@ export const getClienteByID = (id) => {
             console.log(error);
           }
         };
-      };
+};
 
-      //Traer cliente por nombre
-      export const getClienteByName = (nombre) => {
-        return async (dispatch) => {
-            try {
-                const json = await axios.get(`/clientes/all`,{
-                headers: {
-                  'auth-token': `${token}`
-                }
-                })
-                let response = json.data.data
-                let clienteByNombre= response.find(a=>a.nombre==nombre)
-                return dispatch({
-                type: "GET_CLIENTE_BY_NAME",
-                payload: clienteByNombre
-              })
-            }
-            catch (error) {
-                console.log(error);
-              }
-            };
-          }; 
+//Traer cliente por nombre
+export const getClienteByName = (nombre) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/clientes/all`,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          let response = json.data.data
+          let clienteByNombre= response.find(a=>a.nombre==nombre)
+          return dispatch({
+          type: "GET_CLIENTE_BY_NAME",
+          payload: clienteByNombre
+        })
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+}; 
 
 //Traer todos los proveedores
 export const getAllProveedores = () => {
@@ -581,30 +535,28 @@ export const getAllProveedores = () => {
             console.log(error);
           }
         };
-      }; 
+}; 
 
-
-
-      export const getProveedorByName = (nombre) => {
-        return async (dispatch) => {
-            try {
-                const json = await axios.get(`/proveedores/all`,{
-                headers: {
-                  'auth-token': `${token}`
-                }
-                })
-                let response = json.data.data
-                let provByNombre= response.find(a=>a.nombre==nombre)
-                return dispatch({
-                type: "GET_PROVEEDOR_BY_NAME",
-                payload: provByNombre
-              })
-            }
-            catch (error) {
-                console.log(error);
-              }
-            };
-          }; 
+export const getProveedorByName = (nombre) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/proveedores/all`,{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          let response = json.data.data
+          let provByNombre= response.find(a=>a.nombre==nombre)
+          return dispatch({
+          type: "GET_PROVEEDOR_BY_NAME",
+          payload: provByNombre
+        })
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+}; 
 
 //Traer Proveedor por ID
 export const getProveedorByID = (id) => {
@@ -623,7 +575,7 @@ export const getProveedorByID = (id) => {
             console.log(error);
           }
         };
-      };
+};
 
 //ver!!!------------------------------------------------------------------------------------------------------------------------------
 //Get todas las reses
@@ -674,7 +626,7 @@ export const getAllReses = () => {
             console.log(error);
           }
         };
-      }; 
+}; 
 
 //--------------------------------------------------------------------------------------------------------------------
 
@@ -695,7 +647,7 @@ export const getResByCorrelativo = (correlativo) => {
             console.log(error);
           }
         };
-      }; 
+}; 
 
 
 //Traer pagos por clientes
@@ -715,9 +667,9 @@ export const getPagosVentasByCliente = (nombre) => {
           console.log(error);
         }
       };
-    };
+};
 
-    //Traer pagos por clientes
+//Traer pagos por clientes
 export const getPagosVentaAchurasByCliente = (nombre) => {
   return async (dispatch) => {
       try {
@@ -774,7 +726,7 @@ export const getPagosComprasByID = (compraID) => {
       };
     };
   
-  //Traer pagos por ID de faena
+//Traer pagos por ID de faena
 export const getPagosFaenaByID = (faenaID) => {
   return async (dispatch) => {
       try {
@@ -794,46 +746,43 @@ export const getPagosFaenaByID = (faenaID) => {
     };
 
 
- //Traer pagos por ID de venta
-    export const getPagosVentaByID = (ventaID) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.get(`/pagoVentas/${ventaID}`,{
-                headers: {
-                  'auth-token': `${token}`
-                }
-              });
-              return dispatch({
-              type: "GET_PAGOS_VENTAS_BY_ID",
-              payload: json.data.data})     
-          }
-          catch (error) {
-              console.log(error);
+//Traer pagos por ID de venta
+export const getPagosVentaByID = (ventaID) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/pagoVentas/${ventaID}`,{
+            headers: {
+              'auth-token': `${token}`
             }
-          };
-        };
+          });
+          return dispatch({
+          type: "GET_PAGOS_VENTAS_BY_ID",
+          payload: json.data.data})     
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
 
-        //Traer pagos por ID de venta
-    export const getPagosVentaAchurasByID = (ventaID) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.get(`/pagoVentaAchuras/${ventaID}`,{
-                headers: {
-                  'auth-token': `${token}`
-                }
-              });
-              return dispatch({
-              type: "GET_PAGOS_VENTA_ACHURAS_BY_ID",
-              payload: json.data.data})     
-          }
-          catch (error) {
-              console.log(error);
+//Traer pagos por ID de venta
+export const getPagosVentaAchurasByID = (ventaID) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/pagoVentaAchuras/${ventaID}`,{
+            headers: {
+              'auth-token': `${token}`
             }
-          };
-        };
-    
-
-
+          });
+          return dispatch({
+          type: "GET_PAGOS_VENTA_ACHURAS_BY_ID",
+          payload: json.data.data})     
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
 
 //Traer pagos por Frigorifico
 export const getPagosFaenasByFrigorifico = (nombre) => {
@@ -852,9 +801,9 @@ export const getPagosFaenasByFrigorifico = (nombre) => {
           console.log(error);
         }
       };
-    };
+};
 
-    //Traer todos los los pagos de VENTAS
+//Traer todos los los pagos de VENTAS
 export const getAllPagosVentas = () => {
   return async (dispatch) => {
       try {
@@ -871,9 +820,9 @@ export const getAllPagosVentas = () => {
           console.log(error);
         }
       };
-    };
+};
 
-    //Traer todos los los pagos de VENTAS
+//Traer todos los los pagos de VENTAS
 export const getAllPagosVentasAchuras = () => {
   return async (dispatch) => {
       try {
@@ -890,9 +839,9 @@ export const getAllPagosVentasAchuras = () => {
           console.log(error);
         }
       };
-    };
+};
 
-    //Traer todos los los pagos de VENTAS
+//Traer todos los los pagos de VENTAS
 export const getAllPagosCompras = () => {
   return async (dispatch) => {
       try {
@@ -909,9 +858,9 @@ export const getAllPagosCompras = () => {
           console.log(error);
         }
       };
-    }; 
+}; 
 
-    //Traer todos los los pagos de VENTAS
+//Traer todos los los pagos de VENTAS
 export const getAllPagosFaenas = () => {
   return async (dispatch) => {
       try {
@@ -928,7 +877,7 @@ export const getAllPagosFaenas = () => {
           console.log(error);
         }
       };
-    }; 
+}; 
 
 //Traer todos las extracciones de dinero
 export const getAllPagosExtras = () => {
@@ -947,7 +896,7 @@ export const getAllPagosExtras = () => {
           console.log(error);
         }
       };
-    }; 
+}; 
 //"GET_ALL_INGRESOS_EXTRAS":
 
 //Traer todos las extracciones de dinero
@@ -969,7 +918,7 @@ export const getAllIngresosExtras = () => {
           console.log(error);
         }
       };
-    };
+};
 
 //postNewPagoExtra
     
@@ -983,14 +932,14 @@ export const postNewProveedor = (proveedor_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PROVEEDOR",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
 
 //Post clientes
@@ -1003,14 +952,14 @@ export const postNewCliente = (cliente_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_CLIENTE",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
 //Post compra
 
@@ -1023,14 +972,14 @@ export const postNewCompra = (compra_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_COMPRA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
 //Post venta carne
 export const postNewVentaCarne = (venta_json) => {
@@ -1042,14 +991,14 @@ export const postNewVentaCarne = (venta_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_VENTA_CARNE",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
 //Post venta achura
 export const postNewVentaAchura = (venta_json) => {
@@ -1061,14 +1010,14 @@ export const postNewVentaAchura = (venta_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_VENTA_ACHURA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
 //Post faena
 export const postNewFaena = (faena_json) => {
@@ -1080,16 +1029,14 @@ export const postNewFaena = (faena_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_FAENA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
-
-
+};
 
 //Post res
 export const postNewRes = (res_json) => {
@@ -1100,17 +1047,14 @@ export const postNewRes = (res_json) => {
             'auth-token': `${token}`
           }
           })
-          return dispatch({
-          type: "POST_NEW_RES",
-          payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
-    //Post pagoCompras
+//Post pagoCompras
 export const postNewPagoCompra = (pago_json) => {
   return async (dispatch) => {
       try {
@@ -1120,16 +1064,16 @@ export const postNewPagoCompra = (pago_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PAGO_COMPRA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
-     //Post pagoVenta
+//Post pagoVenta
 export const postNewPagoVenta = (pago_json) => {
   return async (dispatch) => {
       try {
@@ -1139,16 +1083,16 @@ export const postNewPagoVenta = (pago_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PAGO_VENTA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
-     //Post pagoVentaAchuras
+//Post pagoVentaAchuras
 export const postNewPagoVentaAchuras = (pago_json) => {
   return async (dispatch) => {
       try {
@@ -1158,16 +1102,16 @@ export const postNewPagoVentaAchuras = (pago_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PAGO_VENTA_ACHURAS",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
-    //Post pagoFaena
+//Post pagoFaena
 export const postNewPagoFaena = (pago_json) => {
   return async (dispatch) => {
       try {
@@ -1177,7 +1121,7 @@ export const postNewPagoFaena = (pago_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PAGO_FAENA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
@@ -1187,7 +1131,7 @@ export const postNewPagoFaena = (pago_json) => {
     };
 
 
-    //Post pagosExtra
+//Post pagosExtra
 export const postNewPagoExtra = (pago_json) => {
   return async (dispatch) => {
       try {
@@ -1197,14 +1141,14 @@ export const postNewPagoExtra = (pago_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PAGO_EXTRA",
+          type: "ALERT_MSJ",
           payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
-    };
+};
 
 //Post pagosExtra
 export const postNewIngresoExtra = (pago_json) => {
@@ -1216,7 +1160,29 @@ export const postNewIngresoExtra = (pago_json) => {
           }
           })
           return dispatch({
-          type: "POST_NEW_PAGO_EXTRA",
+          type: "ALERT_MSJ",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
+
+//eliminar faena
+export const deleteFaenaById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/faenas`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            faena_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_FAENA",
           payload: json.data.data})
       }
       catch (error) {
@@ -1225,28 +1191,6 @@ export const postNewIngresoExtra = (pago_json) => {
       };
     };
 
-//eliminar faena
-
-    export const deleteFaenaById = (id) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.delete(`/faenas`,{
-              headers: {
-                'auth-token': `${token}`
-              },
-              data: {
-                faena_id: id
-              }
-              })
-              return dispatch({
-              type: "DELETE_FAENA",
-              payload: json.data.data})
-          }
-          catch (error) {
-              console.log(error);
-            }
-          };
-        };
 // elimina las reses cuando se elimina una faena
 export const deleteResById = (id) => {
   return async (dispatch) => {
@@ -1267,51 +1211,51 @@ export const deleteResById = (id) => {
           console.log(error);
         }
       };
-    };
-        //eliminar compra
+};
 
-    export const deleteCompraById = (id) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.delete(`/compras`,{
-              headers: {
-                'auth-token': `${token}`
-              },
-              data: {
-                compra_id: id
-              }
-              })
-              return dispatch({
-              type: "DELETE_COMPRA",
-              payload: json.data.data})
+//eliminar compra
+export const deleteCompraById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/compras`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            compra_id: id
           }
-          catch (error) {
-              console.log(error);
-            }
-          };
-        };
-        //eliminar cliente
-        export const deleteClienteById = (id) => {
-          return async (dispatch) => {
-              try {
-                  const json = await axios.delete(`/clientes`,{
-                  headers: {
-                    'auth-token': `${token}`
-                  },
-                  data: {
-                    cliente_id: id
-                  }
-                  })
-                  return dispatch({
-                  type: "DELETE_CLIENTE",
-                  payload: json.data.data})
-              }
-              catch (error) {
-                  console.log(error);
-                }
-              };
-            };
-            //eliminar proveedor
+          })
+          return dispatch({
+          type: "DELETE_COMPRA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+//eliminar cliente
+export const deleteClienteById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/clientes`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            cliente_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_CLIENTE",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+//eliminar proveedor
 export const deleteProveedorById = (id) => {
   return async (dispatch) => {
       try {
@@ -1331,7 +1275,7 @@ export const deleteProveedorById = (id) => {
           console.log(error);
         }
       };
-    };
+};
 //eliminar venta
 export const deleteVentaById = (id) => {
   return async (dispatch) => {
@@ -1348,7 +1292,7 @@ export const deleteVentaById = (id) => {
           console.log(error);
         }
       };
-    };
+};
 //eliminar venta de Achuras
 export const deleteVentaAchurasById = (id) => {
   return async (dispatch) => {
@@ -1366,120 +1310,120 @@ export const deleteVentaAchurasById = (id) => {
           console.log(error);
         }
       };
+};
+
+//eliminar pago faena por id
+
+export const deletePagoFaenaById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/pagoFaenas`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            pf_id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_PAGO_FAENA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
+
+//eliminar pago venta por id
+
+export const deletePagoVentaById = (id) => {
+  return async (dispatch) => {
+    try {
+        const json = await axios.delete(`/pagoVentas`,{
+        headers: {
+          'auth-token': `${token}`
+        },
+        data: {
+          pv_id: id
+        }
+        })
+        return dispatch({
+        type: "DELETE_PAGO_VENTA",
+        payload: json.data.data})
+    }
+    catch (error) {
+        console.log(error);
+      }
     };
+};
 
-    //eliminar pago faena por id
+//eliminar pago venta achuras por id
 
-    export const deletePagoFaenaById = (id) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.delete(`/pagoFaenas`,{
-              headers: {
-                'auth-token': `${token}`
-              },
-              data: {
-                pf_id: id
-              }
-              })
-              return dispatch({
-              type: "DELETE_PAGO_FAENA",
-              payload: json.data.data})
+export const deletePagoVentaAchurasById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/pagoVentaAchuras`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            pv_id: id
           }
-          catch (error) {
-              console.log(error);
-            }
-          };
-        };
-
-    //eliminar pago venta por id
-
-    export const deletePagoVentaById = (id) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.delete(`/pagoVentas`,{
-              headers: {
-                'auth-token': `${token}`
-              },
-              data: {
-                pv_id: id
-              }
-              })
-              return dispatch({
-              type: "DELETE_PAGO_VENTA",
-              payload: json.data.data})
-          }
-          catch (error) {
-              console.log(error);
-            }
-          };
-        };
-
-        //eliminar pago venta achuras por id
-
-    export const deletePagoVentaAchurasById = (id) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.delete(`/pagoVentaAchuras`,{
-              headers: {
-                'auth-token': `${token}`
-              },
-              data: {
-                pv_id: id
-              }
-              })
-              return dispatch({
-              type: "DELETE_PAGO_VENTA_ACHURAS",
-              payload: json.data.data})
-          }
-          catch (error) {
-              console.log(error);
-            }
-          };
-        };
+          })
+          return dispatch({
+          type: "DELETE_PAGO_VENTA_ACHURAS",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
     
-    //eliminar pago compra por id
+//eliminar pago compra por id
 
-    export const deletePagoCompraById = (id) => {
-      return async (dispatch) => {
-          try {
-              const json = await axios.delete(`/pagoCompras`,{
-              headers: {
-                'auth-token': `${token}`
-              },
-              data: {
-                pc_id: id
-              }
-              })
-              return dispatch({
-              type: "DELETE_PAGO_COMPRA",
-              payload: json.data.data})
+export const deletePagoCompraById = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/pagoCompras`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            pc_id: id
           }
-          catch (error) {
-              console.log(error);
-            }
-          };
-        };
+          })
+          return dispatch({
+          type: "DELETE_PAGO_COMPRA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
 
-        export const deletePagoExtra = (id) => {
-          return async (dispatch) => {
-              try {
-                  const json = await axios.delete(`/pagoExtras`,{
-                  headers: {
-                    'auth-token': `${token}`
-                  },
-                  data: {
-                    id: id
-                  }
-                  })
-                  return dispatch({
-                  type: "DELETE_PAGO_EXTRA",
-                  payload: json.data.data})
-              }
-              catch (error) {
-                  console.log(error);
-                }
-              };
-            };
+export const deletePagoExtra = (id) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.delete(`/pagoExtras`,{
+          headers: {
+            'auth-token': `${token}`
+          },
+          data: {
+            id: id
+          }
+          })
+          return dispatch({
+          type: "DELETE_PAGO_EXTRA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
 
 export const deleteIngresoExtra = (id) => {
   return async (dispatch) => {
@@ -1500,9 +1444,9 @@ export const deleteIngresoExtra = (id) => {
           console.log(error);
         }
       };
-    };
+};
 
-    //Se actualiza al cargar la compra
+//Se actualiza al cargar la compra
 export const putReses = (precio_kg, tropa, categoria)=>{
   return async (dispatch)=>{
     let data_json= {
@@ -1524,7 +1468,8 @@ export const putReses = (precio_kg, tropa, categoria)=>{
       console.log(err)
     }
   }
-} 
+};
+
 //pasa el estado de stock a false
 export const putkgRes = (data_json)=>{
   return async (dispatch)=>{
@@ -1542,7 +1487,7 @@ export const putkgRes = (data_json)=>{
       console.log(err)
     }
   }
-}
+};
 
 //pasa el estado de stock a false
 export const putStockRes = (correlativo)=>{
@@ -1565,7 +1510,8 @@ export const putStockRes = (correlativo)=>{
       console.log(err)
     }
   }
-} 
+};
+
 //pasa el estado de stock a true
 export const putStockResTrue = (correlativo)=>{
   return async (dispatch)=>{
@@ -1587,7 +1533,7 @@ export const putStockResTrue = (correlativo)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //resta cuarto de res vendida
 export const putCuartoRes = (id, kg, correlativo)=>{
@@ -1611,10 +1557,7 @@ export const putCuartoRes = (id, kg, correlativo)=>{
       console.log(err)
     }
   }
-} 
-
-
-
+}; 
 
 //actualiza saldo Cliente
 export const putSaldoCliente = (id, saldo)=>{
@@ -1637,7 +1580,7 @@ export const putSaldoCliente = (id, saldo)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //actualiza saldo Compra
 export const putSaldoCompra = (id, saldo)=>{
@@ -1660,7 +1603,7 @@ export const putSaldoCompra = (id, saldo)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //actualiza saldo Venta
 export const putSaldoVenta = (id, saldo)=>{
@@ -1683,7 +1626,7 @@ export const putSaldoVenta = (id, saldo)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //actualiza saldo Venta Achuras
 export const putSaldoVentaAchuras = (id, saldo)=>{
@@ -1706,7 +1649,7 @@ export const putSaldoVentaAchuras = (id, saldo)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //actualiza saldo Faenas
 export const putSaldoFaena = (id, saldo)=>{
@@ -1729,7 +1672,7 @@ export const putSaldoFaena = (id, saldo)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //actualiza saldo Faenas
 export const putEstadoCompraFaena = (tropa)=>{
@@ -1752,7 +1695,7 @@ export const putEstadoCompraFaena = (tropa)=>{
       console.log(err)
     }
   }
-}
+};
 
 //actualiza saldo Faenas
 export const putEstadoCompraFaenaFalse = (tropa)=>{
@@ -1775,7 +1718,7 @@ export const putEstadoCompraFaenaFalse = (tropa)=>{
       console.log(err)
     }
   }
-}
+};
 
 //resta cuarto de res vendida
 export const putEditarCliente = (data_json)=>{
@@ -1794,7 +1737,7 @@ export const putEditarCliente = (data_json)=>{
       console.log(err)
     }
   }
-} 
+}; 
 
 //resta cuarto de res vendida
 export const putEditarProveedor = (data_json)=>{
@@ -1814,4 +1757,4 @@ export const putEditarProveedor = (data_json)=>{
       console.log(err)
     }
   }
-} 
+}; 
