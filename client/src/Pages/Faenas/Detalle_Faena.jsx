@@ -7,7 +7,7 @@ import Table_Det_Faena from "../../Components/Details/Detalle_Faena";
 import { useParams } from "react-router-dom";
 import StyleDF from "./Faenadetail.module.scss"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
-import { deleteFaenaById, deleteResById, getAllFaenas, getAllReses, getFaenaById } from "../../Redux/Actions/Actions";
+import { deleteFaenaById, deleteResById, getAllReses, getFaenaById } from "../../Redux/Actions/Actions";
 import Tabla_Detalle_Stock_Tropa from "../../Components/Details/Tabla_Detalle_Stock_Tropa";
 
 

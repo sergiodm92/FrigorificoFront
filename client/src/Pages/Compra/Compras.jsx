@@ -40,7 +40,7 @@ export default function Compras(){
                                 id={a.id}
                                 key={i}
                                 fecha={a.fecha}
-                                para={a.proveedor}
+                                para={a.proveedor.length<20?a.proveedor:a.proveedor.slice(0,17)}
                                 cant={a.cant_total}
                                 kg={a.kg_carne_totales}
                                 monto={a.costo_total_hac}

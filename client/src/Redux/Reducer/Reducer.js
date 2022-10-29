@@ -112,8 +112,12 @@ const rootReducer = (state = initialState, action) => {
         case "GET_ALL_VENTAS":
             return {
             ...state,
-            AllVentas: action.payload[0],
-            VentasUltimos30Dias: action.payload[1]
+            AllVentas: action.payload,
+            }
+        case "GET_ALL_VENTAS_ULTIMOS_30_DIAS":
+            return {
+            ...state,
+            VentasUltimos30Dias: action.payload
             }
         case "GET_VENTA_BY_ID":
             return {
@@ -128,20 +132,17 @@ const rootReducer = (state = initialState, action) => {
         case "GET_ALL_VENTAS_BY_CLIENTE":
             return {
             ...state,
-            AllVentasByCliente: action.payload[0],
-            ultimaVenta: action.payload[1]
+            AllVentasByCliente: action.payload,
             }
         case "GET_ALL_VENTAS_ACHURAS_BY_CLIENTE":
             return {
             ...state,
-            AllVentasAchurasByCliente: action.payload[0],
-            ultimaVentaAchura: action.payload[1]
+            AllVentasAchurasByCliente: action.payload,
             }
         case "GET_ALL_VENTAS_ACHURAS":
             return {
             ...state,
-            AllVentasAchuras: action.payload[0],
-            ventAchurasult30: action.payload[1]
+            AllVentasAchuras: action.payload,
             }
         case "GET_ALL_CLIENTES":
             return {

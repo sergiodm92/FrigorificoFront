@@ -290,7 +290,7 @@ const Form_Compra = () => {
                             <option defaultValue>-</option>
                             {proveedores.length > 0 &&  
                             proveedores.map((p,i) => (
-                                    <option	key={i} value={p.nombre}>{p.nombre}</option>
+                                    <option	key={i} value={p.nombre}>{p.nombre.length<20?p.nombre:p.nombre.slice(0,17)}</option>
                                     ))
                             }
                         </select>
