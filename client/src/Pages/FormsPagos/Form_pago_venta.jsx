@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 import NavBar from '../../Components/Navbar/Navbar'
-import { deleteCompraById, getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlertPagoVenta } from "../../Redux/Actions/Actions";
+import { deleteCompraById, getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlert } from "../../Redux/Actions/Actions";
 
 import stylePagoV from './Form_pago.module.scss';
 
@@ -42,7 +42,7 @@ const Form_Pago_Venta = () => {
     }, [dispatch])
 
     const venta = useSelector((state)=>state.VentaByID);
-    const alert_msj= useSelector ((state)=>state.postNewPagoVenta);
+    const alert_msj= useSelector ((state)=>state.alert_msj);
 
     useEffect(() => {
         dispatch(getClienteByName(venta.cliente))
@@ -56,7 +56,7 @@ const Form_Pago_Venta = () => {
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
-            dispatch(setAlertPagoVenta())
+            dispatch(setAlert())
     }, [alert_msj])
 
     const [form, setForm] = useState(formPV);

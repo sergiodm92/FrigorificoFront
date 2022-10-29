@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlertCompra} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlert} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -57,6 +57,7 @@ let FormGCT = {
 
 const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 let n=0
+
 //validaciones
 export const validate = (compra) => {
     let error = {};
@@ -85,7 +86,7 @@ const Form_Compra = () => {
     const navigate = useNavigate();
 
     //Estados globales
-    let alert_msj= useSelector ((state)=>state.postCompra);
+    let alert_msj= useSelector ((state)=>state.alert_msj);
     let proveedores = useSelector((state)=>state.AllProveedores);
     let faenas = useSelector((state)=>state.AllFaenas)
     let faenasDisp = faenas.filter(a=>a.estado_compra!==true)
@@ -104,7 +105,7 @@ const Form_Compra = () => {
                 icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
-        dispatch(setAlertCompra())
+        dispatch(setAlert())
         form.grupos=[]
     }, [alert_msj])
 

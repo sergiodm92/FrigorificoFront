@@ -56,7 +56,6 @@ const Form_Cliente = () => {
                 form.id=id*1
                 dispatch(putEditarCliente(form))
             } 
-   
         swal({
             title: "Nuevo Cliente",
             text: "Cargado correctamente",

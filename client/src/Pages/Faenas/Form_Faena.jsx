@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {getAllProveedores, postNewFaena, postNewRes, setAlertFaena} from "../../Redux/Actions/Actions";
+import {getAllProveedores, postNewFaena, postNewRes, setAlert} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -98,7 +98,7 @@ const Form_Faena = () => {
     }, [dispatch])
 
     //Estados globales
-    const alert_msj= useSelector ((state)=>state.postFaena);
+    const alert_msj= useSelector ((state)=>state.alert_msj);
     
     const proveedores = useSelector((state)=>state.AllProveedores);
 
@@ -109,7 +109,7 @@ const Form_Faena = () => {
                 icon: alert_msj==="Faena creada con éxito"?"success":"warning", 
                 button: "ok",
             })
-        dispatch(setAlertFaena())
+        dispatch(setAlert())
         form.detalle=[]
         }
     }, [alert_msj])

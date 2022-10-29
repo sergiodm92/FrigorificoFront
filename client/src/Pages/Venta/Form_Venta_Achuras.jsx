@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getAllClientes, getClienteByName, postNewVentaAchura, setAlertVentaAchuras } from "../../Redux/Actions/Actions";
+import { getAllClientes, getClienteByName, postNewVentaAchura, setAlert } from "../../Redux/Actions/Actions";
 
 import styleFormV from './Form_Venta.module.scss';
 
@@ -37,7 +37,7 @@ const Form_Venta_Achuras = () => {
     const navigate = useNavigate();
 
     //estados globales
-    const alert_msj= useSelector ((state)=>state.postVentaAchura);
+    const alert_msj= useSelector ((state)=>state.alert_msj);
     const clientes = useSelector((state)=>state.AllClientes);
     
     useEffect(() => {
@@ -51,7 +51,7 @@ const Form_Venta_Achuras = () => {
                 icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
-            dispatch(setAlertVentaAchuras())
+            dispatch(setAlert())
     }, [alert_msj]) 
 
     //Estados locales
