@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllReses, getAllVentas, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllReses, getAllVentas, getAllVentasultimos30dias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import Marca from "../../Components/Marca/Marca.jsx";
@@ -19,6 +19,7 @@ const dispatch = useDispatch()
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
     dispatch(getSaldoAllFaenas())
+    dispatch(getAllVentasultimos30dias())
     }, [dispatch])
 
 

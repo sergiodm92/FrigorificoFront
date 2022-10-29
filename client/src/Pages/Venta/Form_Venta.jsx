@@ -271,7 +271,7 @@ const Form_Venta = () => {
                             <option defaultValue>-</option>
                             {clientes.length > 0 &&  
                             clientes.map((c,i) => (
-                                    <option key={i}	value={c.nombre}>{c.nombre}</option>
+                                    <option key={i}	value={c.nombre}>{c.nombre.length<20?c.nombre:c.nombre.slice(0,17)}</option>
                                     ))
                             }
                         </select>

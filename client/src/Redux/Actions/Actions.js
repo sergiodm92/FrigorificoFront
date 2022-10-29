@@ -127,6 +127,8 @@ export const getSaldoAllComrpas = () => {
       };
     };
 
+
+
   //Traer todas las ventas de achuras
 export const getAllVentasAchuras = () => {
   return async (dispatch) => {
@@ -136,31 +138,17 @@ export const getAllVentasAchuras = () => {
               'auth-token': `${token}`
             }
           });
-          const fecha = new Date()
-          let ventas=json.data.data;
-          let ventasUltimos30Dias=[]
-          ventas.map((e)=>{
-            if(e.fecha.split("-")[2]==fecha.getFullYear() 
-            && e.fecha.split("-")[1]>(fecha.getMonth()-1) 
-            && e.fecha.split("-")[0]>=fecha.getDate()){
-            ventasUltimos30Dias.push(e)
-            }
-            if(e.fecha.split("-")[2]==fecha.getFullYear() 
-            && e.fecha.split("-")[1]==(fecha.getMonth()+1)){
-            ventasUltimos30Dias.push(e)
-            }
-          
-          })
-        
           return dispatch({
           type: "GET_ALL_VENTAS_ACHURAS",
-          payload: [ventas,ventasUltimos30Dias]})
+          payload: json.data.data})
       }
       catch (error) {
           console.log(error);
         }
       };
     };
+
+
 
 //Traer todas las compras de un proveedor
 export const getAllComrpasByProveedor = (proveedor) => {
@@ -324,42 +312,36 @@ export const getAllVentas = () => {
                 'auth-token': `${token}`
               }
             });
-            const venta = json.data.data;
-            const fecha = new Date()
-            let ventasUltimos30Dias = [];
-            venta.map(e=>{
-              e.cant=0
-              e.kg_total=0
-              e.total=0
-              e.margen=0
-              e.detalle.map(a=>{
-                if(a.total_media=="total")e.cant++
-                if(a.total_media!=="total")e.cant+=0.5
-                e.kg_total+=a.kg
-                e.total+=a.kg*a.precio_kg
-                e.margen+=a.precio_kg*a.kg-a.costo_kg*a.kg
-              })
-              if(e.fecha.split("-")[2]==fecha.getFullYear() 
-              && e.fecha.split("-")[1]>(fecha.getMonth()-1) 
-              && e.fecha.split("-")[0]>=fecha.getDate()){
-              ventasUltimos30Dias.push(e)
-              }
-              if(e.fecha.split("-")[2]==fecha.getFullYear() 
-              && e.fecha.split("-")[1]==(fecha.getMonth()+1)){
-              ventasUltimos30Dias.push(e)
-              }
-            
-            })
-
             return dispatch({
             type: "GET_ALL_VENTAS",
-            payload: [venta,ventasUltimos30Dias]})
+            payload: json.data.data})
         }
         catch (error) {
             console.log(error);
           }
         };
       }; 
+
+
+//Traer las ventas de los ultimos 30 dias a partir de la fecha actual
+export const getAllVentasultimos30dias = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventas/ultimos30dias/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_ALL_VENTAS_ULTIMOS_30_DIAS",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    }; 
+
 
 //Calcula el saldo total de todas las ventas
 export const getSaldoAllVentas = () => {
@@ -412,53 +394,19 @@ export const getSaldoAllFaenas = () => {
     };
     
 
-//Ventas por cliente
-export const getVentasByCliente = (name) => {
+//Ventas por nombre de cliente
+export const getVentasByCliente = (clientName) => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/ventas/all`,{
+          const json = await axios.get(`/ventas/all/name/${clientName}`,{
             headers: {
               'auth-token': `${token}`
             }
           });
-          if(json.data.data.length>0){
-          const response = json.data.data.filter((a)=>a.cliente===name)
-          let ultimaVenta=""
-            if(response.length>0){
-            let arrayAños=[]
-            let arrayMeses=[]
-            let arrayDias=[]
-            response.map((a)=>arrayAños.push(a.fecha.split("-")[2]))
-            let añoMayor = Math.max(...arrayAños)
-            response.map((a)=>{if(a.fecha.split("-")[2]==añoMayor)arrayMeses.push(a.fecha.split("-")[1])})
-            let mesMayor = Math.max(...arrayMeses)
-            response.map((a)=>{if(a.fecha.split("-")[1]==mesMayor && a.fecha.split("-")[2]==añoMayor)arrayDias.push(a.fecha.split("-")[0])})
-            let diaMayor = Math.max(...arrayDias)
-            ultimaVenta=diaMayor+"-"+mesMayor+"-"+añoMayor
-            }
-            response.map(e=>{
-              e.cant=0
-              e.kg_total=0
-              e.total=0
-              e.margen=0
-              e.detalle.map(a=>{
-                if(a.total_media=="total")e.cant++
-                if(a.total_media!=="total")e.cant+=0.5
-                e.kg_total+=a.kg
-                e.total+=a.kg*a.precio_kg
-                e.margen+=a.precio_kg*a.kg-a.costo_kg*a.kg
-              })})
           return dispatch({
           type: "GET_ALL_VENTAS_BY_CLIENTE",
-          payload: [response, ultimaVenta]})
+          payload: json.data.data})
       }
-        return dispatch({
-        type: "GET_ALL_VENTAS_BY_CLIENTE",
-        payload: [[], '']})
-    
-        }
-        
-          
       catch (error) {
           console.log(error);
         }
@@ -467,31 +415,17 @@ export const getVentasByCliente = (name) => {
 
 
     //Ventas de achuras por cliente
-export const getVentasAchurasByCliente = (name) => {
+export const getVentasAchurasByCliente = (clientName) => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/ventaAchuras/all`,{
+          const json = await axios.get(`/ventaAchuras/all/name/${clientName}`,{
             headers: {
               'auth-token': `${token}`
             }
           });
-          const response = json.data.data.filter((a)=>a.clien===name)
-          let ultimaVenta=""
-            if(response.length>0){
-            let arrayAños=[]
-            let arrayMeses=[]
-            let arrayDias=[]
-            response.map((a)=>arrayAños.push(a.fecha.split("-")[2]))
-            let añoMayor = Math.max(...arrayAños)
-            response.map((a)=>{if(a.fecha.split("-")[2]==añoMayor)arrayMeses.push(a.fecha.split("-")[1])})
-            let mesMayor = Math.max(...arrayMeses)
-            response.map((a)=>{if(a.fecha.split("-")[1]==mesMayor && a.fecha.split("-")[2]==añoMayor)arrayDias.push(a.fecha.split("-")[0])})
-            let diaMayor = Math.max(...arrayDias)
-            ultimaVenta=diaMayor+"-"+mesMayor+"-"+añoMayor
-            }
           return dispatch({
           type: "GET_ALL_VENTAS_ACHURAS_BY_CLIENTE",
-          payload: [response, ultimaVenta]})
+          payload: json.data.data})
       }
       catch (error) {
           console.log(error);
@@ -691,6 +625,7 @@ export const getProveedorByID = (id) => {
         };
       };
 
+//ver!!!------------------------------------------------------------------------------------------------------------------------------
 //Get todas las reses
 export const getAllReses = () => {
     return async (dispatch) => {
@@ -702,10 +637,10 @@ export const getAllReses = () => {
               }
             });
             const ResStock = json.data.data.filter((a)=>a.stock===true)
-            ResStock.sort(function(a,b){
-              if(a.tropa>b.tropa){return 1}
-              if(a.tropa<b.tropa){return -1}
-              return 0}) 
+            // ResStock.sort(function(a,b){
+            //   if(a.tropa>b.tropa){return 1}
+            //   if(a.tropa<b.tropa){return -1}
+            //   return 0}) 
             let arrayAux = []
             let arrayResByTropa = []
             let pos=0
@@ -741,7 +676,7 @@ export const getAllReses = () => {
         };
       }; 
 
-
+//--------------------------------------------------------------------------------------------------------------------
 
 //Get res por correlativo
 export const getResByCorrelativo = (correlativo) => {
@@ -761,7 +696,8 @@ export const getResByCorrelativo = (correlativo) => {
           }
         };
       }; 
-      
+
+
 //Traer pagos por clientes
 export const getPagosVentasByCliente = (nombre) => {
   return async (dispatch) => {
@@ -1400,14 +1336,10 @@ export const deleteProveedorById = (id) => {
 export const deleteVentaById = (id) => {
   return async (dispatch) => {
       try {
-          const json = await axios.delete(`/ventas`,{
+          const json = await axios.delete(`/ventas/${id}`,{
           headers: {
             'auth-token': `${token}`
-          },
-          data: {
-            venta_id: id
-          }
-          })
+          }})
           return dispatch({
           type: "DELETE_VENTA",
           payload: json.data.data})
@@ -1421,12 +1353,9 @@ export const deleteVentaById = (id) => {
 export const deleteVentaAchurasById = (id) => {
   return async (dispatch) => {
       try {
-          const json = await axios.delete(`/ventaAchuras`,{
+          const json = await axios.delete(`/ventaAchuras/${id}`,{
           headers: {
             'auth-token': `${token}`
-          },
-          data: {
-            venta_id: id
           }
           })
           return dispatch({
