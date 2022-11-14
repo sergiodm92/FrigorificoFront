@@ -15,7 +15,7 @@ import Form_Pago_Faena from '../src/Pages/FormsPagos/Form_pago_faena';
 import Form_Pago_Compra from '../src/Pages/FormsPagos/Form_pago_compra';
 import Historial_Faena from '../src/Pages/Faenas/Hitorial_Faena';
 import Home from '../src/Pages/Home/Home.jsx';
-import Caja from '../src/Pages/Caja/caja.jsx'
+import Caja from '../src/Pages/Caja/caja.jsx';
 import FormExtraccion from './Pages/Caja/form_extraccion.jsx';
 import Reestablecer_Login from '../src/Pages/Login/Reestablecer_Login.jsx';
 import Login from '../src/Pages/Login/Login.jsx';
@@ -50,6 +50,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from 'react';
 import {login_state} from './Redux/Actions/Actions.js'
+import PdfDetallePagosClientes from './Pages/Clientes/pdfDetallePagos.jsx';
+import PdfDetallePagosProveedores from './Pages/Proveedores/pdfDetallePagos.jsx';
+import PdfDetallePagosFrigorifico from './Pages/Faenas/pdfDetallePagos.jsx';
+import PdfDetallePagoPorIdFrigorifico from './Pages/Faenas/pdfDetallePagoPorIdFrigorifico.jsx';
+import PdfDetallePagoPorIdCliente from './Pages/Clientes/pdfDetallePagoPorId.jsx';
+import PdfDetallePagoAchurasPorIdCliente from './Pages/Clientes/pdfDetallePagoAchurasPorId.jsx';
+import PdfDetallePagoPorIdProveedor from './Pages/Proveedores/pdfDetallePagoPorId.jsx';
+import Alertas from './Pages/Alertas/Alertas.jsx'
 import './App.css';
 
 
@@ -77,6 +85,8 @@ function App() {
       <Route exact path="/Faenas/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
       <Route exact path="/Faenas/editarRes/:tropa" element={state_login?<Form_Editar_Res />:<NoAccess/>} />
       <Route exact path="/FormFaena" element={state_login?<Form_Faena />:<NoAccess/>} />
+      <Route exact path="/Faenas/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosFrigorifico/>:<NoAccess/>}/>
+      <Route exact path="/Faenas/DetallePagos/:nombre/:id/pdf" element=<PdfDetallePagoPorIdFrigorifico/>/>
 
     <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
       <Route exact path="/Compras/:id" element={state_login?<Detalle_Compra />:<NoAccess/>} />
@@ -101,13 +111,19 @@ function App() {
       <Route exact path="/Clientes/FormPagoVC/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
       <Route exact path="/Clientes/FormPagoVAch/:id" element={state_login?<Form_Pago_Venta_Achuras />:<NoAccess/>} />
       <Route exact path="/Clientes/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Clientes />:<NoAccess/>} />
+      <Route exact path="/Clientes/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosClientes />:<NoAccess/>} />
+      <Route exact path="/Clientes/DetallePagos/:nombre/:id/pdf" element=<PdfDetallePagoPorIdCliente/>/>
+      <Route exact path="/Clientes/DetallePagosAchuras/:nombre/:id/pdf" element=<PdfDetallePagoAchurasPorIdCliente/>/>
+      
 
     <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />
       <Route exact path="/Proveedores/:id" element={state_login?<Detalle_Proveedor />:<NoAccess/>} />
       <Route exact path="/Proveedores/Form/:id" element={state_login?<Form_Proveedor />:<NoAccess/>} />
       <Route exact path="/Proveedores/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Proveedor />:<NoAccess/>} />
       <Route exact path="/Proveedores/HistorialCompras/:name" element={state_login?<Historial_Compras_Proveedor />:<NoAccess/>} />
-      <Route exact path="/Proveedores/FormPago/:id" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />
+      <Route exact path="/Proveedores/FormPago/:id" element={state_login?<Form_Pago_Compra />:<NoAccess/>} />      
+      <Route exact path="/Proveedores/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosProveedores />:<NoAccess/>} />
+      <Route exact path="/Proveedores/DetallePagos/:nombre/:id/pdf" element={state_login?<PdfDetallePagoPorIdProveedor />:<NoAccess/>} />
 
     <Route exact path="/Stock" element={state_login?<Stock />:<NoAccess/>} />
       <Route exact path="/Stock/DetalleTropa/:index" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
@@ -120,7 +136,13 @@ function App() {
     
     <Route exact path="/Balance" element={state_login?<Balance/>:<NoAccess/>} />
 
+    <Route exact path="/Alertas" element={state_login?<Alertas/>:<NoAccess/>} />
+
     <Route exact path="/Reestablecer_Login" element={<Reestablecer_Login />} />
+
+    <Route exact path="/pdf1" element={<PdfDetallePagosClientes />} />
+
+    
 
     </Routes>
   

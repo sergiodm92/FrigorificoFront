@@ -6,12 +6,20 @@ import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from "../../Components/Navbar/Navbar";
 import { postNewPagoExtra, setAlert } from "../../Redux/Actions/Actions";
 import style from "./caja.module.scss";
+import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 const formPE = {
-    fecha: '',
+    fecha: new Date().toLocaleDateString(),
     concepto:'',
     monto: 0,
     formaDePago:'',
+    img_comp:''
 };
 
 const formasDePago=["Efectivo", "Transferencia"]
@@ -19,8 +27,6 @@ const formasDePago=["Efectivo", "Transferencia"]
 //validaciones
 export const validate = (pago) => {
     let error = {};
-    if (!pago.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     if (!pago.formaDePago) error.forma_pago = "Falta forma de pago";
@@ -29,11 +35,12 @@ export const validate = (pago) => {
 
 
 export default function FormExtraccion(){
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const alert_msj= useSelector ((state)=>state.alert_msj);
+    const urlImg= useSelector ((state)=>state.urlImg);
 
     useEffect(() => {
         if(alert_msj!==""){
@@ -61,14 +68,22 @@ export default function FormExtraccion(){
             [e.target.name]: e.target.value,
         });
     };
+    //carga de calendario
+    const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
+        });
+    };
         
     const handleSubmit = (e) => {
         e.preventDefault()
         if(
-            !error.fecha && form.fecha &&
             !error.formaDePago && form.formaDePago &&
             !error.monto && form.monto
         ){
+            form.fecha=form.fecha.toLocaleDateString('es').replaceAll("/", "-")
+            form.img_comp = urlImg
             dispatch(postNewPagoExtra(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPE);
@@ -89,7 +104,14 @@ export default function FormExtraccion(){
             formaDePago:  e.target.value
         })
     }
-
+    //tema del calendario
+    const outerTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#640909'
+            },
+        },
+        });
     return(
         <div className={style.wallpaper}>
             <NavBar
@@ -97,19 +119,23 @@ export default function FormExtraccion(){
             />
             <div className={style.formContainer}>
             <form className={style.form}>
-                <div className={style.formItem}>
+                <div className={style.formItemDate}>
                     <h5 className={style.title}>Fecha: </h5>
-                    <input
-                        type="text"
-                        value={form.fecha}
-                        id="fecha"
-                        name="fecha"
-                        onChange={handleChange}
-                        placeholder="00-00-0000"
-                        className={error.fecha & 'danger'}
-                    />
+                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
+                            value={form.fecha}
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                 </div>
-                <p className={error.fecha ? style.danger : style.pass}>{error.fecha}</p>
+                <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
                 <div className={style.formItem}>
                     <h5 className={style.title}>Concepto: </h5>
                     <input
@@ -124,7 +150,7 @@ export default function FormExtraccion(){
                     <h5 className={style.title}>Monto: </h5>
                         <input
                             type="number"
-                            value={form.monto}
+                            value={form.monto?form.monto:''}
                             id="monto"
                             name="monto"
                             onChange={handleChange}
@@ -143,15 +169,18 @@ export default function FormExtraccion(){
                                     ))
                             }
                         </select>
-                    </div>                 
+                    </div>
+                    <div className={style.formItemInput} >
+                            <SubirImagen/>
+                            <h5 className={style.title}>Agregar Comprobante</h5>
+                    </div>
+                    {urlImg?
+                    <div className={style.img}>
+                        <img src={urlImg?urlImg:"https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} className={style.img}/>
+                    </div>  
+                    :null
+                    }                                             
                     <div className={style.divButtons}>
-                        <div>
-                            <ShortButton
-                                title="Agregar Comprobante"
-                                // onClick={handleCreate}
-                                color="primary"
-                            />
-                        </div>
                         <div>
                             <ShortButton
                                 title="✔ Confirmar"

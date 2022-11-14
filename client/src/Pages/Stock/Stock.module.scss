@@ -29,7 +29,12 @@
         align-items: center;
     }
 }
-
+.buttonEdit{
+    display: flex;
+    position: relative;
+    margin-left: 365px;
+    margin-bottom: -10px;
+}
 
 .contTable{
     max-width: 500px;

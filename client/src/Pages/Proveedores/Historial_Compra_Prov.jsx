@@ -24,6 +24,8 @@ export default function Historial_Compras_Proveedor(){
             />
             <div>
                 <div className={stylePr.title}>
+                    <div><b>ID</b></div>
+                    <div><b>|</b></div>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
                     <div><b>Cliente</b></div>

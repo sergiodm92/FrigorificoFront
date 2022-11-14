@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import React, { useEffect } from "react"
+import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { deletePagoVentaAchurasById, deletePagoVentaById, getClienteByName, getPagosVentaAchurasByCliente, getPagosVentasByCliente, getVentasAchurasByCliente, getVentasByCliente, putSaldoVenta, putSaldoVentaAchuras } from "../../Redux/Actions/Actions"
 import style from './Detalle_Pagos.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 
 export default function Detalle_Pagos_Clientes() {
     
     const dispatch = useDispatch()
     const {nombre}=useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getPagosVentasByCliente(nombre))
         dispatch(getPagosVentaAchurasByCliente(nombre))
-        dispatch(getClienteByName(nombre))
         dispatch(getVentasByCliente(nombre))
         dispatch(getVentasAchurasByCliente(nombre))
     }, [dispatch])
 
     const pagos = useSelector((state)=>state.pagosByCliente)
     const pagosAchuras = useSelector((state)=>state.pagosAchurasByCliente)
-    const cliente = useSelector((state)=>state.clienteByNombre)
     const ventas = useSelector((state)=>state.AllVentasByCliente)
     const ventasAc = useSelector((state)=>state.AllVentasAchurasByCliente)
 
@@ -72,7 +72,10 @@ export default function Detalle_Pagos_Clientes() {
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
-
+                        dispatch(getPagosVentasByCliente(nombre))
+                        dispatch(getPagosVentaAchurasByCliente(nombre))
+                        dispatch(getVentasByCliente(nombre))
+                        dispatch(getVentasAchurasByCliente(nombre))
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");
@@ -90,40 +93,56 @@ export default function Detalle_Pagos_Clientes() {
             <NavBar
                 title={`Pagos de ${nombre}`}
             />
-            <div className={style.tablefaena}>
-                <table className="table">
-                    <tbody>
-                        <tr className="table-dark">
-                            <td>ID</td> 
-                            <td>Fecha</td>  
-                            <td>Forma de Pago</td>
-                            <td>Monto</td>
-                            <td>Eliminar</td>
-                        </tr>
-                        {pagosT.map((e,i) => {
-                            return(
-                                <tr key={i} className={"table-primary"}> 
-                                    <td>{e.cliente?e.ventaID+"-V":e.ventaID+"-VAch"}</td> 
-                                    <td>{e.fecha}</td> 
-                                    <td>{e.formaDePago}</td>
-                                    <td align="center">{
-                                        monto = currencyFormatter({
-                                        currency: "USD",
-                                        value : e.monto
-                                        })
-                                    }</td>
-                                    <td>
-                                    <ButtonNew
-                                        style={"delete"}
-                                        icon={"delete"}
-                                        onClick={() => {deletePago(e.id, e.ventaID, e.monto, e.cliente?e.cliente:false)}}
-                                    /></td>
-                                </tr>
-                            )
-                        })} 
-                    </tbody>
-                </table>
-            </div>            
+            {pagosT.length>0?
+            <div>
+                <div className={style.tablefaena}>
+                    <table className="table">
+                        <tbody>
+                            <tr className="table-dark" align="center">
+                                <td>ID</td>
+                                <td>ID-V</td>  
+                                <td>Fecha</td>  
+                                <td>Forma de Pago</td>
+                                <td>Monto</td>                            
+                                <td>Comprobante</td>
+                                <td>Recibo</td>
+                                <td>Eliminar</td>
+                            </tr>
+                            {pagosT.map((e,i) => {
+                                return(
+                                    <tr key={i} className={"table-primary"} align="center"> 
+                                        <td >{e.id}</td> 
+                                        <td >{e.cliente?e.ventaID+"-V":e.ventaID+"-VAch"}</td> 
+                                        <td>{(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td> 
+                                        <td>{e.formaDePago}</td>
+                                        <td>{
+                                            monto = currencyFormatter({
+                                            currency: "USD",
+                                            value : e.monto
+                                            })
+                                        }</td>
+                                        <td >{e.img_comp?<a href={e.img_comp}>Link</a>:<p>-</p>}</td>
+                                        <td >{e.cliente?<a href={`/Clientes/DetallePagos/${nombre}/${e.id}/pdf`}>PDF</a>:<a href={`/Clientes/DetallePagosAchuras/${nombre}/${e.id}/pdf`}>PDF</a>}</td>
+                                        <td>
+                                        <ButtonNew
+                                            style={"delete"}
+                                            icon={"delete"}
+                                            onClick={() => {deletePago(e.id, e.ventaID, e.monto, e.cliente?e.cliente:false)}}
+                                        /></td>                                    
+                                    </tr>
+                                )
+                            })} 
+                        </tbody>
+                    </table>
+                </div>
+                <div className={style.buttonLarge}>
+                    <LargeButton
+                        title={"Generar PDF"}
+                        onClick={()=>navigate(`/Clientes/DetallePagos/${nombre}/pdf`)}
+                    ></LargeButton>
+                </div>
+            </div>
+            :<div><h4 className={style.text}>No existen pagos de éste Cliente</h4></div>}           
         </div>            
     )
 }

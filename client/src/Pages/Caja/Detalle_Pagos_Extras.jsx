@@ -75,6 +75,7 @@ export default function Detalle_Pagos_Extras() {
                             <td>Forma de Pago</td>
                             <td>Monto</td>
                             <td>Eliminar</td>
+                            <td>Comprobante</td>
                         </tr>
                         {pagos.map((e,i) => {
                             return(
@@ -94,6 +95,7 @@ export default function Detalle_Pagos_Extras() {
                                         icon={"delete"}
                                         onClick={() => {deletePago(e.id)}}
                                     /></td>
+                                    <td ><a href={e.img_comp}>Link</a></td>
                                 </tr>
                             )
                         })} 

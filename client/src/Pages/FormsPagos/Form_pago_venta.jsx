@@ -3,18 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-
 import NavBar from '../../Components/Navbar/Navbar'
-import { deleteCompraById, getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlert } from "../../Redux/Actions/Actions";
-
+import { getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlert, setimgurl } from "../../Redux/Actions/Actions";
 import stylePagoV from './Form_pago.module.scss';
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
 
 const formPV = {
-    fecha: '',
+    fecha: new Date().toLocaleDateString(),
     monto: 0,
     formaDePago:'',
     ventaID:0,
-    cliente:''
+    cliente:'',
+    img_comp:''
 };
 
 const formasDePago=["Efectivo", "Transferencia"]
@@ -23,8 +29,6 @@ const formasDePago=["Efectivo", "Transferencia"]
 export const validate = (pago) => {
     let error = {};
     if (!pago.formaDePago) error.formaDePago = "Falta forma de pago";
-    if (!pago.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     return error;
@@ -47,7 +51,7 @@ const Form_Pago_Venta = () => {
     useEffect(() => {
         dispatch(getClienteByName(venta.cliente))
     }, [venta])
-    const cliente = useSelector((state)=>state.clienteByNombre)
+    const urlImg= useSelector ((state)=>state.urlImg);
 
     useEffect(() => {
         if(alert_msj!==""){
@@ -57,6 +61,7 @@ const Form_Pago_Venta = () => {
                 button: "ok",
             })}
             dispatch(setAlert())
+            dispatch(getVentaByID(id))
     }, [alert_msj])
 
     const [form, setForm] = useState(formPV);
@@ -75,23 +80,38 @@ const Form_Pago_Venta = () => {
         [e.target.name]: e.target.value,
         });
     };
+       //carga de calendario
+       const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
+        });
+    };
+
+    //tema del calendario
+    const outerTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#640909'
+            },
+        },
+        });
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if(
-        !error.fecha && form.fecha &&
         !error.monto && form.monto
         ){
             form.cliente=venta.cliente
             form.ventaID=id
-            let saldo1= cliente.saldo - form.monto
+            form.fecha=form.fecha.getTime()
+            form.img_comp = urlImg
             let saldo2= venta.saldo - form.monto
-            console.log(saldo1, saldo2)
-            dispatch(putSaldoCliente(cliente.id, saldo1))
             dispatch(putSaldoVenta(id, saldo2))
             dispatch(postNewPagoVenta(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPV);
+            dispatch(setimgurl())
         }
         else {
             swal({
@@ -145,19 +165,23 @@ const Form_Pago_Venta = () => {
                     </div>
                 </div>
                 <form className={stylePagoV.form}>
-                    <div className={stylePagoV.formItem}>
-                        <h5 className={stylePagoV.title}>Fecha: </h5>
-                        <input
-                            type="text"
+                    <div className={stylePagoV.formItemDate}>
+                        <h5 className={stylePagoV.titleDate}>Fecha: </h5>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
                             value={form.fecha}
-                            id="fecha"
-                            name="fecha"
-                            onChange={handleChange}
-                            placeholder="00-00-0000"
-                            className={error.fecha & 'danger'}
-                        />
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                     </div>
-                    <p className={error.fecha ? stylePagoV.danger : stylePagoV.pass}>{error.fecha}</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? stylePagoV.pass : stylePagoV.danger }>Debe ingresar la fecha</p>
                     <div className={stylePagoV.formItem}>
                         <h5 className={stylePagoV.title}>Monto: </h5>
                         <input
@@ -182,13 +206,18 @@ const Form_Pago_Venta = () => {
                             }
                         </select>
                     </div>  
-                    <p className={error.forma_pago ? stylePagoV.danger : stylePagoV.pass}>{error.forma_pago}</p>                    
+                    <p className={error.forma_pago ? stylePagoV.danger : stylePagoV.pass}>{error.forma_pago}</p>  
+                    <div className={stylePagoV.formItemInput} >
+                            <SubirImagen/>
+                            <h5 className={stylePagoV.title}>Agregar Comprobante</h5>
+                    </div>
+                    {urlImg?
+                    <div className={stylePagoV.img}>
+                        <img src={urlImg?urlImg:"https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} className={stylePagoV.img}/>
+                    </div>  
+                    :null
+                    }                   
                     <div className={stylePagoV.buttons}>
-                        <ShortButton
-                            title="Agregar Comprobante"
-                            onClick={handleCreate}
-                            color="primary"
-                        />
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

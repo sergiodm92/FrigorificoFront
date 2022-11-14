@@ -20,11 +20,13 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon
         currency: "USD",
         value : monto
         })
-
+    let fechaFormat = (new Date(fecha*1)).toLocaleDateString('es').replaceAll("/", "-")
     return (
         <div>
             <div className={styleCL.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-                <div className={styleCL.items}><p>{fecha}</p></div>
+                <div className={styleCL.items}><p>{id}</p></div>
+                <div className={styleCL.items}><p>|</p></div>
+                <div className={styleCL.items}><p>{fechaFormat}</p></div>
                 <div className={styleCL.items}><p>|</p></div>
                 <div className={styleCL.items}><p>{para}</p></div>
                 <div className={styleCL.items}><p>|</p></div>

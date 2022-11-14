@@ -28,27 +28,27 @@ export default function Stock(){
             total_kg[3]+=a.kg;
             if(a.categoria==="Vaquillona"){
                 if(a.correlativo.includes("D")) vaq[2]++
-                if(a.correlativo.includes("T")) vaq[3]++
+                else if(a.correlativo.includes("T")) vaq[3]++
                 else vaq[1]++
             }
             if(a.categoria==="Vaca"){
                 if(a.correlativo.includes("D")) vaca[2]++
-                if(a.correlativo.includes("T")) vaca[3]++
+                else if(a.correlativo.includes("T")) vaca[3]++
                 else vaca[1]++
             }
             if(a.categoria==="Novillito"){
                 if(a.correlativo.includes("D")) nov[2]++
-                if(a.correlativo.includes("T")) nov[3]++
+                else if(a.correlativo.includes("T")) nov[3]++
                 else nov[1]++
             }
             if(a.categoria==="Toro"){
                 if(a.correlativo.includes("D")) toro[2]++
-                if(a.correlativo.includes("T")) toro[3]++
+                else if(a.correlativo.includes("T")) toro[3]++
                 else toro[1]++
             }
             if(a.categoria==="Novillo Pesado"){
                 if(a.correlativo.includes("D")) toro[2]++
-                if(a.correlativo.includes("T")) toro[3]++
+                else if(a.correlativo.includes("T")) toro[3]++
                 else Novp[1]++
             }
         })

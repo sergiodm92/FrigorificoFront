@@ -3,16 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlert} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getGruposByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlert} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormC from './Form_Compra.module.scss';
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import CardGrupos from "../../Components/Cards/CardGrupos/CardGrupos.jsx"
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 
 let formC = {
     proveedor: '',//
-    fecha: '',//
+    fecha: new Date().toLocaleDateString(),//
     lugar: '',//
     n_dte: '',//
     kgv_brutos_totales:0,//
@@ -62,8 +68,6 @@ let n=0
 export const validate = (compra) => {
     let error = {};
     if (!compra.proveedor) error.proveedor = "Falta proveedor";
-    if (!compra.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(compra.fecha)) error.fecha = "Fecha incorrecta";
     if (!compra.n_dte) error.n_dte = "Falta N° DTE";
     if (!compra.categoria) error.categoria = "Falta categoria";
     if (!compra.cant) error.cant = "Falta cant";
@@ -90,6 +94,7 @@ const Form_Compra = () => {
     let proveedores = useSelector((state)=>state.AllProveedores);
     let faenas = useSelector((state)=>state.AllFaenas)
     let faenasDisp = faenas.filter(a=>a.estado_compra!==true)
+    
 
 
     useEffect(() => {
@@ -98,6 +103,8 @@ const Form_Compra = () => {
         dispatch(getAllReses())
     }, [dispatch])
     
+  
+
     useEffect(() => {
         if(alert_msj!==""){
             swal({
@@ -117,7 +124,13 @@ const Form_Compra = () => {
     const [formGCT, setFormCGT] = useState(FormGCT);
     const [error2, setError2] = useState({});
     const [Switch_Comision, setSwitch_comision] = useState(false);
+    const [tropa, settropa] = useState(0);
 
+    useEffect(() => {
+        if(tropa!==0)dispatch(getGruposByTropa(tropa))
+    }, [tropa])
+    let grupos = useSelector((state)=>state.grupos)
+    console.log(grupos)
 
     useEffect(() => {
 
@@ -187,7 +200,13 @@ const Form_Compra = () => {
             console.log(err)
         }
     }
-
+    //carga de calendario
+    const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -223,6 +242,7 @@ const Form_Compra = () => {
                 a.costo_kg = a.costo_total/(a.kg_carne*1)
             })
             form.saldo = form.costo_total_hac
+            form.fecha=form.fecha.getTime()
             form.grupos.map((e)=>
                 setTimeout(()=>{
                     dispatch(putReses(e.costo_kg, e.n_tropa, e.categoria))
@@ -255,6 +275,7 @@ const Form_Compra = () => {
             ...formGCT,
             n_tropa:  e.target.value
         })
+        settropa(e.target.value)
     }
 
     function handleSelectPr(e) {
@@ -277,7 +298,15 @@ const Form_Compra = () => {
         if(Switch_Comision==false)setSwitch_comision(true)
         else if(Switch_Comision==true)setSwitch_comision(false);
     }
-//input
+//tema del calendario
+const outerTheme = createTheme({
+    palette: {
+        primary: {
+            main: '#640909'
+        },
+    },
+    });
+
     return (
         <div className={styleFormC.wallpaper}>
             <NavBar
@@ -296,19 +325,23 @@ const Form_Compra = () => {
                             }
                         </select>
                     </div>
-                    <div className={styleFormC.formItem}>
+                    <div className={styleFormC.formItemDate}>
                         <h5 className={styleFormC.title}>Fecha: </h5>
-                        <input
-                            type="text"
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
                             value={form.fecha}
-                            id="fecha"
-                            name="fecha"
-                            onChange={handleChange}
-                            placeholder="00-00-0000"
-                            className={error.fecha & 'danger'}
-                        />
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                     </div>
-                    <p className={error.fecha ? styleFormC.danger : styleFormC.pass}>{error.fecha}</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormC.pass : styleFormC.danger }>Debe ingresar la fecha</p>
                     <div className={styleFormC.formItem}>
                         <h5 className={styleFormC.title}>Lugar: </h5>
                         <input
@@ -391,6 +424,35 @@ const Form_Compra = () => {
                         </div>
                     </div>
                     <p className={error.costo_veps_unit ? styleFormC.danger : styleFormC.pass}>{error.costo_veps_unit}</p>
+                    
+                        {tropa!==0 && grupos!==[]?
+                            <div className={styleFormC.cardGrupo2}>
+                            <table className="table">
+                            <thead>
+                            <tr className="table-warning">
+                                    <td>Categoria</td>
+                                    <td>Cantidad</td>
+                                    <td>kg</td>
+                                    <td>kgB</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {grupos?.map(a=>
+                                a.cant!==0?
+                                <tr>
+                                    <td>{a.categoria}</td>
+                                    <td>{a.cant}</td>
+                                    <td>{a.kg}</td> 
+                                    <td>{(a.kg/0.59).toFixed(2)}</td> 
+                                </tr>
+                                :null
+                                )}
+                                </tbody>
+                            </table>
+                            </div>
+                            :null
+                        }
                     <div className={styleFormC.cardGrupo}>
                         <div className={styleFormC.formItem}>
                             <h5 className={styleFormC.title}>N° Tropa: </h5>

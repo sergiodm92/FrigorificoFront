@@ -1,0 +1,52 @@
+.cont{
+    display: flex;
+    position: relative;
+    border-color: black;
+    justify-content: center;
+    align-items: center;
+    width: 550px;
+    height: 50px;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+    border-width: 3px;
+    margin: 10px;
+    padding: 0;
+    gap: 20px;
+}
+.cont:hover{
+    background-color: rgb(160, 160, 160);
+}
+.items{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+}
+.button_pago{
+    display: flex;
+    position: relative;
+    margin-top: -22px;
+    margin-left: 500px;
+    cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+    .cont{
+        width: 350px;
+        height: 50px;
+        margin: 10px;
+        padding: 0;
+        gap: 12px;
+    }
+    .items{
+        font-size: 12px;
+    }
+    .button_pago{
+        margin-top: -22px;
+        margin-left: 320px;
+    }
+}

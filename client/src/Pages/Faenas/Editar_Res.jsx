@@ -58,8 +58,8 @@ const Form_Editar_Res = () => {
         ){
             dispatch(putkgRes(form))
         swal({
-            title: "Nuevo Cliente",
-            text: "Cargado correctamente",
+            title: "Res modificada con éxito",
+            text: "kg cargados correctamente",
             icon: "success",
             button: "ok",
         })

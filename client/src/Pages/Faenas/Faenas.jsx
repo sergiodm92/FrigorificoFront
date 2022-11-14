@@ -20,17 +20,6 @@ export default function Faenas(){
 
     const navigate = useNavigate();
 
-    function currencyFormatter({ currency, value}) {
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            minimumFractionDigits: 2,
-            currency
-        }) 
-        return formatter.format(value)
-        }
-    
-        let saldoEstenPesos
-
     return(
         <div className={styleF.ConteinerFaenas}>
             <NavBar
@@ -52,10 +41,6 @@ export default function Faenas(){
                 </div>
                 <div className={styleF.cardsCont}>
                     {faenasPendientes.map((a,i)=>{
-                        saldoEstenPesos = currencyFormatter({
-                            currency: "USD",
-                            value : a.saldo
-                        })
                         return(
                             <CardSmallFaenas
                                 id={a.id}
@@ -63,7 +48,7 @@ export default function Faenas(){
                                 fecha={a.fecha}
                                 frigorifico={a.frigorifico}
                                 tropa={a.tropa}
-                                saldo={saldoEstenPesos}
+                                saldo={a.saldo}
                                 tipo={"Faenas"}
                                 pago={true}
                                 bstyle={"new"}

@@ -4,16 +4,24 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import {getComrpaByID, getProveedorByName, postNewPagoCompra, putSaldoCompra, setAlert } from "../../Redux/Actions/Actions";
-
+import {getComrpaByID, getPagosComprasByProveedor, getProveedorByName, postNewPagoCompra, putSaldoCompra, setAlert, setimgurl } from "../../Redux/Actions/Actions";
 import stylePagoC from './Form_pago.module.scss';
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
+import emailjs from 'emailjs-com';
 
 const formPC = {
-    fecha: '',
+    fecha: new Date().toLocaleDateString(),
     monto: 0,
     formaDePago:'',
     compraID: 0,
-    proveedor:''
+    proveedor:'',
+    img_comp: ''
 };
 
 const formasDePago=["Efectivo", "Transferencia"]
@@ -21,8 +29,6 @@ const formasDePago=["Efectivo", "Transferencia"]
 //validaciones
 export const validate = (pago) => {
     let error = {};
-    if (!pago.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     if (!pago.formaDePago) error.forma_pago = "Falta forma de pago";
@@ -42,11 +48,30 @@ const Form_Pago_Compra = () => {
 
     const compra = useSelector((state)=>state.CompraByID);
     const alert_msj= useSelector ((state)=>state.alert_msj);
+    const urlImg= useSelector ((state)=>state.urlImg);
 
     useEffect(() => {
         dispatch(getProveedorByName(compra.proveedor))
+        
     }, [compra])
+
     const proveedor = useSelector((state)=>state.provByNombre)
+    
+    useEffect(() => {
+        dispatch(getPagosComprasByProveedor(compra.proveedor))
+        
+    }, [proveedor])
+
+    let pagosByProveedor = useSelector((state)=>state.pagosByProveedor)
+    
+
+    useEffect(() => {
+        if(pagosByProveedor.length)sendEmail()
+    }, [pagosByProveedor])
+
+    function sendEmail(){
+        emailjs.send('service_v8vwdu3','template_yl0tmhx',{email: proveedor.email, mensaje:`http://localhost:3000/Proveedores/DetallePagos/${compra.proveedor}/${pagosByProveedor.pop().id}/pdf`},'zJ0448SnBXmFVCo12')
+    }
 
     useEffect(() => {
         if(alert_msj!==""){
@@ -55,6 +80,7 @@ const Form_Pago_Compra = () => {
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
+            dispatch(getComrpaByID(id))
             dispatch(setAlert())
     }, [alert_msj])
 
@@ -74,21 +100,31 @@ const Form_Pago_Compra = () => {
         [e.target.name]: e.target.value,
         });
     };
+    //carga de calendario
+    const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if(
-        !error.fecha && form.fecha &&
         !error.formaDePago && form.formaDePago &&
         !error.monto && form.monto
         ){
         form.proveedor=compra.proveedor
         form.compraID=id
+        form.fecha=form.fecha.getTime()
+        form.img_comp = urlImg
         let saldo= compra.saldo - form.monto
         dispatch(putSaldoCompra(id, saldo))
         dispatch(postNewPagoCompra(form))
+        dispatch(getPagosComprasByProveedor(compra.proveedor))
         document.getElementById("formaDePago").selectedIndex = 0
         setForm(formPC);
+        dispatch(setimgurl())
         }
         else {
             swal({
@@ -124,7 +160,14 @@ const Form_Pago_Compra = () => {
         currency: "USD",
         value : compra.saldo
         })
-
+    //tema del calendario
+    const outerTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#640909'
+            },
+        },
+        });
     return (
         <div className={stylePagoC.wallpaper}>
             <NavBar
@@ -142,19 +185,23 @@ const Form_Pago_Compra = () => {
                     </div>
                 </div>
                 <form className={stylePagoC.form}>
-                    <div className={stylePagoC.formItem}>
-                        <h5 className={stylePagoC.title}>Fecha: </h5>
-                        <input
-                            type="text"
+                    <div className={stylePagoC.formItemDate}>
+                        <h5 className={stylePagoC.titleDate}>Fecha: </h5>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
                             value={form.fecha}
-                            id="fecha"
-                            name="fecha"
-                            onChange={handleChange}
-                            placeholder="00-00-0000"
-                            className={error.fecha & 'danger'}
-                        />
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                     </div>
-                    <p className={error.fecha ? stylePagoC.danger : stylePagoC.pass}>{error.fecha}</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? stylePagoC.pass : stylePagoC.danger }>Debe ingresar la fecha</p>
                     <div className={stylePagoC.formItem}>
                         <h5 className={stylePagoC.title}>Monto: </h5>
                         <input
@@ -178,13 +225,18 @@ const Form_Pago_Compra = () => {
                                     ))
                             }
                         </select>
-                    </div>                 
+                    </div>
+                    <div className={stylePagoC.formItemInput} >
+                            <SubirImagen/>
+                            <h5 className={stylePagoC.title}>Agregar Comprobante</h5>
+                    </div>
+                    {urlImg?
+                    <div className={stylePagoC.img}>
+                        <img src={urlImg?urlImg:"https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} className={stylePagoC.img}/>
+                    </div>  
+                    :null
+                    }  
                     <div className={stylePagoC.buttons}>
-                        <ShortButton
-                            title="Agregar Comprobante"
-                            onClick={handleCreate}
-                            color="primary"
-                        />
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

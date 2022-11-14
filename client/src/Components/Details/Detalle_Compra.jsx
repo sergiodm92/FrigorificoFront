@@ -72,7 +72,7 @@ export default function TableCompra({id_c}){
                if(key!=="saldo" && key!=="grupos")array.push({key,value})
 
         }
-
+     
         return(
                 <div className={tableComprasStyle.conteiner}>
                         <table className="table">
@@ -82,7 +82,7 @@ export default function TableCompra({id_c}){
                                 <tr key={i} className={"table-warning"}>
                                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
                                         
-                                        <td  className={tableComprasStyle.tdr}>{e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit" && e.key!=="costo_veps_total"  && 
+                                        <td  className={tableComprasStyle.tdr}>{e.key=="fecha"?(new Date(e.value*1)).toLocaleDateString('es').replaceAll("/", "-"):e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit" && e.key!=="costo_veps_total"  && 
                                                 e.key!=="id" && e.key!=="precio_venta_achuras_unit" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_total_hac"?costohenpesos:e.key=="costo_flete"?
                                                 costofleteenpesos:e.key=="costo_veps_unit"?costovepsenpesos:e.key=="costo_veps_total"?costovepstotalenpesos:e.key=="precio_venta_achuras_unit"?precioachuraspesos:e.value}</td>            
                                 </tr>
@@ -93,9 +93,9 @@ export default function TableCompra({id_c}){
                                         <td className="table-dark"></td>
                                 </tr>
                                 
-                                {AllPagosbyCompra.map((e)=>
-                                        <tr>
-                                                <td>{e.fecha}</td>
+                                {AllPagosbyCompra.map((e,i)=>
+                                        <tr key={i}>
+                                                <td>{(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
                                                 <td>{pagos1 = currencyFormatter({
                         currency: "USD",
                         value : e.monto
@@ -107,25 +107,6 @@ export default function TableCompra({id_c}){
                             <td>{saldoEnPesos}</td>
                     </tr>
 
-                    {/* <tr>
-                            <td class="table-dark">Pagos Faena</td>
-                            <td class="table-dark"></td>
-
-                    </tr> */}
-                    {/* {AllPagosbyFaena.length>0?AllPagosbyFaena.map((e)=>
-                    <tr>
-                            <td>{e.fecha}</td>
-                            <td>{pagos2 = currencyFormatter({
-                        currency: "USD",
-                        value : e.monto
-                                })}</td>
-                    </tr>
-                    ):<td></td>} */}
-                    {/* <tr>
-                            <td>Saldo</td>
-                            <td>{pagofaenanpesos}</td>
-                    </tr> */}
-                    
             </tbody>
         </table>
 

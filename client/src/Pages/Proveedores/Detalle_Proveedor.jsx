@@ -8,24 +8,41 @@ import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
-import { deleteProveedorById, getAllComrpas, getAllProveedores, getProveedorByID } from "../../Redux/Actions/Actions";
+import { deleteProveedorById, getAllComrpas, getAllComrpasByProveedor, getAllProveedores, getPagosComprasByProveedor, getProveedorByID } from "../../Redux/Actions/Actions";
 
 export default function Detalle_Proveedor(){
-    const dispatch = useDispatch()
-    const ProveedorById = useSelector((state)=>(state.ProveedorById))
-    const AllCompras = useSelector((state)=>(state.AllCompras))
-    const {id}=useParams()
-    const ComprasPendientes = AllCompras.filter((a)=>a.proveedor===ProveedorById.nombre)
-    
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {id}=useParams();
+
     useEffect(() => {
         dispatch(getProveedorByID(id))
-        dispatch(getAllComrpas())
     }, [dispatch])
+    
+    const ProveedorById = useSelector((state)=>(state.ProveedorById))
+    
+    useEffect(() => {
+        dispatch(getAllComrpasByProveedor(ProveedorById.nombre))
+    }, [ProveedorById])
+    
+    const AllComprasByProveedor = useSelector((state)=>state.AllComprasByProveedor)
+    const ComprasPendientes = AllComprasByProveedor.filter((a)=>a.saldo>0)
+    
+    
+    
 
     const deleteProveedor = ()=>{
-        swal({
+        if(AllComprasByProveedor.length>0){
+            swal({
+                title: "¡Error! No puede eliminar proveedores con compras",
+                text: "Primero debe eliminar las compras de su proveedor",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+        }
+        else swal({
             title: "Está seguro que desea eliminar a "+ ProveedorById.nombre,
             text: "Una vez eliminado perdera todos sus datos 😰",
             icon: "warning",
@@ -83,8 +100,10 @@ export default function Detalle_Proveedor(){
                 />
                 </div>
                 <div className={stylePr.cont}>
-                    <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Pendientes</h1></div>
+                    <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Compras con Saldo pendiente</h1></div>
                     <div className={stylePr.title}>
+                        <div><b>ID</b></div>
+                        <div><b>|</b></div>
                         <div><b>Fecha</b></div>
                         <div><b>|</b></div>
                         <div><b>Proveedor</b></div>

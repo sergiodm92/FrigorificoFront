@@ -34,8 +34,8 @@ export default function Table_Det_Faena({id}){
             {array.map((e,i) => {
                     return(
                     <tr key={i} className={e.key.includes("Margen")?"table-secondary":"table-warning"}>
-                        <td>{e.key.includes("_")?(e.key.replaceAll("_"," ")):(e.key)}</td>
-                        <td className={tableVentaStyle.tdDF}>{e.key!=="costo_total" && e.key!=="saldo" && e.key!=="costo_faena_kg"? e.value :
+                        <td width={'120px'}>{e.key.includes("_")?(e.key.replaceAll("_"," ")):(e.key)}</td>
+                        <td className={tableVentaStyle.tdDF}>{e.key=="fecha"?(new Date(e.value*1)).toLocaleDateString('es').replaceAll("/", "-"):e.key!=="costo_total" && e.key!=="saldo" && e.key!=="costo_faena_kg" ? e.value :
                             currencyFormatter({
                                 currency: "USD",
                                 value : e.value

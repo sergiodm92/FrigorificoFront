@@ -4,6 +4,7 @@ import { getAllFaenas, getAllReses, getAllVentas, getAllVentasultimos30dias, get
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import Marca from "../../Components/Marca/Marca.jsx";
+import Graph from "../../Components/Graph/Graph.jsx";
 
 
 
@@ -135,10 +136,13 @@ const dispatch = useDispatch()
                         </tbody>
                     </table>
                 </div>
-
+                {/* <Graph
+                    className={styleBalance.Graph}
+                /> */}
             <div className={styleBalance.marca}>
                 <Marca/>
             </div>
+            
         </div>
     )
 }

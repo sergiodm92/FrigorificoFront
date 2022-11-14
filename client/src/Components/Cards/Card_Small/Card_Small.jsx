@@ -20,11 +20,12 @@ const CardSmall = ({ id, fecha, otro, monto, tipo, pago, bstyle, bicon, bonClick
         currency: "USD",
         value : monto
         })
-
+    let fechaFormat = (new Date(fecha*1)).toLocaleDateString('es').replaceAll("/", "-")
+    
     return (
         <div className={styleCS.totalCard}>
             <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-                <div className={styleCS.items}><p>{fecha}</p></div>
+                <div className={styleCS.items}><p>{fechaFormat}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{otro}</p></div>
                 <div className={styleCS.items}><p>|</p></div>

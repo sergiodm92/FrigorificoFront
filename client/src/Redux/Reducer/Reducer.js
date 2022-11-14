@@ -14,11 +14,14 @@ const initialState = {
     resesAct: '',
     kgReses:'',
     login_status:'',
+    urlImg: '',
+    alertRes:[],//------------------------------
     saldoprov:0,
     saldoCliente:0,
     saldoAllCompras:0,
     saldoAllVentas:0,
     saldoAllFaenas:0,
+    grupos: [],
     pagosByCliente:[],
     pagosAchurasByCliente:[],
     pagosByProveedor:[],
@@ -162,6 +165,16 @@ const rootReducer = (state = initialState, action) => {
             AllFaenas: action.payload[0],
             faenasPendientes: action.payload[1],
             }
+        case "URL_IMG":
+            return{
+            ...state,
+            urlImg: action.payload
+            }
+        case "GET_GRUPOS_BY_TROPA":
+            return{
+            ...state,
+            grupos: action.payload
+            }
         case "GET_PROVEEDORES":
             return{
                 ...state,
@@ -201,6 +214,11 @@ const rootReducer = (state = initialState, action) => {
             return{
                 ...state,
                 pagosByProveedor: action.payload,
+            }
+        case "GET_RESES_ALERT":
+            return{
+                ...state,
+                alertRes: action.payload,
             }
         case "GET_PAGOS_VENTAS_BY_ID":
             return{
