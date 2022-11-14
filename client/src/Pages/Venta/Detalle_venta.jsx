@@ -33,7 +33,16 @@ let pagos = useSelector((state)=>state.pagosByVentaID)
 
 
 const deleteVenta = ()=>{
-    swal({
+    if(pagos.length>0){
+        swal({
+            title: "¡Error! No puede eliminar ventas con pagos",
+            text: "Primero debe eliminar los pagos de la venta. ",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+    }
+    else swal({
         title: "Está seguro que desea eliminar la venta?",
         text: "Una vez eliminada perdera todos sus datos 😰",
         icon: "warning",

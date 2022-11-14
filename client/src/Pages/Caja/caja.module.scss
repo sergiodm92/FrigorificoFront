@@ -64,8 +64,38 @@
     font-style: initial;
     
 }
+.formItemUpload{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    padding-top: 33px;
+}
+.formItemDate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+    margin-left: 0;
+    padding: 18px;
+    color: black;
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    gap: 70px;
+}
 .title{
-    font-size: 16px;
+    font-size: large;
+    padding-top: 10px;
 }
 p.danger {
 	color: red;
@@ -128,3 +158,34 @@ select{
     gap: 10px;
 }
 
+.formItemInput{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: rgb(10, 3, 3);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+}
+
+.img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    max-height: 200px;
+    background-color: rgb(255, 207, 131);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: rgb(10, 3, 3);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+}

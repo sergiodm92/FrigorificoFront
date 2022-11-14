@@ -7,9 +7,7 @@ import {useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setlogin_state } from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
-
-
-
+import PrimarySearchAppBar from "../../Components/AppBar/AppBar";
 
 export default function Home(){
     const navigate= useNavigate()
@@ -33,11 +31,19 @@ export default function Home(){
                     }
                 });
     }
+    // useEffect(() => {
+    //     dispatch(getAlertRes())
+    // }, [dispatch]);
+    // const alertRes = useSelector((state)=>state.alertRes)
+
+
 
     return(
         <div className={styleH.wallpaper}>
+            <PrimarySearchAppBar className={styleH.appbar}/>
             <div className={styleH.block1BH}><div className={styleH.logo}></div></div>
             <div className={styleH.block2BH}>
+                
                 <DoubleButton title={"Faenas"} onClick1={()=> navigate("/Faenas")} onClick2={()=> navigate("/FormFaena")}/>
                 <DoubleButton title={"Compras"} onClick1={()=> navigate("/Compras")} onClick2={()=> navigate("/FormCompra")}/>
                 <DoubleButton title={"Ventas"} onClick1={()=> navigate("/Ventas")} onClick2={()=> navigate("/NuevaVenta")}/>
@@ -51,11 +57,3 @@ export default function Home(){
         </div>
     )
 }
-
-
-
-
-    
-
-
-

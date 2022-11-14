@@ -7,7 +7,7 @@ import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteCompraById, getComrpaByID, getFaenasByTropa, putEstadoCompraFaenaFalse } from "../../Redux/Actions/Actions"
+import { deleteCompraById, getComrpaByID, getFaenasByTropa, getPagosComprasByID, putEstadoCompraFaenaFalse } from "../../Redux/Actions/Actions"
 
 
 export default function Detalle_Compra(){
@@ -18,6 +18,7 @@ export default function Detalle_Compra(){
 
     useEffect(() => {
         dispatch(getComrpaByID(id))
+        dispatch(getPagosComprasByID(id))
     }, [dispatch])
 
     let compra = useSelector((state)=>state.CompraByID)
@@ -27,11 +28,21 @@ export default function Detalle_Compra(){
             arrTropas.push(a.n_tropa)
         })
     }
+    let AllPagosbyCompra = useSelector((state)=>state.AllPagosbyCompra)
     
     
 
     const deleteCompra = ()=>{
-        swal({
+        if(AllPagosbyCompra.length>0){
+            swal({
+                title: "¡Error! No puede eliminar compras con pagos",
+                text: "Primero debe eliminar los pagos de la compra. ",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+        }
+        else swal({
             title: "Está seguro que desea eliminar la compra",
             text: "Una vez eliminada perdera todos sus datos 😰",
             icon: "warning",

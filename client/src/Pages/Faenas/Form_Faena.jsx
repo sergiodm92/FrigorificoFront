@@ -8,17 +8,26 @@ import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar';
 import styleFormF from './Form_Faena.module.scss';
 import CardReses from "../../Components/Cards/CardReses/CardReses";
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+
+
+
+
 
 
 //Form Faena
 const formF = {
-    fecha: '',
+    fecha: new Date().toLocaleDateString(),
     frigorifico: '',
     tropa: '',
     proveedor: '',
     detalle:[],
     costo_faena_kg:0,
-    costoFaenakg:null,
     total_kg:0,
     total_medias:0,
     costo_total:0,
@@ -47,8 +56,7 @@ const categorias = ["Vaquillona", "Novillito", "Vaca", "Toro", "Novillo Pesado"]
 //validaciones form Faena
 export const validate = (faena) => {
     let error = {};
-    if (!faena.fecha) error.fecha = "Falta fecha";
-    if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(faena.fecha)) error.fecha = "Fecha incorrecta";
+    if (!faena.fecha) error.fecha = 'Falta seleccionar fecha';
     if (!faena.frigorifico) error.frigorifico = "Falta frigorifico";
     if (!faena.tropa) error.tropa = "Falta tropa";
     if (!faena.proveedor) error.proveedor = "Falta proveedor";
@@ -57,7 +65,6 @@ export const validate = (faena) => {
     if (faena.detalle.length<1) error.detalle = "Falta detalle";
     return error;
 };
-
 //validaciones de reses frigorifico Natilla
 export const validate2 = (res) => {
     let error2 = {};
@@ -90,16 +97,21 @@ const Form_Faena = () => {
     const [error, setError] = useState({});
     const [error2, setError2] = useState({});
     const [error3, setError3] = useState({});
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
     let [kg_totales,setkg_totales] = useState(0)
 
 
     useEffect(() => {
         dispatch(getAllProveedores())
     }, [dispatch])
+    useEffect(() => {
+        
+    console.log("🚀 ~ file: Form_Faena.jsx ~ line 105 ~ useEffect ~ form.fecha", form.fecha)
+    }, [form])
 
     //Estados globales
     const alert_msj= useSelector ((state)=>state.alert_msj);
-    
+
     const proveedores = useSelector((state)=>state.AllProveedores);
 
     useEffect(() => {
@@ -126,6 +138,14 @@ const Form_Faena = () => {
         setForm({
         ...form,
         [e.target.name]: e.target.value,
+        });
+    };
+
+//carga de calendario
+    const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
         });
     };
 
@@ -207,7 +227,7 @@ const Form_Faena = () => {
     //handleSubmit de la faena completa
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        
         if(
             !error.fecha && form.fecha &&
             !error.frigorifico && form.frigorifico &&
@@ -219,16 +239,18 @@ const Form_Faena = () => {
         form.detalle.map((e)=>{
             e.tropa=form.tropa
             e.stock=true
-            e.fecha=form.fecha
+            e.fecha=form.fecha.getTime()
             e.frigorifico=form.frigorifico
             setTimeout(()=>{
                 dispatch(postNewRes(e))
             }, 2000)
             form.total_kg= form.total_kg + e.kg*1
-        }) 
+        })
+        form.fecha=form.fecha.getTime()
         form.total_medias = form.detalle.length
         form.costo_total=form.costo_faena_kg*1*form.total_kg*1
         form.saldo=form.costo_total
+        console.log(form)
         dispatch(postNewFaena(form))
         setkg_totales(0)
         document.getElementById("proveedor").selectedIndex = 0
@@ -281,6 +303,17 @@ const Form_Faena = () => {
         })
         setkg_totales(kg_totales-e.kg*1)
     }
+
+//tema del calendario
+    const outerTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#640909'
+            },
+        },
+        });
+
+
     return (
         <div className={styleFormF.wallpaper}>
             <NavBar
@@ -288,19 +321,23 @@ const Form_Faena = () => {
             />
             <div className={styleFormF.formContainer}>
                 <form className={styleFormF.form}>
-                    <div className={styleFormF.formItem}>
+                    <div className={styleFormF.formItemDate}>
                         <h5 className={styleFormF.title}>Fecha: </h5>
-                        <input
-                            type="text"
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
                             value={form.fecha}
-                            id="fecha"
-                            name="fecha"
-                            onChange={handleChange}
-                            placeholder="00-00-0000"
-                            className={error.fecha & 'danger'}
-                        />
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                     </div>
-                    <p className={error.fecha ? styleFormF.danger : styleFormF.pass}>{error.fecha}</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormF.pass : styleFormF.danger }>Debe ingresar la fecha</p>
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Frigorífico: </h5>
                         <select id="frigorifico" className="selectform" onChange={(e)=> handleSelectFr(e)}>
@@ -474,7 +511,7 @@ const Form_Faena = () => {
                             <h5 className={styleFormF.title}>$ </h5>
                             <input
                                 type="text"
-                                value={form.costo_faena_kg}
+                                value={form.costo_faena_kg?form.costo_faena_kg:''}
                                 id="costo_faena_kg"
                                 name="costo_faena_kg"
                                 onChange={handleChange}
@@ -483,7 +520,7 @@ const Form_Faena = () => {
                             />
                         </div>
                     </div>
-                    <p className={error.costoFaenakg ? styleFormF.danger : styleFormF.pass}>{error.costoFaenakg}</p>
+                    <p className={error.costo_faena_kg ? styleFormF.danger : styleFormF.pass}>{error.costo_faena_kg}</p>
                     {kg_totales?
                     <div className={styleFormF.formItem}>
                         <h5 className={styleFormF.title}>Kg totales: {kg_totales}kg</h5>

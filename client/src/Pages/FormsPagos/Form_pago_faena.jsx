@@ -4,15 +4,23 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getAllComrpas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlert } from "../../Redux/Actions/Actions.js";
+import { getAllComrpas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlert, setimgurl } from "../../Redux/Actions/Actions.js";
 import stylePagoF from './Form_pago.module.scss';
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
 
 const formPF = {
-    fecha: '',
+    fecha: new Date().toLocaleDateString(),
     monto: 0,
     formaDePago:'',
     faenaID:0,
-    frigorifico:''
+    frigorifico:'',
+    img_comp:''
 };
 
 const formasDePago=["Efectivo", "Transferencia"]
@@ -20,8 +28,6 @@ const formasDePago=["Efectivo", "Transferencia"]
 //validaciones
 export const validate = (pago) => {
     let error = {};
-    if (!pago.fecha) error.fecha = "Falta fecha";
-    else if (!/^([0-2][0-9]|3[0-1])(\-)(0[1-9]|1[0-2])\2(\d{4})$/.test(pago.fecha)) error.fecha = "Fecha incorrecta";
     if (!pago.monto) error.monto = "Falta monto";
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     return error;
@@ -40,6 +46,7 @@ const Form_Pago_Faena = () => {
     
     const faena = useSelector((state)=>state.FaenaById);
     const alert_msj= useSelector ((state)=>state.alert_msj);
+    const urlImg= useSelector ((state)=>state.urlImg);
 
     useEffect(() => {
         if(alert_msj!==""){
@@ -49,6 +56,7 @@ const Form_Pago_Faena = () => {
                 button: "ok",
             })}
             dispatch(setAlert())
+            dispatch(getFaenaById(id))
     }, [alert_msj])
 
     const [form, setForm] = useState(formPF);
@@ -66,20 +74,29 @@ const Form_Pago_Faena = () => {
         [e.target.name]: e.target.value,
         });
     };
+       //carga de calendario
+       const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if(
-        !error.fecha && form.fecha &&
         !error.monto && form.monto
         ){
             form.frigorifico=faena.frigorifico
             form.faenaID=id
+            form.fecha=form.fecha.getTime()
+            form.img_comp = urlImg
             let saldo= faena.saldo - form.monto
             dispatch(putSaldoFaena(id, saldo))
             dispatch(postNewPagoFaena(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPF);
+            dispatch(setimgurl())
         }
         else {
             swal({
@@ -116,6 +133,15 @@ const Form_Pago_Faena = () => {
         value : faena.saldo
         })
 
+    //tema del calendario
+    const outerTheme = createTheme({
+        palette: {
+            primary: {
+                main: '#640909'
+            },
+        },
+        });
+
     return (
         <div className={stylePagoF.wallpaper}>
             <NavBar
@@ -133,19 +159,23 @@ const Form_Pago_Faena = () => {
                     </div>
                 </div>
                 <form className={stylePagoF.form}>
-                    <div className={stylePagoF.formItem}>
-                        <h5 className={stylePagoF.title}>Fecha: </h5>
-                        <input
-                            type="text"
+                    <div className={stylePagoF.formItemDate}>
+                        <h5 className={stylePagoF.titleDate}>Fecha: </h5>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
                             value={form.fecha}
-                            id="fecha"
-                            name="fecha"
-                            onChange={handleChange}
-                            placeholder="00-00-0000"
-                            className={error.monto & 'danger'}
-                        />
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                     </div>
-                    <p className={error.monto ? stylePagoF.danger : stylePagoF.pass}>{error.monto}</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? stylePagoF.pass : stylePagoF.danger }>Debe ingresar la fecha</p>
                     <div className={stylePagoF.formItem}>
                         <h5 className={stylePagoF.title}>Monto: </h5>
                         <input
@@ -170,13 +200,18 @@ const Form_Pago_Faena = () => {
                             }
                         </select>
                     </div>
-                    <p className={error.forma_pago ? stylePagoF.danger : stylePagoF.pass}>{error.forma_pago}</p>                     
+                    <p className={error.forma_pago ? stylePagoF.danger : stylePagoF.pass}>{error.forma_pago}</p>
+                    <div className={stylePagoF.formItemInput} >
+                            <SubirImagen/>
+                            <h5 className={stylePagoF.title}>Agregar Comprobante</h5>
+                    </div>
+                    {urlImg?
+                    <div className={stylePagoF.img}>
+                        <img src={urlImg?urlImg:"https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"} className={stylePagoF.img}/>
+                    </div>  
+                    :null
+                    }                     
                     <div className={stylePagoF.buttons}>
-                        <ShortButton
-                            title="Agregar Comprobante"
-                            onClick={handleCreate}
-                            color="primary"
-                        />
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

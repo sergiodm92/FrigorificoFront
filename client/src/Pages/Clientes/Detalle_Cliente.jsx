@@ -35,7 +35,16 @@ export default function Detalle_Cliente(){
 
 
     const deleteCliente = ()=>{
-        swal({
+        if(AllVentasByCliente.length>0 && AllVentasAchurasByCliente.length>0){
+            swal({
+                title: "¡Error! No puede eliminar clientes con ventas",
+                text: "Primero debe eliminar las ventas de su cliente ",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+        }
+        else swal({
             title: "Está seguro que desea eliminar a "+ ClienteById.nombre,
             text: "Una vez eliminado perdera todos sus datos 😰",
             icon: "warning",
@@ -64,8 +73,6 @@ export default function Detalle_Cliente(){
                 swal("No se eliminó a "+ ClienteById.nombre);
                 }
         })
-
-        
     }
 
     return(
@@ -98,8 +105,10 @@ export default function Detalle_Cliente(){
                 />
                 </div>
                 <div className={styleCl.cont}>
-                    <div className={styleCl.contTitle}><h1 className={styleCl.titleP}>Pendientes</h1></div>
+                    <div className={styleCl.contTitle}><h1 className={styleCl.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
                     <div className={styleCl.title}>
+                        <div><b>ID</b></div>
+                        <div><b>|</b></div>
                         <div><b>Fecha</b></div>
                         <div><b>|</b></div>
                         <div><b>Cliente</b></div>
@@ -130,6 +139,24 @@ export default function Detalle_Cliente(){
                             )
                         })
                         }
+                        </div>
+                        <div className={styleCl.contTitle}>
+                        <h1 className={styleCl.titleP}>Ventas de Achuras con Saldo pendiente</h1>
+                        </div>
+                        <div className={styleCl.title}>
+                        <div><b>ID</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Fecha</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Cliente</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Cant</b></div>
+                        <div><b>|</b></div>
+                        <div><b>kg</b></div>
+                        <div><b>|</b></div>
+                        <div><b>Saldo($)</b></div>
+                    </div>
+                        <div className={styleCl.cardsCont}>
                         {VentasAchurasPendientes.map((a,i)=>{
                             return(
                                 <CardLarge

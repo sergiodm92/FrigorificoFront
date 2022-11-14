@@ -55,7 +55,7 @@ export default function TableDetRes({venta}){
                         
                         return(
 
-                        <td key={i}>{a}</td>
+                        <td key={i}>{i==0?(new Date(a*1)).toLocaleDateString('es').replaceAll("/", "-"):a}</td>
 
                         )
                     })

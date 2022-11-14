@@ -42,7 +42,7 @@ export default function TableVenta({venta, pagos}){
                     <tr key={i} className={e.key.includes("Margen")?"table-secondary":"table-warning"}>
 
                         <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td className={tableVentaStyle.columnRight}>{e.key=="kg_total"?e.value.toFixed(2):e.key=="margen_porc"?e.value.toFixed(2)+"%":
+                        <td className={tableVentaStyle.columnRight}>{e.key=="fecha"?(new Date(e.value*1)).toLocaleDateString('es').replaceAll("/", "-"):e.key=="kg_total"?e.value.toFixed(2):e.key=="margen_porc"?e.value.toFixed(2)+"%":
                         e.key!=="id" && e.key!=="fecha" && e.key!=="cliente" && e.key!=="clien"?
                         currencyFormatter({
                                 currency: "USD",
@@ -64,7 +64,7 @@ export default function TableVenta({venta, pagos}){
                     {pagos?.map((a,i)=>
                     <tr key={i}>
                     
-                            <td>{a.fecha}</td>
+                            <td>{(new Date(a.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
                             <td>{currencyFormatter({
                                 currency: "USD",
                                 value : a.monto

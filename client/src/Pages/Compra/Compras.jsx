@@ -23,6 +23,8 @@ export default function Compras(){
             />
             <div>
                 <div className={styleCom.title}>
+                    <div><b>ID</b></div>
+                    <div><b>|</b></div>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
                     <div><b>Proveedor</b></div>

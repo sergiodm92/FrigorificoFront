@@ -6,7 +6,6 @@ import { useParams } from "react-router"
 import { useNavigate } from "react-router"
 import TableVenta from "../../Components/Details/Detalle_Venta"
 import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
-import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import { deleteVentaAchurasById, getClienteByName, getPagosVentaAchurasByID, getVentaAchurasByID, putSaldoCliente } from "../../Redux/Actions/Actions"
 
@@ -33,7 +32,16 @@ let cliente = useSelector((state)=>state.clienteByNombre)
 let pagos = useSelector((state)=>state.pagosByVentaAchuraID)
 
 const deleteVenta = ()=>{
-    swal({
+    if(pagos.length>0){
+        swal({
+            title: "¡Error! No puede eliminar ventas con pagos",
+            text: "Primero debe eliminar los pagos de la venta. ",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+    }
+    else swal({
         title: "Está seguro que desea eliminar la venta?",
         text: "Una vez eliminada perdera todos sus datos 😰",
         icon: "warning",

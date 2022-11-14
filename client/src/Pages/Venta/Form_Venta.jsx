@@ -7,12 +7,18 @@ import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 import styleFormV from './Form_Venta.module.scss';
-import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putSaldoCliente, putStockRes, setAlert } from "../../Redux/Actions/Actions";
+import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putStockRes, setAlert } from "../../Redux/Actions/Actions";
+//calendario-----------------------------------
+import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 //Form Venta
 var formV = {
     cliente:'',
-    fecha: '',
+    fecha: new Date().toLocaleDateString(),
     detalle:[],
     saldo:0
 };
@@ -112,21 +118,6 @@ const Form_Venta = () => {
 
     const cliente = useSelector((state)=>state.clienteByNombre);
 
-    //handleChange de la Venta completa
-    const handleChange = (e) => {
-        e.preventDefault();
-        setError(
-        validate({
-            ...form,
-            [e.target.name]: e.target.value,
-        })
-        );
-        setForm({
-        ...form,
-        [e.target.name]: e.target.value,
-        });
-    };
-
     //handleChange del detalle
     const handleChangeCV = (e) => {
         e.preventDefault();
@@ -193,6 +184,7 @@ const Form_Venta = () => {
                     }
                 })
             }
+            form.fecha=form.fecha.getTime()
             arrResesTotales.map(a=>{
                 setTimeout(()=>{
                         dispatch(putStockRes(a))
@@ -211,6 +203,14 @@ const Form_Venta = () => {
                 button: "ok",
             })
         }
+    };
+
+    //carga de calendario
+    const handleChangeDate = (date) => {  
+        setForm({
+        ...form,
+        fecha:  date
+        });
     };
 
     //Select de Cliente
@@ -257,6 +257,14 @@ const Form_Venta = () => {
             detalle: form.detalle.filter(d => d !== e)
         })
     }
+    //tema del calendario
+    const outerTheme = createTheme({
+    palette: {
+        primary: {
+            main: '#640909'
+        },
+    },
+    });
 
     return (
         <div className={styleFormV.wallpaper}>
@@ -276,19 +284,23 @@ const Form_Venta = () => {
                             }
                         </select>
                     </div>
-                    <div className={styleFormV.formItem}>
+                    <div className={styleFormV.formItemDate}>
                         <h5 className={styleFormV.title}>Fecha: </h5>
-                        <input
-                            type="text"
+                        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
+                        <ThemeProvider theme={outerTheme}>
+                        <KeyboardDatePicker
+                            format="dd-MM-yyyy"
                             value={form.fecha}
-                            id="fecha"
-                            name="fecha"
-                            onChange={handleChange}
-                            placeholder="00-00-0000"
-                            className={error.fecha & 'danger'}
-                        />
+                            disableFuture
+                            onChange={handleChangeDate}                    
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            />
+                        </ThemeProvider>  
+                        </MuiPickersUtilsProvider>
                     </div>
-                    <p className={error.fecha ? styleFormV.danger : styleFormV.pass}>{error.fecha}</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormV.pass : styleFormV.danger }>Debe ingresar la fecha</p>
                     
                     {/*----------------Carga del detalle---------------------*/}
                     <div className={styleFormV.formItem2}>

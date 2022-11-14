@@ -34,6 +34,8 @@ export default function Historial_Ventas_Cliente(){
             <div className={styleCl.conteiner}>
                 <h5 className={styleCl.firstTitle}>Ventas de Carne</h5>
                 <div className={styleCl.title}>
+                    <div><b>ID</b></div>
+                    <div><b>|</b></div>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
                     <div><b>Cliente</b></div>
@@ -65,6 +67,8 @@ export default function Historial_Ventas_Cliente(){
                 <div className={styleCl.cardsCont}>
                         <h5 className={styleCl.firstTitle}>Ventas de Achuras</h5>
                         <div className={styleCl.title}>
+                            <div><b>ID</b></div>
+                            <div><b>|</b></div>
                             <div><b>Fecha</b></div>
                             <div><b>|</b></div>
                             <div><b>Cliente</b></div>

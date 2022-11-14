@@ -6,6 +6,17 @@ export const login_state = () => {
     return ({ type: "LOGIN_STATE", payload: e  });
 };
 
+//getPagosComprasByProveedor
+export const URLimag = (url) => {
+
+  return ({ type: "URL_IMG", payload: url  });
+};
+
+export const setimgurl = () => {
+
+  return ({ type: "URL_IMG", payload: ''  });
+};
+
 //setear estado de login
 export const setlogin_state = (value) => {
     return ({ type: "LOGIN_STATE", payload: value  });
@@ -259,6 +270,82 @@ export const getFaenasByTropa = (tropa) => {
           }
         };
 };
+export const getGruposByTropa = (tropa) => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/faenas/${tropa}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+    let kgVaca=0;
+    let nvaca=0
+    let kgToro=0;
+    let ntoro=0
+    let kgNovillito=0;
+    let nnovillito=0
+    let kgVaquillona=0;
+    let nvaquillona=0
+    let kgNovPes=0;
+    let nnovpes=0
+
+    json.data.data.detalle.map(a=>{
+        if(a.categoria==="Vaca"){
+            kgVaca+=a.kg
+            nvaca++
+        }
+        if(a.categoria==="Vaquillona"){
+            kgVaquillona+=a.kg
+            nvaquillona++
+        }
+        if(a.categoria==="Novillito"){
+            kgNovillito+=a.kg
+            nnovillito++
+        }
+        if(a.categoria==="Toro"){
+            kgToro+=a.kg
+            ntoro++
+        }
+        if(a.categoria==="Novillo Pesado"){
+            kgNovPes+=a.kg
+            nnovpes++
+        }
+    })
+          return dispatch({
+          type: "GET_GRUPOS_BY_TROPA",
+          payload: [{
+            categoria:'Vaca',
+            kg: kgVaca,
+            cant:nvaca*0.5
+           },
+           {
+            categoria:'Vaquillona',
+            kg: kgVaquillona,
+            cant:nvaquillona*0.5
+           },
+           {
+            categoria:'Novillito',
+            kg: kgNovillito,
+            cant:nnovillito*0.5
+           },
+           {
+            categoria:'Toro',
+            kg: kgToro,
+            cant:ntoro*0.5
+           },
+           {
+            categoria:'Novillo Pesado',
+            kg: kgNovPes,
+            cant:nnovpes*0.5
+           },
+          ]})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
+
 
 //Traer todas las ventas
 export const getAllVentas = () => {
@@ -589,16 +676,16 @@ export const getAllReses = () => {
               }
             });
             const ResStock = json.data.data.filter((a)=>a.stock===true)
-            // ResStock.sort(function(a,b){
-            //   if(a.tropa>b.tropa){return 1}
-            //   if(a.tropa<b.tropa){return -1}
-            //   return 0}) 
+            ResStock.sort(function(a,b){
+              if(a.tropa>b.tropa){return 1}
+              if(a.tropa<b.tropa){return -1}
+              return 0}) 
             let arrayAux = []
             let arrayResByTropa = []
             let pos=0
             let constTropa=ResStock.length?ResStock[0].tropa:0
 
-            if(ResStock.length>1){
+            if(ResStock.length>1 && ResStock.length>0){
               for(let i=0;i<ResStock.length;i++){
                 if(ResStock[i].tropa==constTropa){
                   arrayAux.push(ResStock[i])
@@ -725,7 +812,33 @@ export const getPagosComprasByID = (compraID) => {
         }
       };
     };
-  
+  //getAlertRes-------------------------------------------------
+//getAllVentasultimos30dias
+//Traer pagos por ID de compra
+export const getAlertRes = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/res/all`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          let alerts = [];
+          let dias=14//dias de vencimiento
+          let fecha = Date.now()-(3600*1000*24*dias)
+          alerts = json.data.data.filter(a => a.stock==true && (a.fecha<fecha))
+          return dispatch({
+          type: "GET_RESES_ALERT",
+          payload: alerts
+        })
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+    };
+
+
 //Traer pagos por ID de faena
 export const getPagosFaenaByID = (faenaID) => {
   return async (dispatch) => {
@@ -1018,7 +1131,7 @@ export const postNewVentaAchura = (venta_json) => {
         }
       };
 };
-
+//putSaldoVenta
 //Post faena
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {

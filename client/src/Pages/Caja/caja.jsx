@@ -10,6 +10,7 @@ import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 
 
 export default function Caja(){
+    
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -44,7 +45,8 @@ export default function Caja(){
             <div>
                 <Table_Det_Caja
                     pagos={pagos}
-                    total={total}                />
+                    total={total}                
+                    />
             </div>
             <div className={style.divButtons}>
                 <ShortButton
