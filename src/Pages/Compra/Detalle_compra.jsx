@@ -7,7 +7,7 @@ import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteCompraById, getComrpaByID, getFaenasByTropa, getPagosComprasByID, putEstadoCompraFaenaFalse } from "../../Redux/Actions/Actions"
+import { deleteCompraById, getComrpaByID, getPagosComprasByID, putEstadoCompraFaenaFalse } from "../../Redux/Actions/Actions"
 
 
 export default function Detalle_Compra(){

@@ -5,8 +5,6 @@ import CardGruposDetalle from "../Cards/CardGruposDetalle/CardGruposDetalle.jsx"
 import tableComprasStyle from "./tableCompraStyle.module.scss"
 
 
-
-
 export default function TableCompra({id_c}){
 
         const dispatch = useDispatch()
@@ -80,7 +78,7 @@ export default function TableCompra({id_c}){
                         {array.map((e,i) => {
                                 return (
                                 <tr key={i} className={"table-warning"}>
-                                        <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
+                                        <td>{e.key.includes("")?(e.key.replace(""," ").includes("")?e.key.replace(""," ").replace(""," "):e.key.replace(""," ")):e.key }</td>
                                         
                                         <td  className={tableComprasStyle.tdr}>{e.key=="fecha"?(new Date(e.value*1)).toLocaleDateString('es').replaceAll("/", "-"):e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit" && e.key!=="costo_veps_total"  && 
                                                 e.key!=="id" && e.key!=="precio_venta_achuras_unit" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_total_hac"?costohenpesos:e.key=="costo_flete"?
