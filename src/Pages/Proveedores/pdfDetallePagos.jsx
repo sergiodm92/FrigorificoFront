@@ -4,6 +4,8 @@ import { useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllComrpasByProveedor, getPagosComprasByProveedor, getProveedorByName } from "../../Redux/Actions/Actions"
 import DocPDF from "../../Components/PDFDoc/PDFDoc";
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import style from './Form_Proveedor.module.scss'
 
 export default function PdfDetallePagosProveedores(){
     
@@ -21,8 +23,8 @@ export default function PdfDetallePagosProveedores(){
 
     
     return(
-        <div>
-            <div class="d-none d-lg-block">
+        <div className={style.wallpaper2}>
+            <div className="d-none d-lg-block">
                 <PDFViewer style={{width:"100%", height: "95vh"}}>
                     <DocPDF
                         pagosT={pagos}
@@ -31,12 +33,19 @@ export default function PdfDetallePagosProveedores(){
                     />
                 </PDFViewer> 
             </div>
-            <div class="d-lg-none">
-                <PDFDownloadLink>
-                    <DocPDF
-                        pagosT={pagos}
-                        person={proveedor}
-                        name={"Proveedor"}
+            <div className="d-lg-none" >
+                <PDFDownloadLink 
+                    style={{textDecoration:"none"}}
+                    document={<DocPDF
+                                pagosT={pagos}
+                                person={proveedor}
+                                name={"Proveedor"}
+                    />}
+                    fileName='Comprobante de Pago'
+                >
+                    <LargeButton 
+                        
+                        title={"Descargar PDF"}
                     />
                 </PDFDownloadLink>
             </div>
