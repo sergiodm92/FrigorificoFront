@@ -103,7 +103,7 @@ export default function PdfDetallePagoPorIdCliente(){
                                                 includeLeftBorder={false}
                                                 includeRightBorder={false}
                                                 includeTopBorder={false}>
-                                        <DataTableCell getContent={(e)=>e.fecha} style={tableText} weighting={0.4}/>
+                                        <DataTableCell getContent={(e)=>(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")} style={tableText} weighting={0.4}/>
                                         <DataTableCell getContent={(e)=>e.formaDePago} style={tableText}/>
                                         <DataTableCell getContent={(e)=>currencyFormatter({
                                                                             currency: "USD",

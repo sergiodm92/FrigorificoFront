@@ -12,6 +12,7 @@ import esLocale from 'date-fns/locale/es';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+
 import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
 import emailjs from 'emailjs-com';
 
@@ -26,16 +27,10 @@ const formPC = {
 
 const formasDePago=["Efectivo", "Transferencia"]
 
-//validaciones
-export const validate = (pago) => {
-    let error = {};
-    if (!pago.monto) error.monto = "Falta monto";
-    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
-    if (!pago.formaDePago) error.forma_pago = "Falta forma de pago";
-    return error;
-};
+
 
 const Form_Pago_Compra = () => {
+    const host = window.location.origin
 
     const {id}=useParams()
 
@@ -57,20 +52,14 @@ const Form_Pago_Compra = () => {
 
     const proveedor = useSelector((state)=>state.provByNombre)
     
-    useEffect(() => {
-        dispatch(getPagosComprasByProveedor(compra.proveedor))
-        
-    }, [proveedor])
-
-    let pagosByProveedor = useSelector((state)=>state.pagosByProveedor)
-    
+    let pagosByProveedor = useSelector((state)=>state.pagosByProveedor)   
 
     useEffect(() => {
-        if(pagosByProveedor.length)sendEmail()
+            if(pagosByProveedor.length)sendEmail()
     }, [pagosByProveedor])
 
     function sendEmail(){
-        emailjs.send('service_v8vwdu3','template_yl0tmhx',{email: proveedor.email, mensaje:`http://localhost:3000/Proveedores/DetallePagos/${compra.proveedor}/${pagosByProveedor.pop().id}/pdf`},'zJ0448SnBXmFVCo12')
+        emailjs.send('service_by3lbzk','template_hob7gmo',{email: proveedor.email, mensaje:`${host}/Proveedores/DetallePagos/${compra.proveedor}/${pagosByProveedor.pop().id}/pdf`},'H7r3DDDUrBVJ25a60')
     }
 
     useEffect(() => {
@@ -86,6 +75,16 @@ const Form_Pago_Compra = () => {
 
     const [form, setForm] = useState(formPC);
     const [error, setError] = useState({});
+
+    //validaciones
+    const validate = (pago) => {
+        let error = {};
+        if (!pago.monto) error.monto = "Falta monto";
+        if (compra.saldo<pago.monto) error.monto = "El monto excede el saldo"
+        else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
+        if (!pago.formaDePago) error.forma_pago = "Falta forma de pago";
+        return error;
+    };
 
     const handleChange = (e) => {
         e.preventDefault()
@@ -121,7 +120,10 @@ const Form_Pago_Compra = () => {
         let saldo= compra.saldo - form.monto
         dispatch(putSaldoCompra(id, saldo))
         dispatch(postNewPagoCompra(form))
-        dispatch(getPagosComprasByProveedor(compra.proveedor))
+        .then((response)=>{
+            if(response)dispatch(getPagosComprasByProveedor(compra.proveedor))
+        })
+        
         document.getElementById("formaDePago").selectedIndex = 0
         setForm(formPC);
         dispatch(setimgurl())
@@ -135,6 +137,8 @@ const Form_Pago_Compra = () => {
             })
         }
     };
+
+
 
     function handleSelectFP(e) {
         setForm({

@@ -104,10 +104,6 @@ const Form_Faena = () => {
     useEffect(() => {
         dispatch(getAllProveedores())
     }, [dispatch])
-    useEffect(() => {
-        
-    console.log("🚀 ~ file: Form_Faena.jsx ~ line 105 ~ useEffect ~ form.fecha", form.fecha)
-    }, [form])
 
     //Estados globales
     const alert_msj= useSelector ((state)=>state.alert_msj);

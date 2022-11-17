@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getClienteByName, getVentaByID, postNewPagoVenta, putSaldoCliente, putSaldoVenta, setAlert, setimgurl } from "../../Redux/Actions/Actions";
+import { getClienteByName, getPagosVentasByCliente, getVentaByID, postNewPagoVenta, putSaldoVenta, setAlert, setimgurl } from "../../Redux/Actions/Actions";
 import stylePagoV from './Form_pago.module.scss';
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -12,7 +12,9 @@ import esLocale from 'date-fns/locale/es';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+
 import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
+import emailjs from 'emailjs-com';
 
 const formPV = {
     fecha: new Date().toLocaleDateString(),
@@ -25,17 +27,12 @@ const formPV = {
 
 const formasDePago=["Efectivo", "Transferencia"]
 
-//validaciones
-export const validate = (pago) => {
-    let error = {};
-    if (!pago.formaDePago) error.formaDePago = "Falta forma de pago";
-    if (!pago.monto) error.monto = "Falta monto";
-    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
-    return error;
-};
+
 
 const Form_Pago_Venta = () => {
 
+    const host = window.location.origin
+    
     const {id}=useParams()
 
     const dispatch = useDispatch();
@@ -46,11 +43,26 @@ const Form_Pago_Venta = () => {
     }, [dispatch])
 
     const venta = useSelector((state)=>state.VentaByID);
-    const alert_msj= useSelector ((state)=>state.alert_msj);
-
+    
     useEffect(() => {
         dispatch(getClienteByName(venta.cliente))
     }, [venta])
+
+
+    const alert_msj = useSelector ((state)=>state.alert_msj);
+    const cliente = useSelector ((state)=>state.clienteByNombre) 
+    
+
+    const pagosByCliente = useSelector ((state)=>state.pagosByCliente);
+
+    function sendEmail(){
+        emailjs.send('service_by3lbzk','template_hob7gmo',{email: cliente.email, mensaje:`${host}/Clientes/DetallePagos/${venta.cliente}/${pagosByCliente.pop().id}/pdf`},'H7r3DDDUrBVJ25a60')
+    }
+
+    useEffect(() => {
+        if(pagosByCliente.length)sendEmail()
+    }, [pagosByCliente])
+
     const urlImg= useSelector ((state)=>state.urlImg);
 
     useEffect(() => {
@@ -66,6 +78,18 @@ const Form_Pago_Venta = () => {
 
     const [form, setForm] = useState(formPV);
     const [error, setError] = useState({});
+
+    
+    //validaciones
+    const validate = (pago) => {
+    let error = {};
+    if (!pago.formaDePago) error.formaDePago = "Falta forma de pago";
+    if (venta.saldo<pago.monto) error.monto = "El monto excede el saldo"
+    if (!pago.monto) error.monto = "Falta monto";
+    
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
+    return error;
+};
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -109,6 +133,9 @@ const Form_Pago_Venta = () => {
             let saldo2= venta.saldo - form.monto
             dispatch(putSaldoVenta(id, saldo2))
             dispatch(postNewPagoVenta(form))
+            .then((response)=>{
+                if(response)dispatch(getPagosVentasByCliente(venta.cliente))
+            })
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPV);
             dispatch(setimgurl())
@@ -122,6 +149,8 @@ const Form_Pago_Venta = () => {
             })
         }
     };
+    
+
 
     function handleSelectFP(e) {
         setForm({
