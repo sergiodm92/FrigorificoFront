@@ -114,9 +114,9 @@ export default function Detalle_Pagos_Clientes() {
                                 <td>Fecha</td>  
                                 <td>Forma de Pago</td>
                                 <td>Monto</td>                            
-                                <td>Comprobante</td>
+                                <td>Comp</td>
                                 <td>Recibo</td>
-                                <td>Eliminar</td>
+                                <td>Elim</td>
                             </tr>
                             {pagosT.map((e,i) => {
                                 return(

@@ -79,3 +79,30 @@
         margin-left: 320px;
     }
 }
+
+
+
+.CardConteiner{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    padding-bottom: 50px;
+}
+
+@media only screen and (min-width: 500px) {
+    .CardConteiner {
+      grid-template-columns: 1fr 1fr;
+    }  
+  }
+
+@media only screen and (min-width: 800px) {
+.CardConteiner {
+    grid-template-columns: 1fr 1fr 1fr;
+}  
+}
+@media only screen and (min-width: 1000px) {
+    .CardConteiner {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }  
+    }

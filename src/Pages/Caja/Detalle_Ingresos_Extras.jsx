@@ -73,8 +73,8 @@ export default function Detalle_Ingresos_Extras() {
                             <td>Concepto</td>  
                             <td>Forma de Pago</td>
                             <td>Monto</td>
-                            <td>Eliminar</td>
-                            <td>Comprobante</td>
+                            <td>Elim</td>
+                            <td>Comp</td>
                         </tr>
                         {ingresos.map((e,i) => {
                             return(

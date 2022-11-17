@@ -12,7 +12,7 @@
 }
 .tablefaena{
     margin-top: 2%;
-    width: 800px;
+    width: 600px;
 }
 .text{
     color: rgb(146, 146, 146);
@@ -26,4 +26,9 @@
 }
 .columnRight{
     text-align: center;
+}
+@media screen and (max-width: 500px) {
+    .tablefaena{
+scale: 0.68;
+    }
 }

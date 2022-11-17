@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {  getAlertRes, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import style from "./Alert.module.scss"
-import Graph from "../../Components/Graph/Graph.jsx";
+import CardAlert from "../../Components/Cards/CardAlert/CardAlert.jsx";
 
 
 
@@ -16,7 +16,10 @@ const dispatch = useDispatch()
     }, [dispatch])
 
     const alertRes = useSelector((state)=>state.alertRes)
-
+    alertRes.sort(function(a,b){
+        if(a.fecha>b.fecha){return 1}
+        if(a.fecha<b.fecha){return -1}
+        return 0})
 
     let fecha = Date.now()
     return(
@@ -24,15 +27,24 @@ const dispatch = useDispatch()
                 <NavBar
                 title="Alertas"
                 />
+                <div className={style.CardConteiner}>
                 {alertRes?.map(a=>{
                     return(
-                    <div className={style.cont}>
-                        <h5>{"🔔 La Res "+a.correlativo+" del frigorífico "+a.frigorifico+" ya tiene "+Math.floor((fecha - a.fecha)/(24*3600*1000))+ "días."}</h5> 
+
+                    <div className={style.CardAlert}>
+                        <CardAlert
+                        tropa={a.tropa}
+                        categoria={a.categoria}
+                        correlativo={a.correlativo}
+                        frigorifico={a.frigorifico}
+                        fecha={(new Date(a.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}
+                        dias={Math.floor((fecha - a.fecha)/(24*3600*1000))}
+                        />
                     </div>
                 )
                 }
-                )}
-            
+                )}    
+                </div>
         </div>
     )
 }
