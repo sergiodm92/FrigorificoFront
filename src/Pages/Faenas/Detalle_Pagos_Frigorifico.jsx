@@ -84,9 +84,9 @@ export default function Detalle_Pagos_Frigorifico() {
                                 <td>Fecha</td>  
                                 <td>Forma de Pago</td>
                                 <td>Monto</td>
-                                <td>Comprobante</td>
+                                <td>Comp.</td>
                                 <td>Recibo</td>
-                                <td>Eliminar</td>                            
+                                <td>Elim</td>                            
                             </tr>
                             {pagos.length!==0 && faenas.length!==0?pagos.map((e,i) => {
                                 faena=faenas.find(a=>a.id==e.faenaID)

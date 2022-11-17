@@ -5,7 +5,6 @@ import { deletePagoExtra, getAllPagosExtras} from "../../Redux/Actions/Actions"
 import style from './caja.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import moment from "moment"
 
 export default function Detalle_Pagos_Extras() {
     
@@ -74,8 +73,8 @@ export default function Detalle_Pagos_Extras() {
                             <td>Concepto</td>  
                             <td>Forma de Pago</td>
                             <td>Monto</td>
-                            <td>Eliminar</td>
-                            <td>Comprobante</td>
+                            <td>Elim</td>
+                            <td>Comp</td>
                         </tr>
                         {pagos.map((e,i) => {
                             return(

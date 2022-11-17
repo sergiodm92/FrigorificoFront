@@ -179,7 +179,17 @@ select{
     font-size: 15px;
     font-style: initial;
 }
-
+.tablefaena{
+    margin-top: 20px;
+    max-width: 500px;
+    width: 500px;
+    font-size: 14px;
+}
+@media screen and (max-width: 500px) {
+    .tablefaena{
+        scale: 0.8;
+    }
+}
 .img{
     display: flex;
     justify-content: center;

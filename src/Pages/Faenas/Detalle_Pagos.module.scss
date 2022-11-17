@@ -12,9 +12,13 @@
 }
 .tablefaena{
     margin-top: 2%;
-    width: 620px;
+    width: 600px;
 }
-
+@media screen and (max-width: 500px) {
+    .tablefaena{
+scale: 0.68;
+    }
+}
 .tdDF{
     text-align:center
 }
