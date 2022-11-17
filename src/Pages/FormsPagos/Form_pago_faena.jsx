@@ -25,13 +25,6 @@ const formPF = {
 
 const formasDePago=["Efectivo", "Transferencia"]
 
-//validaciones
-export const validate = (pago) => {
-    let error = {};
-    if (!pago.monto) error.monto = "Falta monto";
-    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
-    return error;
-};
 
 const Form_Pago_Faena = () => {
 
@@ -61,6 +54,15 @@ const Form_Pago_Faena = () => {
 
     const [form, setForm] = useState(formPF);
     const [error, setError] = useState({});
+
+    //validaciones
+    const validate = (pago) => {
+    let error = {};
+    if (!pago.monto) error.monto = "Falta monto";
+    if (faena.saldo<pago.monto) error.monto = "El monto excede el saldo"
+    else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
+    return error;
+};
 
     const handleChange = (e) => {
         setError(

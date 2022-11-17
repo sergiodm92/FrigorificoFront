@@ -812,8 +812,7 @@ export const getPagosComprasByID = (compraID) => {
         }
       };
     };
-  //getAlertRes-------------------------------------------------
-//getAllVentasultimos30dias
+
 //Traer pagos por ID de compra
 export const getAlertRes = () => {
   return async (dispatch) => {
@@ -824,7 +823,7 @@ export const getAlertRes = () => {
             }
           });
           let alerts = [];
-          let dias=14//dias de vencimiento
+          let dias=10//dias de vencimiento
           let fecha = Date.now()-(3600*1000*24*dias)
           alerts = json.data.data.filter(a => a.stock==true && (a.fecha<fecha))
           return dispatch({
@@ -1471,6 +1470,11 @@ export const deletePagoVentaById = (id) => {
     };
 };
 
+export const setDeletePagos = () => {
+
+  return ({ type: "DELETE_PAGO_VENTA", payload: ''  });
+};
+
 //eliminar pago venta achuras por id
 
 export const deletePagoVentaAchurasById = (id) => {
@@ -1492,6 +1496,11 @@ export const deletePagoVentaAchurasById = (id) => {
           console.log(error);
         }
       };
+};
+
+export const setDeletePagosAchuras = () => {
+
+  return ({ type: "DELETE_PAGO_VENTA_ACHURAS", payload: ''  });
 };
     
 //eliminar pago compra por id
@@ -1732,7 +1741,7 @@ export const putSaldoVenta = (id, saldo)=>{
         }
         })
         return dispatch({
-        type: "PUT_CUARTO_RESES",
+        type: "PUT_SALDO",
         payload: json.data.data})
     }
     catch(err){

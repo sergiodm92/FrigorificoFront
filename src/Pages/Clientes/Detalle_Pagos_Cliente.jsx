@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoVentaAchurasById, deletePagoVentaById, getClienteByName, getPagosVentaAchurasByCliente, getPagosVentasByCliente, getVentasAchurasByCliente, getVentasByCliente, putSaldoVenta, putSaldoVentaAchuras } from "../../Redux/Actions/Actions"
+import { deletePagoVentaAchurasById, deletePagoVentaById, getPagosVentaAchurasByCliente, getPagosVentasByCliente, getVentasAchurasByCliente, getVentasByCliente, putSaldoVenta, putSaldoVentaAchuras, setDeletePagos, setDeletePagosAchuras } from "../../Redux/Actions/Actions"
 import style from './Detalle_Pagos.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
@@ -25,7 +25,20 @@ export default function Detalle_Pagos_Clientes() {
     const pagosAchuras = useSelector((state)=>state.pagosAchurasByCliente)
     const ventas = useSelector((state)=>state.AllVentasByCliente)
     const ventasAc = useSelector((state)=>state.AllVentasAchurasByCliente)
+    const deletePagoVenta = useSelector ((state)=>state.deletePagoVenta)
+    const deletePagoVentaAchuras = useSelector ((state)=>state.deletePagoVentaAchuras)
 
+    useEffect(() => {
+        dispatch(getVentasByCliente(nombre))
+        dispatch(getPagosVentasByCliente(nombre))
+        dispatch(setDeletePagos())
+    }, [deletePagoVenta])
+    
+    useEffect(() => {
+        dispatch(getVentasAchurasByCliente(nombre))
+        dispatch(getPagosVentaAchurasByCliente(nombre))
+        dispatch(setDeletePagosAchuras())
+    }, [deletePagoVentaAchuras])
 
     let pagosT=[ ...pagos, ...pagosAchuras]
     function currencyFormatter({ currency, value}) {
@@ -58,24 +71,21 @@ export default function Detalle_Pagos_Clientes() {
                             let venta = ventas.find(a=>a.id==ventaID)
                             let saldo2= venta.saldo + monto
                             dispatch(putSaldoVenta(ventaID, saldo2))
-                            dispatch(deletePagoVentaById(id))
-                            dispatch(getPagosVentasByCliente(nombre))
-
+                            .then( (response) => {
+                                if(response) dispatch(deletePagoVentaById(id))
+                            })                                                      
                         }
                         else{
                             let venta = ventasAc.find(a=>a.id==ventaID)
                             let saldo2= venta.saldo + monto
                             dispatch(putSaldoVentaAchuras(ventaID, saldo2))
-                            dispatch(deletePagoVentaAchurasById(id))
-                            dispatch(getPagosVentaAchurasByCliente(nombre))
+                            .then( (response) => {
+                                if(response) dispatch(deletePagoVentaAchurasById(id))
+                            })                                              
                         }
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
-                        dispatch(getPagosVentasByCliente(nombre))
-                        dispatch(getPagosVentaAchurasByCliente(nombre))
-                        dispatch(getVentasByCliente(nombre))
-                        dispatch(getVentasAchurasByCliente(nombre))
                     }
                     else {
                         swal("Frase incorrecta, no se eliminó la faena");

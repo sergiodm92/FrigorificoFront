@@ -11,11 +11,14 @@ const initialState = {
     deleteCliente:'',
     deleteVenta:'',
     deleteProveedor:'',
+    deletePagoVenta:'',
+    deletePagoVentaAchuras:'',
     resesAct: '',
     kgReses:'',
     login_status:'',
     urlImg: '',
-    alertRes:[],//------------------------------
+    putSaldo:'',
+    alertRes:[],
     saldoprov:0,
     saldoCliente:0,
     saldoAllCompras:0,
@@ -310,6 +313,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 deleteProveedor:action.payload
             }
+        case "DELETE_PAGO_VENTA":
+            return{
+                ...state,
+                deletePagoVenta:action.payload
+            }
+        case "DELETE_PAGO_VENTA_ACHURAS":
+            return{
+                ...state,
+                deletePagoVentaAchuras:action.payload
+            }
         case "PUT_RESES":
             return{
                 ...state,
@@ -330,6 +343,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 editarCliente: action.payload
             }
+        case "PUT_SALDO":
+            return{
+                ...state,
+                putSaldo: action.payload
+            }
+            
         case "LOGIN_STATUS":
             return{
                 ...state,
