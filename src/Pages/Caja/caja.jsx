@@ -6,6 +6,7 @@ import style from "./caja.module.scss";
 import {  getAllIngresosExtras, getAllPagosCompras, getAllPagosExtras, getAllPagosFaenas, getAllPagosVentas, getAllPagosVentasAchuras } from "../../Redux/Actions/Actions";
 import Table_Det_Caja from "../../Components/Details/Detalle_Caja";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
+import Marca from "../../Components/Marca/Marca";
 
 
 
@@ -33,6 +34,11 @@ export default function Caja(){
 
     let pagos=[...allPagosVentasAchuras, ...allPagosVentas, ...allPagosCompras, ...allPagosFaenas, ...allPagosExtras, ...allIngresosExtras]
     let total = 0
+    pagos.sort(function(a,b){
+        if(a.fecha>b.fecha){return 1}
+        if(a.fecha<b.fecha){return -1}
+        return 0})
+        
     pagos.map(a=>{
         if(a.ventaID)total+=a.monto
         else total-=a.monto

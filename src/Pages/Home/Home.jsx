@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setlogin_state } from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import PrimarySearchAppBar from "../../Components/AppBar/AppBar";
+import Marca from "../../Components/Marca/Marca";
 
 export default function Home(){
     const navigate= useNavigate()
@@ -52,8 +53,10 @@ export default function Home(){
                 <LargeButton title={"Stock"} onClick={()=> navigate("/Stock")}/>
                 <LargeButton title={"Caja"} onClick={()=> navigate("/Caja")}/>
                 <LargeButton title={"Balance"} onClick={()=> navigate("/Balance")}/>
+                {/* <LargeButton title={"Sobre DR-FullCode"} onClick={()=> navigate("/DR-FullCode")}/> */}
                 <LargeButtoncs title={"Cerrar Sesión"} onClick={cerrarSesion}/>
             </div>
+  
         </div>
     )
 }

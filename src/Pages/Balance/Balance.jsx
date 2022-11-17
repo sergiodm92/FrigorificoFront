@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllFaenas, getAllReses, getAllVentas, getAllVentasultimos30dias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
-import Marca from "../../Components/Marca/Marca.jsx";
 import Graph from "../../Components/Graph/Graph.jsx";
 
 
@@ -139,9 +138,6 @@ const dispatch = useDispatch()
                 {/* <Graph
                     className={styleBalance.Graph}
                 /> */}
-            <div className={styleBalance.marca}>
-                <Marca/>
-            </div>
             
         </div>
     )

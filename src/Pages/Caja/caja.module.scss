@@ -23,7 +23,13 @@
     background-position: center center;
     background-size: cover;
 }
-
+.marca{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 .wallpaper{
     display: flex;
     position: absolute;
