@@ -80,7 +80,7 @@ export default function Detalle_Pagos_Extras() {
                         {pagos.map((e,i) => {
                             return(
                                 <tr key={i} className={"table-primary"}>
-                                    <td>{e.fecha}</td>
+                                    <td>{(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
                                     <td>{e.concepto}</td>
                                     <td>{e.formaDePago}</td>
                                     <td align="center">{

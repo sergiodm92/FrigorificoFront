@@ -84,7 +84,7 @@ export default function FormIngresoExtra(){
             !error.formaDePago && form.formaDePago &&
             !error.monto && form.monto
         ){
-            form.fecha=form.fecha.toLocaleDateString('es').replaceAll("/", "-")
+            form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
             dispatch(postNewIngresoExtra(form))
             document.getElementById("formaDePago").selectedIndex = 0

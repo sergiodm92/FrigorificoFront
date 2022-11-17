@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {  getAlertRes, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import style from "./Alert.module.scss"
-import Marca from "../../Components/Marca/Marca.jsx";
 import Graph from "../../Components/Graph/Graph.jsx";
 
 
@@ -33,10 +32,6 @@ const dispatch = useDispatch()
                 )
                 }
                 )}
-
-            <div className={style.marca}>
-                <Marca/>
-            </div>
             
         </div>
     )

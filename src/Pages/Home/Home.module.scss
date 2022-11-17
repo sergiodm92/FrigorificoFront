@@ -22,6 +22,14 @@
 .appbar{
     margin: 0;
 }
+.marca{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 10px;
+}
 .logo{
     display: flex;
     position: relative;

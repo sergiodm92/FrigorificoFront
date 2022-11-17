@@ -59,6 +59,7 @@ import PdfDetallePagoAchurasPorIdCliente from './Pages/Clientes/pdfDetallePagoAc
 import PdfDetallePagoPorIdProveedor from './Pages/Proveedores/pdfDetallePagoPorId.jsx';
 import Alertas from './Pages/Alertas/Alertas.jsx'
 import './App.css';
+import DRFullCode from './Pages/DR-FullCode/DR-FullCode.jsx';
 
 
 function App() {
@@ -135,6 +136,8 @@ function App() {
       <Route exact path="/Caja/FormIngresoExtra" element={state_login?<FormIngresoExtra />:<NoAccess/>} />
     
     <Route exact path="/Balance" element={state_login?<Balance/>:<NoAccess/>} />
+
+    <Route exact path="/DR-FullCode" element={state_login?<DRFullCode/>:<NoAccess/>} />
 
     <Route exact path="/Alertas" element={state_login?<Alertas/>:<NoAccess/>} />
 
