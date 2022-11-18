@@ -101,7 +101,11 @@ export default function Detalle_Pagos_Frigorifico() {
                                             value : e.monto
                                             })
                                         }</td>
+                                        {e.img_comp?
                                         <td ><a href={e.img_comp}>Link</a></td>
+                                        : 
+                                        <td> - </td>
+                                        }
                                         <td ><a href={`/Faenas/DetallePagos/${nombre}/${e.id}/pdf`}>PDF</a></td>
                                         <td>
                                         <ButtonNew
