@@ -328,7 +328,7 @@ const Form_Venta = () => {
                             <option defaultValue>-</option>
                             {stockByCat.length > 0 &&  
                                 stockByCat.map((c,i) => (
-                                    <option	key={i} value={c.correlativo}>{c.correlativo}</option>
+                                    <option	key={i} value={c.correlativo}>{c.correlativo + "-"+c.kg}</option>
                                     ))
                             }
                         </select>
