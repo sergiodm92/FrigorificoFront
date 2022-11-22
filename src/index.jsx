@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 // axios.defaults.baseURL = 'http://localhost:3001'
-axios.defaults.baseURL =  'https://donalberto.herokuapp.com/' 
+axios.defaults.baseURL =  'backendfrigorifico-production.up.railway.app' 
 
 
 
