@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
 import { getAllClientes, getClienteByName, postNewVentaAchura, setAlert } from "../../Redux/Actions/Actions";
-import styleFormV from './Form_Venta.module.scss';
+import style from "./Ventas.module.scss";
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import esLocale from 'date-fns/locale/es';
@@ -21,7 +21,7 @@ var formVA = {
     total:null,
     saldo:null
 };
-
+//titleForm
 //validaciones form VentaAchuras
 export const validate = (venta) => {
     let error = {};
@@ -49,7 +49,7 @@ const Form_Venta_Achuras = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                titleForm: alert_msj,
                 icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -97,7 +97,7 @@ const Form_Venta_Achuras = () => {
         }
         else{
             swal({
-                title: "Alerta",
+                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
@@ -134,14 +134,14 @@ const Form_Venta_Achuras = () => {
         });
 
     return (
-        <div className={styleFormV.wallpaper}>
+        <div className={style.ConteinerVenta}>
             <NavBar
             title={"Nueva Venta de Achuras"}
             />
-            <div className={styleFormV.formContainer}>
-                <form className={styleFormV.form}>
-                    <div className={styleFormV.formItem}>
-                        <h5 className={styleFormV.title}>Cliente: </h5>
+            <div className={style.formContainer}>
+                <form className={style.form}>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Cliente: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCl(e)}>
                             <option defaultValue>-</option>
                             {clientes.length > 0 &&  
@@ -151,8 +151,8 @@ const Form_Venta_Achuras = () => {
                             }
                         </select>
                     </div>
-                    <div className={styleFormV.formItemDate}>
-                        <h5 className={styleFormV.title}>Fecha: </h5>
+                    <div className={style.formItemDate}>
+                        <h5 className={style.titleForm}>Fecha: </h5>
                         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
                         <ThemeProvider theme={outerTheme}>
                         <KeyboardDatePicker
@@ -167,9 +167,9 @@ const Form_Venta_Achuras = () => {
                         </ThemeProvider>  
                         </MuiPickersUtilsProvider>
                     </div>
-                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormV.pass : styleFormV.danger }>Debe ingresar la fecha</p>
-                    <div className={styleFormV.formItem}>
-                        <h5 className={styleFormV.title}>Cantidad: </h5>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Cantidad: </h5>
                         <input
                             type="number"
                             value={form.cantidad}
@@ -180,9 +180,9 @@ const Form_Venta_Achuras = () => {
                             className={error.cantidad & 'danger'}
                         />
                     </div>
-                    <p className={error.cantidad ? styleFormV.danger : styleFormV.pass}>{error.cantidad}</p>
-                    <div className={styleFormV.formItem}>
-                        <h5 className={styleFormV.title}>$/Un: </h5>
+                    <p className={error.cantidad ? style.danger : style.pass}>{error.cantidad}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>$/Un: </h5>
                         <input
                             type="number"
                             value={form.precioUnitario}
@@ -193,13 +193,9 @@ const Form_Venta_Achuras = () => {
                             className={error.precioUnitario & 'danger'}
                         />
                     </div>
-                    <p className={error.precioUnitario ? styleFormV.danger : styleFormV.pass}>{error.precioUnitario}</p>
-                    <div className={styleFormV.buttons}>
-                        <ShortButton
-                            title="📃 Detalle"
-                            onClick={handleDet}
-                            color="primary"
-                        />
+                    <p className={error.precioUnitario ? style.danger : style.pass}>{error.precioUnitario}</p>
+                    <div className={style.buttons} id={style.buttonOk}>
+
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

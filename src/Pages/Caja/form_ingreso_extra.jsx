@@ -116,7 +116,7 @@ export default function FormIngresoExtra(){
         },
         });
     return(
-        <div className={style.wallpaper}>
+        <div className={style.conteiner}>
             <NavBar
                 title={"Ingresos Extras"}
             />

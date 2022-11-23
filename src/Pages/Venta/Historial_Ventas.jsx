@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
-import styleVen from "./Ventas.module.scss";
+import style from "./Ventas.module.scss";
 import { getAllVentas } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -19,12 +19,12 @@ export default function Historial_Ventas(){
     }, [dispatch])
 
     return(
-        <div className={styleVen.ConteinerVentas}>
+        <div className={style.ConteinerVenta}>
             <NavBar
             title={"Hist. Ventas"}
             />
             <div>
-                <div className={styleVen.title}>
+                <div className={style.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
                     <div><b>Cliente</b></div>
@@ -35,7 +35,7 @@ export default function Historial_Ventas(){
                     <div><b>|</b></div>
                     <div><b>Monto($)</b></div>
                 </div>
-                <div className={styleVen.cardsCont}>
+                <div className={style.cardsCont}>
                     {AllVentas.map((a, i)=>{
                         return(
                             <CardLarge

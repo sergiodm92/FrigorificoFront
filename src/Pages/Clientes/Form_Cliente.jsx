@@ -5,7 +5,7 @@ import {postNewCliente, putEditarCliente} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import styleFormCl from './Form_Cliente.module.scss';
+import style from "./Clientes.module.scss";
 
 const formCl = {
     nombre:'',
@@ -79,14 +79,14 @@ const Form_Cliente = () => {
     };
 
     return (
-        <div className={styleFormCl.wallpaper}>
+        <div className={style.conteinerAll}>
             <NavBar
             title={"Nuevo Cliente"}
             />
-            <div className={styleFormCl.formContainer}>
-                <form className={styleFormCl.form}>
-                    <div className={styleFormCl.formItem}>
-                        <h5 className={styleFormCl.title}>Nombre Completo: </h5>
+            <div className={style.formContainer}>
+                <form className={style.form}>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Nombre Completo: </h5>
                         <input
                             type="text"
                             value={form.nombre}
@@ -96,9 +96,9 @@ const Form_Cliente = () => {
                             className={error.nombre & 'danger'}
                         />
                     </div>
-                    <p className={error.nombre ? styleFormCl.danger : styleFormCl.pass}>{error.nombre}</p>
-                    <div className={styleFormCl.formItem}>
-                        <h5 className={styleFormCl.title}>email: </h5>
+                    <p className={error.nombre ? style.danger : style.pass}>{error.nombre}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>email: </h5>
                         <input
                             type="text"
                             value={form.email}
@@ -109,9 +109,9 @@ const Form_Cliente = () => {
                             className={error.email & 'danger'}
                         />
                     </div>
-                    <p className={error.email ? styleFormCl.danger : styleFormCl.pass}>{error.email}</p>
-                    <div className={styleFormCl.formItem}>
-                        <h5 className={styleFormCl.title}>Teléfono: </h5>
+                    <p className={error.email ? style.danger : style.pass}>{error.email}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Teléfono: </h5>
                         <input
                             type="text"
                             value={form.telefono}
@@ -122,9 +122,9 @@ const Form_Cliente = () => {
                             className={error.telefono & 'danger'}
                         />
                     </div>
-                    <p className={error.telefono ? styleFormCl.danger : styleFormCl.pass}>{error.telefono}</p>
-                    <div className={styleFormCl.formItem}>
-                        <h5 className={styleFormCl.title}>Dirección: </h5>
+                    <p className={error.telefono ? style.danger : style.pass}>{error.telefono}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Dirección: </h5>
                         <input
                             type="text"
                             value={form.direccion}
@@ -134,8 +134,8 @@ const Form_Cliente = () => {
                             className={error.direccion & 'danger'}
                         />
                     </div>   
-                    <div className={styleFormCl.formItem}>
-                        <h5 className={styleFormCl.title}>Cuil: </h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Cuil: </h5>
                         <input
                             type="text"
                             value={form.cuil}
@@ -144,7 +144,7 @@ const Form_Cliente = () => {
                             onChange={handleChange}
                         />
                     </div>                                     
-                    <div className={styleFormCl.buttons}>
+                    <div className={style.buttons}>
                         <ShortButton
                             title="📃 Detalle"
                             onClick={handleDet}

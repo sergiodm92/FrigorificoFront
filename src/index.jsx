@@ -9,14 +9,13 @@ import axios from 'axios';
 
 
 // axios.defaults.baseURL = 'http://localhost:3001'
-axios.defaults.baseURL =  'https://donalberto.herokuapp.com/' 
-
+axios.defaults.baseURL = 'https://donalberto.herokuapp.com' ||'https://backendfrigorifico-production.up.railway.app/'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter outer>
+  <Provider store={store} >
+    <BrowserRouter outer >
       <App />
     </BrowserRouter>
   </Provider>

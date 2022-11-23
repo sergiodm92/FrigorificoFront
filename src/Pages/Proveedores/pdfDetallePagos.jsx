@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAllComrpasByProveedor, getPagosComprasByProveedor, getProveedorByName } from "../../Redux/Actions/Actions"
 import DocPDF from "../../Components/PDFDoc/PDFDoc";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import style from './Form_Proveedor.module.scss'
+import style from './Proveedores.module.scss'
 
 export default function PdfDetallePagosProveedores(){
     
@@ -23,8 +23,8 @@ export default function PdfDetallePagosProveedores(){
 
     
     return(
-        <div className={style.wallpaper2}>
-            <div className="d-none d-lg-block">
+        <div className={style.ConteinerProveedores} id={style.pdfCenter}>
+            <div className="d-none d-lg-block" >
                 <PDFViewer style={{width:"100%", height: "95vh"}}>
                     <DocPDF
                         pagosT={pagos}
@@ -33,7 +33,7 @@ export default function PdfDetallePagosProveedores(){
                     />
                 </PDFViewer> 
             </div>
-            <div className="d-lg-none" >
+            <div className="d-lg-none">
                 <PDFDownloadLink 
                     style={{textDecoration:"none"}}
                     document={<DocPDF

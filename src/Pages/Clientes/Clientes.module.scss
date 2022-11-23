@@ -1,14 +1,22 @@
-.ConteinerClientes{
-    display: flex;
-    position: absolute;
+.conteinerAll{
+    width: 100%;
     min-height: 100%;
+    display: flex;
+    align-items: center;
+    position: absolute;
     flex-direction: column;
     background-image: linear-gradient(180deg,rgb(100, 9, 9) 0, rgb(90, 9, 9) 10%, rgb(80, 9, 9) 20%, rgb(70, 9, 9) 30%, rgb(60, 9, 9) 40%, rgb(50, 9, 9) 50%, rgb(40, 9, 9) 60%, rgb(30, 9, 9) 70%, rgb(20, 9, 9) 80%, rgb(10, 9, 9) 90%, rgb(0, 9, 9) 100%);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    width: 100%;
+    padding-bottom: 30px;
 }
+#asd{
+    justify-content: center;
+    min-height: 0;
+    align-items:unset;
+}
+
 .contTitle{
     margin-top: 20px;
     display: flex;
@@ -21,7 +29,7 @@
     font-weight: bold;
     font-style: initial;
     font-size: 18px;
-    color: white;
+    color: var(--ColorFontTwo);
 }
 .title{
     display: flex;
@@ -29,7 +37,7 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--ColorFontTwo);
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
@@ -93,7 +101,7 @@
     gap: 10px;
 }
 .marca{
-    background-color:black;
+    background-color:var(--ColorTrhee);
     display: flex;
     position: relative;
     align-items: center;
@@ -101,7 +109,7 @@
     width: 100%;
 }
 .firstTitle{
-    color: white;
+    color: var(--ColorFontTwo);
     font-family: 'Karla', sans-serif;
     font-weight: bold;
     font-style: initial;
@@ -113,4 +121,95 @@
     justify-content: center;
     align-items: center;
     gap: 25px;
+}
+
+.tablefaena{
+    margin-top: 2%;
+    width: 600px;
+}
+.text{
+    color: var(--ColorFour);
+}
+.tdDF{
+    text-align:center
+}
+
+.tdr{
+    text-align:right
+}
+.columnRight{
+    text-align: center;
+}
+@media screen and (max-width: 500px) {
+    .tablefaena{
+scale: 0.68;
+    }
+}
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+.formItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: var(--ColorEight);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: var(--ColorFontOne);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    
+}
+
+.titleForm{
+    font-size: 16px;
+}
+
+p.danger {
+	color: var(--ColorFontTrhee);
+	text-align: center;
+	margin: 0;
+    font-size: 12px;
+}
+p.pass{
+    display: none;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+.size1 {
+	width: 50px;
+}
+.size2{
+    width: 100px;
+}
+.numero{
+    display: flex;
+}
+input{
+    border-radius: 10px;
+    border-color: var(--ColorBorderOne);
+}
+select{
+    border-radius: 10px;
+    border-color: var(--ColorBorderOne);
+    height: 30px;
 }

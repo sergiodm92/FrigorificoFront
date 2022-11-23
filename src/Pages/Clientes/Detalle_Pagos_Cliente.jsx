@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { deletePagoVentaAchurasById, deletePagoVentaById, getPagosVentaAchurasByCliente, getPagosVentasByCliente, getVentasAchurasByCliente, getVentasByCliente, putSaldoVenta, putSaldoVentaAchuras, setDeletePagos, setDeletePagosAchuras } from "../../Redux/Actions/Actions"
-import style from './Detalle_Pagos.module.scss'
+import style from "./Clientes.module.scss";
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
@@ -99,7 +99,7 @@ export default function Detalle_Pagos_Clientes() {
     }
 
     return(
-        <div className={style.conteiner}>
+        <div className={style.conteinerAll}>
             <NavBar
                 title={`Pagos de ${nombre}`}
             />
@@ -132,7 +132,7 @@ export default function Detalle_Pagos_Clientes() {
                                             })
                                         }</td>
                                         <td >{e.img_comp?<a href={e.img_comp}>Link</a>:<p>-</p>}</td>
-                                        <td >{e.cliente?<a href={`/Clientes/DetallePagos/${nombre}/${e.id}/pdf`}>PDF</a>:<a href={`/Clientes/DetallePagosAchuras/${nombre}/${e.id}/pdf`}>PDF</a>}</td>
+                                        <td >{e.cliente?<a href={`/Clientes/DetallePagos/pdf/${nombre}/${e.id}`}>PDF</a>:<a href={`/Clientes/DetallePagosAchuras/pdf/${nombre}/${e.id}`}>PDF</a>}</td>
                                         <td>
                                         <ButtonNew
                                             style={"delete"}
@@ -148,7 +148,7 @@ export default function Detalle_Pagos_Clientes() {
                 <div className={style.buttonLarge}>
                     <LargeButton
                         title={"Generar PDF"}
-                        onClick={()=>navigate(`/Clientes/DetallePagos/${nombre}/pdf`)}
+                        onClick={()=>navigate(`/Clientes/DetallePagos/pdf/${nombre}`)}
                     ></LargeButton>
                 </div>
             </div>

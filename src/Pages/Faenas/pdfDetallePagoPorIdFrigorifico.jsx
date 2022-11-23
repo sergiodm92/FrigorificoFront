@@ -4,7 +4,7 @@ import { useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { getFaenaById, getPagosFaenasByFrigorifico } from "../../Redux/Actions/Actions"
 import DocPDFByidF from "../../Components/PDFDoc/PDFByidF";
-import style from './Faenadetail.module.scss'
+import style from './Faenas.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 
 export default function PdfDetallePagoPorIdFrigorifico(){
@@ -30,7 +30,7 @@ export default function PdfDetallePagoPorIdFrigorifico(){
     const faena = useSelector((state)=>state.FaenaById)
 
     return(     
-        <div className={style.wallpaper2}>
+        <div className={style.ConteinerFaenas} id={style.ConteinerCenterPDF}>
             <div className="d-none d-lg-block">
             <PDFViewer style={{width:"100%", height: "95vh"}} >
                 <DocPDFByidF

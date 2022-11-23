@@ -6,30 +6,30 @@
 .button1{
     width: 150px;
     height: 50px;
-    background-color: rgb(255,159,0);
+    background-color: var(--ColorTwo);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-width: 1px;
-    border-color: black;
+    border-color: var(--ColorTrhee);
     border-right-width: 0px;
     margin: 0;
     padding: 0;
-    color: black;
+    color: var(--ColorTrhee);
     font-family: 'Karla', sans-serif;
     font-size: 25px;
     font-style: initial;
 }
 .button1:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }
 .button2{
     width: 150px;
     height: 50px;
-    background-color: rgb(255,159,0);
+    background-color: var(--ColorTwo);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-width: 1px;
-    border-color: black;
+    border-color: var(--ColorTrhee);
     margin: 0;
     padding: 0;
     background-image: url("../../../Media/add-circle-outline.svg");
@@ -38,5 +38,5 @@
     background-size: contain;
 }
 .button2:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }

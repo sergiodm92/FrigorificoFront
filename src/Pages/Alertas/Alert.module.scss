@@ -1,4 +1,4 @@
-.ConteinerBalance{
+.Conteiner{
     display: flex;
     position: absolute;
     flex-direction: column;
@@ -30,12 +30,12 @@
 .cont{
     display: flex;
     position: relative;
-    border-color: black;
+    border-color: var(--ColorBorderOne);
     justify-content: center;
     align-items: center;
     width: 550px;
     height: 50px;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 10px;
     border-width: 3px;
     margin: 10px;
@@ -43,7 +43,7 @@
     gap: 20px;
 }
 .cont:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }
 .items{
     display: flex;

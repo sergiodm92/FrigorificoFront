@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
-import stylePr from "./Proveedores.module.scss";
+import style from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllProveedores} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
@@ -17,20 +17,20 @@ export default function Proveedores(){
     let AllProveedores = useSelector((state)=>state.AllProveedores)
 
     return(
-        <div className={stylePr.ConteinerProveedores}>
+        <div className={style.ConteinerProveedores}>
             <NavBar
             title={"Proveedores"}
             onClick={"/home"}
             />
             <div>
-                <div className={stylePr.title}>
+                <div className={style.title}>
                     <div><b>Nombre</b></div>
                     <div><b>|</b></div>
                     <div><b>Cuil</b></div>
                     <div><b>|</b></div>
                     <div><b>Saldo($)</b></div>
                 </div>
-                <div className={stylePr.cardsCont}>
+                <div className={style.cardsCont}>
                     {AllProveedores.map((a)=>{
 
                         return(
@@ -46,7 +46,7 @@ export default function Proveedores(){
                     })
                     }
                 </div>
-                <div className={stylePr.buttonLarge}>
+                <div className={style.buttonLarge}>
                     <LargeButton
                         title={"Agregar Proveedor"}
                         onClick={()=>navigate("/Proveedores/Form/0")}

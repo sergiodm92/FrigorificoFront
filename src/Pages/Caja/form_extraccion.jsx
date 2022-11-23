@@ -113,7 +113,7 @@ export default function FormExtraccion(){
         },
         });
     return(
-        <div className={style.wallpaper}>
+        <div className={style.conteiner}>
             <NavBar
                 title={"Extracción"}
             />

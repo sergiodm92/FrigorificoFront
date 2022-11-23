@@ -44,7 +44,7 @@ export default function Caja(){
         else total-=a.monto
         })
     return(
-        <div className={style.conteinerCaja}>
+        <div className={style.conteiner}>
             <NavBar
                     title={"Caja"}
             />

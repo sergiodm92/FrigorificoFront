@@ -5,9 +5,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+*{
+  --ColorOne:   rgb(107, 0, 0);
+  --ColorTwo:   rgb(255, 159, 0);
+  --ColorTrhee: rgb(0,0,0);
+  --ColorFour:  rgb(160, 160, 160);
+  --ColorFive:  rgb(255,255,255);
+  --ColorSix:   rgb(0, 153, 255);
+  --ColorSeven: rgb(210, 40, 40);
+  --ColorEight: rgb(255, 207, 131);
+  --ColorOk:    rgb(0, 129, 0);
+  --ColorNine:  rgb(238, 83, 83);
+
+  
+  --ColorFontOne:   rgb(0,0,0);
+  --ColorFontTwo:   rgb(255,255,255);
+  --ColorFontTrhee: rgb(210, 40, 40);
+  --ColorFontFour:  rgb(160, 160, 160);
+
+
+  --ColorBorderOne: rgb(0,0,0);
+  --ColorBorderTwo: rgb(255,255,255);
+  
+}
+

@@ -5,7 +5,7 @@ import {getAllReses, putkgRes} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import style from './Form_Faena.module.scss';
+import style from './Faenas.module.scss';
 import { useEffect } from "react";
 
 const formCl = {
@@ -88,14 +88,14 @@ const Form_Editar_Res = () => {
     };
 
     return (
-        <div className={style.wallpaper}>
+        <div className={style.ConteinerFaenas}>
             <NavBar
             title={"Nuevo Cliente"}
             />
             <div className={style.formContainer}>
                 <form className={style.form}>
                     <div className={style.formItem}>
-                        <h5 className={style.title}>Correlativo: </h5>
+                        <h5 className={style.titleForm}>Correlativo: </h5>
                         <select id="correlativo" className="selectform" onChange={(e)=> handleSelect(e)}>
                             <option defaultValue>-</option>
                             {arrayReses.length > 0 &&  
@@ -107,7 +107,7 @@ const Form_Editar_Res = () => {
                     </div>
                     <p className={error.correlativo ? style.danger : style.pass}>{error.correlativo}</p>
                     <div className={style.formItem}>
-                        <h5 className={style.title}>kg: </h5>
+                        <h5 className={style.titleForm}>kg: </h5>
                         <input
                             type="text"
                             value={form.kg}

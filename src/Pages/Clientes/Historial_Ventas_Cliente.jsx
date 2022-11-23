@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
-import styleCl from "./Clientes.module.scss";
 import { getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from "../../Redux/Actions/Actions";
-
+import style from "./Clientes.module.scss";
 
 export default function Historial_Ventas_Cliente(){
 
@@ -27,13 +26,13 @@ export default function Historial_Ventas_Cliente(){
     const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
 
     return(
-        <div className={styleCl.ConteinerClientes}>
+        <div className={style.conteinerAll}>
             <NavBar
             title={ClienteById.nombre}
             />
-            <div className={styleCl.conteiner}>
-                <h5 className={styleCl.firstTitle}>Ventas de Carne</h5>
-                <div className={styleCl.title}>
+            <div className={style.conteiner}>
+                <h5 className={style.firstTitle}>Ventas de Carne</h5>
+                <div className={style.title}>
                     <div><b>ID</b></div>
                     <div><b>|</b></div>
                     <div><b>Fecha</b></div>
@@ -46,14 +45,14 @@ export default function Historial_Ventas_Cliente(){
                     <div><b>|</b></div>
                     <div><b>Monto($)</b></div>
                 </div>
-                <div className={styleCl.cardsCont}>
+                <div className={style.cardsCont}>
                     {AllVentasByCliente.length!==0? AllVentasByCliente.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}
                                 id={a.id}
                                 fecha={a.fecha}
-                                para={a.cliente}
+                                para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
                                 cant={a.cant}
                                 kg={a.kg_total}
                                 monto={a.total}
@@ -64,9 +63,9 @@ export default function Historial_Ventas_Cliente(){
                     })
                     :null}
                 </div>
-                <div className={styleCl.cardsCont}>
-                        <h5 className={styleCl.firstTitle}>Ventas de Achuras</h5>
-                        <div className={styleCl.title}>
+                <div className={style.cardsCont}>
+                        <h5 className={style.firstTitle}>Ventas de Achuras</h5>
+                        <div className={style.title}>
                             <div><b>ID</b></div>
                             <div><b>|</b></div>
                             <div><b>Fecha</b></div>
@@ -79,7 +78,7 @@ export default function Historial_Ventas_Cliente(){
                             <div><b>|</b></div>
                             <div><b>Saldo($)</b></div>
                         </div>
-                        <div className={styleCl.cardsCont}>
+                        <div className={style.cardsCont}>
                             {AllVentasAchurasByCliente.length!==0? AllVentasAchurasByCliente.map((a,i)=>{
                                 return(
                                     <CardLarge

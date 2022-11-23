@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
-import styleCom from "./Compras.module.scss"
+import style from "./Compras.module.scss"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllComrpas } from "../../Redux/Actions/Actions"
 
@@ -17,12 +17,12 @@ export default function Historial_Compras(){
     const AllCompras = useSelector((state)=>state.AllCompras)
 
     return(
-        <div className={styleCom.ConteinerCompras}>
+        <div className={style.ConteinerCompras}>
             <NavBar
             title={"Hist. Compras"}
             />
             <div>
-                <div className={styleCom.title}>
+                <div className={style.title}>
                     <div><b>ID</b></div>
                     <div><b>|</b></div>
                     <div><b>Fecha</b></div>
@@ -35,14 +35,14 @@ export default function Historial_Compras(){
                     <div><b>|</b></div>
                     <div><b>Monto($)</b></div>
                 </div>
-                <div className={styleCom.cardsCont}>
+                <div className={style.cardsCont}>
                     {AllCompras?.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}
                                 id={a.id}
                                 fecha={a.fecha}
-                                para={a.proveedor}
+                                para={a.proveedor.length<10?a.proveedor:a.proveedor.slice(0,15)}
                                 cant={a.cant_total}
                                 kg={a.kg_carne_totales}
                                 monto={a.costo_total_hac}

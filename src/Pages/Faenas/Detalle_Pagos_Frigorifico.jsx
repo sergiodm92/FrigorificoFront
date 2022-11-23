@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
 import { deletePagoFaenaById, getAllFaenas, getFaenaById, getPagosFaenasByFrigorifico, putSaldoFaena } from "../../Redux/Actions/Actions"
-import style from './Detalle_Pagos.module.scss'
+import style from './Faenas.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import swal from "sweetalert"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
@@ -70,7 +70,7 @@ export default function Detalle_Pagos_Frigorifico() {
     }
 
     return(
-        <div className={style.conteiner}>
+        <div className={style.ConteinerFaenas} id={style.ConteinerCenter}>
             <NavBar
                 title={`Pagos de ${nombre}`}
             />

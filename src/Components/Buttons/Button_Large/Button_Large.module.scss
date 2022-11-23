@@ -1,24 +1,24 @@
 .cont{
     display: flex;
     position: relative;
-    border-color: black;
+    border-color: var(--ColorTrhee);
     justify-content: center;
-    text-decoration-color: rgb(255, 159, 0) ;
+    text-decoration-color: var(--ColorTwo) ;
 }
 .button1{
     width: 300px;
     height: 45px;
-    background-color: rgb(255, 159, 0);
+    background-color: var(--ColorTwo);
     border-radius: 10px;
     border-width: 1px;
-    border-color: black;
+    border-color: var(--ColorTrhee);
     margin: 0;
     padding: 0;
-    color: black;
+    color: var(--ColorTrhee);
     font-family: 'Karla', sans-serif;
     font-size: 20px;
     font-style: initial;
 }
 .button1:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }

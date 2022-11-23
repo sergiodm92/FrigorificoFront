@@ -1,9 +1,9 @@
 .conteiner{
-    background-color:rgb(198, 207, 213);
+    background-color:var(--ColorFour);
     height: 100%;
 }
 .conteinerDet{
-    background-color:rgb(198, 207, 213);
+    background-color:var(--ColorFour);
     height: 100%;
 }
 
@@ -19,18 +19,18 @@
 }
 
 .conteinerCaja{
-    background-color:rgb(198, 207, 213);
+    background-color:var(--ColorFour);
     height: 100%;
 }
 
 @media (max-width: 600px){
     .conteinerCaja{
-        background-color:rgb(198, 207, 213);
+        background-color:   var(--ColorFour);
         height: 100%;
         font-size: 10Px;
     }
     .conteinerDet{
-        background-color:rgb(198, 207, 213);
+        background-color:   var(--ColorFour);
         height: 100%;
         font-size: 10px;
     }
