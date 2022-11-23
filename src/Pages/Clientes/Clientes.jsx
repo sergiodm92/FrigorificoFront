@@ -39,7 +39,7 @@ export default function Clientes(){
                             <CardSmallCliente
                                 key={a.id}
                                 id={a.id}
-                                nombre={a.nombre.length>15?a.nombre.slice(0,15):a.nombre}
+                                nombre={a.nombre}
                                 tipo={"Clientes"}
                                 pago={false}
                                 cuil= {a.cuil}
