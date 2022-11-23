@@ -2,39 +2,31 @@ import React, {useEffect} from "react";
 import { PDFDownloadLink, PDFViewer} from '@react-pdf/renderer';
 import { useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
-import { getClienteByName, getPagosVentaAchurasByCliente, getPagosVentasByCliente } from "../../Redux/Actions/Actions"
-import DocPDF from "../../Components/PDFDoc/PDFDoc";
-import style from "./Clientes.module.scss";
+import { getVentaAchurasByID } from "../../Redux/Actions/Actions"
+import style from "./Ventas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import DocPDFDetalleV from "../../Components/PDFDoc/PDFDocDetalleVenta";
 
-export default function PdfDetallePagosClientes(){
+export default function PdfDetalleVentaAch(){
     
     const dispatch = useDispatch()
-    const {nombre}=useParams()
+    const {id}=useParams()
     
-
-
     useEffect(() => {
-            dispatch(getPagosVentasByCliente(nombre))
-            dispatch(getPagosVentaAchurasByCliente(nombre))
-            dispatch(getClienteByName(nombre))
+            dispatch(getVentaAchurasByID(id))
         
     }, [dispatch])
 
-    const pagos = useSelector((state)=>state.pagosByCliente)
-    const pagosAchuras = useSelector((state)=>state.pagosAchurasByCliente)
-    const cliente = useSelector((state)=>state.clienteByNombre)
-
-    let pagosT=[ ...pagos, ...pagosAchuras]
-    
+    const venta = useSelector((state)=>state.VentaAchuraByID)    
 
     return(
-        <div className={style.conteinerAll} id={style.asd}>
+        <div className={style.ConteinerVenta} id={style.asd}>
             <div className="d-none d-lg-block">
                 <PDFViewer style={{width:"100%", height: "95vh"}}>
-                    <DocPDF
-                        pagosT={pagosT}
-                        person={cliente}
+                    <DocPDFDetalleV
+                        transaccion={venta}
+                        transaccionName={"Venta de Achuras"}
+                        person={venta.clien}
                         name={"Cliente"}
                     />
                 </PDFViewer> 
@@ -42,9 +34,10 @@ export default function PdfDetallePagosClientes(){
             <div className="d-lg-none" >
                 <PDFDownloadLink 
                     style={{textDecoration:"none"}}
-                    document={<DocPDF
-                        pagosT={pagosT}
-                        person={cliente}
+                    document={<DocPDFDetalleV
+                        transaccion={venta}
+                        transaccionName={"Venta de Achuras"}
+                        person={venta.clien}
                         name={"Cliente"}
                     />}
                     fileName='Comprobante de Pago'

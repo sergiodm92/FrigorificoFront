@@ -40,7 +40,7 @@ const dispatch = useDispatch()
                     kgStock+=a.kg 
                     totalEst+=a.precio_kg*a.kg*1.07
         })
-     if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>gananciaMensual+=a.margen)
+     if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>{if(a.saldo!==a.total)gananciaMensual+=((a.total-a.saldo)/a.total)*a.margen})
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {

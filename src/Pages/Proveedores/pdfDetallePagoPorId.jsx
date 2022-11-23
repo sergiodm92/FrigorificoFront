@@ -4,7 +4,7 @@ import { useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { getComrpaByID, getPagosComprasByProveedor} from "../../Redux/Actions/Actions"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import style from './Form_Proveedor.module.scss'
+import style from './Proveedores.module.scss'
 import DocPDFbyidC from "../../Components/PDFDoc/PDFByidC";
 
 export default function PdfDetallePagoPorIdProveedor(){
@@ -30,7 +30,7 @@ export default function PdfDetallePagoPorIdProveedor(){
     const compra = useSelector((state)=>state.CompraByID)
 
     return( 
-        <div className={style.wallpaper2}>
+        <div className={style.ConteinerProveedores} id={style.pdfCenter}>
             <div className="d-none d-lg-block">
                 <PDFViewer style={{width:"100%", height: "95vh"}} >
                     <DocPDFbyidC

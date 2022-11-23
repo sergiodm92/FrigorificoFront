@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../Components/Navbar/Navbar"
 import Table_Det_Faena from "../../Components/Details/Detalle_Faena";
 import { useParams } from "react-router-dom";
-import StyleDF from "./Faenadetail.module.scss"
+import style from "./Faenas.module.scss";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import { deleteFaenaById, deleteResById, getAllReses, getFaenaById, getPagosFaenaByID } from "../../Redux/Actions/Actions";
 import Tabla_Detalle_Faena from "../../Components/Details/Tabla_Detalle_Faena";
@@ -81,19 +81,19 @@ export default function Detalle_Faena(){
     
 
     return(
-        <div className={StyleDF.conteinerDetalle}>
+        <div className={style.ConteinerFaenas} id={style.ConteinerCenter}>
             <NavBar
                 title="Detalle de Faena"    
             />
-            <div className={StyleDF.page}>
-                <div className={StyleDF.buttonDelete}>
+            <div className={style.page}>
+                <div className={style.buttonDelete}>
                     <ButtonNew
                         style={"delete"}
                         icon={"delete"}
                         onClick={deleteFaena}
                     />
                 </div>
-                <div className={StyleDF.tablefaena}>
+                <div className={style.tablefaena}>
                     <Table_Det_Faena
                         id={id}
                     />                    

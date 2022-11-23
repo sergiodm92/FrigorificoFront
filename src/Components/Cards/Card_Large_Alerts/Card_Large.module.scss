@@ -1,12 +1,12 @@
 .cont{
     display: flex;
     position: relative;
-    border-color: black;
+    border-color: var(--ColorTrhee);
     justify-content: center;
     align-items: center;
     width: 550px;
     height: 50px;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 20px;
     border-width: 3px;
     margin: 10px;
@@ -14,7 +14,7 @@
     gap: 20px;
 }
 .cont:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }
 .items{
     display: flex;
@@ -22,7 +22,7 @@
     padding-top: 15px;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: var(--ColorTrhee);
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;

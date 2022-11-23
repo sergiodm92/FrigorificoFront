@@ -40,7 +40,7 @@ export default function Home(){
 
 
     return(
-        <div className={styleH.wallpaper}>
+        <div className={styleH.conteiner}>
             <PrimarySearchAppBar className={styleH.appbar}/>
             <div className={styleH.block1BH}><div className={styleH.logo}></div></div>
             <div className={styleH.block2BH}>

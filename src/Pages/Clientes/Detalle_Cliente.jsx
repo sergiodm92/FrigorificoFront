@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import swal from "sweetalert";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteClienteById, getAllClientes, getClienteByID, getVentasAchurasByCliente, getVentasByCliente } from "../../Redux/Actions/Actions";
 import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
-import styleCl from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Cliente from "../../Components/Details/Table_Cliente";
-
+import style from "./Clientes.module.scss";
 
 export default function Detalle_Cliente(){
 
@@ -76,26 +75,26 @@ export default function Detalle_Cliente(){
     }
 
     return(
-        <div className={styleCl.ConteinerClientes}>
+        <div className={style.conteinerAll}>
             <NavBar
                 title={"Detalle del Cliente"}
             />
-            <div className={styleCl.page}>
-                <div className={styleCl.buttonEdit}>
+            <div className={style.page}>
+                <div className={style.buttonEdit}>
                     <ButtonNew
                         style={"edit"}
                         icon={"edit"}
                         onClick={()=>navigate(`/Clientes/Form/${id}`)}
                     />
                 </div>
-                <div className={styleCl.buttonDelete}>
+                <div className={style.buttonDelete}>
                     <ButtonNew
                         style={"delete"}
                         icon={"delete"}
                         onClick={deleteCliente}
                     />
                 </div>
-                <div className={styleCl.tablecliente}>
+                <div className={style.tablecliente}>
                 <Table_Cliente
                 email={ClienteById.email}
                 nombre={ClienteById.nombre}
@@ -104,9 +103,9 @@ export default function Detalle_Cliente(){
                 cuil={ClienteById.cuil}
                 />
                 </div>
-                <div className={styleCl.cont}>
-                    <div className={styleCl.contTitle}><h1 className={styleCl.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
-                    <div className={styleCl.title}>
+                <div className={style.cont}>
+                    <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
+                    <div className={style.title}>
                         <div><b>ID</b></div>
                         <div><b>|</b></div>
                         <div><b>Fecha</b></div>
@@ -119,14 +118,14 @@ export default function Detalle_Cliente(){
                         <div><b>|</b></div>
                         <div><b>Saldo($)</b></div>
                     </div>
-                    <div className={styleCl.cardsCont}>
+                    <div className={style.cardsCont}>
                         {VentasPendientes.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
                                     key={i}
                                     fecha={a.fecha}
-                                    para={a.cliente}
+                                    para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
                                     cant={a.cant}
                                     kg={a.kg_total}
                                     monto={a.saldo.toFixed(2)}
@@ -140,10 +139,10 @@ export default function Detalle_Cliente(){
                         })
                         }
                         </div>
-                        <div className={styleCl.contTitle}>
-                        <h1 className={styleCl.titleP}>Ventas de Achuras con Saldo pendiente</h1>
+                        <div className={style.contTitle}>
+                        <h1 className={style.titleP}>Ventas de Achuras con Saldo pendiente</h1>
                         </div>
-                        <div className={styleCl.title}>
+                        <div className={style.title}>
                         <div><b>ID</b></div>
                         <div><b>|</b></div>
                         <div><b>Fecha</b></div>
@@ -156,7 +155,7 @@ export default function Detalle_Cliente(){
                         <div><b>|</b></div>
                         <div><b>Saldo($)</b></div>
                     </div>
-                        <div className={styleCl.cardsCont}>
+                        <div className={style.cardsCont}>
                         {VentasAchurasPendientes.map((a,i)=>{
                             return(
                                 <CardLarge
@@ -177,13 +176,13 @@ export default function Detalle_Cliente(){
                         })
                         }
                     </div>
-                    <div className={styleCl.buttonLarge}>
+                    <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Historial de Ventas"}
                             onClick={()=>navigate(`/Clientes/HistorialVentas/${id}`)}
                         ></LargeButton>
                     </div>
-                    <div className={styleCl.buttonLarge}>
+                    <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
                             onClick={()=>navigate(`/Clientes/DetallePagos/${ClienteById.nombre}`)}

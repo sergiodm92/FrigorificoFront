@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar';
-import styleFormF from './Form_Faena.module.scss';
+import style from './Faenas.module.scss';
 import CardReses from "../../Components/Cards/CardReses/CardReses";
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -14,10 +14,6 @@ import esLocale from 'date-fns/locale/es';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
-
-
-
-
 
 
 //Form Faena
@@ -113,7 +109,7 @@ const Form_Faena = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                titleForm: alert_msj,
                 icon: alert_msj==="Faena creada con éxito"?"success":"warning", 
                 button: "ok",
             })
@@ -212,7 +208,7 @@ const Form_Faena = () => {
         }
         catch (err) {
             swal({
-                title: "Alerta",
+                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
@@ -255,7 +251,7 @@ const Form_Faena = () => {
         }
         else{
             swal({
-                title: "Alerta",
+                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
@@ -311,14 +307,14 @@ const Form_Faena = () => {
 
 
     return (
-        <div className={styleFormF.wallpaper}>
+        <div className={style.ConteinerFaenas}>
             <NavBar
             title={"Nueva Faena"}
             />
-            <div className={styleFormF.formContainer}>
-                <form className={styleFormF.form}>
-                    <div className={styleFormF.formItemDate}>
-                        <h5 className={styleFormF.title}>Fecha: </h5>
+            <div className={style.formContainer}>
+                <form className={style.form}>
+                    <div className={style.formItemDate}>
+                        <h5 className={style.titleForm}>Fecha: </h5>
                         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
                         <ThemeProvider theme={outerTheme}>
                         <KeyboardDatePicker
@@ -333,9 +329,9 @@ const Form_Faena = () => {
                         </ThemeProvider>  
                         </MuiPickersUtilsProvider>
                     </div>
-                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormF.pass : styleFormF.danger }>Debe ingresar la fecha</p>
-                    <div className={styleFormF.formItem}>
-                        <h5 className={styleFormF.title}>Frigorífico: </h5>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Frigorífico: </h5>
                         <select id="frigorifico" className="selectform" onChange={(e)=> handleSelectFr(e)}>
                             <option defaultValue>-</option>
                             {frigorificos.length > 0 &&  
@@ -345,9 +341,9 @@ const Form_Faena = () => {
                             }
                         </select>
                     </div>
-                    <p className={error.frigorifico ? styleFormF.danger : styleFormF.pass}>{error.frigorifico}</p>
-                    <div className={styleFormF.formItem}>
-                        <h5 className={styleFormF.title}>Tropa: </h5>
+                    <p className={error.frigorifico ? style.danger : style.pass}>{error.frigorifico}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Tropa: </h5>
                         <input
                             type="text"
                             value={form.tropa}
@@ -358,9 +354,9 @@ const Form_Faena = () => {
                             className={error.tropa & 'danger'}
                         />
                     </div>
-                    <p className={error.tropa ? styleFormF.danger : styleFormF.pass}>{error.tropa}</p>
-                    <div className={styleFormF.formItem}>
-                        <h5 className={styleFormF.title}>Proveedor: </h5>
+                    <p className={error.tropa ? style.danger : style.pass}>{error.tropa}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Proveedor: </h5>
                         <select id="proveedor" className="selectform" defaultValue="-" onChange={(e)=> handleSelectPr(e)}>
                             <option defaultValue>-</option>
                             {proveedores.length > 0 &&  
@@ -371,11 +367,11 @@ const Form_Faena = () => {
                         </select>
                     </div>
                     {/*----------------Carga del detalle---------------------*/}
-                    <div className={styleFormF.formItem2}>
+                    <div className={style.formItem2}>
                         {form.frigorifico==="El Hueco"?
-                            <div className={styleFormF.inbox}>
-                                <div className={styleFormF.item}>
-                                    <h5 className={styleFormF.title}>Garrón: </h5>
+                            <div className={style.inbox}>
+                                <div className={style.item}>
+                                    <h5 className={style.titleForm}>Garrón: </h5>
                                     <input
                                         type="text"
                                         value={formCF.garron}
@@ -383,12 +379,12 @@ const Form_Faena = () => {
                                         name="garron"
                                         onChange={handleChangeCF2}
                                         placeholder="0000"
-                                        className={styleFormF.size2}
+                                        className={style.size2}
                                     />
                                 </div>
-                                <p className={error3.garron ? styleFormF.danger : styleFormF.pass}>{error3.garron}</p>
-                                <div className={styleFormF.item}>
-                                    <h5 className={styleFormF.title}>kg1: </h5>
+                                <p className={error3.garron ? style.danger : style.pass}>{error3.garron}</p>
+                                <div className={style.item}>
+                                    <h5 className={style.titleForm}>kg1: </h5>
                                     <input
                                         type="text"
                                         value={formCF.kg1}
@@ -396,12 +392,12 @@ const Form_Faena = () => {
                                         name="kg1"
                                         onChange={handleChangeCF2}
                                         placeholder="0000"
-                                        className={styleFormF.size2}
+                                        className={style.size2}
                                     />
                                 </div>
-                                <p className={error3.kg1 ? styleFormF.danger : styleFormF.pass}>{error3.kg1}</p>
-                                <div className={styleFormF.item}>
-                                    <h5 className={styleFormF.title}>kg2: </h5>
+                                <p className={error3.kg1 ? style.danger : style.pass}>{error3.kg1}</p>
+                                <div className={style.item}>
+                                    <h5 className={style.titleForm}>kg2: </h5>
                                     <input
                                         type="text"
                                         value={formCF.kg2}
@@ -409,11 +405,11 @@ const Form_Faena = () => {
                                         name="kg2"
                                         onChange={handleChangeCF2}
                                         placeholder="0000"
-                                        className={styleFormF.size2}
+                                        className={style.size2}
                                     />
                                 </div>
-                                <p className={error3.kg2 ? styleFormF.danger : styleFormF.pass}>{error3.kg2}</p>
-                                <div className={styleFormF.item}>
+                                <p className={error3.kg2 ? style.danger : style.pass}>{error3.kg2}</p>
+                                <div className={style.item}>
                                     <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option  defaultValue>Categoría</option>
                                             {categorias.length > 0 &&  
@@ -425,9 +421,9 @@ const Form_Faena = () => {
                                 </div>
                             </div>
                             :
-                            <div className={styleFormF.inbox}>
-                                <div className={styleFormF.item}>
-                                    <h5 className={styleFormF.title}>Correlativo: </h5>
+                            <div className={style.inbox}>
+                                <div className={style.item}>
+                                    <h5 className={style.titleForm}>Correlativo: </h5>
                                     <input
                                         type="text"
                                         value={formCF.correlativo}
@@ -435,11 +431,11 @@ const Form_Faena = () => {
                                         name="correlativo"
                                         onChange={handleChangeCF}
                                         placeholder="0000"
-                                        className={styleFormF.size2}
+                                        className={style.size2}
                                     />
                                 </div>
-                                <p className={error2.correlativo ? styleFormF.danger : styleFormF.pass}>{error2.correlativo}</p>
-                                <div className={styleFormF.item}>
+                                <p className={error2.correlativo ? style.danger : style.pass}>{error2.correlativo}</p>
+                                <div className={style.item}>
                                     <select id="categoria" className="selectform" onChange={(e)=> handleSelect(e)}>
                                         <option value="" defaultValue>Categoría</option>
                                             {categorias.length > 0 &&  
@@ -448,8 +444,8 @@ const Form_Faena = () => {
                                             ))
                                             }
                                     </select>
-                                    <div className={styleFormF.numero}>
-                                        <h5 className={styleFormF.title}>kg </h5>
+                                    <div className={style.numero}>
+                                        <h5 className={style.titleForm}>kg </h5>
                                         <input
                                             type="number"
                                             value={formCF.kg}
@@ -457,14 +453,14 @@ const Form_Faena = () => {
                                             name="kg"
                                             onChange={handleChangeCF}
                                             placeholder="00"
-                                            className={styleFormF.size2}
+                                            className={style.size2}
                                         />
                                     </div>
-                                    <p className={error2.kg ? styleFormF.danger : styleFormF.pass}>{error2.kg}</p>
+                                    <p className={error2.kg ? style.danger : style.pass}>{error2.kg}</p>
                                 </div>
                             </div>}
                     </div>
-                    <div className={styleFormF.button}>
+                    <div className={style.button}>
                         <ButtonNew
                             onClick={Object.entries(error2).length===0 || Object.entries(error3).length===0 ? handleSubmitRes : null}
                             style={"right"}
@@ -499,12 +495,12 @@ const Form_Faena = () => {
                             })
                             :null
                     }
-                    <div className={styleFormF.formItem}>
+                    <div className={style.formItem}>
                         <div>
-                            <h5 className={styleFormF.title}>Costo Faena/kg: </h5>
+                            <h5 className={style.titleForm}>Costo Faena/kg: </h5>
                         </div>
-                        <div className={styleFormF.numero}>
-                            <h5 className={styleFormF.title}>$ </h5>
+                        <div className={style.numero}>
+                            <h5 className={style.titleForm}>$ </h5>
                             <input
                                 type="text"
                                 value={form.costo_faena_kg?form.costo_faena_kg:''}
@@ -512,29 +508,24 @@ const Form_Faena = () => {
                                 name="costo_faena_kg"
                                 onChange={handleChange}
                                 placeholder="0.00"
-                                className={styleFormF.size2}
+                                className={style.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.costo_faena_kg ? styleFormF.danger : styleFormF.pass}>{error.costo_faena_kg}</p>
+                    <p className={error.costo_faena_kg ? style.danger : style.pass}>{error.costo_faena_kg}</p>
                     {kg_totales?
-                    <div className={styleFormF.formItem}>
-                        <h5 className={styleFormF.title}>Kg totales: {kg_totales}kg</h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Kg totales: {kg_totales}kg</h5>
                     </div>:null}
                     {form.detalle.length?
-                    <div className={styleFormF.formItem}>
-                        <h5 className={styleFormF.title}>Total Reses: {form.detalle.length}</h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Total Reses: {form.detalle.length}</h5>
                     </div>:null}
-                    <div className={styleFormF.buttons}>
-                        <div className={styleFormF.shortButtons}>
-                            <ShortButton
-                                title="📃 Detalle"
-                                onClick={handleDet}
-                                color="primary"
-                            />
+                    <div className={style.buttons}>
+                        <div className={style.shortButtons} id={style.buttonOk}>
                             <ShortButton
                                 title="✔ Confirmar"
-                                onClick={Object.entries(error).length===0? handleSubmit : null }
+                                onClick={handleSubmit}
                                 color="green"
                             />
                         </div>

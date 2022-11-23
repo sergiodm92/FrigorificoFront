@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
-import styleF from "./Faenas.module.scss";
+import style from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import {getAllFaenas} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
@@ -21,16 +21,16 @@ export default function Faenas(){
     const navigate = useNavigate();
 
     return(
-        <div className={styleF.ConteinerFaenas}>
+        <div className={style.ConteinerFaenas}>
             <NavBar
             title={"Faenas"}
             onClick={"/home"}
             />
             <div>
-                <div className={styleF.contTitle}>
-                    <h1 className={styleF.titleP}>Pendientes</h1>
+                <div className={style.contTitle}>
+                    <h1 className={style.titleP}>Pendientes</h1>
                 </div>
-                <div className={styleF.title}>
+                <div className={style.title}>
                     <div><b>Fecha</b></div>
                     <div><b>|</b></div>
                     <div><b>Frigorífico</b></div>
@@ -39,7 +39,7 @@ export default function Faenas(){
                     <div><b>|</b></div>
                     <div><b>Saldo($)</b></div>
                 </div>
-                <div className={styleF.cardsCont}>
+                <div className={style.cardsCont}>
                     {faenasPendientes.map((a,i)=>{
                         return(
                             <CardSmallFaenas
@@ -60,21 +60,21 @@ export default function Faenas(){
                     })
                     }
                 </div>
-                <div className={styleF.buttons}>
-                    <div className={styleF.buttonLarge}>
+                <div className={style.buttons}>
+                    <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Historial de Faenas"}
                             onClick={()=>navigate("/Faenas/Historial")}
                         ></LargeButton>
                     </div>
-                    <div className={styleF.buttonsPagos}>
-                        <div className={styleF.buttonLarge}>
+                    <div className={style.buttonsPagos}>
+                        <div className={style.buttonLarge}>
                             <LargeButton
                                 title={"Pagos - Natilla"}
                                 onClick={()=>navigate("/Faenas/DetallePagos/Natilla")}
                             ></LargeButton>
                         </div>
-                        <div className={styleF.buttonLarge}>
+                        <div className={style.buttonLarge}>
                             <LargeButton
                                 title={"Pagos - El Hueco"}
                                 onClick={()=>navigate("/Faenas/DetallePagos/El Hueco")}

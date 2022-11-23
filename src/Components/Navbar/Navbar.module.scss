@@ -7,7 +7,6 @@
     justify-content: center;
     align-items: center;
     gap: 10%;
-   
 }
 .DivTitle{
     display: flex;
@@ -16,7 +15,7 @@
     justify-content: flex-start;
     gap: 15px;
     width: 60%;
-    color: white;
+    color: var(--ColorFontTwo);
 }
 .NavTitle{
     display:flex;
@@ -29,7 +28,7 @@
 }
 
 .ConteinerButtonReturn{
-    background-color: rgb(255, 159, 0);
+    background-color: var(--ColorTwo);
     background-image: url("../../Media/return.svg");
     background-repeat: no-repeat;
     background-size: 70%;
@@ -46,11 +45,11 @@
 
 }
 .ConteinerButtonReturn:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }
 
 .ConteinerButtonHome{
-    background-color: rgb(255, 159, 0);
+    background-color: var(--ColorTwo);
     background-image: url("../../Media/home.svg");
     background-repeat: no-repeat;
     background-size: 80%;
@@ -68,7 +67,7 @@
 
 }
 .ConteinerButtonHome:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
 }
 .loguito{
     display: none;

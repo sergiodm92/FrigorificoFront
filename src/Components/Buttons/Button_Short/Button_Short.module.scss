@@ -11,43 +11,43 @@
     width: 120px;
     height: 45px;
     border-radius: 10px;
-    border-color: rgba(0, 0, 0, 0);
+    border-color: var(--ColorTrhee);
     margin: 0;
     padding: 0;
-    color: black;
+    color: var(--ColorTrhee);
     font-family: 'Karla', sans-serif;
     font-size: 15px;
     font-style: initial;
 }
 .GreyButton{
-    background-color: rgb(145, 145, 145);
+    background-color: var(--ColorFour);
 }
 .PrimaryButton{
-    background-color: rgb(255, 159, 0);
+    background-color: var(--ColorTwo);
 }
 .PrimaryButton:hover{
-    background-color: rgb(160, 160, 160);
+    background-color: var(--ColorFour);
     cursor: pointer;
 }
 .SecondaryButton{
-    background-color: rgb(207, 207, 207);
+    background-color: var(--ColorFive);
 }
 .SecondaryButton:hover{
-    background-color: rgb(160, 160, 160);
+    opacity: 80%;
     cursor: pointer;
 }
 .GreenButton{
-    background-color: rgb(0, 129, 0);
+    background-color: var(--ColorOk);
 }
 .GreenButton:hover{
-    background-color: rgb(0, 65, 0);
+    opacity: 80%;
     cursor: pointer;
 }
 .RedButton{
-    background-color: red;
+    background-color: var(--ColorOne);
 }
 .RedButton:hover{
-    background-color: rgb(141, 0, 0);
+    background-color: var(--ColorOne);
     cursor: pointer;
 }
 
@@ -66,10 +66,10 @@
         width: 100px;
         height: 45px;
         border-radius: 10px;
-        border-color: rgba(0, 0, 0, 0);
+        border-color: var(--ColorTrhee);
         margin: 0;
         padding: 0;
-        color: black;
+        color: var(--ColorTrhee);
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;

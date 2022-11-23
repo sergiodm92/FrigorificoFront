@@ -8,6 +8,19 @@
     background-position: center center;
     background-size: cover;
     width: 100%;
+    align-items: center;
+    padding-bottom: 30px;
+}
+#asd{
+    justify-content: center;
+    min-height: 0;
+    align-items:unset;
+}
+@media screen and (max-width: 1000px) {
+    #asd{
+        justify-content: center;
+        min-height: 100%;
+    }
 }
 .title{
     display: flex;
@@ -15,11 +28,18 @@
     gap: 15px;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--ColorFontTwo);
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
     margin-top: 20px;
+}
+.titleForm{
+    font-size: 16px;
+}
+#buttonOk{
+    display: flex;
+    justify-content: flex-end;
 }
 .cardsCont{
     display: flex;
@@ -40,3 +60,154 @@
         align-items: center;
     }
 }
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+.formItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: var(--ColorEight);
+    border-radius: 10px;
+    margin: 0;
+    padding: 18px;
+    color: var(--ColorFontOne);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    
+}
+.formItemDate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: var(--ColorEight);
+    border-radius: 10px;
+    margin-left: 0;
+    padding: 18px;
+    color: var(--ColorFontOne);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    gap: 70px;
+}
+.title2{
+    font-size: large;
+    padding-top: 10px;
+}
+p.danger {
+	color: var(--ColorFontTrhee);
+	text-align: center;
+	margin: 0;
+    font-size: 12px;
+}
+p.pass{
+    display: none;
+}
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    color: var(--ColorFontOne);
+}
+.shortButtons{
+    display: flex;
+    gap: 50px;
+}
+.size1 {
+	width: 50px;
+}
+.size2{
+    width: 100px;
+}
+.numero{
+    display: flex;
+}
+input{
+    border-radius: 10px;
+    border-color: var(--ColorBorderOne);
+}
+select{
+    border-radius: 10px;
+    border-color: var(--ColorBorderOne);
+    height: 30px;
+}
+
+.cardGrupo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    background-color: var(--ColorEight);
+    border-radius: 10px;
+}
+.cardGrupo2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    background-color: var(--ColorEight);
+    border-radius: 10px;
+    padding-top: 10px;
+    font-size: 13px;
+}
+.button{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-top: -15px;
+}
+
+.TableCompras{
+    margin-top: 2%;
+    max-width: 500px;
+    width: 400px;
+}
+.buttonEdit{
+    display: flex;
+    position: relative;
+    margin-left: 330px;
+    margin-bottom: -30px;
+}
+.buttonDelete{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-bottom: -20px;
+}
+.page{
+    margin-top: 10px;
+}
+
+.grupos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    padding-bottom: 50px;
+    align-self: center;
+    justify-self: center;
+}
+
+@media only screen and (max-width: 650px) {
+    .grupos {
+    grid-template-columns: 1fr;
+    }  
+}
+

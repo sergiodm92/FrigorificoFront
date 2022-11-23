@@ -5,7 +5,7 @@ import NavBar from "../../Components/Navbar/Navbar"
 import { useParams } from "react-router"
 import { useNavigate } from "react-router"
 import TableVenta from "../../Components/Details/Detalle_Venta"
-import StyleDetalleVenta from './StyleDetalleVenta.module.scss'
+import style from './Ventas.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import { deleteVentaById, getClienteByName, getPagosVentaByID, getVentaByID, putCuartoRes, putSaldoCliente, putStockResTrue } from "../../Redux/Actions/Actions"
@@ -94,19 +94,19 @@ const deleteVenta = ()=>{
 }
 
     return(
-        <div className={StyleDetalleVenta.ConteinerVenta}>
+        <div className={style.ConteinerVenta}>
             <NavBar
                 title={"Detalle de la Venta"}
             />
-            <div className={StyleDetalleVenta.page}>
-                <div className={StyleDetalleVenta.buttonDelete}>
+            <div className={style.page}>
+                <div className={style.buttonDelete}>
                     <ButtonNew
                         style={"delete"}
                         icon={"delete"}
                         onClick={deleteVenta}
                     />
                 </div>
-                <div className={StyleDetalleVenta.TableVenta}>
+                <div className={style.TableVenta}>
                     <TableVenta
                         venta={venta}
                         pagos={pagos}
@@ -114,7 +114,7 @@ const deleteVenta = ()=>{
                 </div>
                 <LargeButton
                     title="Detalle de Reses"
-                    onClick={()=>Navigate(`/Ventas/${id}/DetalleReses`)}
+                    onClick={()=>Navigate(`/Ventas/DetalleReses/${id}`)}
                 />
             </div>
         </div>

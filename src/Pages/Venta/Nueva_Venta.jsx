@@ -9,7 +9,7 @@ const Nueva_Venta = ()=>{
     const navigate=useNavigate()
 
     return(
-        <div className={style.ConteinerVentas}>
+        <div className={style.ConteinerVenta}>
             <NavBar
             title={"Nueva Venta"}
             />

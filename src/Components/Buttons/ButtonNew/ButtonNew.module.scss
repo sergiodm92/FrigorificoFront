@@ -12,36 +12,36 @@
     width: 30px;
     height: 30px;
     border-radius: 35%;
-    color: black;
+    color: var(--ColorTrhee);
     font-family: 'Karla', sans-serif;
     font-size: 20px;
     font-style: initial;
     cursor: pointer;
 }
 .offButton{
-    background-color: rgb(145, 145, 145);
+    background-color: var(--ColorFour)
 }
 .NewButton{
-    background-color: rgb(0, 153, 255);
+    background-color: var(--ColorSix);
 }
 .NewButton:hover{
-    background-color: rgb(0, 115, 192);
+    background-color: var(--ColorFour);
 }
 .RightButton{
-    background-color: rgb(0, 150, 0);
+    background-color: var(--ColorOk);
 }
 .RightButton:hover{
-    background-color: rgb(0, 90, 0);
+    opacity: 80%;
 }
 .EditButton{
-    background-color: rgb(243, 85, 85);
+    background-color: var(--ColorNine);
 }
 .EditButton:hover{
-    background-color: rgb(202, 45, 45);
+    opacity: 80%;
 }
 .DeleteButton{
-    background-color: rgb(255, 0, 0);
+    background-color: var(--ColorSeven);
 }
 .DeleteButton:hover{
-    background-color: rgb(104, 0, 0);
+    opacity: 80%;
 }

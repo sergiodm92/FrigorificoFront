@@ -1,15 +1,16 @@
 import React, { useEffect } from "react"
 import NavBar from "../../Components/Navbar/Navbar"
-import { useParams } from "react-router"
-import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
+import { useNavigate, useParams } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import {  getComrpaByID } from "../../Redux/Actions/Actions"
 import CardGruposDetalle from "../../Components/Cards/CardGruposDetalle/CardGruposDetalle.jsx"
-
+import style from "./Compras.module.scss"
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 
 export default function DetalleGrupos(){
 
     const dispatch = useDispatch()
+    const Navigate = useNavigate()
     const {id}=useParams()
 
     useEffect(() => {
@@ -18,11 +19,11 @@ export default function DetalleGrupos(){
     const compra = useSelector((state)=>state.CompraByID)
 
     return(
-        <div className={StyleDetalleCompra.ConteinerCompras}>
+        <div className={style.ConteinerCompras}>
             <NavBar
                 title={"Detalle"}
             />
-            <div className={StyleDetalleCompra.grupos}>
+            <div className={style.grupos}>
 
         {compra.grupos?compra.grupos.map((a, i)=>{
                 return(
@@ -30,9 +31,9 @@ export default function DetalleGrupos(){
                 key={i}
                 tropa={a.n_tropa}
                 categoria={a.categoria}
-                kgv_brutos={a.kgv_brutos}
+                kgv_brutos={(a.kgv_brutos*1).toFixed(2)}
                 desbaste={a.desbaste}
-                kgv_netos={a.kgv_netos}
+                kgv_netos={(a.kgv_netos*1).toFixed(2)}
                 cant={a.cant}
                 precio_kgv_netos={a.precio_kgv_netos}
                 costo_flete={a.costo_flete}
@@ -42,7 +43,7 @@ export default function DetalleGrupos(){
                 cosoVeps={a.cosoVeps}
                 costo_total={a.costo_total}
                 costo_kg={a.costo_kg}
-                pesoProm={a.pesoProm}
+                pesoProm={(a.pesoProm*1).toFixed(2)}
                 rinde={a.rinde}
                 recupero={a.recupero}
                 />
@@ -51,6 +52,10 @@ export default function DetalleGrupos(){
         :null}
         
             </div>
+            <LargeButton
+                    title="Generar PDF"
+                    onClick={()=>Navigate(`/Compras/DetalleGrupos/pdf/${id}`)}
+                />
 
         </div>
 

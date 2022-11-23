@@ -113,7 +113,7 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                     </TableBody>
                                 </Table>
                                 <View style={{marginTop:"2.5vh", marginBottom:"0.5vh"}}>
-                                    <Text style={datosClienteBold}>Detalle de la Faena:</Text>
+                                    <Text style={datosClienteBold}>Detalle de la Compra:</Text>
                                 </View>
                                 <Table data = {array}>
                                     <TableHeader includeBottomBorder={false}

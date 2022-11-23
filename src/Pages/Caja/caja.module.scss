@@ -10,19 +10,7 @@
     background-position: center center;
     background-size: cover;
 }
-.conteinerCaja{
-    width: 100%;
-    height: 100%;
-    min-height: 800px;
-    align-items: center;
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    background-image: linear-gradient(180deg,rgb(100, 9, 9) 0, rgb(90, 9, 9) 10%, rgb(80, 9, 9) 20%, rgb(70, 9, 9) 30%, rgb(60, 9, 9) 40%, rgb(50, 9, 9) 50%, rgb(40, 9, 9) 60%, rgb(30, 9, 9) 70%, rgb(20, 9, 9) 80%, rgb(10, 9, 9) 90%, rgb(0, 9, 9) 100%);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-}
+
 .marca{
     display: flex;
     position: relative;
@@ -30,17 +18,7 @@
     justify-content: center;
     width: 100%;
 }
-.wallpaper{
-    display: flex;
-    position: absolute;
-    flex-direction: column;
-    background-image: linear-gradient(180deg,rgb(100, 9, 9) 0, rgb(90, 9, 9) 10%, rgb(80, 9, 9) 20%, rgb(70, 9, 9) 30%, rgb(60, 9, 9) 40%, rgb(50, 9, 9) 50%, rgb(40, 9, 9) 60%, rgb(30, 9, 9) 70%, rgb(20, 9, 9) 80%, rgb(10, 9, 9) 90%, rgb(0, 9, 9) 100%);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-}
+
 .formContainer{
     display: flex;
     flex-direction: column;
@@ -60,7 +38,7 @@
     align-items: center;
     width: 300px;
     height: 50px;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 20px;
     margin: 0;
     padding: 18px;
@@ -89,11 +67,11 @@
     align-items: center;
     width: 300px;
     height: 50px;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 20px;
     margin-left: 0;
     padding: 18px;
-    color: black;
+    color: var(--ColorFontOne);
     font-family: 'Karla', sans-serif;
     font-size: 15px;
     font-style: initial;
@@ -104,7 +82,7 @@
     padding-top: 10px;
 }
 p.danger {
-	color: red;
+	color: var(--ColorSeven);
 	text-align: center;
 	margin: 0;
     font-size: 12px;
@@ -123,11 +101,11 @@ p.pass{
 }
 input{
     border-radius: 10px;
-    border-color: rgba(0, 0, 0, 0);
+    border-color: var(ColorBorderOne);
 }
 select{
     border-radius: 10px;
-    border-color: rgba(0, 0, 0, 0);
+    border-color: var(ColorBorderOne);
     height: 30px;
 }
 .detallePro{
@@ -137,11 +115,11 @@ select{
     align-items: center;
     width: 300px;
     height: auto;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 20px;
     margin: 0;
     padding: 10px;
-    color: black;
+    color: var(--ColorFontOne);
     font-family: 'Karla', sans-serif;
     font-size: 15px;
     font-style: initial;
@@ -170,11 +148,11 @@ select{
     align-items: center;
     width: 300px;
     height: 50px;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 20px;
     margin: 0;
     padding: 18px;
-    color: rgb(10, 3, 3);
+    color: var(--ColorFontOne);
     font-family: 'Karla', sans-serif;
     font-size: 15px;
     font-style: initial;
@@ -196,11 +174,11 @@ select{
     align-items: center;
     max-width: 300px;
     max-height: 200px;
-    background-color: rgb(255, 207, 131);
+    background-color: var(--ColorEight);
     border-radius: 20px;
     margin: 0;
     padding: 18px;
-    color: rgb(10, 3, 3);
+    color: var(--ColorFontOne);
     font-family: 'Karla', sans-serif;
     font-size: 15px;
     font-style: initial;

@@ -5,7 +5,7 @@ import { postNewProveedor, putEditarProveedor } from "../../Redux/Actions/Action
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import styleFormPr from './Form_Proveedor.module.scss';
+import style from './Proveedores.module.scss';
 
 const formPr = {
     nombre:'',
@@ -57,7 +57,7 @@ const Form_Proveedor = () => {
                 dispatch(putEditarProveedor(form))
             }
             swal({
-                title: "Nuevo Proveedor",
+                titleForm: "Nuevo Proveedor",
                 text: "Cargado correctamente",
                 icon: "success",
                 button: "ok",
@@ -66,7 +66,7 @@ const Form_Proveedor = () => {
         }
         else {
             swal({
-                title: "Alerta",
+                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
@@ -79,14 +79,14 @@ const Form_Proveedor = () => {
     };
 
     return (
-        <div className={styleFormPr.wallpaper}>
+        <div className={style.ConteinerProveedores}>
             <NavBar
             title={"Nuevo Proveedor"}
             />
-            <div className={styleFormPr.formContainer}>
-                <form className={styleFormPr.form}>
-                    <div className={styleFormPr.formItem}>
-                        <h5 className={styleFormPr.title}>Nombre Completo: </h5>
+            <div className={style.formContainer}>
+                <form className={style.form}>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Nombre Completo: </h5>
                         <input
                             type="text"
                             value={form.nombre}
@@ -96,9 +96,9 @@ const Form_Proveedor = () => {
                             className={error.nombre & 'danger'}
                         />
                     </div>
-                    <p className={error.nombreCompleto ? styleFormPr.danger : styleFormPr.pass}>{error.nombreCompleto}</p>
-                    <div className={styleFormPr.formItem}>
-                        <h5 className={styleFormPr.title}>email: </h5>
+                    <p className={error.nombreCompleto ? style.danger : style.pass}>{error.nombreCompleto}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>email: </h5>
                         <input
                             type="text"
                             value={form.email}
@@ -109,8 +109,8 @@ const Form_Proveedor = () => {
                             className={error.email & 'danger'}
                         />
                     </div>
-                    <div className={styleFormPr.formItem}>
-                        <h5 className={styleFormPr.title}>Teléfono: </h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Teléfono: </h5>
                         <input
                             type="text"
                             value={form.telefono}
@@ -121,8 +121,8 @@ const Form_Proveedor = () => {
                             className={error.telefono & 'danger'}
                         />
                     </div>
-                    <div className={styleFormPr.formItem}>
-                        <h5 className={styleFormPr.title}>Dirección: </h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Dirección: </h5>
                         <input
                             type="text"
                             value={form.direccion}
@@ -132,8 +132,8 @@ const Form_Proveedor = () => {
                             className={error.direccion & 'danger'}
                         />
                     </div>
-                    <div className={styleFormPr.formItem}>
-                        <h5 className={styleFormPr.title}>Cuil: </h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Cuil: </h5>
                         <input
                             type="text"
                             value={form.cuil}
@@ -142,7 +142,7 @@ const Form_Proveedor = () => {
                             onChange={handleChange}
                             />
                     </div>                                        
-                    <div className={styleFormPr.buttons}>
+                    <div className={style.buttons}>
                         <ShortButton
                             title="📃 Detalle"
                             onClick={handleDet}

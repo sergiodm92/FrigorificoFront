@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import swal from "sweetalert"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useParams, useNavigate } from "react-router"
-import TableCompra from "../../Components/Details/Detalle_Compra"
-import StyleDetalleCompra from './StyleDetalleCompras.module.scss'
+import TableCompra from "../../Components/Details/TableCompra"
+import style from "./Compras.module.scss"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import { useDispatch, useSelector } from "react-redux"
@@ -79,19 +79,19 @@ export default function Detalle_Compra(){
     }
 
     return(
-        <div className={StyleDetalleCompra.ConteinerCompras}>
+        <div className={style.ConteinerCompras}>
             <NavBar
                 title={"Detalle de la Compra"}
             />
-            <div className={StyleDetalleCompra.page}>
-                <div className={StyleDetalleCompra.buttonDelete}>
+            <div className={style.page}>
+                <div className={style.buttonDelete}>
                     <ButtonNew
                         style={"delete"}
                         icon={"delete"}
                         onClick={deleteCompra}
                     />
                 </div>
-                <div className={StyleDetalleCompra.TableCompras}>
+                <div className={style.TableCompras}>
                     <TableCompra
                         id_c={id}
                     />
@@ -100,7 +100,7 @@ export default function Detalle_Compra(){
             </div>
             <LargeButton
                     title={"Detalle de Grupos"}
-                    onClick={()=>navigate(`/Compras/${id}/DetalleGrupos`)}
+                    onClick={()=>navigate(`/Compras/DetalleGrupos/${id}`)}
                 />
         </div>
 

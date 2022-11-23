@@ -1,20 +1,20 @@
 import React from "react";
-import styleBS from "./Button_Short.module.scss";
+import style from "./Button_Short.module.scss";
 
 const ShortButton = ({ title, onClick, color}) => {
     
     const buttonColor = {
-        primary: styleBS.PrimaryButton,
-        secondary: styleBS.SecondaryButton,
-        green: styleBS.GreenButton,
-        red: styleBS.RedButton,
-        grey: styleBS.GreyButton,
+        primary: style.PrimaryButton,
+        secondary: style.SecondaryButton,
+        green: style.GreenButton,
+        red: style.RedButton,
+        grey: style.GreyButton,
       };
 
   return (
-      <div className={styleBS.cont}>
+      <div className={style.cont}>
         <div
-          className={ !onClick ? `${styleBS.button1} ${buttonColor["grey"]}` :`${styleBS.button1} ${buttonColor[color]}`}
+          className={ !onClick ? `${style.button1} ${buttonColor["grey"]}` :`${style.button1} ${buttonColor[color]}`}
           onClick={onClick}
         >{title}
         </div>

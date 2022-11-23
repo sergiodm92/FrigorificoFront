@@ -121,7 +121,7 @@ export default function Detalle_Proveedor(){
                                     key={a.id}
                                     id={a.id}
                                     fecha={a.fecha}
-                                    para={a.proveedor}
+                                    para={a.proveedor.length>12?a.proveedor.slice(0,12):a.proveedor}
                                     cant={a.cant_total}
                                     kg={a.kg_carne_totales}
                                     monto={a.saldo.toFixed(2)}

@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoCompraById, getAllComrpasByProveedor, getPagosComprasByProveedor, getProveedorByName, putSaldoCompra} from "../../Redux/Actions/Actions"
-import style from './Detalle_Pagos.module.scss'
+import { deletePagoCompraById, getAllComrpasByProveedor, getPagosComprasByProveedor, putSaldoCompra} from "../../Redux/Actions/Actions"
+import style from './Proveedores.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
@@ -30,6 +30,7 @@ export default function Detalle_Pagos_Proveedor() {
         }) 
         return formatter.format(value)
     }
+
     let monto
 
     const deletePago = (id, compraID, Monto)=>{
@@ -70,7 +71,7 @@ export default function Detalle_Pagos_Proveedor() {
     }
 
     return(
-        <div className={style.conteiner}>
+        <div className={style.ConteinerProveedores} id={style.conteinerCenter}>
             <NavBar
                 title={`Pagos de ${nombre}`}
             />

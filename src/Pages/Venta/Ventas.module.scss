@@ -1,13 +1,26 @@
-.ConteinerVentas{
-    display: flex;
+.ConteinerVenta{
+    width: 100%;
     min-height: 100%;
+    align-items: center;
+    display: flex;
     position: absolute;
     flex-direction: column;
     background-image: linear-gradient(180deg,rgb(100, 9, 9) 0, rgb(90, 9, 9) 10%, rgb(80, 9, 9) 20%, rgb(70, 9, 9) 30%, rgb(60, 9, 9) 40%, rgb(50, 9, 9) 50%, rgb(40, 9, 9) 60%, rgb(30, 9, 9) 70%, rgb(20, 9, 9) 80%, rgb(10, 9, 9) 90%, rgb(0, 9, 9) 100%);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    width: 100%;
+    padding-bottom: 30px;
+}
+#asd{
+    justify-content: center;
+    min-height: 0;
+    align-items:unset;
+}
+@media screen and (max-width: 1000px) {
+    #asd{
+        justify-content: center;
+        min-height: 100%;
+    }
 }
 .contV{
     display: flex;
@@ -16,14 +29,14 @@
     gap: 5px;
     justify-content: center;
     align-items: center;
-    color: black;
+	color: var(--ColorFontOne);
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
     margin-top: 20px;
 }
 .firstTitle{
-    color: white;
+	color: var(--ColorFontTwo);
     font-family: 'Karla', sans-serif;
     font-weight: bold;
     font-style: initial;
@@ -35,7 +48,19 @@
     gap: 25px;
     justify-content: center;
     align-items: center;
-    color:white;
+	color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
+}
+.titleVenta{
+    display: flex;
+    position: relative;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+	color: var(--ColorFontTwo);
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
@@ -50,8 +75,11 @@
 @media screen and (max-width: 500px) {
     .title{
         gap: 12px;
-        font-size: 13px;
-        
+        font-size: 10px;
+    }
+    .titleVenta{
+        font-size: 14px;
+        gap:5px;
     }
     .cardsCont{
         display: flex;
@@ -82,4 +110,159 @@
     align-items: center;
     gap: 30px;
     margin-top: 80px;
+}
+
+
+.TableVenta{
+    max-width: 360px;
+    margin-top: 2%;
+}
+
+.ConteinerVentas{
+    width: 100%;
+    height: 100%;
+    min-width: 400px;
+    min-height: 800px;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+.TableVenta{
+    max-width: 500px;
+    width: 400px;
+}
+.buttonEdit{
+    display: flex;
+    position: relative;
+    margin-bottom: -30px;
+    margin-left: 330px;
+}
+.buttonDelete{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-bottom: -15px;
+}
+.page{
+    margin-top: 10px;
+}
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+.formItem{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: var(--ColorEight);
+    border-radius: 20px;
+    margin: 0;
+    padding: 18px;
+    color: var(--ColorFontOne);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+}
+.formItemDate{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    background-color: var(--ColorEight);
+    border-radius: 20px;
+    margin-left: 0;
+    padding: 18px;
+	color: var(--ColorFontOne);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+    gap: 70px;
+}
+.formItem2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    background-color: var(--ColorEight);
+    border-radius: 20px;
+    margin: 0;
+    padding: 15px;
+    gap: 15px;
+    color: var(--ColorFontOne);
+    font-family: 'Karla', sans-serif;
+    font-size: 15px;
+    font-style: initial;
+}
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.numero{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.title{
+    font-size: large;
+    padding-top: 10px;
+}
+p.danger {
+	color: var(--ColorFontTrhee);
+	text-align: center;
+	margin: 0;
+    font-size: 12px;
+}
+p.pass{
+    display: none;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+input{
+    border-radius: 10px;
+    border-color: var(--ColorFontOne);
+}
+select{
+    border-radius: 10px;
+    border-color: var(--ColorFontOne);
+    height: 30px;
+}
+.size2{
+    width: 80px;
+}
+.button{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-top: -20px;
+}
+.titleForm{
+    font-size: 16px;
+}
+#buttonOk{
+    display: flex;
+    justify-content: flex-end;
 }

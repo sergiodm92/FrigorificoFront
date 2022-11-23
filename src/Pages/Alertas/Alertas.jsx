@@ -23,15 +23,15 @@ const dispatch = useDispatch()
 
     let fecha = Date.now()
     return(
-        <div className={style.ConteinerBalance}>
+        <div className={style.Conteiner}>
                 <NavBar
                 title="Alertas"
                 />
                 <div className={style.CardConteiner}>
-                {alertRes?.map(a=>{
+                {alertRes?.map((a,i)=>{
                     return(
 
-                    <div className={style.CardAlert}>
+                    <div className={style.CardAlert} key={i}>
                         <CardAlert
                         tropa={a.tropa}
                         categoria={a.categoria}

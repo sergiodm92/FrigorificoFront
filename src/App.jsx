@@ -57,6 +57,9 @@ import PdfDetallePagoPorIdFrigorifico from './Pages/Faenas/pdfDetallePagoPorIdFr
 import PdfDetallePagoPorIdCliente from './Pages/Clientes/pdfDetallePagoPorId.jsx';
 import PdfDetallePagoAchurasPorIdCliente from './Pages/Clientes/pdfDetallePagoAchurasPorId.jsx';
 import PdfDetallePagoPorIdProveedor from './Pages/Proveedores/pdfDetallePagoPorId.jsx';
+import PdfDetalleVenta from './Pages/Venta/pdfDetalleVenta.jsx';
+import PdfDetalleVentaAch from './Pages/Venta/pdfDetalleVentaAch.jsx';
+import PdfDetalleCompra from './Pages/Compra/pdfDetalleCompra.jsx';
 import Alertas from './Pages/Alertas/Alertas.jsx'
 import './App.css';
 import DRFullCode from './Pages/DR-FullCode/DR-FullCode.jsx';
@@ -91,15 +94,18 @@ function App() {
 
     <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
       <Route exact path="/Compras/:id" element={state_login?<Detalle_Compra />:<NoAccess/>} />
-      <Route exact path="/Compras/:id/DetalleGrupos" element={state_login?<DetalleGrupos />:<NoAccess/>} />
+      <Route exact path="/Compras/DetalleGrupos/:id" element={state_login?<DetalleGrupos />:<NoAccess/>} />
+      <Route exact path="/Compras/DetalleGrupos/pdf/:id" element=<PdfDetalleCompra />/>
       <Route exact path="/Compras/Historial" element={state_login?<Historial_Compras />:<NoAccess/>} />
       <Route exact path="/FormCompra" element={state_login?<Form_Compra />:<NoAccess/>} />
 
     <Route exact path="/Ventas" element={state_login?<Ventas />:<NoAccess/>} />
       <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
-      <Route exact path="/Ventas/:id/DetalleReses" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
+      <Route exact path="/Ventas/DetalleReses/:id" element={state_login?<Detalle_Reses_Venta />:<NoAccess/>} />
+      <Route exact path="/Ventas/DetalleReses/pdf/:id" element=<PdfDetalleVenta />/>
       <Route exact path="/Ventas/Historial" element={state_login?<Historial_Ventas />:<NoAccess/>} />
       <Route exact path="/Ventas/Achuras/:id" element={state_login?<Detalle_Venta_Achuras />:<NoAccess/>} />
+      <Route exact path="/Ventas/Achuras/pdf/:id" element=<PdfDetalleVentaAch />/>
       <Route exact path="/Ventas/HistorialAchuras" element={state_login?<Historial_Ventas_Achuras />:<NoAccess/>} />
       <Route exact path="/NuevaVenta" element={state_login?<Nueva_Venta />:<NoAccess/>} />
       <Route exact path="/NuevaVenta/FormCarne" element={state_login?<Form_Venta />:<NoAccess/> }/>
@@ -112,9 +118,9 @@ function App() {
       <Route exact path="/Clientes/FormPagoVC/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
       <Route exact path="/Clientes/FormPagoVAch/:id" element={state_login?<Form_Pago_Venta_Achuras />:<NoAccess/>} />
       <Route exact path="/Clientes/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Clientes />:<NoAccess/>} />
-      <Route exact path="/Clientes/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosClientes />:<NoAccess/>} />
-      <Route exact path="/Clientes/DetallePagos/:nombre/:id/pdf" element=<PdfDetallePagoPorIdCliente/>/>
-      <Route exact path="/Clientes/DetallePagosAchuras/:nombre/:id/pdf" element=<PdfDetallePagoAchurasPorIdCliente/>/>
+      <Route exact path="/Clientes/DetallePagos/pdf/:nombre" element={state_login?<PdfDetallePagosClientes />:<NoAccess/>} />
+      <Route exact path="/Clientes/DetallePagos/pdf/:nombre/:id" element=<PdfDetallePagoPorIdCliente/>/>
+      <Route exact path="/Clientes/DetallePagosAchuras/pdf/:nombre/:id" element=<PdfDetallePagoAchurasPorIdCliente/>/>
       
 
     <Route exact path="/Proveedores" element={state_login?<Proveedores />:<NoAccess/>} />

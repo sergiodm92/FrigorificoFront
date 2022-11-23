@@ -6,7 +6,7 @@ import CardReses from "../../Components/Cards/CardReses/CardReses";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
-import styleFormV from './Form_Venta.module.scss';
+import style from "./Ventas.module.scss";
 import { getAllClientes, getAllReses, getClienteByName, postNewVentaCarne, putCuartoRes, putStockRes, setAlert } from "../../Redux/Actions/Actions";
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -102,7 +102,7 @@ const Form_Venta = () => {
         
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                titleForm: alert_msj,
                 icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -152,7 +152,7 @@ const Form_Venta = () => {
         }
         else {
             swal({
-                title: "Alerta",
+                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
@@ -197,7 +197,7 @@ const Form_Venta = () => {
         }
         else{
             swal({
-                title: "Alerta",
+                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
@@ -267,14 +267,14 @@ const Form_Venta = () => {
     });
 
     return (
-        <div className={styleFormV.wallpaper}>
+        <div className={style.ConteinerVenta}>
             <NavBar
             title={"Nueva Venta"}
             />
-            <div className={styleFormV.formContainer}>
-                <form className={styleFormV.form}>
-                    <div className={styleFormV.formItem}>
-                        <h5 className={styleFormV.title}>Cliente: </h5>
+            <div className={style.formContainer}>
+                <form className={style.form}>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Cliente: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCl(e)}>
                             <option defaultValue>-</option>
                             {clientes.length > 0 &&  
@@ -284,8 +284,8 @@ const Form_Venta = () => {
                             }
                         </select>
                     </div>
-                    <div className={styleFormV.formItemDate}>
-                        <h5 className={styleFormV.title}>Fecha: </h5>
+                    <div className={style.formItemDate}>
+                        <h5 className={style.titleForm}>Fecha: </h5>
                         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
                         <ThemeProvider theme={outerTheme}>
                         <KeyboardDatePicker
@@ -300,11 +300,11 @@ const Form_Venta = () => {
                         </ThemeProvider>  
                         </MuiPickersUtilsProvider>
                     </div>
-                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormV.pass : styleFormV.danger }>Debe ingresar la fecha</p>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
                     
                     {/*----------------Carga del detalle---------------------*/}
-                    <div className={styleFormV.formItem2}>
-                        <div className={styleFormV.item}>
+                    <div className={style.formItem2}>
+                        <div className={style.item}>
                             <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
                                 <option defaultValue>Categoría</option>
                                 {categorias.length > 0 &&  
@@ -322,13 +322,13 @@ const Form_Venta = () => {
                                 }
                             </select>
                         </div>
-                        <div className={styleFormV.formItem}>
-                        <h5 className={styleFormV.title}>Correlativo: </h5>
+                        <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Correlativo: </h5>
                         <select className="selectform" onChange={(e)=> handleSelectCorr(e)}>
                             <option defaultValue>-</option>
                             {stockByCat.length > 0 &&  
                                 stockByCat.map((c,i) => (
-                                    <option	key={i} value={c.correlativo}>{c.correlativo}</option>
+                                    <option	key={i} value={c.correlativo}>{c.correlativo + "-"+c.kg}</option>
                                     ))
                             }
                         </select>
@@ -338,27 +338,27 @@ const Form_Venta = () => {
                         formCV.total_media==="total"?
                         
                         <div>
-                            <div className={styleFormV.item}>
-                                <h5 className={styleFormV.title}>kg </h5>
-                                <h5 className={styleFormV.title}>{resSelect.kg}</h5>
+                            <div className={style.item}>
+                                <h5 className={style.titleForm}>kg </h5>
+                                <h5 className={style.titleForm}>{resSelect.kg}</h5>
                             </div>
-                            <div className={styleFormV.item}>
-                                <h5 className={styleFormV.title}>Costo/kg </h5>
-                                <h5 className={styleFormV.title}>{typeof(resSelect.precio_kg)!=="number"? null : (resSelect.precio_kg*1).toFixed(2)}</h5>
+                            <div className={style.item}>
+                                <h5 className={style.titleForm}>Costo/kg </h5>
+                                <h5 className={style.titleForm}>{typeof(resSelect.precio_kg)!=="number"? null : (resSelect.precio_kg*1).toFixed(2)}</h5>
                             </div>
                         </div>
                         :
                         <div>
-                            <div className={styleFormV.item}>
-                                <h5 className={styleFormV.title}>kg total </h5>
-                                <h5 className={styleFormV.title}>{resSelect.kg}</h5>
+                            <div className={style.item}>
+                                <h5 className={style.titleForm}>kg total </h5>
+                                <h5 className={style.titleForm}>{resSelect.kg}</h5>
                             </div>
-                            <div className={styleFormV.item}>
-                                <h5 className={styleFormV.title}>Costo/kg </h5>
-                                <h5 className={styleFormV.title}>{typeof(resSelect.precio_kg)!=="number"? null : (resSelect.precio_kg*1).toFixed(2)}</h5>
+                            <div className={style.item}>
+                                <h5 className={style.titleForm}>Costo/kg </h5>
+                                <h5 className={style.titleForm}>{typeof(resSelect.precio_kg)!=="number"? null : (resSelect.precio_kg*1).toFixed(2)}</h5>
                             </div>
-                            <div className={styleFormV.item}>
-                                <h5 className={styleFormV.title}>kg </h5>
+                            <div className={style.item}>
+                                <h5 className={style.titleForm}>kg </h5>
                                 <input
                                     type="number"
                                     value={formCV.kg?formCV.kg:''}
@@ -366,13 +366,13 @@ const Form_Venta = () => {
                                     name="kg"
                                     onChange={handleChangeCV}
                                     placeholder="000"
-                                    className={styleFormV.size2}
+                                    className={style.size2}
                                 />
                             </div>
                         </div>
                     }
-                        <div className={styleFormV.item}>
-                            <h5 className={styleFormV.title}>$/kg </h5>
+                        <div className={style.item}>
+                            <h5 className={style.titleForm}>$/kg </h5>
                             <input
                                 type="number"
                                 value={formCV.precio_kg?formCV.precio_kg:''}
@@ -380,15 +380,15 @@ const Form_Venta = () => {
                                 name="precio_kg"
                                 onChange={handleChangeCV}
                                 placeholder="0.00"
-                                className={styleFormV.size2}
+                                className={style.size2}
                             />
                         </div>
-                        <div className={styleFormV.item}>
-                            <h5 className={styleFormV.title}>Margen(%) </h5>
-                            <h5 className={styleFormV.title}>{margen}</h5>
+                        <div className={style.item}>
+                            <h5 className={style.titleForm}>Margen(%) </h5>
+                            <h5 className={style.titleForm}>{margen}</h5>
                         </div>
                     </div>
-                    <div className={styleFormV.button}>
+                    <div className={style.button}>
                         <ButtonNew
                             style={"right"}
                             icon={"right"}
@@ -415,12 +415,7 @@ const Form_Venta = () => {
                         })
                         :null
                     }
-                    <div className={styleFormV.buttons}>
-                        <ShortButton
-                            title="📃 Detalle"
-                            onClick={handleDet}
-                            color="primary"
-                        />
+                    <div className={style.buttons} id={style.buttonOk}>
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

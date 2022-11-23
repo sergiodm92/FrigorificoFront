@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
-import styleCom from "./Compras.module.scss"
+import style from "./Compras.module.scss"
 
 export default function Compras(){
     const AllCompras= useSelector((state)=>(state.AllCompras))
@@ -16,13 +16,13 @@ export default function Compras(){
     }, [dispatch])
     
     return(
-        <div className={styleCom.ConteinerCompras}>
+        <div className={style.ConteinerCompras}>
             <NavBar
             title={"Compras"}
             onClick={"/home"}
             />
             <div>
-                <div className={styleCom.title}>
+                <div className={style.title}>
                     <div><b>ID</b></div>
                     <div><b>|</b></div>
                     <div><b>Fecha</b></div>
@@ -35,14 +35,14 @@ export default function Compras(){
                     <div><b>|</b></div>
                     <div><b>Monto($)</b></div>
                 </div>
-                <div className={styleCom.cardsCont}>
+                <div className={style.cardsCont}>
                     {AllCompras.map((a,i)=>{
                         return(
                             <CardLarge
                                 id={a.id}
                                 key={i}
                                 fecha={a.fecha}
-                                para={a.proveedor.length<20?a.proveedor:a.proveedor.slice(0,17)}
+                                para={a.proveedor.length<10?a.proveedor:a.proveedor.slice(0,15)}
                                 cant={a.cant_total}
                                 kg={a.kg_carne_totales}
                                 monto={a.costo_total_hac}
@@ -52,7 +52,7 @@ export default function Compras(){
                     })
                     }
                 </div>
-                <div className={styleCom.buttonLarge}>
+                <div className={style.buttonLarge}>
                     <LargeButton
                         title={"Historial Compras"}
                         onClick={()=>navigate("/Compras/Historial")}

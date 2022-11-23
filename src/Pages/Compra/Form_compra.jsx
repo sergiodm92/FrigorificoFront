@@ -5,7 +5,7 @@ import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getGruposByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlert} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
-import styleFormC from './Form_Compra.module.scss';
+import style from "./Compras.module.scss";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import CardGrupos from "../../Components/Cards/CardGrupos/CardGrupos.jsx"
 //calendario-----------------------------------
@@ -39,10 +39,9 @@ let formC = {
 let FormGCT = {
     categoria: '',            //ingresa                    //costo total=(costo de hacienda)+(costo de flete)+(comision)+(costo Veps)+(costo faena)
     n_tropa: '',              //ingresa                    //costo/kg =   costo total/
-    kgv_brutos: '',         //ingresa
-    desbaste: 0.07,           //ingresa 
-    kg_desbaste:0,       //calcula                      //kgv_brutos * desbaste
-    kgv_netos:0,            //calcula
+    kgv_brutos: 0,         //ingresa
+    desbaste: 0,           //ingresa 
+    kgv_netos: 0,            //calcula
     kg_carne: 0,              //trae                    //costo de hacienda = kgneto*precio_kgv_netos
     costo_flete: 0,      //calcula d                      //costo flete  
     costo_hac:0,            //calcula  
@@ -108,7 +107,7 @@ const Form_Compra = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                titleForm: alert_msj,
                 icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -124,13 +123,13 @@ const Form_Compra = () => {
     const [formGCT, setFormCGT] = useState(FormGCT);
     const [error2, setError2] = useState({});
     const [Switch_Comision, setSwitch_comision] = useState(false);
+    const [Switch_KgBrutos, setSwitch_KgBrutos] = useState(true);
     const [tropa, settropa] = useState(0);
 
     useEffect(() => {
         if(tropa!==0)dispatch(getGruposByTropa(tropa))
     }, [tropa])
     let grupos = useSelector((state)=>state.grupos)
-    console.log(grupos)
 
     useEffect(() => {
 
@@ -181,9 +180,9 @@ const Form_Compra = () => {
                             formGCT.kg_carne+=a.kg*1
                         }
                     })
+                    if(Switch_KgBrutos==true) formGCT.kgv_netos = formGCT.kgv_brutos - (formGCT.kgv_brutos * formGCT.desbaste)
+                    if(Switch_KgBrutos==false) formGCT.kgv_brutos = formGCT.kgv_netos/(1-formGCT.desbaste)
                     formGCT.pesoProm = (formGCT.kgv_brutos*1)/(formGCT.cant*1)
-                    formGCT.kg_desbaste = formGCT.kgv_brutos*1*formGCT.desbaste
-                    formGCT.kgv_netos = (formGCT.kgv_brutos*1) - (formGCT.kg_desbaste*1)
                     formGCT.costo_hac = (formGCT.kgv_netos) * (formGCT.precio_kgv_netos*1)
                     formGCT.costo_faena_kg = faenabytropa.costo_total/faenabytropa.total_kg
                     formGCT.costo_faena = formGCT.costo_faena_kg*formGCT.kg_carne
@@ -257,7 +256,7 @@ const Form_Compra = () => {
         }
         else{
             swal({
-                title: "Faltan Datos",
+                titleForm: "Faltan Datos",
                 icon: "warning", 
                 button: "ok",
             })
@@ -298,6 +297,11 @@ const Form_Compra = () => {
         if(Switch_Comision==false)setSwitch_comision(true)
         else if(Switch_Comision==true)setSwitch_comision(false);
     }
+
+    const switchKgBrutos = ()=>{
+        if(Switch_KgBrutos==false)setSwitch_KgBrutos(true)
+        else if(Switch_KgBrutos==true)setSwitch_KgBrutos(false);
+    }
 //tema del calendario
 const outerTheme = createTheme({
     palette: {
@@ -308,14 +312,14 @@ const outerTheme = createTheme({
     });
 
     return (
-        <div className={styleFormC.wallpaper}>
+        <div className={style.ConteinerCompras}>
             <NavBar
             title={"Nueva Compra"}
             />
-            <div className={styleFormC.formContainer}>
-                <form className={styleFormC.form}>
-                    <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>Proveedor: </h5>
+            <div className={style.formContainer}>
+                <form className={style.form}>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Proveedor: </h5>
                         <select id="proveedor" className="selectform" onChange={(e)=> handleSelectPr(e)}>
                             <option defaultValue>-</option>
                             {proveedores.length > 0 &&  
@@ -325,8 +329,8 @@ const outerTheme = createTheme({
                             }
                         </select>
                     </div>
-                    <div className={styleFormC.formItemDate}>
-                        <h5 className={styleFormC.title}>Fecha: </h5>
+                    <div className={style.formItemDate}>
+                        <h5 className={style.titleForm}>Fecha: </h5>
                         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} >
                         <ThemeProvider theme={outerTheme}>
                         <KeyboardDatePicker
@@ -341,9 +345,9 @@ const outerTheme = createTheme({
                         </ThemeProvider>  
                         </MuiPickersUtilsProvider>
                     </div>
-                    <p className={form.fecha!==new Date().toLocaleDateString() ? styleFormC.pass : styleFormC.danger }>Debe ingresar la fecha</p>
-                    <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>Lugar: </h5>
+                    <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Lugar: </h5>
                         <input
                             type="text"
                             value={form.lugar}
@@ -352,8 +356,8 @@ const outerTheme = createTheme({
                             onChange={handleChange}
                         />
                     </div>
-                    <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>N° DTE: </h5>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>N° DTE: </h5>
                         <input
                             type="text"
                             value={form.n_dte}
@@ -363,13 +367,13 @@ const outerTheme = createTheme({
                             className={error.n_dte & 'danger'}
                         />
                     </div>
-                    <p className={error.n_dte ? styleFormC.danger : styleFormC.pass}>{error.n_dte}</p>
-                    <div className={styleFormC.formItem}>
+                    <p className={error.n_dte ? style.danger : style.pass}>{error.n_dte}</p>
+                    <div className={style.formItem}>
                         <div>
-                            <h5 className={styleFormC.title}>$ Ach. unit: </h5>
+                            <h5 className={style.titleForm}>$ Ach. unit: </h5>
                         </div>
-                        <div className={styleFormC.numero}>
-                            <h5 className={styleFormC.title}>$ </h5>
+                        <div className={style.numero}>
+                            <h5 className={style.titleForm}>$ </h5>
                             <input
                                 type="number"
                                 value={form.precio_venta_achuras_unit?form.precio_venta_achuras_unit:""}
@@ -377,23 +381,23 @@ const outerTheme = createTheme({
                                 name="precio_venta_achuras_unit"
                                 onChange={handleChange}
                                 placeholder="0.00"
-                                className={styleFormC.size2}
+                                className={style.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.precio_venta_achuras ? styleFormC.danger : styleFormC.pass}>{error.precio_venta_achuras}</p>
-                    <div className={styleFormC.formItem}>
-                        <h5 className={styleFormC.title}>Comisión: </h5>
+                    <p className={error.precio_venta_achuras ? style.danger : style.pass}>{error.precio_venta_achuras}</p>
+                    <div className={style.formItem}>
+                        <h5 className={style.titleForm}>Comisión: </h5>
                         <div className="form-check form-switch">
                             <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={()=>switchCom()}/>
                         </div>
                     </div>
-                    <div className={styleFormC.formItem}>
+                    <div className={style.formItem}>
                         <div>
-                            <h5 className={styleFormC.title}>Costo Flete: </h5>
+                            <h5 className={style.titleForm}>Costo Flete: </h5>
                         </div>
-                        <div className={styleFormC.numero}>
-                            <h5 className={styleFormC.title}>$ </h5>
+                        <div className={style.numero}>
+                            <h5 className={style.titleForm}>$ </h5>
                             <input
                                 type="number"
                                 value={form.costo_flete?form.costo_flete:''}
@@ -401,17 +405,17 @@ const outerTheme = createTheme({
                                 name="costo_flete"
                                 onChange={handleChange}
                                 placeholder="0.00"
-                                className={styleFormC.size2}
+                                className={style.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.costo_flete ? styleFormC.danger : styleFormC.pass}>{error.costo_flete}</p>
-                    <div className={styleFormC.formItem}>
+                    <p className={error.costo_flete ? style.danger : style.pass}>{error.costo_flete}</p>
+                    <div className={style.formItem}>
                         <div>
-                            <h5 className={styleFormC.title}>Costo VEPS unit.: </h5>
+                            <h5 className={style.titleForm}>Costo VEPS unit.: </h5>
                         </div>
-                        <div className={styleFormC.numero}>
-                            <h5 className={styleFormC.title}>$ </h5>
+                        <div className={style.numero}>
+                            <h5 className={style.titleForm}>$ </h5>
                             <input
                                 type="number"
                                 value={form.costo_veps_unit?form.costo_veps_unit:''}
@@ -419,21 +423,30 @@ const outerTheme = createTheme({
                                 name="costo_veps_unit"
                                 onChange={handleChange}
                                 placeholder="0.00"
-                                className={styleFormC.size2}
+                                className={style.size2}
                             />
                         </div>
                     </div>
-                    <p className={error.costo_veps_unit ? styleFormC.danger : styleFormC.pass}>{error.costo_veps_unit}</p>
+                    <p className={error.costo_veps_unit ? style.danger : style.pass}>{error.costo_veps_unit}</p>
+                    <div className={style.formItem}>
+                        <div>
+                            <h5 className={style.titleForm}>KgBrutros/KgNetos </h5>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" id="kgBrutos" onChange={()=>switchKgBrutos()}/>
+                        </div>
+                    </div>
                     
                         {tropa!==0 && grupos!==[]?
-                            <div className={styleFormC.cardGrupo2}>
+                            <div className={style.cardGrupo2}>
                             <table className="table">
                             <thead>
                             <tr className="table-warning">
                                     <td>Categoria</td>
                                     <td>Cantidad</td>
                                     <td>kg</td>
-                                    <td>kgB</td>
+                                    <td>0.59</td>
+                                    <td>0.58</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -445,6 +458,7 @@ const outerTheme = createTheme({
                                     <td>{a.cant}</td>
                                     <td>{a.kg}</td> 
                                     <td>{(a.kg/0.59).toFixed(2)}</td> 
+                                    <td>{(a.kg/0.58).toFixed(2)}</td> 
                                 </tr>
                                 :null
                                 )}
@@ -453,9 +467,11 @@ const outerTheme = createTheme({
                             </div>
                             :null
                         }
-                    <div className={styleFormC.cardGrupo}>
-                        <div className={styleFormC.formItem}>
-                            <h5 className={styleFormC.title}>N° Tropa: </h5>
+
+        {Switch_KgBrutos==true?
+                    <div className={style.cardGrupo}>
+                        <div className={style.formItem}>
+                            <h5 className={style.titleForm}>N° Tropa: </h5>
                             <select id="tropa" className="selectform" onChange={(e)=> handleSelectTr(e)}>
                                 <option defaultValue>-</option>
                                 {faenasDisp.length > 0 &&  
@@ -465,8 +481,7 @@ const outerTheme = createTheme({
                                 }
                             </select>
                         </div>
-                        {/* <p className={error.n_tropa ? styleFormC.danger : styleFormC.pass}>{error.n_tropa}</p>         */}
-                        <div className={styleFormC.formItem}>
+                        <div className={style.formItem}>
                             <div>
                                 <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
                                     <option value="" defaultValue>Categoría</option>
@@ -477,51 +492,53 @@ const outerTheme = createTheme({
                                     }
                                 </select>
                             </div>
-                            <div className={styleFormC.numero}>
-                                <h5 className={styleFormC.title}>N°: </h5>
+                            <div className={style.numero}>
+                                <h5 className={style.titleForm}>N°: </h5>
                                 <input
                                     type="number"
                                     value={formGCT.cant}
                                     id="cant"
                                     name="cant"
                                     onChange={handleChangeG}
-                                    className={styleFormC.size1}
+                                    className={style.size1}
                                 />
                             </div>
                         </div>
-                        {/* <p className={error.cant ? styleFormC.danger : styleFormC.pass}>{error.cant}</p> */}
-                        <div className={styleFormC.formItem}>
-                            <h5 className={styleFormC.title}>kgV Brutos: </h5>
+                        <div className={style.formItem}>
+                            <h5 className={style.titleForm}>kgV Brutos: </h5>
                             <input
                                 type="number"
-                                value={formGCT.kgv_brutos}
+                                value={formGCT.kgv_brutos?formGCT.kgv_brutos:''}
                                 id="kgv_brutos"
                                 name="kgv_brutos"
                                 onChange={handleChangeG}
                                 placeholder="00"
-                                className={styleFormC.size2}
+                                className={style.size2}
                             />
                         </div>
-                        {/* <p className={error.kgv_brutos ? styleFormC.danger : styleFormC.pass}>{error.kgv_brutos}</p> */}
-                        <div className={styleFormC.formItem}>
-                            <h5 className={styleFormC.title}>Desbaste: </h5>
+                        <div className={style.formItem}>
+                            <h5 className={style.titleForm}>Desbaste: </h5>
                             <input
                                 type="number"
-                                value={formGCT.desbaste}
+                                value={formGCT.desbaste?formGCT.desbaste:''}
                                 id="desbaste"
                                 name="desbaste"
                                 onChange={handleChangeG}
                                 placeholder="00"
-                                className={error.desbaste & styleFormC.danger}
+                                className={error.desbaste & style.danger}
                             />
                         </div>
-                        {/* <p className={error.desbaste ? styleFormC.danger : styleFormC.pass}>{error.desbaste}</p> */}
-                        <div className={styleFormC.formItem}>
+                        <div className={style.formItem}>
+                            <h5 className={style.titleForm}>kgV Netos: </h5>
+                            <h5 className={style.titleForm}>{formGCT.kgv_brutos - (formGCT.kgv_brutos*formGCT.desbaste)}</h5>
+                        </div>
+                
+                        <div className={style.formItem}>
                             <div>
-                                <h5 className={styleFormC.title}>$/kgV Neto: </h5>
+                                <h5 className={style.titleForm}>$/kgV Neto: </h5>
                             </div>
-                            <div className={styleFormC.numero}>
-                                <h5 className={styleFormC.title}>$ </h5>
+                            <div className={style.numero}>
+                                <h5 className={style.titleForm}>$ </h5>
                                 <input
                                     type="number"
                                     value={formGCT.precio_kgv_netos}
@@ -529,14 +546,96 @@ const outerTheme = createTheme({
                                     name="precio_kgv_netos"
                                     onChange={handleChangeG}
                                     placeholder="0.00"
-                                    className={styleFormC.size2}
+                                    className={style.size2}
                                 />
                             </div>
                         </div>
-                        {/* <p className={error.precio_kgv_netos ? styleFormC.danger : styleFormC.pass}>{error.precio_kgv_netos}</p> */}
-                        
                     </div>
-                    <div className={styleFormC.button}>
+                    :
+                        <div className={style.cardGrupo}>
+                            <div className={style.formItem}>
+                                <h5 className={style.titleForm}>N° Tropa: </h5>
+                                <select id="tropa" className="selectform" onChange={(e)=> handleSelectTr(e)}>
+                                    <option defaultValue>-</option>
+                                    {faenasDisp.length > 0 &&  
+                                        faenasDisp.map((c,i) => (
+                                            <option key={i}	value={c.tropa}>{c.tropa}</option>
+                                            ))
+                                    }
+                                </select>
+                            </div>
+                            <div className={style.formItem}>
+                                <div>
+                                    <select id="categoria" className="selectform" onChange={(e)=> handleSelectCat(e)}>
+                                        <option value="" defaultValue>Categoría</option>
+                                        {categorias.length > 0 &&  
+                                        categorias.map((c,i) => (
+                                                <option	key={i} value={c}>{c}</option>
+                                                ))
+                                        }
+                                    </select>
+                                </div>
+                                <div className={style.numero}>
+                                    <h5 className={style.titleForm}>N°: </h5>
+                                    <input
+                                        type="number"
+                                        value={formGCT.cant}
+                                        id="cant"
+                                        name="cant"
+                                        onChange={handleChangeG}
+                                        className={style.size1}
+                                    />
+                                </div>
+                            </div>
+                            <div className={style.formItem}>
+                                <h5 className={style.titleForm}>kgV Netos: </h5>
+                                <input
+                                    type="number"
+                                    value={formGCT.kgv_netos?formGCT.kgv_netos:''}
+                                    id="kgv_netos"
+                                    name="kgv_netos"
+                                    onChange={handleChangeG}
+                                    placeholder="00"
+                                    className={style.size2}
+                                />
+                            </div>
+                            <div className={style.formItem}>
+                                <h5 className={style.titleForm}>Desbaste: </h5>
+                                <input
+                                    type="number"
+                                    value={formGCT.desbaste?formGCT.desbaste:''}
+                                    id="desbaste"
+                                    name="desbaste"
+                                    onChange={handleChangeG}
+                                    placeholder="00"
+                                    className={error.desbaste & style.danger}
+                                />
+                            </div>
+                            <div className={style.formItem}>
+                                <h5 className={style.titleForm}>kgV Brutos: </h5>
+                                <h5 className={style.titleForm}>{(formGCT.kgv_netos/(1-formGCT.desbaste)).toFixed(2)}</h5>
+                            </div>
+                            <div className={style.formItem}>
+                                <div>
+                                    <h5 className={style.titleForm}>$/kgV Neto: </h5>
+                                </div>
+                                <div className={style.numero}>
+                                    <h5 className={style.titleForm}>$ </h5>
+                                    <input
+                                        type="number"
+                                        value={formGCT.precio_kgv_netos}
+                                        id="precio_kgv_netos"
+                                        name="precio_kgv_netos"
+                                        onChange={handleChangeG}
+                                        placeholder="0.00"
+                                        className={style.size2}
+                                    />
+                                </div>
+                            </div>
+                        </div>                        
+                }
+
+                    <div className={style.button}>
                         <ButtonNew
                             onClick={handleSubmitGrupos}
                             style={"right"}
@@ -551,9 +650,9 @@ const outerTheme = createTheme({
                                 key={i}
                                 tropa={e.n_tropa}
                                 categoria={e.categoria}
-                                kgv_brutos={e.kgv_brutos}
+                                kgv_brutos={(e.kgv_brutos*1).toFixed(2)}
                                 desbaste={e.desbaste}
-                                kgv_netos={e.kgv_netos}
+                                kgv_netos={(e.kgv_netos*1).toFixed(2)}
                                 cant={e.cant}
                                 precio_kgv_netos={e.precio_kgv_netos}
                                 onClick={()=> handleDelete(e)}
@@ -562,13 +661,8 @@ const outerTheme = createTheme({
                     })
                     : null
 }
-                    <div className={styleFormC.buttons}>
-                        <div className={styleFormC.shortButtons}>
-                            <ShortButton
-                                title="📃 Detalle"
-                                onClick={handleDet}
-                                color="primary"
-                            />
+                    <div className={style.buttons} >
+                        <div className={style.shortButtons} id={style.buttonOk}>
                             <ShortButton
                                 title="✔ Confirmar"
                                 onClick={handleSubmit}

@@ -37,7 +37,7 @@
     height: 100%;
 }
 .conteiner{
-    color: white;
+    color: var(--ColorFontTwo);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -46,7 +46,7 @@
     display: flex;
     flex-direction:column;
     position: relative;
-    border-color: black;
+    border-color: var(--ColorBorderOne);
     justify-content: center;
     align-items: center;
 }
