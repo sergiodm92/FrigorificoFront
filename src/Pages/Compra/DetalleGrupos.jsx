@@ -46,6 +46,7 @@ export default function DetalleGrupos(){
                 pesoProm={(a.pesoProm*1).toFixed(2)}
                 rinde={a.rinde}
                 recupero={a.recupero}
+                comision={a.comision}
                 />
                 )
             })

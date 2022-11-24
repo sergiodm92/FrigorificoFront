@@ -1,7 +1,7 @@
 import React from "react";
 import styleCard from "./CardGruposDetalle.module.scss";
 
-const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos,rinde,pesoProm,costo_kg,costo_total,cosoVeps,costo_faena,costo_hac,costo_flete}) => {
+const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos,rinde,pesoProm,costo_kg,costo_total,cosoVeps,costo_faena,costo_hac,costo_flete, comision}) => {
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -40,6 +40,12 @@ const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kg
         currency: "USD",
         value : costo_flete
         })
+    if(comision){
+        var comision_pesos= currencyFormatter({
+            currency: "USD",
+            value : comision
+        })}
+        
 
     return (
         <div>
@@ -85,14 +91,6 @@ const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kg
                     <div><p>{pesoProm} kg</p></div>
                 </div>
                 <div className={styleCard.items}>
-                    <div><b>Costo/kg: </b></div>
-                    <div><p>{costo_kg_pesos}</p></div>
-                </div>
-                <div className={styleCard.items}>
-                    <div><b>Costo total: </b></div>
-                    <div><p>{costo_total_pesos}</p></div>
-                </div>
-                <div className={styleCard.items}>
                     <div><b>Costo Veps: </b></div>
                     <div><p>{costoVeps_pesos}</p></div>
                 </div>
@@ -107,6 +105,20 @@ const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kg
                 <div className={styleCard.items}>
                     <div><b>Costo de flete: </b></div>
                     <div><p>{costo_flete_pesos}</p></div>
+                </div>
+                {comision?
+                    <div className={styleCard.items}>
+                    <div><b>Comisión: </b></div>
+                    <div><p>{comision_pesos}</p></div>
+                </div>
+                :null}
+                <div className={styleCard.items}>
+                    <div><b>Costo total: </b></div>
+                    <div><p>{costo_total_pesos}</p></div>
+                </div>
+                <div className={styleCard.items}>
+                    <div><b>Costo/kg: </b></div>
+                    <div><p>{costo_kg_pesos}</p></div>
                 </div>
             </div>
         </div>

@@ -14,9 +14,6 @@ export default function TableDetRes({venta}){
     total$+=a.kg*a.$_kg
     totalkg+=a.kg
     
-    if(a.total_media=="1/4D")a.correlativo=a.correlativo.concat(" D")
-    if(a.total_media=="1/4T")a.correlativo=a.correlativo.concat(" T")
-    
     for(const [key,value] of Object.entries(a)){ 
     
         if(key!=="costo_kg" && key!=="id" && key!=="kg_total"){

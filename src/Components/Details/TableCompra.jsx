@@ -5,7 +5,7 @@ import CardGruposDetalle from "../Cards/CardGruposDetalle/CardGruposDetalle.jsx"
 import tableComprasStyle from "./tableCompraStyle.module.scss"
 
 
-export default function TableCompra({id_c}){
+export default function TableCompra({id_c, comision_total}){
 
         const dispatch = useDispatch()
 
@@ -61,15 +61,20 @@ export default function TableCompra({id_c}){
                         currency: "USD",
                         value : CompraByID.precio_venta_achuras_unit
                                 })
+                let comision_total_pesos = currencyFormatter({
+                        currency: "USD",
+                        value : comision_total
+                                })
                 let pagos1
                 // let pagos2
 
 
                 const array=[]
+        
         for(const [key,value] of Object.entries(CompraByID)){ //a 0 cambiar por id de compra
-               if(key!=="saldo" && key!=="grupos")array.push({key,value})
-
+                if(key!=="saldo" && key!=="grupos")array.push({key,value})
         }
+        if(comision_total) array.push({key: 'comision_total', value: comision_total_pesos })
      
         return(
                 <div className={tableComprasStyle.conteiner}>

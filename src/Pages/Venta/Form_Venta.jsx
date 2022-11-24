@@ -145,7 +145,7 @@ const Form_Venta = () => {
         ){
             formCV.costo_kg=resSelect.precio_kg
             form.detalle.unshift(formCV)
-            if(formCV.total_media=="total") arrResesTotales.push(formCV.correlativo)
+            if(formCV.total_media=="total" || formCV.correlativo.includes('D') || formCV.correlativo.includes('T')) arrResesTotales.push(formCV.correlativo)
             document.getElementById("categoria").selectedIndex = 0
             document.getElementById("res").selectedIndex = 0
             setFormCV(formComV);
@@ -170,17 +170,19 @@ const Form_Venta = () => {
             if(form.detalle.length>0){
                 form.detalle.map(a=> {
                     form.saldo+=a.kg*a.precio_kg
-                    if(a.total_media=="1/4T"){
-                        let correlativo=a.correlativo + "D"
-                        let kg= a.kg_total - a.kg
-                        let id=a.id
-                        dispatch(putCuartoRes(id, kg, correlativo ))
-                    }
-                    else if(a.total_media=="1/4D"){
-                        let correlativo=a.correlativo + "T"
-                        let kg= a.kg_total - a.kg
-                        let id=a.id
-                        dispatch(putCuartoRes(id, kg, correlativo ))
+                    if(a.correlativo.includes('T')==false && a.correlativo.includes('D')==false){
+                        if(a.total_media=="1/4T"){
+                            let correlativo=a.correlativo + "D"
+                            let kg= a.kg_total - a.kg
+                            let id=a.id
+                            dispatch(putCuartoRes(id, kg, correlativo ))
+                        }
+                        else if(a.total_media=="1/4D"){
+                            let correlativo=a.correlativo + "T"
+                            let kg= a.kg_total - a.kg
+                            let id=a.id
+                            dispatch(putCuartoRes(id, kg, correlativo ))
+                        }
                     }
                 })
             }
@@ -335,7 +337,7 @@ const Form_Venta = () => {
                     </div>
                     
                     {
-                        formCV.total_media==="total"?
+                        formCV.total_media==="total" || formCV.correlativo.includes('D') || formCV.correlativo.includes('T')?
                         
                         <div>
                             <div className={style.item}>

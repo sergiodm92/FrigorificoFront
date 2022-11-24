@@ -4,6 +4,7 @@ import styleCard from "./CardReses.module.scss";
 
 const CardReses = ({ correlativo, categoria, kg, res, costo_kg, margen, precio_kg, garron, kg2, kg1, onClick}) => {
 
+    
     return (
         <div>
             <div className={styleCard.miniButton}>
@@ -42,6 +43,26 @@ const CardReses = ({ correlativo, categoria, kg, res, costo_kg, margen, precio_k
                     <div className={styleCard.items}>
                         <div><b>kg: </b></div>
                         <div><p>{kg}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>costo$/kg: </b></div>
+                        <div><p>${(costo_kg*1).toFixed(2)}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>precio $/kg: </b></div>
+                        <div><p>${precio_kg}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>margen/kg: </b></div>
+                        <div><p>${((precio_kg*1-costo_kg*1)).toFixed(2)}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>margen: </b></div>
+                        <div><p>${((precio_kg*1-costo_kg*1)*kg).toFixed(2)}</p></div>
+                    </div>
+                    <div className={styleCard.items}>
+                        <div><b>total: </b></div>
+                        <div><p>${(precio_kg*1*kg).toFixed(2)}</p></div>
                     </div>
                 </div>}
                 { res && costo_kg && margen && precio_kg ?

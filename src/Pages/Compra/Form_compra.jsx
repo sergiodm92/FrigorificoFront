@@ -33,7 +33,8 @@ let formC = {
     costo_veps_unit: 0,//
     cant_total:0,//
     grupos:[],//
-    saldo:null //saldo de hacienda solamente
+    saldo:null, //saldo de hacienda solamente
+    por_comision: 2,
 };
 
 let FormGCT = {
@@ -122,7 +123,6 @@ const Form_Compra = () => {
     const [error, setError] = useState({});
     const [formGCT, setFormCGT] = useState(FormGCT);
     const [error2, setError2] = useState({});
-    const [Switch_Comision, setSwitch_comision] = useState(false);
     const [Switch_KgBrutos, setSwitch_KgBrutos] = useState(true);
     const [tropa, settropa] = useState(0);
 
@@ -235,7 +235,7 @@ const Form_Compra = () => {
             form.grupos.map(a=>{
                 if(form.kg_carne_totales*1!==0){a.costo_flete=(form.costo_flete*1*a.kg_carne)/(form.kg_carne_totales*1)}
                 a.cosoVeps=form.costo_veps_unit*a.cant
-                if(Switch_Comision==true) a.comision = 0.02 * a.costo_hac;
+                a.comision = (form.por_comision*1/100) * a.costo_hac;
                 a.recupero=(form.precio_venta_achuras_unit*1*a.cant )/a.kg_carne
                 a.costo_total = a.cosoVeps*1 + a.comision*1 + a.costo_faena*1 + a.costo_hac*1 + a.costo_flete*1 - (form.precio_venta_achuras_unit*1*a.cant )
                 a.costo_kg = a.costo_total/(a.kg_carne*1)
@@ -252,7 +252,6 @@ const Form_Compra = () => {
             dispatch(postNewCompra(form))
             document.getElementById("proveedor").selectedIndex = 0
             setForm(formC);
-            setSwitch_comision(false)
         }
         else{
             swal({
@@ -289,15 +288,6 @@ const Form_Compra = () => {
             grupos: form.grupos.filter(d => d !== e)
         })
     }
-    const handleDet = () => {
-        navigate("/Compras")
-    };
-
-    const switchCom = ()=>{
-        if(Switch_Comision==false)setSwitch_comision(true)
-        else if(Switch_Comision==true)setSwitch_comision(false);
-    }
-
     const switchKgBrutos = ()=>{
         if(Switch_KgBrutos==false)setSwitch_KgBrutos(true)
         else if(Switch_KgBrutos==true)setSwitch_KgBrutos(false);
@@ -387,9 +377,20 @@ const outerTheme = createTheme({
                     </div>
                     <p className={error.precio_venta_achuras ? style.danger : style.pass}>{error.precio_venta_achuras}</p>
                     <div className={style.formItem}>
-                        <h5 className={style.titleForm}>Comisión: </h5>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onChange={()=>switchCom()}/>
+                        <div>
+                            <h5 className={style.titleForm}>Comisión: </h5>
+                        </div>
+                        <div className={style.numero}>
+                            <input
+                                type="number"
+                                value={form.por_comision}
+                                id="por_comision"
+                                name="por_comision"
+                                onChange={handleChange}
+                                placeholder="0.00"
+                                className={style.size2}
+                            />
+                            <h5 className={style.titleForm}> %</h5>
                         </div>
                     </div>
                     <div className={style.formItem}>
