@@ -38,7 +38,7 @@ const dispatch = useDispatch()
                         correlativo={a.correlativo}
                         frigorifico={a.frigorifico}
                         fecha={(new Date(a.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}
-                        dias={Math.floor((fecha - a.fecha)/(24*3600*1000))}
+                        dias={Math.ceil((fecha - a.fecha)/(24*3600*1000))}
                         />
                     </div>
                 )

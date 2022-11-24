@@ -24,17 +24,17 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon
     return (
         <div>
             <div className={styleCL.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-                <div className={styleCL.items}><p>{id}</p></div>
-                <div className={styleCL.items}><p>|</p></div>
-                <div className={styleCL.items}><p>{fechaFormat}</p></div>
-                <div className={styleCL.items}><p>|</p></div>
-                <div className={styleCL.items}><p>{para}</p></div>
-                <div className={styleCL.items}><p>|</p></div>
-                <div className={styleCL.items}><p>{cant}</p></div>
-                <div className={styleCL.items}><p>|</p></div>
-                <div className={styleCL.items}><p>{kg}</p></div>
-                <div className={styleCL.items}><p>|</p></div>
-                <div className={styleCL.items}><p>{totalEstenPesos}</p></div>
+                <div className={styleCL.item1}><p>{id}</p></div>
+
+                <div className={styleCL.item2}><p>{fechaFormat}</p></div>
+
+                <div className={styleCL.item3}><p>{para}</p></div>
+
+                <div className={styleCL.item4}><p>{cant}</p></div>
+
+                <div className={styleCL.item5}><p>{kg}</p></div>
+
+                <div className={styleCL.item6}><p>{totalEstenPesos}</p></div>
             </div>
             {pago===true?
             <div className={styleCL.button_pago}>

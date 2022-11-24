@@ -247,6 +247,20 @@ select{
     display: flex;
     justify-content: flex-end;
 }
+
+.titleCards{
+    display: flex;
+    position: relative;
+    gap: 55px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 1000px) {
     #asd{
         justify-content: center;
@@ -270,5 +284,17 @@ select{
     }
     .TableVenta{
         width: 300px;
+    }
+    .titleCards{
+        display: flex;
+        position: relative;
+        gap: 24px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorFontTwo);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        margin-top: 20px;
     }
 }
