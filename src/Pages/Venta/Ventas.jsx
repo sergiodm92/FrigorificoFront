@@ -45,6 +45,7 @@ export default function Ventas(){
                     </div>
                     <div className={style.cardsCont}>
                         {AllVentas.map((a,i)=>{
+                            console.log(a)
                             return(
                                 <CardLarge
                                     id={a.id}
