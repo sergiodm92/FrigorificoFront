@@ -35,14 +35,11 @@ export default function Faenas(){
                 <div className={style.contTitle}>
                     <h1 className={style.titleP}>Pendientes</h1>
                 </div>
-                <div className={style.title}>
-                    <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Frigorífico</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Tropa</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Saldo($)</b></div>
+                <div className={style.titles}>
+                    <div className={style.title1}><b>Fecha</b></div>
+                    <div className={style.title2}><b>Frigorífico</b></div>
+                    <div className={style.title3}><b>Tropa</b></div>
+                    <div className={style.title4}><b>Saldo($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
                     {faenasPendientes.map((a,i)=>{

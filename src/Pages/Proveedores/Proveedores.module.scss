@@ -18,7 +18,24 @@
         justify-content: center;
     }
 }
-
+.titles{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+}
+.title1{
+    width: 150px;
+    }
+    .title2{
+        width: 120px;
+    }
+    .title3{
+        width: 50px;
+    }
 .contTitle{
     margin-top: 20px;
     display: flex;
