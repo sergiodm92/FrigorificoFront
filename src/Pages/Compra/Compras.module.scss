@@ -59,6 +59,9 @@
         justify-content: flex-start;
         align-items: center;
     }
+    .TableCompras{
+        max-width: 330px;
+    }
 }
 
 .formContainer{
@@ -177,7 +180,6 @@ select{
 
 .TableCompras{
     margin-top: 2%;
-    max-width: 500px;
     width: 400px;
 }
 .buttonEdit{

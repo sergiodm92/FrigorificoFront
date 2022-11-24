@@ -86,8 +86,15 @@
 .tablefaena{
     margin-top: 2%;
 }
-@media screen and (max-width: 500px) {
-
+@media screen and (max-width: 550px) {
+    .tablefaena{
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .tablefaena{
+        font-size: 12px;
+    }
 }
 .tdDF{
     text-align:center
@@ -104,8 +111,8 @@
 
 .tablefaena{
     margin-top: 2%;
-    max-width: 500px;
-    width: 400px;
+    max-width: 600px;
+    min-width: 300px;
 }
 .buttonEdit{
     display: flex;
@@ -117,7 +124,7 @@
     display: flex;
     position: relative;
     justify-content: flex-end;
-    margin-bottom: -20px;
+    margin-bottom: -11px;
 }
 .page{
     margin-top: 10px;

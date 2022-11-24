@@ -10,12 +10,19 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    padding-bottom: 20px;
 }
 
 .tableBalance{
+    padding-top: 20px;
     width: 400px;
 }
 
 .Graph{
     width: 80%;
+}
+@media screen and (max-width: 450px) {
+    .tableBalance{
+        width: 300px;
+    }
 }

@@ -100,41 +100,45 @@ export default function Detalle_Proveedor(){
                 />
                 </div>
                 <div className={stylePr.cont}>
-                    <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Compras con Saldo pendiente</h1></div>
-                    <div className={stylePr.title}>
-                        <div><b>ID</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Fecha</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Proveedor</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Cant</b></div>
-                        <div><b>|</b></div>
-                        <div><b>kg</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Saldo($)</b></div>
+                    {ComprasPendientes?
+                    <div>
+                        <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Compras con Saldo pendiente</h1></div>
+                        <div className={stylePr.title}>
+                            <div><b>ID</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Fecha</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Proveedor</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cant</b></div>
+                            <div><b>|</b></div>
+                            <div><b>kg</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Saldo($)</b></div>
+                        </div>
+                        <div className={stylePr.cardsCont}>
+                            {ComprasPendientes.map((a)=>{
+                                return(
+                                    <CardLarge
+                                        key={a.id}
+                                        id={a.id}
+                                        fecha={a.fecha}
+                                        para={a.proveedor.length>12?a.proveedor.slice(0,12):a.proveedor}
+                                        cant={a.cant_total}
+                                        kg={a.kg_carne_totales}
+                                        monto={a.saldo.toFixed(2)}
+                                        tipo={"Compras"}
+                                        pago={true}
+                                        bstyle={"new"}
+                                        bicon={"new"}
+                                        bonClick={()=>navigate(`/Proveedores/FormPago/${a.id}`)}
+                                    />
+                                )
+                            })
+                            }
+                        </div>
                     </div>
-                    <div className={stylePr.cardsCont}>
-                        {ComprasPendientes.map((a)=>{
-                            return(
-                                <CardLarge
-                                    key={a.id}
-                                    id={a.id}
-                                    fecha={a.fecha}
-                                    para={a.proveedor.length>12?a.proveedor.slice(0,12):a.proveedor}
-                                    cant={a.cant_total}
-                                    kg={a.kg_carne_totales}
-                                    monto={a.saldo.toFixed(2)}
-                                    tipo={"Compras"}
-                                    pago={true}
-                                    bstyle={"new"}
-                                    bicon={"new"}
-                                    bonClick={()=>navigate(`/Proveedores/FormPago/${a.id}`)}
-                                />
-                            )
-                        })
-                        }
-                    </div>
+                    :null}
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Historial de Compras"}

@@ -65,6 +65,7 @@ export default function Detalle_Pagos_Extras() {
             <NavBar
                 title={`Detalle de Extracciones`}
             />
+            {pagos.length>0?
             <div className={style.tablefaena}>
                 <table className="table">
                     <tbody>
@@ -100,7 +101,8 @@ export default function Detalle_Pagos_Extras() {
                         })} 
                     </tbody>
                 </table>
-            </div>            
+            </div>
+            :<div><h4 className={style.text}>No existen pagos extra</h4></div>}              
         </div>            
     )
 }

@@ -16,12 +16,7 @@
     min-height: 0;
     align-items:unset;
 }
-@media screen and (max-width: 1000px) {
-    #asd{
-        justify-content: center;
-        min-height: 100%;
-    }
-}
+
 .contV{
     display: flex;
     flex-direction: column;
@@ -72,22 +67,11 @@
     justify-content: flex-start;
     align-items: center;
 }
-@media screen and (max-width: 500px) {
-    .title{
-        gap: 12px;
-        font-size: 10px;
-    }
-    .titleVenta{
-        font-size: 14px;
-        gap:5px;
-    }
-    .cardsCont{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-    }
+.title{
+    font-size: large;
+    padding-top: 10px;
 }
+
 
 .ConteinerVentas{
     width: 100%;
@@ -114,7 +98,7 @@
 
 
 .TableVenta{
-    max-width: 360px;
+    width: 400px;
     margin-top: 2%;
 }
 
@@ -222,10 +206,7 @@
     align-items: center;
     gap: 5px;
 }
-.title{
-    font-size: large;
-    padding-top: 10px;
-}
+
 p.danger {
 	color: var(--ColorFontTrhee);
 	text-align: center;
@@ -265,4 +246,29 @@ select{
 #buttonOk{
     display: flex;
     justify-content: flex-end;
+}
+@media screen and (max-width: 1000px) {
+    #asd{
+        justify-content: center;
+        min-height: 100%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .title{
+        gap: 11px;
+        font-size: 14px;
+    }
+    .titleVenta{
+        font-size: 14px;
+        gap:5px;
+    }
+    .cardsCont{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .TableVenta{
+        width: 300px;
+    }
 }
