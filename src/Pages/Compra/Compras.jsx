@@ -15,6 +15,11 @@ export default function Compras(){
         dispatch(getAllComrpas())
     }, [dispatch])
     
+    AllCompras.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+        
     return(
         <div className={style.ConteinerCompras}>
             <NavBar
@@ -22,17 +27,12 @@ export default function Compras(){
             onClick={"/home"}
             />
             <div>
-                <div className={style.title}>
+                <div className={style.titleCards}>
                     <div><b>ID</b></div>
-                    <div><b>|</b></div>
                     <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
                     <div><b>Proveedor</b></div>
-                    <div><b>|</b></div>
                     <div><b>Cant</b></div>
-                    <div><b>|</b></div>
-                    <div><b>kg carne</b></div>
-                    <div><b>|</b></div>
+                    <div><b>kg</b></div>
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
