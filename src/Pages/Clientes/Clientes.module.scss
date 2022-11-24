@@ -42,6 +42,24 @@
     font-size: 16px;
     font-style: initial;
 }
+.titles{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+}
+.title1{
+    width: 150px;
+    }
+    .title2{
+        width: 120px;
+    }
+    .title3{
+        width: 50px;
+    }
 .cardsCont{
     display: flex;
     flex-direction: column;
@@ -93,7 +111,6 @@
     margin-left: 320px;
     margin-bottom: -24px;
 }
-
 .page{
     display: flex;
     flex-direction: column;
@@ -150,6 +167,15 @@
     .tablefaena{
 scale: 0.68;
     }
+    .title1{
+        width: 130px;
+        }
+        .title2{
+            width: 100px;
+        }
+        .title3{
+            width: 50px;
+        }
 }
 
 .formContainer{

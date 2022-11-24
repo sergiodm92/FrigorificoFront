@@ -31,7 +31,7 @@
 .cont:hover{
     background-color: var(--ColorFour);
 }
-.items{
+.item1{
     display: flex;
     position: relative;
     padding-top: 15px;
@@ -41,6 +41,43 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
+    width: 100px;
+}
+.item2{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 80px;
+}
+.item3{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 80px;
+}
+.item4{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 80px;
 }
 @media screen and (max-width: 500px) {
     .cont{

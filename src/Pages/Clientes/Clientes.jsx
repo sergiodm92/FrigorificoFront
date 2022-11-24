@@ -25,12 +25,10 @@ export default function Clientes(){
                 onClick={"/home"}
                 />
                 <div>
-                    <div className={style.title}>
-                        <div><b>Nombre</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Cuil</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Saldo($)</b></div>
+                    <div className={style.titles}>
+                        <div className={style.title1}><b>Nombre</b></div>
+                        <div className={style.title2}><b>Cuil</b></div>
+                        <div className={style.title3}><b>Saldo($)</b></div>
                     </div>
                     <div className={style.cardsCont}>
                     {AllClientes.map((a)=>{
