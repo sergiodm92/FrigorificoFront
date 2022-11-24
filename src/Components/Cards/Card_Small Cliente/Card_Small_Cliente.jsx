@@ -43,11 +43,9 @@ const CardSmallCliente = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick, cui
     return (
         <div className={styleCS.totalCard}>
             <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-                <div className={styleCS.items}><p>{nombre.length<13?nombre:nombre.slice(0,13)}</p></div>
-                <div className={styleCS.items}><p>|</p></div>
-                <div className={styleCS.items}><p>{cuil}</p></div>
-                <div className={styleCS.items}><p>|</p></div>
-                <div className={styleCS.items}><p>{totalEstenPesos}</p></div>
+                <div className={styleCS.item1}><p>{nombre.length<13?nombre:nombre.slice(0,13)}</p></div>
+                <div className={styleCS.item2}><p>{cuil?cuil:"-"}</p></div>
+                <div className={styleCS.item3}><p>{totalEstenPesos}</p></div>
             </div>
             {pago===true?
             <div className={styleCS.button_pago}>

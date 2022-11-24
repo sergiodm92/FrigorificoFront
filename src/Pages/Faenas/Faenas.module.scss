@@ -90,6 +90,8 @@
     .tablefaena{
         font-size: 13px;
     }
+
+
 }
 @media screen and (max-width: 450px) {
     .tablefaena{
@@ -114,6 +116,7 @@
     max-width: 600px;
     min-width: 300px;
 }
+
 .buttonEdit{
     display: flex;
     position: relative;
@@ -253,3 +256,41 @@ select{
     margin-top: -20px;
 }
 
+.titles{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+}
+.title1{
+    width: 100px;
+    }
+    .title2{
+        width: 140px;
+    }
+    .title3{
+        width: 90px;
+    }
+    .title4{
+        width: 70px;
+    }
+
+
+    @media screen and (max-width: 500px) {
+
+        .title1{
+            width: 80px;
+            }
+            .title2{
+                width: 100px;
+            }
+            .title3{
+                width: 80px;
+            }
+            .title4{
+                width: 50px;
+            }
+    }

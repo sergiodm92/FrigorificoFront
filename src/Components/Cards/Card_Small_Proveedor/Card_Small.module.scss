@@ -28,6 +28,42 @@
     gap: 25px;
     cursor: pointer;
 }
+.item1{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 150px;
+}
+.item2{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 110px;
+}
+.item3{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 80px;
+}
 .cont:hover{
     background-color: rgb(160, 160, 160);
 }
@@ -55,5 +91,41 @@
     }
     .button_pago{
         margin-right: 20px;
+    }
+    .item1{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        width: 130px;
+    }
+    .item2{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        width: 80px;
+    }
+    .item3{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        width: 70px;
     }
 }
