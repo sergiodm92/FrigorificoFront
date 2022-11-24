@@ -24,8 +24,10 @@ export default function Detalle_Compra(){
     let compra = useSelector((state)=>state.CompraByID)
     let arrTropas=[]
     if(compra.grupos){
+        var comision_total=0
         compra.grupos.map(a=>{
             arrTropas.push(a.n_tropa)
+            if(a.comision) comision_total+=a.comision
         })
     }
     let AllPagosbyCompra = useSelector((state)=>state.AllPagosbyCompra)
@@ -94,6 +96,7 @@ export default function Detalle_Compra(){
                 <div className={style.TableCompras}>
                     <TableCompra
                         id_c={id}
+                        comision_total={comision_total}
                     />
                 </div>
 

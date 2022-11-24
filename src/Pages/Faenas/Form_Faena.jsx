@@ -14,6 +14,7 @@ import esLocale from 'date-fns/locale/es';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+import CardResesFaena from "../../Components/Cards/CardResesFaena/CardResesFaena";
 
 
 //Form Faena
@@ -462,7 +463,7 @@ const Form_Faena = () => {
                     </div>
                     <div className={style.button}>
                         <ButtonNew
-                            onClick={Object.entries(error2).length===0 || Object.entries(error3).length===0 ? handleSubmitRes : null}
+                            onClick={handleSubmitRes}
                             style={"right"}
                             icon={"right"}
                         />
@@ -471,7 +472,7 @@ const Form_Faena = () => {
                     {form.detalle.length ?
                         form.detalle.map((e,i)=>{
                             return(
-                                <CardReses
+                                <CardResesFaena
                                     key={i}
                                     correlativo={e.correlativo}
                                     categoria={e.categoria}
