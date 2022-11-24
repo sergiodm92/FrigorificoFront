@@ -67,6 +67,8 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
             <div className={styleSt.title}>
                 <div><b>Fecha</b></div>
                 <div><b>|</b></div>
+                <div><b>Dias</b></div>
+                <div><b>|</b></div>
                 <div><b>Frigorífico</b></div>
                 <div><b>|</b></div>
                 <div><b>Tropa</b></div>

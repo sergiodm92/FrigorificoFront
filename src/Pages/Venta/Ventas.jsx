@@ -21,6 +21,11 @@ export default function Ventas(){
     const AllVentas= useSelector((state)=>(state.AllVentas))
     const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchuras))
 
+    AllVentas.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+
     return(
         <div className={style.ConteinerVenta}>
             <NavBar
@@ -30,17 +35,12 @@ export default function Ventas(){
             <div>
                 <div className={style.contV}>
                     <h1 className={style.firstTitle}>Ventas de Carne</h1>
-                    <div className={style.titleVenta} >
+                    <div className={style.titleCards} >
                         <div><b>ID</b></div>
-                        <div><b>|</b></div>
                         <div><b>Fecha</b></div>
-                        <div><b>|</b></div>
                         <div><b>Cliente</b></div>
-                        <div><b>|</b></div>
                         <div><b>Cant</b></div>
-                        <div><b>|</b></div>
                         <div><b>kg</b></div>
-                        <div><b>|</b></div>
                         <div><b>Monto($)</b></div>
                     </div>
                     <div className={style.cardsCont}>

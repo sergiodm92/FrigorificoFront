@@ -823,7 +823,7 @@ export const getAlertRes = () => {
             }
           });
           let alerts = [];
-          let dias=10//dias de vencimiento
+          let dias=9//dias de vencimiento
           let fecha = Date.now()-(3600*1000*24*dias)
           alerts = json.data.data.filter(a => a.stock==true && (a.fecha<fecha))
           return dispatch({

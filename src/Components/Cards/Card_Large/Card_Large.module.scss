@@ -16,7 +16,7 @@
 .cont:hover{
     background-color: var(--ColorFour);
 }
-.items{
+.item1{
     display: flex;
     position: relative;
     padding-top: 15px;
@@ -26,6 +26,67 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
+    width: 60px;
+}
+.item2{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 100px;
+}
+.item3{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 200px;
+}
+.item4{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 50px;
+}
+.item5{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 50px;
+}
+.item6{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 150px;
 }
 .button_pago{
     display: flex;
@@ -42,11 +103,81 @@
         padding: 0;
         gap: 6px;
     }
-    .items{
-        font-size: 12px;
-    }
-    .button_pago{
+     .button_pago{
         margin-top: -22px;
         margin-left: 320px;
     }
+    .item1{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+        width: 50px;
+    }
+    .item2{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+        width: 110px;
+    }
+    .item3{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+        width: 140px;
+    }
+    .item4{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+        width: 30px;
+    }
+    .item5{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+        width: 30px;
+    }
+    .item6{
+        display: flex;
+        position: relative;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorTrhee);
+        font-family: 'Karla', sans-serif;
+        font-size: 12px;
+        font-style: initial;
+        width: 100px;
+    }
+
 }
