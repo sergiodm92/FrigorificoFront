@@ -235,7 +235,7 @@ const Form_Compra = () => {
             form.grupos.map(a=>{
                 if(form.kg_carne_totales*1!==0){a.costo_flete=(form.costo_flete*1*a.kg_carne)/(form.kg_carne_totales*1)}
                 a.cosoVeps=form.costo_veps_unit*a.cant
-                a.comision = (form.por_comision*1/100) * a.costo_hac;
+                if(form.por_comision>0) a.comision = (form.por_comision*1/100) * a.costo_hac;
                 a.recupero=(form.precio_venta_achuras_unit*1*a.cant )/a.kg_carne
                 a.costo_total = a.cosoVeps*1 + a.comision*1 + a.costo_faena*1 + a.costo_hac*1 + a.costo_flete*1 - (form.precio_venta_achuras_unit*1*a.cant )
                 a.costo_kg = a.costo_total/(a.kg_carne*1)
