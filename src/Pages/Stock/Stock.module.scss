@@ -9,6 +9,7 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    padding-bottom: 30px;
 }
 .title{
     display: flex;
@@ -28,6 +29,27 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+.buttonEdit{
+    display: flex;
+    position: relative;
+    margin-left: 365px;
+    margin-bottom: -10px;
+}
+.contTable{
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+.TableDetTropa{
+    width: 400px;
+}
 @media screen and (max-width: 400px) {
     .title{
         gap: 15px;
@@ -40,26 +62,10 @@
         justify-content: flex-start;
         align-items: center;
     }
-}
-.buttonEdit{
-    display: flex;
-    position: relative;
-    margin-left: 365px;
-    margin-bottom: -10px;
-}
-
-.contTable{
-    max-width: 500px;
-    width: 100%;
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    text-align: center;
-    padding-left: 20px;
-    padding-right: 20px;
-
-}
-
-.TableDetTropa{
-    min-width: 400px;
+    .TableDetTropa{
+        width: 360px;
+    }
+    .buttonEdit{
+        margin-left: 330px;
+    }
 }

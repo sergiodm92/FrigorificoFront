@@ -103,79 +103,86 @@ export default function Detalle_Cliente(){
                 cuil={ClienteById.cuil}
                 />
                 </div>
+                
                 <div className={style.cont}>
-                    <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
-                    <div className={style.title}>
-                        <div><b>ID</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Fecha</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Cliente</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Cant</b></div>
-                        <div><b>|</b></div>
-                        <div><b>kg</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Saldo($)</b></div>
-                    </div>
-                    <div className={style.cardsCont}>
-                        {VentasPendientes.map((a,i)=>{
-                            return(
-                                <CardLarge
-                                    id={a.id}
-                                    key={i}
-                                    fecha={a.fecha}
-                                    para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
-                                    cant={a.cant}
-                                    kg={a.kg_total}
-                                    monto={a.saldo.toFixed(2)}
-                                    tipo={"Ventas"}
-                                    pago={true}
-                                    bstyle={"new"}
-                                    bicon={"new"}
-                                    bonClick={()=>navigate(`/Clientes/FormPagoVC/${a.id}`)}
-                                />
-                            )
-                        })
-                        }
-                        </div>
-                        <div className={style.contTitle}>
-                        <h1 className={style.titleP}>Ventas de Achuras con Saldo pendiente</h1>
-                        </div>
+                    {VentasPendientes.length>0?
+                    <div>
+                        <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
                         <div className={style.title}>
-                        <div><b>ID</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Fecha</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Cliente</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Cant</b></div>
-                        <div><b>|</b></div>
-                        <div><b>kg</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Saldo($)</b></div>
-                    </div>
+                            <div><b>ID</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Fecha</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cliente</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cant</b></div>
+                            <div><b>|</b></div>
+                            <div><b>kg</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Saldo($)</b></div>
+                        </div>
                         <div className={style.cardsCont}>
-                        {VentasAchurasPendientes.map((a,i)=>{
-                            return(
-                                <CardLarge
-                                    id={a.id}
-                                    key={i}
-                                    fecha={a.fecha}
-                                    para={a.clien}
-                                    cant={a.cantidad}
-                                    kg={"achuras"}
-                                    monto={a.saldo.toFixed(2)}
-                                    tipo={"Ventas/Achuras"}
-                                    pago={true}
-                                    bstyle={"new"}
-                                    bicon={"new"}
-                                    bonClick={()=>navigate(`/Clientes/FormPagoVAch/${a.id}`)}
-                                />
-                            )
-                        })
-                        }
+                            {VentasPendientes.map((a,i)=>{
+                                return(
+                                    <CardLarge
+                                        id={a.id}
+                                        key={i}
+                                        fecha={a.fecha}
+                                        para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
+                                        cant={a.cant}
+                                        kg={a.kg_total}
+                                        monto={a.saldo.toFixed(2)}
+                                        tipo={"Ventas"}
+                                        pago={true}
+                                        bstyle={"new"}
+                                        bicon={"new"}
+                                        bonClick={()=>navigate(`/Clientes/FormPagoVC/${a.id}`)}
+                                    />
+                                )
+                            })
+                            }
+                        </div>
                     </div>
+                    :
+                    VentasAchurasPendientes.length>0?
+                    <div>
+                        <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Achuras con Saldo pendiente</h1></div>
+                        <div className={style.title}>
+                            <div><b>ID</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Fecha</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cliente</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Cant</b></div>
+                            <div><b>|</b></div>
+                            <div><b>kg</b></div>
+                            <div><b>|</b></div>
+                            <div><b>Saldo($)</b></div>
+                        </div>
+                        <div className={style.cardsCont}>
+                            {VentasAchurasPendientes.map((a,i)=>{
+                                return(
+                                    <CardLarge
+                                        id={a.id}
+                                        key={i}
+                                        fecha={a.fecha}
+                                        para={a.clien}
+                                        cant={a.cantidad}
+                                        kg={"achuras"}
+                                        monto={a.saldo.toFixed(2)}
+                                        tipo={"Ventas/Achuras"}
+                                        pago={true}
+                                        bstyle={"new"}
+                                        bicon={"new"}
+                                        bonClick={()=>navigate(`/Clientes/FormPagoVAch/${a.id}`)}
+                                    />
+                                )
+                            })
+                            }
+                        </div>
+                    </div>
+                    :null}
                     <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Historial de Ventas"}

@@ -65,6 +65,7 @@ export default function Detalle_Ingresos_Extras() {
             <NavBar
                 title={`Detalle de Ingresos`}
             />
+            {ingresos.length>0?
             <div className={style.tablefaena}>
                 <table className="table">
                     <tbody>
@@ -100,7 +101,8 @@ export default function Detalle_Ingresos_Extras() {
                         })} 
                     </tbody>
                 </table>
-            </div>            
+            </div>
+            :<div><h4 className={style.text}>No existen ingresos extra</h4></div>}            
         </div>            
     )
 }
