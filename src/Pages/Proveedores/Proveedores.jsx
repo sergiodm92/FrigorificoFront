@@ -15,6 +15,7 @@ export default function Proveedores(){
         dispatch(getAllProveedores())
     }, [dispatch])
     let AllProveedores = useSelector((state)=>state.AllProveedores)
+    console.log(AllProveedores)
 
     return(
         <div className={style.ConteinerProveedores}>
