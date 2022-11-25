@@ -27,11 +27,10 @@ export default function Detalle_Cliente(){
         if(ClienteById)dispatch(getVentasAchurasByCliente(ClienteById.nombre))
     }, [ClienteById])
 
-    const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
-    const VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
-    const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
-    const VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)
-
+    let AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
+    let VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
+    let AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
+    let VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)
 
     const deleteCliente = ()=>{
         if(AllVentasByCliente.length>0 && AllVentasAchurasByCliente.length>0){
@@ -143,8 +142,8 @@ export default function Detalle_Cliente(){
                             }
                         </div>
                     </div>
-                    :
-                    VentasAchurasPendientes.length>0?
+                    :null}
+                    {VentasAchurasPendientes.length>0?
                     <div>
                         <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Achuras con Saldo pendiente</h1></div>
                         <div className={style.title}>

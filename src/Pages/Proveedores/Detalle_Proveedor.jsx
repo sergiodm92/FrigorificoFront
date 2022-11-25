@@ -28,9 +28,6 @@ export default function Detalle_Proveedor(){
     
     const AllComprasByProveedor = useSelector((state)=>state.AllComprasByProveedor)
     const ComprasPendientes = AllComprasByProveedor.filter((a)=>a.saldo>0)
-    
-    
-    
 
     const deleteProveedor = ()=>{
         if(AllComprasByProveedor.length>0){
@@ -100,7 +97,6 @@ export default function Detalle_Proveedor(){
                 />
                 </div>
                 <div className={stylePr.cont}>
-                    {ComprasPendientes?
                     <div>
                         <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Compras con Saldo pendiente</h1></div>
                         <div className={stylePr.title}>
@@ -138,7 +134,6 @@ export default function Detalle_Proveedor(){
                             }
                         </div>
                     </div>
-                    :null}
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Historial de Compras"}

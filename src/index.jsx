@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 
 
-//axios.defaults.baseURL = 'http://localhost:3001'
+// axios.defaults.baseURL = 'http://localhost:3001'
 axios.defaults.baseURL = 'https://donalberto.herokuapp.com' ||'https://backendfrigorifico-production.up.railway.app/'
 
 
