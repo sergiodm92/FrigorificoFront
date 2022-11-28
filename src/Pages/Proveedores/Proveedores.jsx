@@ -15,7 +15,10 @@ export default function Proveedores(){
         dispatch(getAllProveedores())
     }, [dispatch])
     let AllProveedores = useSelector((state)=>state.AllProveedores)
-
+    AllProveedores.sort(function(a,b){
+        if(a.nombre>b.nombre){return 1}
+        if(a.nombre<b.nombre){return -1}
+        return 0})
     return(
         <div className={style.ConteinerProveedores}>
             <NavBar

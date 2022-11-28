@@ -14,7 +14,7 @@ export default function Compras(){
     useEffect(() => {
         dispatch(getAllComrpas())
     }, [dispatch])
-    console.log(AllCompras)
+
     AllCompras.sort(function(a,b){
         if(a.fecha>b.fecha){return -1}
         if(a.fecha<b.fecha){return 1}

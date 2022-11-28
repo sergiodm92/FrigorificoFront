@@ -18,6 +18,11 @@ export default function Clientes(){
 
     const AllClientes = useSelector((state)=>(state.AllClientes))
 
+    AllClientes.sort(function(a,b){
+        if(a.nombre>b.nombre){return 1}
+        if(a.nombre<b.nombre){return -1}
+        return 0})
+
     return(
         <div className={style.conteinerAll}>
                 <NavBar
