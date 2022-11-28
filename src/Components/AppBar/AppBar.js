@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { getAlertRes } from '../../Redux/Actions/Actions';
 
-//asd123
 
 export default function PrimarySearchAppBar() {
 
