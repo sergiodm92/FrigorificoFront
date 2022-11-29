@@ -15,6 +15,22 @@
 }
 .cont:hover{
     background-color: var(--ColorFour);
+    cursor: pointer;
+}
+.cont2{
+    display: flex;
+    position: relative;
+    border-color: var(--ColorTrhee);
+    justify-content: center;
+    align-items: center;
+    width: 550px;
+    height: 50px;
+    background-color: var(--ColorFour);
+    border-radius: 10px;
+    border-width: 3px;
+    margin: 10px;
+    padding: 0;
+    gap: 15px;
 }
 .item1{
     display: flex;
@@ -38,7 +54,7 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
-    width: 110px;
+    width: 60px;
 }
 .item3{
     display: flex;
@@ -49,7 +65,7 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
-    width: 200px;
+    width: 110px;
 }
 .item4{
     display: flex;
@@ -61,7 +77,7 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
-    width: 50px;
+    width: 100px;
 }
 .item5{
     display: flex;
@@ -73,20 +89,9 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
-    width: 50px;
+    width: 100px;
 }
-.item6{
-    display: flex;
-    position: relative;
-    padding-top: 15px;
-    justify-content: center;
-    align-items: center;
-    color: var(--ColorTrhee);
-    font-family: 'Karla', sans-serif;
-    font-size: 16px;
-    font-style: initial;
-    width: 150px;
-}
+
 .button_pago{
     display: flex;
     position: relative;
@@ -115,7 +120,7 @@
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 20px;
+        width: 30px;
     }
     .item2{
         display: flex;
@@ -127,7 +132,7 @@
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 90px;
+        width: 30px;
     }
     .item3{
         display: flex;
@@ -139,7 +144,7 @@
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 110px;
+        width: 90px;
     }
     .item4{
         display: flex;
@@ -151,7 +156,7 @@
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 30px;
+        width: 90px;
     }
     .item5{
         display: flex;
@@ -163,19 +168,7 @@
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 30px;
-    }
-    .item6{
-        display: flex;
-        position: relative;
-        padding-top: 15px;
-        justify-content: center;
-        align-items: center;
-        color: var(--ColorTrhee);
-        font-family: 'Karla', sans-serif;
-        font-size: 12px;
-        font-style: initial;
-        width: 100px;
+        width: 90px;
     }
 
 }

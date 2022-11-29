@@ -6,6 +6,11 @@ export const login_state = () => {
     return ({ type: "LOGIN_STATE", payload: e  });
 };
 
+export const pagosPDF = (pagos, saldoPagos, cliente) =>{
+  let response= pagos.filter((a)=>a.check==true)
+  return ({ type: "PAGOS_PDF", payload: [response,saldoPagos,cliente]  });
+}
+
 //getPagosComprasByProveedor
 export const URLimag = (url) => {
 
@@ -25,6 +30,10 @@ export const setlogin_state = (value) => {
 //SETIAR ALERTAS
 export const setAlert = () => {
   return ({ type: "ALERT_MSJ", payload: ""  });
+};
+
+export const pagosPersonalizados = (e) => {
+  return ({ type: "GET_ALL_PAGOS_VENTAS_BY_CLIENTE", payload: e  });
 };
 
 export function postLogin(jsonUser){
@@ -755,6 +764,34 @@ export const getPagosVentasByCliente = (nombre) => {
         }
       };
 };
+//---------------------------------------------------------------///////////////////////////////////////////////////////////////////////////////
+//Traer pagos por clientes
+export const getSaldoVentasByCliente = (nombre) => {
+  return async (dispatch) => {
+      try {
+          const json1 = await axios.get(`/ventas/all/name/${nombre}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          const json2 = await axios.get(`/ventaAchuras/all/name/${nombre}`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          let saldoVentaTotal = 0
+         
+          json1.data.data.map((a)=>saldoVentaTotal+=a.saldo)
+          json2.data.data.map((a)=>saldoVentaTotal+=a.saldo)
+          return dispatch({
+          type: "SALDO_VENTA_TOTAL",
+          payload: saldoVentaTotal})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
 
 //Traer pagos por clientes
 export const getPagosVentaAchurasByCliente = (nombre) => {
@@ -774,6 +811,35 @@ export const getPagosVentaAchurasByCliente = (nombre) => {
         }
       };
     };
+
+    export const getAllPagosVentasByCliente = (nombre) => {
+      return async (dispatch) => {
+          try {
+              const json1 = await axios.get(`/pagoVentaAchuras/all/${nombre}`,{
+                headers: {
+                  'auth-token': `${token}`
+                }
+              });
+              const json2 = await axios.get(`/pagoVentas/all/${nombre}`,{
+                headers: {
+                  'auth-token': `${token}`
+                }
+              });
+              let json = [...json1.data.data, ...json2.data.data]
+              let saldoTotal = 0;
+              json.map((a)=>{
+                a.check=false
+              })
+
+              return dispatch({
+              type: "GET_ALL_PAGOS_VENTAS_BY_CLIENTE",
+              payload: json})
+          }
+          catch (error) {
+              console.log(error);
+            }
+          };
+        };
 
 //Traer pagos por Proveedor
 export const getPagosComprasByProveedor = (nombre) => {

@@ -51,20 +51,70 @@
     font-size: 16px;
     font-style: initial;
 }
+.titlesPer{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+}
+
+.titleCards{
+    display: flex;
+    position: relative;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
+}
+.cheklist{
+    display: flex;
+}
+
 .title1{
     width: 150px;
-    }
-    .title2{
-        width: 120px;
-    }
-    .title3{
-        width: 50px;
-    }
+}
+.title2{
+    width: 120px;
+}
+.title3{
+    width: 50px;
+}
+.titlePer1{
+    width: 70px;
+}
+.titlePer2{
+    width: 110px;
+}
+.titlePer3{
+    width: 110px;
+}
+.titlePer4{
+    width: 110px;
+}
+.titlePer5{
+    width: 100px;
+    text-align: right;
+}
+
 .cardsCont{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+}
+@media screen and (max-width: 1000px) {
+    #asd{
+        justify-content: center;
+        min-height: 100%;
+        
+    }
 }
 @media screen and (max-width: 500px) {
     .title{
@@ -78,10 +128,36 @@
         justify-content: flex-start;
         align-items: center;
     }
-    #asd{
+    .titleCards{
+        display: flex;
+        position: relative;
+        gap: 20px;
         justify-content: center;
-        min-height: 100%;
-        
+        align-items: center;
+        color: var(--ColorFontTwo);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        margin-top: 20px;
+    }
+    .titlePer1{
+        width: 30px;
+    }
+    .titlePer2{
+        width: 40px;
+    }
+    .titlePer3{
+        width: 80px;
+    }
+    .titlePer4{
+        width: 100px;
+    }
+    .titlePer5{
+        width: 80px;
+        text-align: right;
+    }
+    .titlesPer{
+        font-size: 12px;;
     }
 }
 .Conteiner{
@@ -244,4 +320,8 @@ select{
     border-radius: 10px;
     border-color: var(--ColorBorderOne);
     height: 30px;
+}
+.PDFcards{
+    display: flex;
+    
 }

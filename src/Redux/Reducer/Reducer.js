@@ -24,9 +24,11 @@ const initialState = {
     saldoAllCompras:0,
     saldoAllVentas:0,
     saldoAllFaenas:0,
+    saldoPagos:0,
     grupos: [],
     pagosByCliente:[],
     pagosAchurasByCliente:[],
+    pagosT:[],
     pagosByProveedor:[],
     pagosByFrigorifico:[],
     provByNombre:{},
@@ -59,7 +61,8 @@ const initialState = {
     allPagosCompras:[],
     allPagosFaenas:[],
     allPagosExtras:[],
-    allIngresosExtras:[]
+    allIngresosExtras:[],
+    pagosPDF:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -70,6 +73,16 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             login_State: action.payload,
             };
+        case "PAGOS_PDF":
+            return {
+            ...state,
+            pagosPDF: action.payload,
+            }
+        case "SALDO_VENTA_TOTAL":
+            return {
+            ...state,
+            saldoPagos: action.payload,
+            }
         case "ALERT_MSJ":
             return{
                 ...state,
@@ -213,6 +226,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pagosAchurasByCliente: action.payload,
             }
+        case "GET_ALL_PAGOS_VENTAS_BY_CLIENTE":
+            return{
+                ...state,
+                pagosT: action.payload,
+            }            
         case "GET_PAGOS_COMPRAS_BY_PROVEEDOR":
             return{
                 ...state,

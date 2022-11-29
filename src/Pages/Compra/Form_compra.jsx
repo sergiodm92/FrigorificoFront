@@ -635,7 +635,6 @@ const outerTheme = createTheme({
                             </div>
                         </div>                        
                 }
-
                     <div className={style.button}>
                         <ButtonNew
                             onClick={handleSubmitGrupos}

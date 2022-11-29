@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect} from "react"
 import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
@@ -147,8 +147,14 @@ export default function Detalle_Pagos_Clientes() {
                 </div>
                 <div className={style.buttonLarge}>
                     <LargeButton
-                        title={"Generar PDF"}
+                        title={"Generar PDF todos los pagos"}
                         onClick={()=>navigate(`/Clientes/DetallePagos/pdf/${nombre}`)}
+                    ></LargeButton>
+                </div>
+                <div className={style.buttonLarge}>
+                    <LargeButton
+                        title={"PDF personalizado"}
+                        onClick={()=>navigate(`/Clientes/DetallePagos/PersonalizarDetalle/${nombre}`)}
                     ></LargeButton>
                 </div>
             </div>

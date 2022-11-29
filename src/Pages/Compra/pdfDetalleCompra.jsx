@@ -46,7 +46,7 @@ export default function PdfDetalleCompra(){
                             array={compra.grupos}
                             cant={compra.cant_total}
                         />}
-                        fileName='Comprobante de Pago'
+                        fileName={'Detalle de compra - '+ compra.proveedor}
                     >
                         <LargeButton
                             

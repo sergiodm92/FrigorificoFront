@@ -52,7 +52,7 @@ export default function PdfDetallePagoPorIdProveedor(){
                         nombre={nombre}
                         array={compra.grupos}
                     />}
-                    fileName='Comprobante de Pago'
+                    fileName={'Comprobante de Pago - '+ nombre}
                 >
                     <LargeButton
                         

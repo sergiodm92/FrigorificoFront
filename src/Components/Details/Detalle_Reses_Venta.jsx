@@ -1,8 +1,6 @@
 import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
 
-
-
 export default function TableDetRes({venta}){
     var totalkg=0
     var total$=0
@@ -26,57 +24,73 @@ export default function TableDetRes({venta}){
         array.unshift(venta.fecha)
         array2.push(array)
     })
+
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+        const saldoTotalEstenPesos = currencyFormatter({
+        currency: "USD",
+        value : venta.saldo
+        })
+
     return(
         <div className={tableVentaStyle.conteinerDet}>
-
             <table className="table">
-            <thead>
-                <tr>
-                    <th>fecha</th>
-                    <th>Frigorífico</th>
-                    <th>Correlativo</th>
-                    <th>Categoria</th>
-                    <th>1/2 Res</th>
-                    <th>kg</th>
-                    <th>$/kg</th>                    
-                </tr>
-            </thead>
-            <tbody>
-            {array2.length!==0?array2.map((e,j) => {
-
-                    return(
-                    
-                    <tr key={j}  className={"table-warning"}>
-
-                    {e.length!==0?e.map((a,i) => {
-                        
+                <thead>
+                    <tr>
+                        <th>fecha</th>
+                        <th>Frigorífico</th>
+                        <th>Correlativo</th>
+                        <th>Categoria</th>
+                        <th>1/2 Res</th>
+                        <th>kg</th>
+                        <th>$/kg</th>                    
+                    </tr>
+                </thead>
+                <tbody>
+                    {array2.length!==0?array2.map((e,j) => {
                         return(
-
-                        <td key={i}>{i==0?(new Date(a*1)).toLocaleDateString('es').replaceAll("/", "-"):a}</td>
-
+                            <tr key={j}  className={"table-warning"}>
+                                {e.length!==0?e.map((a,i) => {
+                                    return(
+                                        <td key={i}>{i==0?(new Date(a*1)).toLocaleDateString('es').replaceAll("/", "-"):i==6?currencyFormatter({
+                                            currency: "USD",
+                                            value : a
+                                            }):a}
+                                        </td>
+                                    )
+                                })
+                                :null }   
+                            </tr>
                         )
                     })
-                    :null }   
+                    :null}
+                </tbody>
+            </table>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Total KG</th>
+                        <th>{venta.kg_total}kg</th>
                     </tr>
-                    )
-            }):null
-            }
-            </tbody>
-        </table>
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>Total KG</th>
-                    <th>{venta.kg_total}kg</th>
-                </tr>
-            </thead>
-            <thead>
-                <tr>
-                    <th>Total $</th>
-                    <th>${venta.total}</th>
-                </tr>
-            </thead>
-        </table>
+                </thead>
+                <thead>
+                    <tr>
+                        <th>Total $</th>
+                        <th>{ currencyFormatter({
+                                currency: "USD",
+                                value : venta.total
+                                })}
+                        </th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     )
 }
