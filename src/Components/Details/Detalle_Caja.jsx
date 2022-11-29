@@ -38,9 +38,9 @@ pagos.sort((a, b) => moment(a.fecha, "DD-MM-YYYY").unix() - moment(b.fecha, "DD-
                             
                         e.ventaID?
                         <tr key={j} className={"table-success"}>
-                            <td>{(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
-                            <td>{e.concepto?e.concepto:e.clien?e.clien:e.cliente?e.cliente:null}</td>
-                            <td className={Style.columnRight}>{e.cliente?e.ventaID+"-V":e.clien?e.ventaID+"-VAch":e.ventaID+"-IE"}</td>
+                            <td className={Style.fecha}>{(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                            <td className={Style.concepto}>{e.concepto?e.concepto:e.clien?e.clien:e.cliente?e.cliente:null}</td>
+                            <td >{e.cliente?e.ventaID+"-V":e.clien?e.ventaID+"-VAch":e.ventaID+"-IE"}</td>
                             <td>{e.formaDePago}</td>
                             <td>{currencyFormatter({
                                     currency: "USD",
