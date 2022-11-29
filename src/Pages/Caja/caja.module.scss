@@ -11,7 +11,13 @@
     background-size: cover;
     padding-bottom: 30px;
 }
+.conteinerRadio{
+    display: flex;
+    width: 100%;
+    color: var(--ColorFive);
+    align-items: center;
 
+}
 .marca{
     display: flex;
     position: relative;

@@ -22,7 +22,9 @@
     background-color:var(--ColorFour);
     height: 100%;
 }
-
+.concepto{
+    width: 100px;
+}
 @media (max-width: 600px){
     .conteinerCaja{
         background-color:   var(--ColorFour);
@@ -33,6 +35,15 @@
         background-color:   var(--ColorFour);
         height: 100%;
         font-size: 10px;
+    }
+ 
+}
+@media screen and (max-width: 500px) {
+    .concepto{
+        width: 80px;
+    }
+    .fecha{
+        width: 100px;
     }
 }
 
