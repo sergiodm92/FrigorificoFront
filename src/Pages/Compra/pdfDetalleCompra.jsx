@@ -46,7 +46,9 @@ export default function PdfDetalleCompra(){
                             array={compra.grupos}
                             cant={compra.cant_total}
                         />}
+
                         fileName={'Detalle de compra - '+ compra.proveedor}
+
                     >
                         <LargeButton
                             

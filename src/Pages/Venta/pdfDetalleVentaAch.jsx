@@ -40,7 +40,9 @@ export default function PdfDetalleVentaAch(){
                         person={venta.clien}
                         name={"Cliente"}
                     />}
+
                     fileName={'Detalle de venta - '+ venta.clien}
+
                 >
                     <LargeButton
                         

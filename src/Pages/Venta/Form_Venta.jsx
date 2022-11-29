@@ -92,7 +92,7 @@ const Form_Venta = () => {
         if(formCV.precio_kg!==0)setMargen((((formCV.precio_kg-(resSelect.precio_kg*1))/formCV.precio_kg)*100).toFixed(2))
         if(formCV.total_media==="total")formCV.kg=resSelect.kg
         if(formCV.total_media!=="total"){
-            formCV.kg_total=resSelect.kg
+            formCV.kg_total=resSelect.kg*1
             formCV.id=resSelect.id
         }
     }, [formCV])

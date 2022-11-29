@@ -17,6 +17,7 @@ export default function DocPDFDetalleC({transaccion,transaccionName, person, nam
         return formatter.format(value)
     }
 
+    let fechaFormat = (new Date(transaccion.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")
         
     const tableText = {
         margin:"0.5vh",
@@ -53,19 +54,19 @@ export default function DocPDFDetalleC({transaccion,transaccionName, person, nam
                     </View>
                     <View style={{margin:"4vh", marginTop:0}}>
                         <View>
-                            <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica"}}>{fecha}</Text>
+                            <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica"}}>Fecha de emisión: {fecha}</Text>
                         </View>
                         <View>
                             <Text style={{fontSize:"1.8vh", textAlign:"center", textDecoration:'underline', fontFamily:"Helvetica-Bold"}}>Detalle de {transaccionName}</Text>
                         </View>
                         <View style={{marginTop:"2vh", marginBottom:"0.2vh"}}>
+                            <Text style={datosPerson}>Fecha: {fechaFormat}</Text>
+                        </View>
+                        <View style={{marginTop:"0.2vh", marginBottom:"0.2vh"}}>
                             <Text style={datosPerson}>{name}: {person}</Text>
                         </View>
                         {array.length && name=="Proveedor" && array[0].desbaste>0?
                         <View>
-                            <View style={{marginTop:"0.2vh", marginBottom:"0.2vh"}}>
-                                <Text style={datosPerson}>Cliente: Gastón Rodriguez</Text>
-                            </View>
                             <View style={{marginTop:"0.2vh", marginBottom:"2vh"}}>
                                 <Text style={datosPerson}>Cantidad de animales: {cant}</Text>
                             </View>

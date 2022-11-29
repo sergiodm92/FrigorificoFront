@@ -25,6 +25,17 @@ export default function Ventas(){
         if(a.fecha>b.fecha){return -1}
         if(a.fecha<b.fecha){return 1}
         return 0})
+    
+    function currencyFormatter({ currency, value}) {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            minimumFractionDigits: 2,
+            currency
+        }) 
+        return formatter.format(value)
+        }
+
+    
 
     return(
         <div className={style.ConteinerVenta}>
@@ -45,6 +56,7 @@ export default function Ventas(){
                     </div>
                     <div className={style.cardsCont}>
                         {AllVentas.map((a,i)=>{
+                            console.log(a)
                             return(
                                 <CardLarge
                                     id={a.id}
@@ -91,7 +103,10 @@ export default function Ventas(){
                                     fecha={a.fecha}
                                     para={a.clien.length>10?a.clien.slice(0,8):a.clien}
                                     cant={a.cantidad}
-                                    kg={a.total}
+                                    kg={currencyFormatter({
+                                            currency: "USD",
+                                            value : a.total
+                                    })}
                                     monto={a.saldo}
                                     tipo={"Ventas/Achuras"}
                                 />
