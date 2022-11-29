@@ -42,7 +42,9 @@ export default function PdfDetalleVenta(){
                         name={"Cliente"}
                         array={venta.detalle}
                     />}
-                    fileName='Detalle de Venta'
+
+                    fileName={'Detalle de venta - '+ venta.cliente}
+
                 >
                     <LargeButton
                         

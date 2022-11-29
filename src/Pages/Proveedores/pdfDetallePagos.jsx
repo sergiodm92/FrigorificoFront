@@ -41,7 +41,7 @@ export default function PdfDetallePagosProveedores(){
                                 person={proveedor}
                                 name={"Proveedor"}
                     />}
-                    fileName='Comprobante de Pago'
+                    fileName={'Comprobante de Pago - '+ proveedor}
                 >
                     <LargeButton 
                         

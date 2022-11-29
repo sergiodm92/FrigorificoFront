@@ -38,14 +38,13 @@
     font-family: 'Karla', sans-serif;
     font-size: 16px;
     font-style: initial;
-    width: 100px;
+    width: 110px;
 }
 .item3{
     display: flex;
     position: relative;
     padding-top: 15px;
-    justify-content: center;
-    align-items: center;
+    padding-left: 20px;
     color: var(--ColorTrhee);
     font-family: 'Karla', sans-serif;
     font-size: 16px;
@@ -111,13 +110,12 @@
         display: flex;
         position: relative;
         padding-top: 15px;
-        justify-content: center;
-        align-items: center;
+        padding-left: 10px;
         color: var(--ColorTrhee);
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 50px;
+        width: 20px;
     }
     .item2{
         display: flex;
@@ -129,19 +127,19 @@
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 110px;
+        width: 90px;
     }
     .item3{
         display: flex;
         position: relative;
         padding-top: 15px;
-        justify-content: center;
-        align-items: center;
+        text-align: left;
+        padding-left: 0px;
         color: var(--ColorTrhee);
         font-family: 'Karla', sans-serif;
         font-size: 12px;
         font-style: initial;
-        width: 140px;
+        width: 110px;
     }
     .item4{
         display: flex;

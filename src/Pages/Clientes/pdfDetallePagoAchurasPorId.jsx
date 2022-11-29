@@ -51,7 +51,7 @@ export default function PdfDetallePagoPorIdCliente(){
                         venta={venta}
                         nombre={nombre}
                     />}
-                    fileName='Comprobante de Pago'
+                    fileName={'Comprobante de Pago - '+ nombre}
                 >
                     <LargeButton
                         

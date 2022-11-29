@@ -47,7 +47,7 @@ export default function PdfDetallePagosClientes(){
                         person={cliente}
                         name={"Cliente"}
                     />}
-                    fileName='Comprobante de Pago'
+                    fileName={'Comprobante de Pago - ' + cliente.nombre}
                 >
                     <LargeButton
                         

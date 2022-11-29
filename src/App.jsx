@@ -40,6 +40,7 @@ import FormIngresoExtra from '../src/Pages/Caja/form_ingreso_extra.jsx'
 import Form_Venta_Achuras from './Pages/Venta/Form_Venta_Achuras.jsx';
 import Nueva_Venta from './Pages/Venta/Nueva_Venta.jsx';
 import Detalle_Pagos_Clientes from './Pages/Clientes/Detalle_Pagos_Cliente.jsx';
+import Detalle_Pagos_Clientes_Personalizado from './Pages/Clientes/Detalle_Pagos_Cliente_Personalizado.jsx'
 import Detalle_Pagos_Proveedor from './Pages/Proveedores/Detalle_Pagos_Proveedor.jsx';
 import Detalle_Pagos_Frigorifico from './Pages/Faenas/Detalle_Pagos_Frigorifico.jsx';
 import DetalleGrupos from './Pages/Compra/DetalleGrupos.jsx';
@@ -57,6 +58,7 @@ import PdfDetallePagoPorIdFrigorifico from './Pages/Faenas/pdfDetallePagoPorIdFr
 import PdfDetallePagoPorIdCliente from './Pages/Clientes/pdfDetallePagoPorId.jsx';
 import PdfDetallePagoAchurasPorIdCliente from './Pages/Clientes/pdfDetallePagoAchurasPorId.jsx';
 import PdfDetallePagoPorIdProveedor from './Pages/Proveedores/pdfDetallePagoPorId.jsx';
+import PdfDetallePagosClientesPersonalizado from './Pages/Clientes/pdfDetallePagosPersonalizados'
 import PdfDetalleVenta from './Pages/Venta/pdfDetalleVenta.jsx';
 import PdfDetalleVentaAch from './Pages/Venta/pdfDetalleVentaAch.jsx';
 import PdfDetalleCompra from './Pages/Compra/pdfDetalleCompra.jsx';
@@ -118,6 +120,9 @@ function App() {
       <Route exact path="/Clientes/FormPagoVC/:id" element={state_login?<Form_Pago_Venta />:<NoAccess/>} />
       <Route exact path="/Clientes/FormPagoVAch/:id" element={state_login?<Form_Pago_Venta_Achuras />:<NoAccess/>} />
       <Route exact path="/Clientes/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Clientes />:<NoAccess/>} />
+      <Route exact path="/Clientes/DetallePagos/PersonalizarDetalle/:nombre" element={state_login?<Detalle_Pagos_Clientes_Personalizado />:<NoAccess/>} />
+      <Route exact path="/Clientes/DetallePagos/PdfDetallePagosClientesPersonalizado" element={state_login?<PdfDetallePagosClientesPersonalizado />:<NoAccess/>} />
+      
       <Route exact path="/Clientes/DetallePagos/pdf/:nombre" element={state_login?<PdfDetallePagosClientes />:<NoAccess/>} />
       <Route exact path="/Clientes/DetallePagos/pdf/:nombre/:id" element=<PdfDetallePagoPorIdCliente/>/>
       <Route exact path="/Clientes/DetallePagosAchuras/pdf/:nombre/:id" element=<PdfDetallePagoAchurasPorIdCliente/>/>
