@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import style from "./Clientes.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import DocPDFPersonalizado from "../../Components/PDFDoc/PDFDocPersonalizado";
+import NavBar from "../../Components/Navbar/Navbar";
 
 export default function PdfDetallePagosClientesPersonalizado(){
     

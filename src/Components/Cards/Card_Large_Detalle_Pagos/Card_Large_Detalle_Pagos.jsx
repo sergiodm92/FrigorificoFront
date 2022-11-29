@@ -23,7 +23,7 @@ const CardLargeDetallePagos = ({ id, idv, fecha, formaDePago, monto, check}) => 
     let fechaFormat = (new Date(fecha*1)).toLocaleDateString('es').replaceAll("/", "-")
     return (
         <div>
-            <div className={check?styleCL.cont2:styleCL.cont}>
+            <div className={styleCL.cont}>
 
                 <div className={styleCL.item1}><p>{id}</p></div>
 
