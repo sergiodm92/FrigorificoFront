@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {getAllProveedores, postNewFaena, postNewRes, setAlert} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, postNewFaena, setAlert} from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -29,7 +29,7 @@ const formF = {
     total_medias:0,
     costo_total:0,
     saldo:0,
-    estado_compra:"false"
+    estadoCompra:"false"
 };
 //Form para cargar las reses del detalle de Faena
 const formComF = {
@@ -38,7 +38,8 @@ const formComF = {
     kg1: '',
     kg2:'',
     correlativo: '',
-    categoria: ''
+    categoria: '',
+    
     
 };
 //var para sumar medias
@@ -110,7 +111,7 @@ const Form_Faena = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                titleForm: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Faena creada con éxito"?"success":"warning", 
                 button: "ok",
             })
@@ -186,12 +187,19 @@ const Form_Faena = () => {
                         formRes.categoria=formCF.categoria
                         formRes.correlativo=formCF.garron+"-A"+formCF.kg1
                         formRes.kg=formCF.kg1*1
-                        
+                        formRes.stock=true
+                        formRes.CuartoD=0
+                        formRes.CuartoT=0
                         form.detalle.unshift(formRes)
                     //segunda res correlativo garron-kg2
-                        formCF.correlativo=formCF.garron+"-B"+formCF.kg2
-                        formCF.kg=formCF.kg2*1
-                        form.detalle.unshift(formCF)
+                        var formRes2={}
+                        formRes2.categoria=formCF.categoria
+                        formRes2.correlativo=formCF.garron+"-B"+formCF.kg2
+                        formRes2.kg=formCF.kg2*1
+                        formRes2.stock=true
+                        formRes2.CuartoD=0
+                        formRes2.CuartoT=0
+                        form.detalle.unshift(formRes2)
                         setkg_totales(kg_totales+formCF.kg1*1+formCF.kg2*1)
                 }
             }
@@ -199,9 +207,15 @@ const Form_Faena = () => {
                 if(
                     !error2.kg && formCF.kg
                 ){
-                    formCF.kg=formCF.kg*1
+                    var formRes3={}
+                    formRes3.categoria=formCF.categoria
+                    formRes3.correlativo=formCF.correlativo
+                    formRes3.kg=formCF.kg*1
+                    formRes3.stock=true
+                    formRes3.CuartoD=0
+                    formRes3.CuartoT=0
                     setkg_totales(kg_totales+formCF.kg*1)
-                    form.detalle.unshift(formCF)
+                    form.detalle.unshift(formRes3)
                 }
             }
             document.getElementById("categoria").selectedIndex = 0
@@ -230,13 +244,6 @@ const Form_Faena = () => {
             !error.detalle && form.detalle
         ){
         form.detalle.map((e)=>{
-            e.tropa=form.tropa
-            e.stock=true
-            e.fecha=form.fecha.getTime()
-            e.frigorifico=form.frigorifico
-            setTimeout(()=>{
-                dispatch(postNewRes(e))
-            }, 2000)
             form.total_kg= form.total_kg + e.kg*1
         })
         form.fecha=form.fecha.getTime()
@@ -281,11 +288,6 @@ const Form_Faena = () => {
             categoria:  e.target.value 
         })
     }
-
-    //ir faenas para ver el detalle
-    const handleDet = () => {
-        navigate("/Faenas")
-    };
 
     //funcion para eliminar reses del detalle
     const handleDelete = (e)=>{

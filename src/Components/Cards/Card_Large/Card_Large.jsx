@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import styleCL from "./Card_Large.module.scss";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 
-const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon, bonClick}) => {
+const CardLarge = ({ id, fecha, para, cant, kg, total, tipo, pago, bstyle, bicon, bonClick}) => {
 
     const navigate = useNavigate()
 
@@ -12,23 +12,23 @@ const CardLarge = ({ id, fecha, para, cant, kg, monto, tipo, pago, bstyle, bicon
             style: 'currency',
             minimumFractionDigits: 2,
             currency
-        }) 
+        }) //comentario para borrar
         return formatter.format(value)
         }
 
     const totalEstenPesos = currencyFormatter({
         currency: "USD",
-        value : monto
+        value : total
         })
     let fechaFormat = (new Date(fecha*1)).toLocaleDateString('es').replaceAll("/", "-")
     return (
         <div>
             <div className={styleCL.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-                <div className={styleCL.item1}><p>{id}</p></div>
+                <div className={styleCL.item1}><p>{id.length>3?id.slice(id.length-3,id.length):id}</p></div>
 
                 <div className={styleCL.item2}><p>{fechaFormat}</p></div>
 
-                <div className={styleCL.item3}><p>{para}</p></div>
+                <div className={styleCL.item3}><p>{para.length>10?para.slice(0,13):para}</p></div>
 
                 <div className={styleCL.item4}><p>{cant}</p></div>
 

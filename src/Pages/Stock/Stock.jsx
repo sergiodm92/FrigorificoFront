@@ -1,21 +1,20 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getAllReses} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar";
 import styleSt from "./Stock.module.scss";
 import Table_Stock from "../../Components/Details/Table_Stock";
 import CardSmallStock from "../../Components/Cards/Card_Small_stock/Card_Small.jsx";
-
+import { getAllFaenas } from "../../Redux/Actions/Actions";
 
 export default function Stock(){
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAllReses())
+        dispatch(getAllFaenas())
     }, [dispatch])
 
-    const AllResesStockTrue = useSelector((state)=>(state.AllResesStockTrue))
-    const arrayResByTropa = useSelector((state)=>(state.arrayResByTropa))
+    let AllFaenas = useSelector((state)=>state.AllFaenas)
     
     let total_kg=["Total kg","","",0]
     let vaq=["Vaquillona",0,0,0]
@@ -24,34 +23,40 @@ export default function Stock(){
     let toro=["Toro",0,0,0]
     let Novp=["Novillo Pesado",0,0,0]
 
-    AllResesStockTrue.map((a)=>{
-            total_kg[3]+=a.kg;
-            if(a.categoria==="Vaquillona"){
-                if(a.correlativo.includes("D")) vaq[2]++
-                else if(a.correlativo.includes("T")) vaq[3]++
+    AllFaenas.map((e)=>{
+            e.detalle.map((a)=>{
+                if(a.CuartoT==0 && a.CuartoD==0 && a.stock==true )total_kg[3]+=a.kg
+                if(a.CuartoT>0 && a.stock==true)total_kg[3]+=a.CuartoT
+                if(a.CuartoD>0 && a.stock==true)total_kg[3]+=a.CuartoD
+
+
+            if(a.categoria==="Vaquillona" && a.stock==true){
+                if(a.CuartoD!==0) vaq[2]++
+                else if(a.CuartoT!==0) vaq[3]++
                 else vaq[1]++
             }
-            if(a.categoria==="Vaca"){
-                if(a.correlativo.includes("D")) vaca[2]++
-                else if(a.correlativo.includes("T")) vaca[3]++
+            if(a.categoria==="Vaca" && a.stock==true){
+                if(a.CuartoD!==0) vaca[2]++
+                else if(a.CuartoT!==0) vaca[3]++
                 else vaca[1]++
             }
-            if(a.categoria==="Novillito"){
-                if(a.correlativo.includes("D")) nov[2]++
-                else if(a.correlativo.includes("T")) nov[3]++
+            if(a.categoria==="Novillito" && a.stock==true){
+                if(a.CuartoD!==0) nov[2]++
+                else if(a.CuartoT!==0) nov[3]++
                 else nov[1]++
             }
-            if(a.categoria==="Toro"){
-                if(a.correlativo.includes("D")) toro[2]++
-                else if(a.correlativo.includes("T")) toro[3]++
+            if(a.categoria==="Toro" && a.stock==true){
+                if(a.CuartoD!==0) toro[2]++
+                else if(a.CuartoT!==0) toro[3]++
                 else toro[1]++
             }
-            if(a.categoria==="Novillo Pesado"){
-                if(a.correlativo.includes("D")) toro[2]++
-                else if(a.correlativo.includes("T")) toro[3]++
+            if(a.categoria==="Novillo Pesado" && a.stock==true){
+                if(a.CuartoD!==0) toro[2]++
+                else if(a.CuartoT!==0) toro[3]++
                 else Novp[1]++
             }
         })
+    })
 
 var array=[vaq,vaca,nov,toro,Novp,total_kg]
     return(
@@ -74,17 +79,19 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
                 <div><b>Tropa</b></div>
             </div>
             <div className={styleSt.cardsCont}>
-                {arrayResByTropa.map((a,i)=>{
+                {AllFaenas.map((a,i)=>{ 
                     return(
+                        a.detalle.some((e)=> e.stock==true)?
                         <CardSmallStock
-                            id={i}
                             key={i}
-                            fecha={a[0].fecha}
-                            frigorifico={a[0].frigorifico}
-                            tropa={a[0].tropa}
+                            fecha={a.fecha}
+                            frigorifico={a.frigorifico}
+                            tropa={a.tropa}
                             tipo={"Stock/DetalleTropa"}
                         />
+                        :null
                     )
+                    
                 })}
             </div>
         </div>

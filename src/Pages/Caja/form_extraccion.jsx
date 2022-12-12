@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from "../../Components/Navbar/Navbar";
-import { postNewPagoExtra, setAlert } from "../../Redux/Actions/Actions";
+import { getAllPagosExtras, postNewPagoExtra, setAlert } from "../../Redux/Actions/Actions";
 import style from "./caja.module.scss";
 import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
 //calendario-----------------------------------
@@ -45,7 +45,7 @@ export default function FormExtraccion(){
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -82,6 +82,7 @@ export default function FormExtraccion(){
             !error.formaDePago && form.formaDePago &&
             !error.monto && form.monto
         ){
+            form.id="PE"+Math.floor(Math.random()*1000000)
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
             dispatch(postNewPagoExtra(form))
@@ -90,7 +91,6 @@ export default function FormExtraccion(){
         }
         else {
             swal({
-                title: "Alerta de Pago",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",

@@ -54,8 +54,8 @@ export default function Historial_Ventas_Cliente(){
                                 fecha={a.fecha}
                                 para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
                                 cant={a.cant}
-                                kg={a.kg_total}
-                                monto={a.total}
+                                kg={a.kg}
+                                total={a.total}
                                 tipo={"Ventas"}
                                 pago={false}
                             />
@@ -88,7 +88,7 @@ export default function Historial_Ventas_Cliente(){
                                         para={a.clien}
                                         cant={a.cantidad}
                                         kg={a.total}
-                                        monto={a.saldo}
+                                        total={a.saldo}
                                         tipo={"Ventas/Achuras"}
                                     />
                                 )

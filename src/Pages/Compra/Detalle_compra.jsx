@@ -7,7 +7,7 @@ import style from "./Compras.module.scss"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import { useDispatch, useSelector } from "react-redux"
-import { deleteCompraById, getComrpaByID, getPagosComprasByID, putEstadoCompraFaenaFalse } from "../../Redux/Actions/Actions"
+import { deleteCompraById, getComrpaByID, getPagosComprasByID, putEstadoCompraFaena } from "../../Redux/Actions/Actions"
 
 
 export default function Detalle_Compra(){
@@ -26,7 +26,8 @@ export default function Detalle_Compra(){
     if(compra.grupos){
         var comision_total=0
         compra.grupos.map(a=>{
-            arrTropas.push(a.n_tropa)
+            arrTropas.push({id:a.n_tropa.toString(), estadoCompra:false, compraID:null})
+            
             if(a.comision) comision_total+=a.comision
         })
     }
@@ -58,11 +59,7 @@ export default function Detalle_Compra(){
                     })
                     .then((value) => {
                     if(value==="eliminar compra"){
-                    arrTropas.map(a=>{
-                        setTimeout(()=>{
-                            dispatch(putEstadoCompraFaenaFalse(a))
-                        }, 2000)
-                    })
+                    dispatch(putEstadoCompraFaena(arrTropas))
                     dispatch(deleteCompraById(id))
                     swal("Se eliminó la compra", {
                         icon: "success",

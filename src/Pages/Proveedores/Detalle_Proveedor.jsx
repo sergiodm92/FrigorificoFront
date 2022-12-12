@@ -122,7 +122,7 @@ export default function Detalle_Proveedor(){
                                         para={a.proveedor.length>12?a.proveedor.slice(0,12):a.proveedor}
                                         cant={a.cant_total}
                                         kg={a.kg_carne_totales}
-                                        monto={a.saldo.toFixed(2)}
+                                        total={a.saldo.toFixed(2)}
                                         tipo={"Compras"}
                                         pago={true}
                                         bstyle={"new"}

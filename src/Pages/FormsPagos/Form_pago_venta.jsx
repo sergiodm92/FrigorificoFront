@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getClienteByName, getPagosVentasByCliente, getVentaByID, postNewPagoVenta, putSaldoVenta, setAlert, setimgurl } from "../../Redux/Actions/Actions";
+import { getAllPagosVentas, getClienteByName, getPagosVentasByCliente, getVentaByID, postNewPagoVenta, putSaldoVenta, setAlert, setimgurl } from "../../Redux/Actions/Actions";
 import stylePagoV from './Form_pago.module.scss';
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -43,7 +43,7 @@ const Form_Pago_Venta = () => {
     }, [dispatch])
 
     const venta = useSelector((state)=>state.VentaByID);
-    
+
     useEffect(() => {
         dispatch(getClienteByName(venta.cliente))
     }, [venta])
@@ -68,7 +68,7 @@ const Form_Pago_Venta = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -84,7 +84,7 @@ const Form_Pago_Venta = () => {
     const validate = (pago) => {
     let error = {};
     if (!pago.formaDePago) error.formaDePago = "Falta forma de pago";
-    if (venta.saldo<pago.monto) error.monto = "El monto excede el saldo"
+    if (venta.saldo*1+10<pago.monto*1) error.monto = "El monto excede el saldo"
     if (!pago.monto) error.monto = "Falta monto";
     
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
@@ -126,13 +126,14 @@ const Form_Pago_Venta = () => {
         if(
         !error.monto && form.monto
         ){
+            form.id="PV"+Math.floor(Math.random()*1000000)
             form.cliente=venta.cliente
             form.ventaID=id
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
             let saldo2= venta.saldo - form.monto
-            dispatch(putSaldoVenta(id, saldo2))
             dispatch(postNewPagoVenta(form))
+            dispatch(putSaldoVenta(id, saldo2))            
             .then((response)=>{
                 if(response)dispatch(getPagosVentasByCliente(venta.cliente))
             })
@@ -142,7 +143,6 @@ const Form_Pago_Venta = () => {
         }
         else {
             swal({
-                title: "Alerta de Pago",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",

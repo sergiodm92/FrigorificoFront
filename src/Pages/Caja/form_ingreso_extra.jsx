@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from "../../Components/Navbar/Navbar";
-import { postNewIngresoExtra, setAlert, setimgurl } from "../../Redux/Actions/Actions";
+import { getAllIngresosExtras, postNewIngresoExtra, setAlert, setimgurl } from "../../Redux/Actions/Actions";
 import style from "./caja.module.scss";
 import SubirImagen from "../../Components/SubirImagenes/subirImagenes";
 //calendario-----------------------------------
@@ -16,6 +16,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 
 const formPE = {
+    id:0,
     fecha: new Date().toLocaleDateString(),
     concepto:'',
     monto: 0,
@@ -46,7 +47,7 @@ export default function FormIngresoExtra(){
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -84,6 +85,7 @@ export default function FormIngresoExtra(){
             !error.formaDePago && form.formaDePago &&
             !error.monto && form.monto
         ){
+            form.id="IE"+Math.floor(Math.random()*1000000)
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
             dispatch(postNewIngresoExtra(form))
@@ -93,7 +95,6 @@ export default function FormIngresoExtra(){
         }
         else {
             swal({
-                title: "Alerta de Pago",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",

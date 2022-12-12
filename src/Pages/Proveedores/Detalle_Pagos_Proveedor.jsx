@@ -49,7 +49,7 @@ export default function Detalle_Pagos_Proveedor() {
                     .then((value) => {
                     if(value==="eliminar pago"){
                         let compra = compras.find(a=>a.id==compraID)
-                        let saldo= compra.saldo + Monto
+                        let saldo= compra.saldo*1 + Monto*1
                         dispatch(putSaldoCompra(compraID, saldo))
                         dispatch(deletePagoCompraById(id))
                         dispatch(getPagosComprasByProveedor(nombre))

@@ -127,10 +127,10 @@ export default function Detalle_Cliente(){
                                         id={a.id}
                                         key={i}
                                         fecha={a.fecha}
-                                        para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
+                                        para={a.cliente}
                                         cant={a.cant}
-                                        kg={a.kg_total}
-                                        monto={a.saldo.toFixed(2)}
+                                        kg={a.kg}
+                                        total={a.saldo.toFixed(2)}
                                         tipo={"Ventas"}
                                         pago={true}
                                         bstyle={"new"}
@@ -169,7 +169,7 @@ export default function Detalle_Cliente(){
                                         para={a.clien}
                                         cant={a.cantidad}
                                         kg={"achuras"}
-                                        monto={a.saldo.toFixed(2)}
+                                        total={a.saldo.toFixed(2)}
                                         tipo={"Ventas/Achuras"}
                                         pago={true}
                                         bstyle={"new"}

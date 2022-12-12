@@ -48,7 +48,7 @@ export default function Detalle_Pagos_Frigorifico() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        let faena = faenas?.find(a=>a.id==faenaID)
+                        let faena = faenas?.find(a=>a.tropa==faenaID)
                         let saldo = faena.saldo + monto
                         dispatch(putSaldoFaena(faenaID, saldo))
                         dispatch(deletePagoFaenaById(id))
@@ -89,7 +89,7 @@ export default function Detalle_Pagos_Frigorifico() {
                                 <td>Elim</td>                            
                             </tr>
                             {pagos.length!==0 && faenas.length!==0?pagos.map((e,i) => {
-                                faena=faenas.find(a=>a.id==e.faenaID)
+                                faena=faenas.find(a=>a.tropa==e.faenaID)
                                 return(
                                     <tr key={i} className="table-primary" align="center">
                                         <td>{faena?faena.tropa:"No existe"}</td> 

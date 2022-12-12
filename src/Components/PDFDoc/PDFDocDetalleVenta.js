@@ -54,7 +54,7 @@ export default function DocPDFDetalleV({transaccion,transaccionName, person, nam
                     </View>
                     <View style={{margin:"4vh", marginTop:0}}>
                         <View>
-                            <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica"}}>Fecha de emisión: {fecha}</Text>
+                            <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica", marginBottom:"0.2vh"}}>Fecha de emisión: {fecha}</Text>
                         </View>
                         <View>
                             <Text style={{fontSize:"1.8vh", textAlign:"center", textDecoration:'underline', fontFamily:"Helvetica-Bold"}}>Detalle de {transaccionName}</Text>

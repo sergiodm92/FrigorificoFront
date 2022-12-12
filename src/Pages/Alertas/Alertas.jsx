@@ -34,8 +34,8 @@ const dispatch = useDispatch()
                     <div className={style.CardAlert} key={i}>
                         <CardAlert
                         tropa={a.tropa}
-                        categoria={a.categoria}
-                        correlativo={a.correlativo}
+                        categoria={a.res.categoria}
+                        correlativo={a.res.correlativo}
                         frigorifico={a.frigorifico}
                         fecha={(new Date(a.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}
                         dias={Math.ceil((fecha - a.fecha)/(24*3600*1000))}

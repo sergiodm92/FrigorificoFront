@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getClienteByName, getVentaAchurasByID, postNewPagoVentaAchuras, putSaldoCliente, putSaldoVentaAchuras, setAlert, setimgurl } from "../../Redux/Actions/Actions";
+import {  getAllPagosVentasAchuras, getClienteByName, getVentaAchurasByID, postNewPagoVentaAchuras, putSaldoVentaAchuras, setAlert, setimgurl } from "../../Redux/Actions/Actions";
 import stylePagoV from './Form_pago.module.scss';
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -49,7 +49,7 @@ const Form_Pago_Venta_Achuras = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -65,7 +65,7 @@ const Form_Pago_Venta_Achuras = () => {
     let error = {};
     if (!pago.formaDePago) error.formaDePago = "Falta forma de pago";
     if (!pago.monto) error.monto = "Falta monto";
-    if (venta.saldo<pago.monto) error.monto = "El monto excede el saldo"
+    if (venta.saldo*1+10<pago.monto*1) error.monto = "El monto excede el saldo"
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     return error;
 };
@@ -96,21 +96,21 @@ const Form_Pago_Venta_Achuras = () => {
         if(
         !error.monto && form.monto
         ){
+            form.id="PVA"+Math.floor(Math.random()*1000000)
             form.clien=venta.clien
             form.ventaID=id
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
             let saldo2= venta.saldo - form.monto
             if(!saldo2) saldo2="0"
-            dispatch(putSaldoVentaAchuras(id, saldo2))
             dispatch(postNewPagoVentaAchuras(form))
+            dispatch(putSaldoVentaAchuras(id, saldo2))            
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPV);
             dispatch(setimgurl())
         }
         else {
             swal({
-                title: "Alerta de Pago",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",

@@ -102,7 +102,7 @@ export default function Detalle_Ingresos_Extras() {
                     </tbody>
                 </table>
             </div>
-            :<div><h4 className={style.text}>No existen ingresos extra</h4></div>} //si no hay pagos           
+            :<div><h4 className={style.text}>No existen ingresos extra</h4></div>}          
         </div>            
     )
 }

@@ -6,12 +6,21 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { createTheme } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { getAlertRes } from '../../Redux/Actions/Actions';
+import { styled, alpha } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
+import Search from '@mui/icons-material/Search';
+
+
+
+
+
+
+
 
 
 export default function PrimarySearchAppBar() {

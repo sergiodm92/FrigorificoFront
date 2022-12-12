@@ -138,7 +138,7 @@ function App() {
       <Route exact path="/Proveedores/DetallePagos/:nombre/:id/pdf" element={state_login?<PdfDetallePagoPorIdProveedor />:<NoAccess/>} />
 
     <Route exact path="/Stock" element={state_login?<Stock />:<NoAccess/>} />
-      <Route exact path="/Stock/DetalleTropa/:index" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
+      <Route exact path="/Stock/DetalleTropa/:tropa" element={state_login?<Detalle_Stock_Tropa />:<NoAccess/>} />
 
     <Route exact path="/Caja" element={state_login?<Caja />:<NoAccess/>} />
       <Route exact path="/Caja/DetalleExtracciones" element={state_login?<Detalle_Pagos_Extras />:<NoAccess/>} />

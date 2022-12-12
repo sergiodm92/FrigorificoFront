@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import {getAllFaenas, getAllProveedores, getAllReses, getFaenasByTropa, getGruposByTropa, getProveedorByName, postNewCompra, putEstadoCompraFaena, putEstadoCompraFaenaFalse, putReses, setAlert} from "../../Redux/Actions/Actions";
+import {getAllFaenas, getAllProveedores, getFaenasByTropa, getGruposByTropa, postNewCompra, putEstadoCompraFaena, putStockReses, setAlert} from "../../Redux/Actions/Actions";
 import NavBar from '../../Components/Navbar/Navbar'
 import style from "./Compras.module.scss";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -17,6 +17,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 
 let formC = {
+    id:'',
     proveedor: '',//
     fecha: new Date().toLocaleDateString(),//
     lugar: '',//
@@ -89,26 +90,22 @@ const Form_Compra = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    //Estados globales
-    let alert_msj= useSelector ((state)=>state.alert_msj);
-    let proveedores = useSelector((state)=>state.AllProveedores);
-    let faenas = useSelector((state)=>state.AllFaenas)
-    let faenasDisp = faenas.filter(a=>a.estado_compra!==true)
-    
-
-
     useEffect(() => {
         dispatch(getAllProveedores())
         dispatch(getAllFaenas())
-        dispatch(getAllReses())
     }, [dispatch])
-    
-  
+
+    //Estados globales
+    let alert_msj= useSelector ((state)=>state.alert_msj);
+    let proveedores = useSelector((state)=>state.AllProveedores);
+    let AllFaenas = useSelector((state)=>state.AllFaenas)
+    let faenasDisp = AllFaenas.filter(a=>a.estadoCompra!==true)
+
 
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                titleForm: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Compra creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -116,7 +113,7 @@ const Form_Compra = () => {
         form.grupos=[]
     }, [alert_msj])
 
-
+    // let gruposRes = useSelector((state)=>state.gruposRes)
 
     //estados locales
     const [form, setForm] = useState(formC);
@@ -223,6 +220,9 @@ const Form_Compra = () => {
             // -!error.costo_veps_unit && form.costo_veps_unit
         ){
             //cargo el resto de las propiedades
+            form.id="C"+form.grupos[0].n_tropa
+            let arr =[]
+            let arrayGrupos = []
             form.grupos.map(a=>{
                 form.kgv_brutos_totales+=a.kgv_brutos*1
                 form.kgv_netos_totales+=a.kgv_netos*1
@@ -239,16 +239,24 @@ const Form_Compra = () => {
                 a.recupero=(form.precio_venta_achuras_unit*1*a.cant )/a.kg_carne
                 a.costo_total = a.cosoVeps*1 + a.comision*1 + a.costo_faena*1 + a.costo_hac*1 + a.costo_flete*1 - (form.precio_venta_achuras_unit*1*a.cant )
                 a.costo_kg = a.costo_total/(a.kg_carne*1)
+                if(!arr.some((t)=>t.tropa==a.n_tropa))arr.push({id:a.n_tropa.toString(), estadoCompra:true, compraID:form.id})
+                arrayGrupos.push({tropa:a.n_tropa, categoria:a.categoria, costo_kg:a.costo_kg})
             })
             form.saldo = form.costo_total_hac
             form.fecha=form.fecha.getTime()
-            form.grupos.map((e)=>
-                setTimeout(()=>{
-                    dispatch(putReses(e.costo_kg, e.n_tropa, e.categoria))
-                    dispatch(putEstadoCompraFaena(e.n_tropa))
-                }, 2000)
-            )
-            
+            let detalles=[]
+
+            arr.map((t)=>{
+                let det = AllFaenas.find((f)=>f.tropa==t.id).detalle
+                det.map((r)=>{
+                    r.costo_kg= arrayGrupos.find((g)=>g.categoria==r.categoria).costo_kg
+                })
+                console.log(det)
+                detalles.push({detalle:det, id:t.id})
+            })
+            dispatch(putStockReses(detalles))
+            dispatch(putEstadoCompraFaena(arr))
+            console.log(form)
             dispatch(postNewCompra(form))
             document.getElementById("proveedor").selectedIndex = 0
             setForm(formC);

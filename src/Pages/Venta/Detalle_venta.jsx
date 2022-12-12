@@ -8,7 +8,7 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import style from './Ventas.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import { deleteVentaById, getClienteByName, getPagosVentaByID, getVentaByID, putCuartoRes, putSaldoCliente, putStockResTrue } from "../../Redux/Actions/Actions"
+import { deleteVentaById, getAllFaenas, getClienteByName, getPagosVentaByID, getVentaByID, putStockReses } from "../../Redux/Actions/Actions"
 
 
 export default function Detalle_Venta(){
@@ -19,9 +19,11 @@ const Navigate = useNavigate()
 
 useEffect(() => {
     dispatch(getVentaByID(id))
-}, [dispatch])
+    dispatch(getAllFaenas())
+}, [id])
 
 let venta = useSelector((state)=>state.VentaByID)
+let AllFaenas = useSelector((state)=>state.AllFaenas)
 
 useEffect(() => {
     if(venta)dispatch(getClienteByName(venta.cliente))
@@ -30,7 +32,6 @@ useEffect(() => {
 
 let cliente = useSelector((state)=>state.clienteByNombre)
 let pagos = useSelector((state)=>state.pagosByVentaID)
-
 
 const deleteVenta = ()=>{
     if(pagos.length>0){
@@ -57,23 +58,39 @@ const deleteVenta = ()=>{
                 .then((value) => {
                 if(value==="eliminar venta"){
                 try{
+                    let detallesPut=[]
+                    venta.detalle.map((a)=>{                            
+                            AllFaenas.map((g)=>{
+                                if(g.detalle.some((f)=>(f.correlativo==a.correlativo))){
+                                    let current = {}
+                                    g.detalle.map((f,i)=>{if(f.correlativo==a.correlativo)current={res:f, pos:i, tropa:g.tropa, detalle:g.detalle}})
+                                    if(a.total_media=="total"){
+                                        current.res.stock = true;
+                                        current.res.ventaID = null
+                                        current.detalle[current.pos]=current.res
+                                        detallesPut.push({detalle:current.detalle, id:current.tropa})
+                                    }
+                                    if(a.total_media=="1/4D" || a.total_media=="1/4T"){
+                                        if(current.res.stock===true){
+                                            
+                                            current.res.CuartoT= 0  
+                                            current.res.CuartoD= 0  
+                                            current.res.ventaID = null           
+                                            detallesPut.push({detalle:current.detalle, id:current.tropa})
+                                        }
+                                        else{
+                                            current.res.stock = true
+                                            current.res.ventaID = null
+                                            detallesPut.push({detalle:current.detalle, id:current.tropa})
+                                        }
+                                    }
+                                }
+                            })
+                        })
+                        console.log(detallesPut)
+                        dispatch(putStockReses(detallesPut))
+                                        
                     dispatch(deleteVentaById(id))
-                    venta.detalle.map(a=>{
-                        if(a.total_media=="total"){
-                            setTimeout(()=>{
-                                dispatch(putStockResTrue(a.correlativo))
-                            }, 1000)}
-                        if(a.total_media!=="total"){
-                            setTimeout(()=>{
-                                let correlativo = a.correlativo.substring(0,a.correlativo.length)// elimina la ultima letra
-                                let id= a.id
-                                let kg= a.kg_total
-                                dispatch(putCuartoRes(id, kg, correlativo))
-                            }, 1000)
-                        }
-                    })
-                    let saldo= cliente.saldo - venta.saldo
-                    dispatch(putSaldoCliente(cliente.id, saldo))
                     swal("Se eliminó la venta", {
                         icon: "success",
                     })

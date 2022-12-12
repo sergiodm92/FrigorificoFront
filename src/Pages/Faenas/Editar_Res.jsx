@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import {getAllReses, putkgRes} from "../../Redux/Actions/Actions.js";
+import { putkgRes} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
@@ -26,9 +26,7 @@ const Form_Editar_Res = () => {
     const navigate = useNavigate();
     const {tropa}=useParams()
 
-    useEffect(() => {
-        dispatch(getAllReses())
-    }, [dispatch])
+
 
     //Estados globales
     const AllReses = useSelector((state)=>(state.AllReses))

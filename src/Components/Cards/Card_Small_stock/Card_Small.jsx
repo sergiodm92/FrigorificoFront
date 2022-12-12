@@ -10,7 +10,7 @@ const CardSmallStock = ({ id, fecha, frigorifico, tropa, tipo}) => {
     let fechaFormat = (new Date(fecha*1)).toLocaleDateString('es').replaceAll("/", "-")
     return (
         <div className={styleCS.totalCard}>
-            <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
+            <div className={styleCS.cont} onClick={()=>navigate(`/${tipo}/${tropa}`)}>
                 <div className={styleCS.items}><p>{fechaFormat}</p></div>
                 <div className={styleCS.items}><p>|</p></div>
                 <div className={styleCS.items}><p>{Math.ceil((fechaActual-fecha)/(3600*1000*24))}</p></div>

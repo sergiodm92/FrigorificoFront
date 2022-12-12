@@ -14,6 +14,7 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 //Form Venta
 var formVA = {
+    id: '',
     clien:'',
     fecha: new Date().toLocaleDateString(),
     cantidad:0,
@@ -38,23 +39,25 @@ const Form_Venta_Achuras = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    //estados globales
-    const alert_msj= useSelector ((state)=>state.alert_msj);
-    const clientes = useSelector((state)=>state.AllClientes);
-    
     useEffect(() => {
         dispatch(getAllClientes())
     }, [dispatch])
+    
+    //estados globales
+    const alert_msj= useSelector ((state)=>state.alert_msj);
+    const clientes = useSelector((state)=>state.AllClientes);
 
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                titleForm: alert_msj,
+                title: alert_msj,
                 icon: alert_msj==="Venta creada con éxito"?"success":"warning", 
                 button: "ok",
             })}
             dispatch(setAlert())
     }, [alert_msj]) 
+
+    
 
     //Estados locales
     const [form, setForm] = useState(formVA);
@@ -92,13 +95,14 @@ const Form_Venta_Achuras = () => {
             form.total=form.precioUnitario*1*form.cantidad
             form.saldo=form.total
             form.fecha=form.fecha.getTime()
+            form.id="VA"+Math.floor(Math.random()*1000000)
+            console.log(form)
             dispatch(postNewVentaAchura(form))
             setForm(formVA);
         }
         else{
             swal({
-                titleForm: "Alerta",
-                text: "Datos incorrectos, por favor intente nuevamente",
+                title: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
             })
@@ -172,7 +176,7 @@ const Form_Venta_Achuras = () => {
                         <h5 className={style.titleForm}>Cantidad: </h5>
                         <input
                             type="number"
-                            value={form.cantidad}
+                            value={form.cantidad==0?"":form.cantidad}
                             id="cantidad"
                             name="cantidad"
                             onChange={handleChange}
@@ -185,7 +189,7 @@ const Form_Venta_Achuras = () => {
                         <h5 className={style.titleForm}>$/Un: </h5>
                         <input
                             type="number"
-                            value={form.precioUnitario}
+                            value={form.precioUnitario==0?"":form.precioUnitario}
                             id="precioUnitario"
                             name="precioUnitario"
                             onChange={handleChange}

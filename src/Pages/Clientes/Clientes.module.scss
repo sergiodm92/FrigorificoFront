@@ -10,7 +10,16 @@
     background-position: center center;
     background-size: cover;
     padding-bottom: 30px;
+    
 }
+.search{
+    display: flex;
+    gap: 50px;
+    width: 200px;
+    margin-bottom: 50px;
+    background-color: var(--ColorTwo);
+}
+
 #asd{
     justify-content: center;
     min-height: 0;

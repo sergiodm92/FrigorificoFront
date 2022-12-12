@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 // axios.defaults.baseURL = 'http://localhost:3001'
-axios.defaults.baseURL = 'https://backendfrigorifico-production.up.railway.app/'
+axios.defaults.baseURL = 'https://us-central1-software-de-gestion-carnes.cloudfunctions.net/server'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

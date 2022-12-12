@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch} from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import { postNewProveedor, putEditarProveedor } from "../../Redux/Actions/Actions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector} from "react-redux";
+import { useParams } from "react-router";
+import { getAllProveedores, postNewProveedor, putEditarProveedor } from "../../Redux/Actions/Actions";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
@@ -25,7 +25,6 @@ export const validate = (proveedor) => {
 const Form_Proveedor = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {id}=useParams()
 
     const [form, setForm] = useState(formPr);
@@ -50,15 +49,17 @@ const Form_Proveedor = () => {
         if(
         !error.nombre && form.nombre 
         ){
-            if(id==0) dispatch(postNewProveedor(form))
-            else{
-                form.id=id*1
-                console.log(form)
-                dispatch(putEditarProveedor(form))
+            if(id==null || id==0){
+                form.id="Pr"+Math.floor(Math.random()*1000000)
+                dispatch(postNewProveedor(form))
+                dispatch(getAllProveedores())
             }
+            else{
+                form.id=id
+                dispatch(putEditarProveedor(form))
+            } 
             swal({
-                titleForm: "Nuevo Proveedor",
-                text: "Cargado correctamente",
+                text: "Proveedor cargado correctamente",
                 icon: "success",
                 button: "ok",
             })
@@ -66,16 +67,11 @@ const Form_Proveedor = () => {
         }
         else {
             swal({
-                titleForm: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
             })
         }
-    };
-
-    const handleDet = () => {
-        navigate("/Proveedores")
     };
 
     return (
@@ -143,11 +139,6 @@ const Form_Proveedor = () => {
                             />
                     </div>                                        
                     <div className={style.buttons}>
-                        <ShortButton
-                            title="📃 Detalle"
-                            onClick={handleDet}
-                            color="primary"
-                        />
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

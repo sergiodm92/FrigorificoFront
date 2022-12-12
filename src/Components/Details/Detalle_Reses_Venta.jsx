@@ -2,28 +2,6 @@ import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 export default function TableDetRes({venta}){
-    var totalkg=0
-    var total$=0
-    var array=[]
-    const array2=[]
-
-    venta.detalle?.map((a,i)=>{
-    array=[]
-    total$+=a.kg*a.$_kg
-    totalkg+=a.kg
-    
-    for(const [key,value] of Object.entries(a)){ 
-    
-        if(key!=="costo_kg" && key!=="id" && key!=="kg_total"){
-            array.push(value)
-            
-        } 
-        }
-        if(venta.detalle[i].correlativo.includes("-"))array.unshift("El hueco")
-        else (array.unshift("Natilla"))
-        array.unshift(venta.fecha)
-        array2.push(array)
-    })
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -32,12 +10,12 @@ export default function TableDetRes({venta}){
             currency
         }) 
         return formatter.format(value)
-        }
+    }
 
-        const saldoTotalEstenPesos = currencyFormatter({
+    const saldoTotalEstenPesos = currencyFormatter({
         currency: "USD",
         value : venta.saldo
-        })
+    })
 
     return(
         <div className={tableVentaStyle.conteinerDet}>
@@ -54,30 +32,29 @@ export default function TableDetRes({venta}){
                     </tr>
                 </thead>
                 <tbody>
-                    {array2.length!==0?array2.map((e,j) => {
-                        return(
-                            <tr key={j}  className={"table-warning"}>
-                                {e.length!==0?e.map((a,i) => {
-                                    return(
-                                        <td key={i}>{i==0?(new Date(a*1)).toLocaleDateString('es').replaceAll("/", "-"):i==6?currencyFormatter({
+                {venta.detalle.map((a,j)=>{
+                    return(
+                        <tr key={j}  className={"table-warning"}>
+                            <td>{(new Date(venta.fecha)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                            <td>{a.correlativo.includes("-")?"El Hueco":"Natilla"}</td>
+                            <td>{a.correlativo}</td>
+                            <td>{a.categoria}</td>
+                            <td>{a.total_media}</td>
+                            <td>{a.kg}</td>
+                            <td>{currencyFormatter({
                                             currency: "USD",
-                                            value : a
-                                            }):a}
-                                        </td>
-                                    )
-                                })
-                                :null }   
-                            </tr>
-                        )
-                    })
-                    :null}
+                                            value : a.precio_kg
+                                            })}</td>                    
+                        </tr>
+                    )
+                })}
                 </tbody>
             </table>
             <table className="table">
                 <thead>
                     <tr>
                         <th>Total KG</th>
-                        <th>{venta.kg_total}kg</th>
+                        <th>{venta.kg} kg</th>
                     </tr>
                 </thead>
                 <thead>

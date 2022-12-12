@@ -1,5 +1,5 @@
 import axios from "axios";
-
+//getSaldoAllVentas
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
@@ -10,6 +10,18 @@ export const pagosPDF = (pagos, saldoPagos, cliente) =>{
   let response= pagos.filter((a)=>a.check==true)
   return ({ type: "PAGOS_PDF", payload: [response,saldoPagos,cliente]  });
 }
+export const filtrarClientes = (filtro,AllClientes) => {
+  let filtrados = AllClientes.filter(a=>a.nombre.toLowerCase().includes(filtro))
+  return ({ type: "FILTRAR_CLIENTES", payload: filtrados  });
+};
+export const filtrarVentas = (filtro,AllVentas) => {
+  let filtrados = AllVentas.filter(a=>a.cliente.toLowerCase().includes(filtro))
+  return ({ type: "FILTRAR_VENTAS", payload: filtrados  });
+};
+export const filtrarVentasAchuras = (filtro,AllVentasAchuras) => {
+  let filtrados = AllVentasAchuras.filter(a=>a.clien.toLowerCase().includes(filtro))
+  return ({ type: "FILTRAR_VENTAS_ACHURAS", payload: filtrados  });
+};
 
 //getPagosComprasByProveedor
 export const URLimag = (url) => {
@@ -244,12 +256,12 @@ export const getAllFaenas = () => {
 export const getFaenaById = (id) => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/faenas/all`,{
+          const json = await axios.get(`/faenas/${id}`,{
             headers: {
               'auth-token': `${token}`
             }
           })
-          let response= json.data.data.find(a=>a.id==id)
+          let response= json.data.data
           return dispatch({
           type: "GET_FAENA_BY_ID",
           payload: response},{
@@ -260,7 +272,7 @@ export const getFaenaById = (id) => {
         }
       };
 };
-
+//postNewVentaAchuras
 //Traer faena por numero de tropa
 export const getFaenasByTropa = (tropa) => {
     return async (dispatch) => {
@@ -384,6 +396,7 @@ export const getAllVentasultimos30dias = () => {
               'auth-token': `${token}`
             }
           });
+          console.log(json.data.data)
           return dispatch({
           type: "GET_ALL_VENTAS_ULTIMOS_30_DIAS",
           payload: json.data.data})
@@ -409,9 +422,9 @@ export const getSaldoAllVentas = () => {
             }
           });
           let saldo=0
-          json.data.data.map((a)=>saldo+=a.saldo)
+          json.data.data.map((a)=>saldo+=a.saldo*1)
           let saldo2=0
-          json2.data.data.map((a)=>saldo2+=a.saldo)
+          json2.data.data.map((a)=>saldo2+=a.saldo*1)
           let saldoTotal = saldo + saldo2
           return dispatch({
           type: "GET_SALDO_ALL_VENTAS",
@@ -485,7 +498,6 @@ export const getVentasAchurasByCliente = (clientName) => {
 
 //Traer venta por ID
 export const getVentaByID = (id) => {
-    let pxk=0
     let cost=0
     return async (dispatch) => {
         try {
@@ -496,14 +508,10 @@ export const getVentaByID = (id) => {
               }
             });
             const venta = json.data.data
-            venta.kg_total=0
-            venta.total=0
             venta.detalle.map(a=>{
-              venta.kg_total+=a.kg*1
-              venta.total+=a.kg*a.precio_kg
               cost+=a.costo_kg*a.kg
             })
-            venta.precio_kg_prom=venta.total/venta.kg_total
+            venta.precio_kg_prom=venta.total/venta.kg
             venta.margen=venta.total-cost
             venta.margen_porc=(venta.margen/venta.total)*100
             return dispatch({
@@ -672,50 +680,21 @@ export const getProveedorByID = (id) => {
           }
         };
 };
-
-//ver!!!------------------------------------------------------------------------------------------------------------------------------
+//putGrupoReses
 //Get todas las reses
-export const getAllReses = () => {
+export const getAllGruposReses = () => {
     return async (dispatch) => {
         try {
           
-            const json = await axios.get(`/res/all`,{
+            const json = await axios.get(`/gruposRes/all`,{
               headers: {
                 'auth-token': `${token}`
               }
             });
-            const ResStock = json.data.data.filter((a)=>a.stock===true)
-            ResStock.sort(function(a,b){
-              if(a.tropa>b.tropa){return 1}
-              if(a.tropa<b.tropa){return -1}
-              return 0}) 
-            let arrayAux = []
-            let arrayResByTropa = []
-            let pos=0
-            let constTropa=ResStock.length?ResStock[0].tropa:0
 
-            if(ResStock.length>1 && ResStock.length>0){
-              for(let i=0;i<ResStock.length;i++){
-                if(ResStock[i].tropa==constTropa){
-                  arrayAux.push(ResStock[i])
-                  arrayResByTropa[pos]=arrayAux
-                }
-                else{
-                  arrayResByTropa.push(arrayAux)
-                  pos++
-                  arrayAux=[]
-                  constTropa=ResStock[i].tropa
-                  arrayAux.push(ResStock[i])
-                }
-              }
-              }
-              else if(ResStock.length===1){
-                arrayResByTropa[0]=ResStock
-              }
-            const response = [json.data.data,ResStock,arrayResByTropa]
             return dispatch({
-            type: "GET_RESES",
-            payload: response
+            type: "GET_GRUPOS_RES",
+            payload: json.data.data
             })
         }
         catch (error) {
@@ -723,8 +702,6 @@ export const getAllReses = () => {
           }
         };
 }; 
-
-//--------------------------------------------------------------------------------------------------------------------
 
 //Get res por correlativo
 export const getResByCorrelativo = (correlativo) => {
@@ -883,15 +860,15 @@ export const getPagosComprasByID = (compraID) => {
 export const getAlertRes = () => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/res/all`,{
+          const json = await axios.get(`/faenas/all`,{
             headers: {
               'auth-token': `${token}`
             }
           });
           let alerts = [];
           let dias=9//dias de vencimiento
-          let fecha = Date.now()-(3600*1000*24*dias)
-          alerts = json.data.data.filter(a => a.stock==true && (a.fecha<fecha))
+          let fechaMax = Date.now()-(3600*1000*24*dias)
+          json.data.data.map(a=>a.detalle.map(r=>{if(fechaMax>a.fecha && r.stock==true)alerts.push({res:r,fecha:a.fecha,tropa:a.tropa, frigorifico:a.frigorifico})}))
           return dispatch({
           type: "GET_RESES_ALERT",
           payload: alerts
@@ -1177,7 +1154,7 @@ export const postNewVentaCarne = (venta_json) => {
         }
       };
 };
-
+//putGrupoDetalle
 //Post venta achura
 export const postNewVentaAchura = (venta_json) => {
   return async (dispatch) => {
@@ -1196,7 +1173,7 @@ export const postNewVentaAchura = (venta_json) => {
         }
       };
 };
-//putSaldoVenta
+
 //Post faena
 export const postNewFaena = (faena_json) => {
   return async (dispatch) => {
@@ -1217,10 +1194,10 @@ export const postNewFaena = (faena_json) => {
 };
 
 //Post res
-export const postNewRes = (res_json) => {
+export const postNewGrupoReses = (res_json) => {
   return async (dispatch) => {
       try {
-          const json = await axios.post(`/res`, res_json,{
+          const json = await axios.post(`/gruposRes`, res_json,{
           headers: {
             'auth-token': `${token}`
           }
@@ -1634,30 +1611,69 @@ export const deleteIngresoExtra = (id) => {
       };
 };
 
-//Se actualiza al cargar la compra
-export const putReses = (precio_kg, tropa, categoria)=>{
+
+//actualizar costo por kg de las reses
+export const putGrupoResesCostoKg = (newDetalles)=>{
   return async (dispatch)=>{
-    let data_json= {
-      precio_kg: precio_kg,
-      tropa: tropa,
-      categoria: categoria
-    }
+    if(newDetalles.length==1){
     try{
-      const json = await axios.put(`/res`,data_json,{
+      const json = await axios.put(`/faenas/detalle`,newDetalles[0],{
         headers: {
           'auth-token': `${token}`
         }
         })
         return dispatch({
-        type: "PUT_RESES",
+        type: "PUT_GRUPO_RESES",
         payload: json.data.data})
     }
     catch(err){
       console.log(err)
     }
   }
+  else {
+        try{
+        const json1 = await axios.put(`/faenas/detalle`,newDetalles[0],{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+        const json2 = await axios.put(`/faenas/detalle`,newDetalles[1],{
+          headers: {
+            'auth-token': `${token}`
+          }
+          })
+          return dispatch({
+          type: "PUT_GRUPO_RESES",
+          payload: json2.data.data})
+      }
+      catch(err){
+        console.log(err)
+      }
+    
+  }
+  }
 };
-
+//getAlertRes
+//actualizar detalle de grupos
+export const putStockReses = (detallesPut)=>{
+  
+  return async ()=>{
+    try{
+      detallesPut.map(async (a)=>{
+      await axios.put(`/faenas/detalle`,a,{
+        headers: {
+          'auth-token': `${token}`
+        }
+        })
+      })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+  
+}
+//getAllVentasultimos30dias
 //pasa el estado de stock a false
 export const putkgRes = (data_json)=>{
   return async (dispatch)=>{
@@ -1677,51 +1693,6 @@ export const putkgRes = (data_json)=>{
   }
 };
 
-//pasa el estado de stock a false
-export const putStockRes = (correlativo)=>{
-  return async (dispatch)=>{
-    let data_json= {
-      correlativo: correlativo,
-      stock: "false"
-    }
-    try{
-      const json = await axios.put(`/res/stock`,data_json,{
-        headers: {
-          'auth-token': `${token}`
-        }
-        })
-        return dispatch({
-        type: "PUT_STOCK_RESES",
-        payload: json.data.data})
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
-};
-
-//pasa el estado de stock a true
-export const putStockResTrue = (correlativo)=>{
-  return async (dispatch)=>{
-    let data_json= {
-      correlativo: correlativo,
-      stock: "true"
-    }
-    try{
-      const json = await axios.put(`/res/stock`,data_json,{
-        headers: {
-          'auth-token': `${token}`
-        }
-        })
-        return dispatch({
-        type: "PUT_STOCK_RESES",
-        payload: json.data.data})
-    }
-    catch(err){
-      console.log(err)
-    }
-  }
-}; 
 
 //resta cuarto de res vendida
 export const putCuartoRes = (id, kg, correlativo)=>{
@@ -1769,7 +1740,6 @@ export const putSaldoCliente = (id, saldo)=>{
     }
   }
 }; 
-
 //actualiza saldo Compra
 export const putSaldoCompra = (id, saldo)=>{
   return async (dispatch)=>{
@@ -1863,28 +1833,23 @@ export const putSaldoFaena = (id, saldo)=>{
 }; 
 
 //actualiza saldo Faenas
-export const putEstadoCompraFaena = (tropa)=>{
-  return async (dispatch)=>{
-    let data_json= {
-      tropa: tropa,
-      estado_compra: "true",
-    }
+export const putEstadoCompraFaena = (arr)=>{
+  return async ()=>{
     try{
-      const json = await axios.put(`/faenas/estadoCompra`,data_json,{
+      arr.map(async (a)=>{
+        await axios.put(`/faenas/estadoCompra`,a,{
         headers: {
           'auth-token': `${token}`
         }
         })
-        return dispatch({
-        type: "PUT_ESTADO_COMPRA_FAENA",
-        payload: json.data.data})
+      })
     }
     catch(err){
       console.log(err)
     }
   }
 };
-
+//putGrupoResesCostoKg
 //actualiza saldo Faenas
 export const putEstadoCompraFaenaFalse = (tropa)=>{
   return async (dispatch)=>{
