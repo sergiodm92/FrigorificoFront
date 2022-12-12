@@ -446,7 +446,7 @@ export const getSaldoAllFaenas = () => {
             }
           });
           let saldo=0
-          json.data.data.map((a)=>saldo+=a.saldo)
+          json.data.data.map((a)=>saldo+=a.saldo*1)
           return dispatch({
           type: "GET_SALDO_ALL_FAENAS",
           payload: saldo})
