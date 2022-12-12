@@ -7,7 +7,7 @@ import Table_Det_Faena from "../../Components/Details/Detalle_Faena";
 import { useParams } from "react-router-dom";
 import style from "./Faenas.module.scss";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
-import { deleteFaenaById, deleteResById, getAllReses, getFaenaById, getPagosFaenaByID } from "../../Redux/Actions/Actions";
+import { deleteFaenaById, getFaenaById, getPagosFaenaByID } from "../../Redux/Actions/Actions";
 import Tabla_Detalle_Faena from "../../Components/Details/Tabla_Detalle_Faena";
 
 
@@ -18,22 +18,13 @@ export default function Detalle_Faena(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getAllReses())
         dispatch(getFaenaById(id))
         dispatch(getPagosFaenaByID(id))
     }, [dispatch])
 
     const faena= useSelector((state)=>(state.FaenaById))
-    const AllReses = useSelector((state)=>(state.AllReses))
-    const tropa = faena.tropa
-    let arrayReses = AllReses.filter(a=>a.tropa==tropa)
-
     const pagos= useSelector((state)=>(state.AllPagosbyFaena))
     
-    arrayReses.sort(function(a,b){
-        if(a.correlativo>b.correlativo){return 1}
-        if(a.correlativo<b.correlativo){return -1}
-        return 0})
     const deleteFaena = ()=>{
         if(pagos.length>0 || faena.estado_compra==true){
             swal({
@@ -44,7 +35,7 @@ export default function Detalle_Faena(){
                 })
         }
         else swal({
-            title: "Está seguro que desea eliminar la faena con tropa:"+tropa,
+            title: "Está seguro que desea eliminar la faena con tropa:"+ faena.tropa,
             text: "Una vez eliminada perdera todos sus datos 😰",
             icon: "warning",
             buttons: true,
@@ -58,14 +49,9 @@ export default function Detalle_Faena(){
                     .then((value) => {
                     if(value==="eliminar faena"){
                         dispatch(deleteFaenaById(id))
-                        arrayReses.map((a)=>{
-                        setTimeout(()=>{
-                        dispatch(deleteResById(a.id))
-                        }, 2000)
-                    })
-                    swal("Se eliminó la faena", {
-                        icon: "success",
-                    })
+                        swal("Se eliminó la faena", {
+                            icon: "success",
+                        })
                         navigate('/Faenas')
                     }
                     else {

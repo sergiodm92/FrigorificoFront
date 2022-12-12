@@ -1,10 +1,12 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import style from "./Ventas.module.scss";
-import { getAllVentasAchuras } from "../../Redux/Actions/Actions";
+import { filtrarVentasAchuras, getAllVentasAchuras } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme, TextField } from "@mui/material";
 
 
 
@@ -12,18 +14,40 @@ export default function Historial_Ventas_Achuras(){
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [filter,setFilter] = useState("")
 
     useEffect(() => {
         dispatch(getAllVentasAchuras())
     }, [dispatch])
-
     const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchuras))
+
+    const filtrado = (e) =>{
+        e.preventDefault()
+        setFilter(e.target.value)
+        dispatch(filtrarVentasAchuras(filter,AllVentasAchuras))
+        if(e.target.value=="")dispatch(getAllVentasAchuras())
+    }
+
+   
+
+    const outerTheme = createTheme({
+        palette: {
+        primary: {
+        main: 'rgb(255, 159, 0)',
+    }
+}
+})
 
     return(
         <div className={style.ConteinerVenta}>
             <NavBar
             title={"Hist. Ventas de Achuras"}
             />
+            <div  className={style.search}>
+                <ThemeProvider theme={outerTheme}>
+                    <TextField value={filter} focused="true"  placeholder="ingrese nombre🔎"  onChange={filtrado}/>
+                </ThemeProvider>
+            </div>
             <div>
                 <div className={style.title}>
                     <div><b>Fecha</b></div>
@@ -46,7 +70,7 @@ export default function Historial_Ventas_Achuras(){
                                 para={a.clien}
                                 cant={a.cantidad}
                                 kg={a.total}
-                                monto={a.saldo}
+                                total={a.saldo}
                                 tipo={"Ventas/Achuras"}
                             />
                         )

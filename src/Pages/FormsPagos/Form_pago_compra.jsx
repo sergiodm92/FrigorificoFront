@@ -44,6 +44,7 @@ const Form_Pago_Compra = () => {
     const compra = useSelector((state)=>state.CompraByID);
     const alert_msj= useSelector ((state)=>state.alert_msj);
     const urlImg= useSelector ((state)=>state.urlImg);
+  
 
     useEffect(() => {
         dispatch(getProveedorByName(compra.proveedor))
@@ -65,7 +66,7 @@ const Form_Pago_Compra = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
@@ -80,7 +81,7 @@ const Form_Pago_Compra = () => {
     const validate = (pago) => {
         let error = {};
         if (!pago.monto) error.monto = "Falta monto";
-        if (compra.saldo<pago.monto) error.monto = "El monto excede el saldo"
+        if (compra.saldo*1+10<pago.monto*1) error.monto = "El monto excede el saldo"
         else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
         if (!pago.formaDePago) error.forma_pago = "Falta forma de pago";
         return error;
@@ -113,13 +114,14 @@ const Form_Pago_Compra = () => {
         !error.formaDePago && form.formaDePago &&
         !error.monto && form.monto
         ){
+        form.id="PC"+Math.floor(Math.random()*1000000)
         form.proveedor=compra.proveedor
         form.compraID=id
         form.fecha=form.fecha.getTime()
         form.img_comp = urlImg
         let saldo= compra.saldo - form.monto
-        dispatch(putSaldoCompra(id, saldo))
         dispatch(postNewPagoCompra(form))
+        dispatch(putSaldoCompra(id, saldo))        
         .then((response)=>{
             if(response)dispatch(getPagosComprasByProveedor(compra.proveedor))
         })
@@ -130,7 +132,6 @@ const Form_Pago_Compra = () => {
         }
         else {
             swal({
-                title: "Alerta de Pago",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",

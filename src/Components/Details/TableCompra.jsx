@@ -75,7 +75,10 @@ export default function TableCompra({id_c, comision_total}){
                 if(key!=="saldo" && key!=="grupos")array.push({key,value})
         }
         if(comision_total) array.push({key: 'comision_total', value: comision_total_pesos })
-     
+        array.sort(function(a,b){
+                if(a.key>b.key){return 1}
+                if(a.key<b.key){return -1}
+                return 0})
         return(
                 <div className={tableComprasStyle.conteiner}>
                         <table className="table">

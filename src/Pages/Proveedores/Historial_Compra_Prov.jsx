@@ -46,7 +46,7 @@ export default function Historial_Compras_Proveedor(){
                                 para={a.proveedor.length>12?a.proveedor.slice(0,12):a.proveedor}
                                 cant={a.cant_total}
                                 kg={a.kg_carne_totales}
-                                monto={a.costo_total_hac}
+                                total={a.costo_total_hac}
                                 tipo={"Compras"}
                             />
                         )

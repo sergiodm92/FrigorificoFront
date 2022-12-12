@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import style from "./Card_Small.module.scss";
 
-const CardSmallFaenas = ({ id, fecha, frigorifico, tropa, saldo, tipo,pago, bstyle, bicon, bonClick}) => {
+const CardSmallFaenas = ({ fecha, frigorifico, tropa, saldo, tipo,pago, bstyle, bicon, bonClick}) => {
 
     const navigate = useNavigate()
     
@@ -26,7 +26,7 @@ const CardSmallFaenas = ({ id, fecha, frigorifico, tropa, saldo, tipo,pago, bsty
 
     return (
         <div className={style.totalCard}>
-            <div className={style.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
+            <div className={style.cont} onClick={()=>navigate(`/${tipo}/${tropa}`)}>
                 <div className={style.item1}><p>{fechaFormat}</p></div>
                 <div className={style.item2}><p>{frigorifico}</p></div>
                 <div className={style.item3}><p>{tropa}</p></div>

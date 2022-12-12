@@ -32,6 +32,7 @@ useEffect(() => {
 let cliente = useSelector((state)=>state.clienteByNombre)
 let pagos = useSelector((state)=>state.pagosByVentaAchuraID)
 
+
 const deleteVenta = ()=>{
     if(pagos.length>0){
         swal({

@@ -22,7 +22,7 @@ export default function Table_Det_Faena({id}){
 
     const array=[];
     for(const [key,value] of Object.entries(FaenaById)){ 
-        if(key!=="detalle" && key !=="estado_compra")array.push({key,value}) 
+        if(key!=="detalle" && key !=="estadoCompra")array.push({key,value}) 
     }
 
     return(

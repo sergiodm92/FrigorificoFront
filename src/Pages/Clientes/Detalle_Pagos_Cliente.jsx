@@ -69,7 +69,7 @@ export default function Detalle_Pagos_Clientes() {
                     
                         if(cliente){
                             let venta = ventas.find(a=>a.id==ventaID)
-                            let saldo2= venta.saldo + monto
+                            let saldo2= venta.saldo*1 + monto*1
                             dispatch(putSaldoVenta(ventaID, saldo2))
                             .then( (response) => {
                                 if(response) dispatch(deletePagoVentaById(id))
@@ -77,7 +77,7 @@ export default function Detalle_Pagos_Clientes() {
                         }
                         else{
                             let venta = ventasAc.find(a=>a.id==ventaID)
-                            let saldo2= venta.saldo + monto
+                            let saldo2= venta.saldo*1 + monto*1
                             dispatch(putSaldoVentaAchuras(ventaID, saldo2))
                             .then( (response) => {
                                 if(response) dispatch(deletePagoVentaAchurasById(id))

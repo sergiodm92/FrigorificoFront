@@ -25,6 +25,7 @@ const initialState = {
     saldoAllVentas:0,
     saldoAllFaenas:0,
     saldoPagos:0,
+    gruposRes:[],
     grupos: [],
     pagosByCliente:[],
     pagosAchurasByCliente:[],
@@ -78,6 +79,22 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             pagosPDF: action.payload,
             }
+        case "FILTRAR_CLIENTES":
+            return {
+                ...state,
+                AllClientes: action.payload,
+            }
+        case "FILTRAR_VENTAS":
+            return {
+                ...state,
+                AllVentas: action.payload,
+            }
+        case "FILTRAR_VENTAS_ACHURAS":
+            return {
+                ...state,
+                AllVentasAchuras: action.payload,
+            }
+            
         case "SALDO_VENTA_TOTAL":
             return {
             ...state,
@@ -168,12 +185,10 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 clienteByNombre: action.payload
             }
-        case "GET_RESES":
+        case "GET_GRUPOS_RES":
             return {
             ...state,
-            AllReses: action.payload[0],
-            AllResesStockTrue: action.payload[1],
-            arrayResByTropa: action.payload[2],
+            gruposRes : action.payload,
             }
         case "GET_ALL_FAENAS":
             return{

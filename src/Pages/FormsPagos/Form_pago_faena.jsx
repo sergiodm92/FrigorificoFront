@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
-import { getAllComrpas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlert, setimgurl } from "../../Redux/Actions/Actions.js";
+import { getAllComrpas, getAllPagosFaenas, getFaenaById, postNewPagoFaena, putSaldoFaena, setAlert, setimgurl } from "../../Redux/Actions/Actions.js";
 import stylePagoF from './Form_pago.module.scss';
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -44,12 +44,13 @@ const Form_Pago_Faena = () => {
     useEffect(() => {
         if(alert_msj!==""){
             swal({
-                title: alert_msj,
+                text: alert_msj,
                 icon: alert_msj==="Pago creado con éxito"?"success":"warning", 
                 button: "ok",
             })}
             dispatch(setAlert())
             dispatch(getFaenaById(id))
+            dispatch(getAllPagosFaenas())
     }, [alert_msj])
 
     const [form, setForm] = useState(formPF);
@@ -59,7 +60,7 @@ const Form_Pago_Faena = () => {
     const validate = (pago) => {
     let error = {};
     if (!pago.monto) error.monto = "Falta monto";
-    if (faena.saldo<pago.monto) error.monto = "El monto excede el saldo"
+    if (faena.saldo*1+10<pago.monto*1) error.monto = "El monto excede el saldo"
     else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(pago.monto)) error.monto = "Monto debe ser un número";
     return error;
 };
@@ -93,16 +94,17 @@ const Form_Pago_Faena = () => {
             form.faenaID=id
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
+            form.id="PF"+Math.floor(Math.random()*1000000)
             let saldo= faena.saldo - form.monto
-            dispatch(putSaldoFaena(id, saldo))
+            //poner estos dos dispach en una sola action
             dispatch(postNewPagoFaena(form))
+            dispatch(putSaldoFaena(id, saldo))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPF);
             dispatch(setimgurl())
         }
         else {
             swal({
-                title: "Alerta de Pago",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",

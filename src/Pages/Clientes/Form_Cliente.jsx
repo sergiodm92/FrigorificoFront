@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import {postNewCliente, putEditarCliente} from "../../Redux/Actions/Actions.js";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import {getAllClientes, postNewCliente, putEditarCliente} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
@@ -25,7 +25,6 @@ export const validate = (cliente) => {
 const Form_Cliente = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {id}=useParams()
 
     const [form, setForm] = useState(formCl);
@@ -47,35 +46,30 @@ const Form_Cliente = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(
-        !error.nombre && form.nombre 
-        ){
-            
-            if(id==0)dispatch(postNewCliente(form))
+        if(!error.nombre && form.nombre){
+            if(id==null || id==0){
+                form.id="Cl"+Math.floor(Math.random()*1000000)
+                dispatch(postNewCliente(form))
+                dispatch(getAllClientes())
+            }
             else{
-                form.id=id*1
+                form.id=id
                 dispatch(putEditarCliente(form))
-            } 
-        swal({
-            title: "Nuevo Cliente",
-            text: "Cargado correctamente",
-            icon: "success",
-            button: "ok",
-        })
-        setForm(formCl);
+            }            
+            swal({
+                text: "Cliente cargado correctamente",
+                icon: "success",
+                button: "ok",
+            })
+            setForm(formCl);
         }
         else {
             swal({
-                title: "Alerta",
                 text: "Datos incorrectos, por favor intente nuevamente",
                 icon: "warning",
                 button: "ok",
             })
         }
-    };
-
-    const handleDet = () => {
-        navigate("/Clientes")
     };
 
     return (
@@ -145,11 +139,6 @@ const Form_Cliente = () => {
                         />
                     </div>                                     
                     <div className={style.buttons}>
-                        <ShortButton
-                            title="📃 Detalle"
-                            onClick={handleDet}
-                            color="primary"
-                        />
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

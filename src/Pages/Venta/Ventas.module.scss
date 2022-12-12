@@ -16,7 +16,13 @@
     min-height: 0;
     align-items:unset;
 }
-
+.search{
+    display: flex;
+    gap: 50px;
+    width: 200px;
+    margin-bottom: 10px;
+    background-color: var(--ColorTwo);
+}
 .contV{
     display: flex;
     flex-direction: column;

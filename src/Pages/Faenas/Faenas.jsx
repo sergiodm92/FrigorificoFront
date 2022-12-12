@@ -45,7 +45,6 @@ export default function Faenas(){
                     {faenasPendientes.map((a,i)=>{
                         return(
                             <CardSmallFaenas
-                                id={a.id}
                                 key={i}
                                 fecha={a.fecha}
                                 frigorifico={a.frigorifico}
@@ -55,7 +54,7 @@ export default function Faenas(){
                                 pago={true}
                                 bstyle={"new"}
                                 bicon={"new"}
-                                bonClick={()=>navigate(`/Faenas/FormPagos/${a.id}`)}
+                                bonClick={()=>navigate(`/Faenas/FormPagos/${a.tropa}`)}
                             />
                         )
                         

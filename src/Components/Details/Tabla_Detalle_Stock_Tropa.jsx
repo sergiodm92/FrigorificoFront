@@ -1,10 +1,9 @@
 import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss"
 
-
-
-
 export default function Tabla_Detalle_Stock_Tropa({reses}){
+
+    let resesStockTrue = reses.filter((a)=>a.stock==true)
 
     let kgVaca=0;
     let kgToro=0;
@@ -12,7 +11,7 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
     let kgVaquillona=0;
     let kgNovPes=0;
 
-    reses.map(a=>{
+    resesStockTrue.map(a=>{
         if(a.categoria==="Vaca"){
             kgVaca+=a.kg
         }
@@ -29,9 +28,7 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
             kgNovPes+=a.kg
         }
     })
-
     
-
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -53,16 +50,16 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
                         <td>kg</td> 
                         <td>Costo/kg</td> 
                     </tr>
-                    {reses.map((e,i) => {
+                    {resesStockTrue.map((e,i) => {
                         totalEstenPesos = currencyFormatter({
                             currency: "USD",
-                            value : e.precio_kg?e.precio_kg:0
+                            value : e.costo_kg?e.costo_kg:0
                         })
                         return(
                             <tr key={i} className={"table-warning"}>
-                                {e.stock==true?<td><b>{e.correlativo}</b></td>:<td>{e.correlativo}</td>} 
+                                {e.CuartoT>0?<td><b>{e.correlativo}T</b></td>:e.CuartoD>0?<td><b>{e.correlativo}D</b></td>:<td><b>{e.correlativo}</b></td>} 
                                 <td>{e.categoria?e.categoria:null}</td> 
-                                <td>{e.kg?e.kg:null}</td> 
+                                <td>{e.CuartoT>0?e.CuartoT:e.CuartoD>0?e.CuartoD:e.kg?e.kg:null}</td> 
                                 <td align="center">{totalEstenPesos?totalEstenPesos:null}</td> 
                             </tr>
                         )

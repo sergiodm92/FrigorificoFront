@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllReses, getAllVentas, getAllVentasultimos30dias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllVentas, getAllVentasultimos30dias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import Graph from "../../Components/Graph/Graph.jsx";
@@ -14,7 +14,6 @@ const dispatch = useDispatch()
     useEffect(() => {
 
     dispatch(getAllFaenas())
-    dispatch(getAllReses())
     dispatch(getAllVentas())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
@@ -23,24 +22,36 @@ const dispatch = useDispatch()
     }, [dispatch])
 
 
-    const Stock = useSelector((state)=>state.AllResesStockTrue)
+    const AllFaenas = useSelector((state)=>state.AllFaenas)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
     const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
     const saldoTotalFaenas = useSelector((state)=>state.saldoAllFaenas)
 
-
     let [kgStock,setKgStock] = useState(0)
     let [totalEst,setTotalEst] = useState(0)
     let [gananciaMensual,setGananciaMensual] = useState(0)
 
-
-
-    Stock.map((a)=>{
-                    kgStock+=a.kg 
-                    totalEst+=a.precio_kg*a.kg*1.07
+    AllFaenas.map((a)=>{
+        a.detalle.map((r)=>{
+            
+                    if(r.CuartoT==0 && r.CuartoD==0 && r.stock==true && r.costo_kg){
+                                                        kgStock+=r.kg
+                                                        totalEst+=r.costo_kg*r.kg*1.07
+                                                    }
+                    if(r.CuartoT>0 && r.stock==true ){
+                                        kgStock+=r.CuartoT
+                                        totalEst+=r.costo_kg*r.CuartoT*1.07
+                                    }
+                    if(r.CuartoD>0 && r.stock==true ){
+                                        kgStock+=r.CuartoD
+                                        totalEst+=r.costo_kg*r.CuartoD*1.07
+                                    }
+                })
         })
-        if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>{gananciaMensual+=a.margen})
+console.log(totalEst)
+    
+        if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>{gananciaMensual+=(a.total-a.costo)})
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
