@@ -20,7 +20,7 @@ const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {
 
     let saldo = 0
     compras.map(a=>{
-        if(a.proveedor==nombre) saldo+=a.saldo
+        if(a.proveedor==nombre) saldo+=a.saldo*1
     })
 
     function currencyFormatter({ currency, value}) {
