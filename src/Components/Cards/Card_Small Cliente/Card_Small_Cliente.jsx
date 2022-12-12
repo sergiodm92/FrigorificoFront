@@ -20,10 +20,10 @@ const CardSmallCliente = ({ id, nombre, tipo, pago, bstyle, bicon, bonClick, cui
     let ventasA = useSelector((state)=>state.AllVentasAchuras)
     let saldo = 0
     ventasC.map(a=>{
-        if(a.cliente==nombre) saldo+=a.saldo
+        if(a.cliente==nombre) saldo+=a.saldo*1
     })
     ventasA.map(a=>{
-        if(a.clien==nombre) saldo+=a.saldo
+        if(a.clien==nombre) saldo+=a.saldo*1
     })
 
     function currencyFormatter({ currency, value}) {
