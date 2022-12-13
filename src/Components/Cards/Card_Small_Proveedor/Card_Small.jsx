@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
-import { getAllComrpas, getSaldoByProveedor } from "../../../Redux/Actions/Actions";
+import { getAllComrpas } from "../../../Redux/Actions/Actions";
 
 
 const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {

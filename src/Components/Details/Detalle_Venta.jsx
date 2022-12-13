@@ -3,15 +3,7 @@ import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 
 export default function TableVenta({venta, pagos}){
-        const array=[]
-
-    for(const [key,value] of Object.entries(venta)){ 
-        if(key!=="detalle" && key!=="saldo" && key!=="total")array.push({key,value})   
-    }
-    array.sort(function(a,b){
-        if(a.key>b.key){return 1}
-        if(a.key<b.key){return -1}
-        return 0})
+    
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -21,14 +13,31 @@ export default function TableVenta({venta, pagos}){
         return formatter.format(value)
         }
 
+        const costoPorKG = currencyFormatter({
+            currency: "USD",
+            value : venta.costo*1
+        })
+        const margenEnPesos = currencyFormatter({
+            currency: "USD",
+            value : venta.margen*1
+        })
+        const precioPorKGProm = currencyFormatter({
+            currency: "USD",
+            value : venta.precio_kg_prom*1
+        })
+        const precioUnit = currencyFormatter({
+            currency: "USD",
+            value : venta.precioUnitario*1
+        })
+
         const saldoTotalEstenPesos = currencyFormatter({
         currency: "USD",
-        value : venta.saldo
+        value : venta.saldo*1
         })
 
         const TotalEstenPesos = currencyFormatter({
                 currency: "USD",
-                value : venta.total
+                value : venta.total*1
         })
 
 
@@ -36,32 +45,79 @@ export default function TableVenta({venta, pagos}){
         <div className={tableVentaStyle.conteiner}>
 
             <table className="table">
-
-            <tbody>
-            {array.map((e,i) => {
-                    return(
-
-                    <tr key={i} className={e.key.includes("Margen")?"table-secondary":"table-warning"} >
-
-                        <td>{e.key.includes("_")?(e.key.replace("_"," ").includes("_")?e.key.replace("_"," ").replace("_"," "):e.key.replace("_"," ")):e.key }</td>
-                        <td className={tableVentaStyle.columnRight} colSpan="2">{e.key=="cantidad"?e.value:e.key=="cant"?e.value:e.key=="fecha"?(new Date(e.value*1)).toLocaleDateString('es').replaceAll("/", "-"):e.key=="kg"?e.value.toFixed(2):e.key=="margen_porc"?e.value.toFixed(2)+"%":
-                        e.key!=="id" && e.key!=="fecha" && e.key!=="cliente" && e.key!=="clien"?
-                        currencyFormatter({
-                                currency: "USD",
-                                value : e.value
-                        }):e.value}</td>            
-                    </tr>
-                    )
-            })
-            }
+            {venta.cliente?
+                <tbody>
                     <tr className="table-warning">
-                            <td >Total</td>
-                            <td className={tableVentaStyle.columnRight} colSpan="2">{TotalEstenPesos}</td>
-
+                        <td>id</td>
+                        <td className={tableVentaStyle.tdr}>{venta.id}</td>
                     </tr>
+                    <tr className="table-warning">
+                        <td >Fecha</td>
+                        <td className={tableVentaStyle.tdr}>{(new Date(venta.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Cliente</td>
+                        <td className={tableVentaStyle.tdr}>{venta.cliente}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Cantidad</td>
+                        <td className={tableVentaStyle.tdr}>{venta.cant}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>kg</td>
+                        <td className={tableVentaStyle.tdr}>{venta.kg}kg</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Costo/kg</td>
+                        <td className={tableVentaStyle.tdr}>{costoPorKG}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Margen</td>
+                        <td className={tableVentaStyle.tdr}>{margenEnPesos}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Margen %</td>
+                        <td className={tableVentaStyle.tdr}>{venta.margen_porc.toFixed(2)}%</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>$/kg promedio</td>
+                        <td className={tableVentaStyle.tdr}>{precioPorKGProm}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td >Total</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{TotalEstenPesos}</td>
+                    </tr>
+                </tbody>
+                :
+                <tbody>
+                    <tr className="table-warning">
+                        <td>id</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.id}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td >Fecha</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{(new Date(venta.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Cliente</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.clien}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Cantidad</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.cantidad}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td>Precio Unitario</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{precioUnit}</td>
+                    </tr>
+                    <tr className="table-warning">
+                        <td >Total</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{TotalEstenPesos}</td>
+                    </tr>
+                </tbody>}
+                <tbody>
                     <tr>
-                            <td className="table-dark" colSpan="3">Pagos</td>
-
+                        <td className="table-dark" colSpan="3">Pagos</td>
                     </tr>
                     {pagos?.map((a,i)=>
                     <tr key={i} className="table-warning">
@@ -71,20 +127,17 @@ export default function TableVenta({venta, pagos}){
                                 currency: "USD",
                                 value : a.monto*1
                         })}</td>
-                        <td>{a.formaDePago}</td>
+                        <td className={tableVentaStyle.tdr}>{a.formaDePago}</td>
                             
                     </tr>
                     )}
                     <tr>
                             <td>Saldo</td>
-                            <td>{saldoTotalEstenPesos}</td>
+                            <td className={tableVentaStyle.tdr}>{saldoTotalEstenPesos}</td>
                     </tr>
-
-                    
-            </tbody>
-        </table>
-
-
+                </tbody>
+            </table>
         </div>
     )
 }
+
