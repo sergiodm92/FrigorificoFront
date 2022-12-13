@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getComrpaByID, getPagosComprasByID } from "../../Redux/Actions/Actions";
 import CardGruposDetalle from "../Cards/CardGruposDetalle/CardGruposDetalle.jsx";
 import tableComprasStyle from "./tableCompraStyle.module.scss"
+import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 
 export default function TableCompra({id_c, comision_total}){
@@ -15,14 +16,8 @@ export default function TableCompra({id_c, comision_total}){
         }, [id_c])
 
         const CompraByID = useSelector((state)=>state.CompraByID)
-        // useEffect(()=>{
-        //         if(CompraByID.n_tropa)dispatch(getFaenasByTropa(CompraByID.n_tropa))
-        // },[CompraByID])
-
         const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
 
-        // const AllPagosbyFaena = useSelector((state)=>state.AllPagosbyFaena)
-        // console.log(AllPagosbyFaena[0])
         function currencyFormatter({ currency, value}) {
                 const formatter = new Intl.NumberFormat('en-US', {
                         style: 'currency',
@@ -30,70 +25,116 @@ export default function TableCompra({id_c, comision_total}){
                         currency
                 }) 
                 return formatter.format(value)
-                }
-        
-                let saldoEnPesos = currencyFormatter({
-                currency: "USD",
-                value : CompraByID.saldo
-                })
-
-                let costohenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_total_hac
-                        })
-                let costofleteenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_flete
-                        })
-                let costovepsenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_veps_unit
-                        })
-                let costovepstotalenpesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.costo_veps_total
-                        })
-                // let pagofaenanpesos = currencyFormatter({
-                //         currency: "USD",
-                //         value : FaenaByTropa.saldo
-                //         })
-                let precioachuraspesos = currencyFormatter({
-                        currency: "USD",
-                        value : CompraByID.precio_venta_achuras_unit
-                                })
-                let comision_total_pesos = currencyFormatter({
-                        currency: "USD",
-                        value : comision_total
-                                })
-                let pagos1
-                // let pagos2
-
-
-                const array=[]
-        
-        for(const [key,value] of Object.entries(CompraByID)){ //a 0 cambiar por id de compra
-                if(key!=="saldo" && key!=="grupos")array.push({key,value})
         }
-        if(comision_total) array.push({key: 'comision_total', value: comision_total_pesos })
-        array.sort(function(a,b){
-                if(a.key>b.key){return 1}
-                if(a.key<b.key){return -1}
-                return 0})
+        
+        let saldoEnPesos = currencyFormatter({
+        currency: "USD",
+        value : CompraByID.saldo
+        })
+
+        let costohenpesos = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.costo_total_hac
+                })
+        let costofleteenpesos = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.costo_flete
+                })
+        let costovepsenpesos = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.costo_veps_unit
+                })
+        let costovepstotalenpesos = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.costo_veps_total
+                })
+        let precioachuraspesos = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.precio_venta_achuras_unit
+                        })
+        let comision_total_pesos = currencyFormatter({
+                currency: "USD",
+                value : comision_total
+                        })
+        let recupero = currencyFormatter({
+                currency: "USD",
+                value : CompraByID.recupero_precio_kg
+                        })
+        let pagos1
+
+
+                
         return(
                 <div className={tableComprasStyle.conteiner}>
                         <table className="table">
                         <tbody>
-                        {array.map((e,i) => {
-                                return (
-                                <tr key={i} className={"table-warning"}>
-                                        <td>{e.key.includes("")?(e.key.replace(""," ").includes("")?e.key.replace(""," ").replace(""," "):e.key.replace(""," ")):e.key }</td>
-                                        
-                                        <td  className={tableComprasStyle.tdr}>{e.key=="fecha"?(new Date(e.value*1)).toLocaleDateString('es').replaceAll("/", "-"):e.key!=="costo_total_hac" && e.key!=="costo_flete"&& e.key!=="costo_veps_unit" && e.key!=="costo_veps_total"  && 
-                                                e.key!=="id" && e.key!=="precio_venta_achuras_unit" && typeof(e.value)=="number"?e.value.toFixed(2):e.key=="costo_total_hac"?costohenpesos:e.key=="costo_flete"?
-                                                costofleteenpesos:e.key=="costo_veps_unit"?costovepsenpesos:e.key=="costo_veps_total"?costovepstotalenpesos:e.key=="precio_venta_achuras_unit"?precioachuraspesos:e.value}</td>            
+                                <tr className="table-warning">
+                                        <td>id</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.id}</td>
                                 </tr>
-                                );
-                        })}
+                                <tr className="table-warning">
+                                        <td >Fecha</td>
+                                        <td className={tableVentaStyle.tdr}>{(new Date(CompraByID.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Proveedor</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.proveedor}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Lugar</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.lugar}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >N° DTE</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.n_dte}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >kgV Brutos Totales</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_brutos_totales.toFixed(2)}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >kgV Netos Totales</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_netos_totales.toFixed(2)}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >kg Carne Totales</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.kg_carne_totales.toFixed(2)}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Cant. Animales</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.cant_total}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Precio Venta de Achuras</td>
+                                        <td className={tableVentaStyle.tdr}>{precioachuraspesos}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Recupero $/kg</td>
+                                        <td className={tableVentaStyle.tdr}>{recupero}</td>
+                                </tr>
+                                {CompraByID.comision_total_pesos?
+                                <tr className="table-warning">                                        
+                                        <td >Comisión</td>
+                                        <td className={tableVentaStyle.tdr}>{comision_total_pesos}</td>                 
+                                </tr>
+                                :null}
+                                <tr className="table-warning">
+                                        <td >Costo VEPs Unit</td>
+                                        <td className={tableVentaStyle.tdr}>{costovepsenpesos}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Costo VEPs totales</td>
+                                        <td className={tableVentaStyle.tdr}>{costovepstotalenpesos}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Costo Flete</td>
+                                        <td className={tableVentaStyle.tdr}>{costofleteenpesos}</td>
+                                </tr>
+                                <tr className="table-warning">
+                                        <td >Costo Total Hacienda</td>
+                                        <td className={tableVentaStyle.tdr}>{costohenpesos}</td>
+                                </tr>
+
                                 <tr>
                                         <td className="table-dark">Pagos Hacienda</td>
                                         <td className="table-dark"></td>
@@ -136,5 +177,3 @@ export default function TableCompra({id_c, comision_total}){
         </div>
     )
 }
-
-// ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos, onClick})
