@@ -6,6 +6,8 @@ import {getAllProveedores} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CardSmallProveedor from "../../Components/Cards/Card_Small_Proveedor/Card_Small";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 export default function Proveedores(){

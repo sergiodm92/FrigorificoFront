@@ -64,7 +64,7 @@ export default function Table_Det_Faena({id}){
                     </tr>
                     <tr className="table-warning">
                         <td >Total de kg</td>
-                        <td className={tableVentaStyle.tdr}>{(faena.total_kg*1).toFixed(2)}</td>
+                        <td className={tableVentaStyle.tdr}>{faena.total_kg}</td>
                     </tr>
                     <tr className="table-warning">
                         <td >Costo Faena/kg</td>

@@ -8,6 +8,8 @@ import { filtrarClientes, getAllClientes } from "../../Redux/Actions/Actions";
 import CardSmallCliente from "../../Components/Cards/Card_Small Cliente/Card_Small_Cliente";
 import { createTheme, TextField } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Clientes(){
 
@@ -60,7 +62,7 @@ export default function Clientes(){
                         <div className={style.title3}><b>Saldo($)</b></div>
                     </div>
                     <div className={style.cardsCont}>
-                    {AllClientes.map((a)=>{
+                    {AllClientes.length>0?AllClientes.map((a)=>{
 
                         return(
                             <CardSmallCliente
@@ -72,7 +74,11 @@ export default function Clientes(){
                                 cuil= {a.cuil}
                             />
                         )
-                    })}
+                    })
+                    :   <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
+                    }
                     
                     </div>
                     <div className={style.buttonLarge}>

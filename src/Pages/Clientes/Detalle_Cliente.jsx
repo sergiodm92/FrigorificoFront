@@ -9,6 +9,8 @@ import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Cliente from "../../Components/Details/Table_Cliente";
 import style from "./Clientes.module.scss";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Detalle_Cliente(){
 
@@ -22,11 +24,13 @@ export default function Detalle_Cliente(){
 
     const ClienteById = useSelector((state)=>(state.ClienteById))
 
+
     useEffect(() => {
         if(ClienteById)dispatch(getVentasByCliente(ClienteById.nombre))
         if(ClienteById)dispatch(getVentasAchurasByCliente(ClienteById.nombre))
     }, [ClienteById])
 
+    
     let AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
     let VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
     let AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
@@ -104,7 +108,7 @@ export default function Detalle_Cliente(){
                 </div>
                 
                 <div className={style.cont}>
-                    {VentasPendientes.length>0?
+                    {AllVentasByCliente[0]!=="sin datos"?
                     <div>
                         <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
                         <div className={style.title}>
@@ -142,7 +146,10 @@ export default function Detalle_Cliente(){
                             }
                         </div>
                     </div>
-                    :null}
+                    :   <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
+                        }
                     {VentasAchurasPendientes.length>0?
                     <div>
                         <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Achuras con Saldo pendiente</h1></div>
@@ -182,18 +189,23 @@ export default function Detalle_Cliente(){
                         </div>
                     </div>
                     :null}
+                    {ClienteById.nombre?
                     <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Historial de Ventas"}
                             onClick={()=>navigate(`/Clientes/HistorialVentas/${id}`)}
                         ></LargeButton>
                     </div>
+                    :null}
+                    {ClienteById.nombre?
                     <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}
                             onClick={()=>navigate(`/Clientes/DetallePagos/${ClienteById.nombre}`)}
                         ></LargeButton>
                     </div>
+                    :null
+                    }
                 </div>
             </div>
         </div>

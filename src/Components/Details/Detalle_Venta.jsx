@@ -77,7 +77,7 @@ export default function TableVenta({venta, pagos}){
                     </tr>
                     <tr className="table-warning">
                         <td>Margen %</td>
-                        <td className={tableVentaStyle.tdr}>{(venta.margen_porc*1).toFixed(2)}%</td>
+                        <td className={tableVentaStyle.tdr}>{venta.margen_porc.toFixed(2)}%</td>
                     </tr>
                     <tr className="table-warning">
                         <td>$/kg promedio</td>
@@ -140,4 +140,3 @@ export default function TableVenta({venta, pagos}){
         </div>
     )
 }
-

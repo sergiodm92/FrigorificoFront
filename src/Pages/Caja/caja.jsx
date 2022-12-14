@@ -47,8 +47,8 @@ export default function Caja(){
         return 0})
         
     pagos.map(a=>{
-        if(a.ventaID)total+=a.monto
-        else total-=a.monto
+        if(a.ventaID)total+=a.monto*1
+        else total-=a.monto*1
         })
 
     const handleChange = (e) => {

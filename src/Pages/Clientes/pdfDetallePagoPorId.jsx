@@ -6,6 +6,9 @@ import { getPagosVentasByCliente, getVentaByID } from "../../Redux/Actions/Actio
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import style from "./Clientes.module.scss";
 import DocPDFbyidV from "../../Components/PDFDoc/PDFByidV.js";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 export default function PdfDetallePagoPorIdCliente(){
     
@@ -54,10 +57,15 @@ export default function PdfDetallePagoPorIdCliente(){
                     />}
                     fileName={'Comprobante de Pago - '+nombre}
                 >
+                {pagos.length>0?
                     <LargeButton
                         
                         title={"Descargar PDF"}
                     />
+                    :  <Box sx={{ display: 'flex', justifyContent:'center' }}>
+                        <CircularProgress />
+                        </Box>
+                }
                 </PDFDownloadLink>
             </div>
         </div>       

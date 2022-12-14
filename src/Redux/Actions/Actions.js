@@ -233,12 +233,8 @@ export const getAllFaenas = () => {
                 'auth-token': `${token}`
               }
             })
-            var faenasPendientes=[]
-            let faenasMap = json.data.data.map(e=>{
-                return [e.tropa,e]
-          });
-          var faenasMapArr = new Map(faenasMap); 
-          let unicas = [...faenasMapArr.values()]; 
+          let faenasPendientes = []
+          let unicas = json.data.data 
           unicas.map(e=> {if(e.saldo!==null && e.saldo>0)faenasPendientes.push(e)})
           const response = [unicas,faenasPendientes]
             return dispatch({
@@ -251,6 +247,27 @@ export const getAllFaenas = () => {
           }
         };
 };
+
+//Traer todas las faenas
+export const getFaenasUltimosVeinteDias = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/faenas/all/ultimas`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          })
+          return dispatch({
+          type: "ULTIMAS_FAENAS",
+          payload: json.data.data },{
+          } )
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
+
 
 //Traer todas las faenas
 export const getFaenaById = (id) => {
@@ -385,6 +402,24 @@ export const getAllVentas = () => {
             console.log(error);
           }
         };
+}; 
+
+export const getAllVentasConSaldo = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventas/all/saldo`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_ALL_VENTAS_SALDO",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
 }; 
 
 //Traer las ventas de los ultimos 30 dias a partir de la fecha actual
