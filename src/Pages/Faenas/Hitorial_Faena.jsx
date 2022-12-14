@@ -4,6 +4,8 @@ import style from "./Faenas.module.scss";
 import {getAllFaenas} from "../../Redux/Actions/Actions.js"
 import { useDispatch, useSelector } from "react-redux";
 import CardSmallFaenas from "../../Components/Cards/Card_Small_faenas/Card_Small";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Historial_Faena(){
     const dispatch = useDispatch()
@@ -34,7 +36,8 @@ AllFaenas.sort(function(a,b){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
-                    {AllFaenas.map((a,i)=>{
+                    {AllFaenas.length>0?
+                        AllFaenas?.map((a,i)=>{
                         return(
                             <CardSmallFaenas
                                 id={a.id}
@@ -48,7 +51,10 @@ AllFaenas.sort(function(a,b){
                             />
                         )
                         
-                    })
+                    }):
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>
                     }
                 </div>
             </div>

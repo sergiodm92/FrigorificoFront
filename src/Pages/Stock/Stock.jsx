@@ -4,17 +4,19 @@ import NavBar from "../../Components/Navbar/Navbar";
 import styleSt from "./Stock.module.scss";
 import Table_Stock from "../../Components/Details/Table_Stock";
 import CardSmallStock from "../../Components/Cards/Card_Small_stock/Card_Small.jsx";
-import { getAllFaenas } from "../../Redux/Actions/Actions";
+import { getAllFaenas, getFaenasUltimosVeinteDias } from "../../Redux/Actions/Actions";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Stock(){
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAllFaenas())
+        dispatch(getFaenasUltimosVeinteDias())
     }, [dispatch])
 
-    let AllFaenas = useSelector((state)=>state.AllFaenas)
+    let AllFaenas = useSelector((state)=>state.ultimasFaenas)
     
     let total_kg=["Total kg","","",0]
     let vaq=["Vaquillona",0,0,0]
@@ -64,11 +66,17 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
             <NavBar
             title={"Stock"}
             />
+            {AllFaenas.length?
             <div className={styleSt.contTable}>
                 <Table_Stock
                     array={array}
                 />
             </div>
+            :
+            <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
+            }
             <div className={styleSt.title}>
                 <div><b>Fecha</b></div>
                 <div><b>|</b></div>
@@ -79,7 +87,7 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
                 <div><b>Tropa</b></div>
             </div>
             <div className={styleSt.cardsCont}>
-                {AllFaenas.map((a,i)=>{ 
+                {  AllFaenas.map((a,i)=>{ 
                     return(
                         a.detalle.some((e)=> e.stock==true)?
                         <CardSmallStock
@@ -89,10 +97,12 @@ var array=[vaq,vaca,nov,toro,Novp,total_kg]
                             tropa={a.tropa}
                             tipo={"Stock/DetalleTropa"}
                         />
-                        :null
+                        : null
                     )
                     
-                })}
+                })
+
+                }
             </div>
         </div>
     )

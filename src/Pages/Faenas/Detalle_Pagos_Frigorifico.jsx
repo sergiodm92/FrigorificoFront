@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useNavigate, useParams } from "react-router"
 import NavBar from "../../Components/Navbar/Navbar"
 import { useDispatch, useSelector } from "react-redux"
-import { deletePagoFaenaById, getAllFaenas, getFaenaById, getPagosFaenasByFrigorifico, putSaldoFaena } from "../../Redux/Actions/Actions"
+import { deletePagoFaenaById, getAllFaenas, getPagosFaenasByFrigorifico, putSaldoFaena } from "../../Redux/Actions/Actions"
 import style from './Faenas.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import swal from "sweetalert"

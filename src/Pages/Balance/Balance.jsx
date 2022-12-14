@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllVentas, getAllVentasultimos30dias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
-import Graph from "../../Components/Graph/Graph.jsx";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -13,8 +14,7 @@ const dispatch = useDispatch()
 
     useEffect(() => {
 
-    dispatch(getAllFaenas())
-    dispatch(getAllVentas())
+    dispatch(getFaenasUltimosVeinteDias())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
     dispatch(getSaldoAllFaenas())
@@ -22,7 +22,7 @@ const dispatch = useDispatch()
     }, [dispatch])
 
 
-    const AllFaenas = useSelector((state)=>state.AllFaenas)
+    const AllFaenas = useSelector((state)=>state.ultimasFaenas)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
     const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
@@ -49,7 +49,6 @@ const dispatch = useDispatch()
                                     }
                 })
         })
-console.log(totalEst)
     
         if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>{gananciaMensual+=(a.total-a.costo)})
 
@@ -92,6 +91,7 @@ console.log(totalEst)
                 <NavBar
                 title="Balance"
                 />
+                {saldoTotalClientes?
                 <div className={styleBalance.tableBalance}>
                     <table className="table">
                         <tbody>
@@ -146,6 +146,11 @@ console.log(totalEst)
                         </tbody>
                     </table>
                 </div>
+                :
+                <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
+                }
                 {/* <Graph
                     className={styleBalance.Graph}
                 /> */}

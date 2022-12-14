@@ -1,5 +1,5 @@
 import axios from "axios";
-//getSaldoAllVentas
+//getPagosFaenasByFrigorifico
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
@@ -108,7 +108,7 @@ export const getAllComrpas = () => {
 export const getSaldoAllComrpas = () => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/compras/all`,{
+          const json = await axios.get(`/compras/all/saldo`,{
             headers: {
               'auth-token': `${token}`
             }
@@ -144,6 +144,25 @@ export const getAllVentasAchuras = () => {
       };
 };
 
+//Traer todas las ventas de achuras con saldo
+export const getAllVentasAchurasConSaldo = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/ventaAchuras/all/saldo`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_ALL_VENTAS_ACHURAS_SALDO",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
+
 //Traer todas las compras de un proveedor
 export const getAllComrpasByProveedor = (proveedor) => {
     return async (dispatch) => {
@@ -161,6 +180,25 @@ export const getAllComrpasByProveedor = (proveedor) => {
             console.log(error);
           }
         };
+};
+
+//Traer todas las compras con saldo > 0
+export const getAllComrpasConSaldo = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/compras/all/saldo`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_COMPRAS_SALDO",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
 };
 
 //Traer compra por ID
@@ -246,6 +284,27 @@ export const getAllFaenas = () => {
             console.log(error);
           }
         };
+};
+
+//Traer todas las faenas
+export const getAllFaenasConSaldo = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/faenas/all/saldo`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          })
+          console.log(json.data.data)
+          return dispatch({
+          type: "GET_ALL_FAENAS_CON_SALDO",
+          payload: json.data.data},{
+          } )
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
 };
 
 //Traer todas las faenas
@@ -446,12 +505,12 @@ export const getAllVentasultimos30dias = () => {
 export const getSaldoAllVentas = () => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/ventas/all`,{
+          const json = await axios.get(`/ventas/all/saldo`,{
             headers: {
               'auth-token': `${token}`
             }
           });
-          const json2 = await axios.get(`/ventaAchuras/all`,{
+          const json2 = await axios.get(`/ventaAchuras/all/saldo`,{
             headers: {
               'auth-token': `${token}`
             }
@@ -475,7 +534,7 @@ export const getSaldoAllVentas = () => {
 export const getSaldoAllFaenas = () => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/faenas/all`,{
+          const json = await axios.get(`/faenas/all/saldo`,{
             headers: {
               'auth-token': `${token}`
             }
@@ -895,7 +954,7 @@ export const getPagosComprasByID = (compraID) => {
 export const getAlertRes = () => {
   return async (dispatch) => {
       try {
-          const json = await axios.get(`/faenas/all`,{
+          const json = await axios.get(`/faenas/all/ultimas`,{
             headers: {
               'auth-token': `${token}`
             }

@@ -18,7 +18,6 @@ const initialState = {
     login_status:'',
     urlImg: '',
     putSaldo:'',
-    AllVentasConSaldo:[],
     alertRes:[],
     saldoprov:0,
     saldoCliente:0,
@@ -36,9 +35,13 @@ const initialState = {
     provByNombre:{},
     clienteByNombre:{},
     AllCompras:[],
+    AllComprasConSaldo:[],
     CompraByID:{},
     AllVentas:[],
+    AllVentasConSaldo:[],
+    AllFaenasConSaldo:["sin datos"],
     AllVentasAchuras:[],
+    AllVentasAchurasConSaldo:[],
     VentasUltimos30Dias:[],
     ventAchurasult30:[],
     VentaByID:{},
@@ -67,7 +70,7 @@ const initialState = {
     ultimasFaenas:[],
     pagosPDF:[]
 }
-//GET_ALL_VENTAS_SALDO
+
 const rootReducer = (state = initialState, action) => {
     const { type, payload } = action;
     switch (action.type) {
@@ -86,6 +89,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 AllClientes: action.payload,
             }
+        case "GET_ALL_VENTAS_ACHURAS_SALDO":
+        return {
+            ...state,
+            AllVentasAchurasConSaldo: action.payload,
+        }
         case "FILTRAR_VENTAS":
             return {
                 ...state,
@@ -96,7 +104,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 AllVentasAchuras: action.payload,
             }
-            
+        case "GET_ALL_FAENAS_CON_SALDO":
+            return {
+                ...state,
+                AllFaenasConSaldo: action.payload,
+            }
         case "SALDO_VENTA_TOTAL":
             return {
             ...state,
@@ -116,6 +128,11 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             ultimasFaenas: action.payload,
+            }
+        case "GET_COMPRAS_SALDO":
+            return {
+            ...state,
+            AllComprasConSaldo: action.payload,
             }
         case "GET_SALDO_ALL_COMPRAS":
             return {

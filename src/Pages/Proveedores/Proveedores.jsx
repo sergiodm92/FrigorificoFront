@@ -36,7 +36,7 @@ export default function Proveedores(){
                     <div className={style.title3}><b>Saldo($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
-                    {AllProveedores.map((a)=>{
+                    {AllProveedores.length?AllProveedores.map((a)=>{
 
                         return(
                             <CardSmallProveedor
@@ -48,7 +48,9 @@ export default function Proveedores(){
                                 cuil= {a.cuil}
                             />
                         )
-                    })
+                    }):<Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
                     }
                 </div>
                 <div className={style.buttonLarge}>

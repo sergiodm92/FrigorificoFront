@@ -9,6 +9,8 @@ import style from "./Faenas.module.scss";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import { deleteFaenaById, getFaenaById, getPagosFaenaByID } from "../../Redux/Actions/Actions";
 import Tabla_Detalle_Faena from "../../Components/Details/Tabla_Detalle_Faena";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 export default function Detalle_Faena(){
@@ -79,14 +81,20 @@ export default function Detalle_Faena(){
                         onClick={deleteFaena}
                     />
                 </div>
+                {faena.tropa==id?
                 <div className={style.tablefaena}>
                     <Table_Det_Faena
-                        id={id}
+                        faena={faena}
                     />                    
                     <Tabla_Detalle_Faena
                         reses={faena.detalle?faena.detalle:[]}
                     />
                 </div>
+                : 
+                <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                    <CircularProgress />
+                </Box>
+                }
             </div>
         </div>
 

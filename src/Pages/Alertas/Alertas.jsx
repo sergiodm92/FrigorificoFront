@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {  getAlertRes, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import {  getAlertRes} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import style from "./Alert.module.scss"
 import CardAlert from "../../Components/Cards/CardAlert/CardAlert.jsx";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -28,7 +30,8 @@ const dispatch = useDispatch()
                 title="Alertas"
                 />
                 <div className={style.CardConteiner}>
-                {alertRes?.map((a,i)=>{
+                {alertRes.length>0?
+                alertRes.map((a,i)=>{
                     return(
 
                     <div className={style.CardAlert} key={i}>
@@ -43,7 +46,11 @@ const dispatch = useDispatch()
                     </div>
                 )
                 }
-                )}    
+                ): 
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>
+                }    
                 </div>
         </div>
     )

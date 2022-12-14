@@ -90,15 +90,15 @@ export default function TableCompra({id_c, comision_total}){
                                 </tr>
                                 <tr className="table-warning">
                                         <td >kgV Brutos Totales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_brutos_totales.toFixed(2)}</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_brutos_totales?.toFixed(2)}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >kgV Netos Totales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_netos_totales.toFixed(2)}</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_netos_totales?.toFixed(2)}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >kg Carne Totales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.kg_carne_totales.toFixed(2)}</td>
+                                        <td className={tableVentaStyle.tdr}>{CompraByID.kg_carne_totales?.toFixed(2)}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >Cant. Animales</td>

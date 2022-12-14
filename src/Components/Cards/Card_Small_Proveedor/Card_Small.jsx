@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCS from "./Card_Small.module.scss";
-import { getAllComrpas, getSaldoByProveedor } from "../../../Redux/Actions/Actions";
+import { getAllComrpasConSaldo } from "../../../Redux/Actions/Actions";
 
 
 const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {
@@ -12,14 +11,15 @@ const CardSmallProveedor = ({ id, nombre, tipo, cuil}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getAllComrpas())
+        dispatch(getAllComrpasConSaldo())
     }, [dispatch])
 
 
-    let compras = useSelector((state)=>state.AllCompras)
+    let compras = useSelector((state)=>state.AllComprasConSaldo)
+
 
     let saldo = 0
-    compras.map(a=>{
+    compras?.map(a=>{
         if(a.proveedor==nombre) saldo+=a.saldo*1
     })
 

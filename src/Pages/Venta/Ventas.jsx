@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filtrarVentas, getAllVentas, getAllVentasAchuras } from "../../Redux/Actions/Actions";
+import {getAllVentasAchurasConSaldo, getAllVentasConSaldo } from "../../Redux/Actions/Actions";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import style from "./Ventas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import { ThemeProvider } from "@emotion/react";
-import { createTheme, TextField } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 
 export default function Ventas(){
@@ -16,22 +17,19 @@ export default function Ventas(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getAllVentas())
-        dispatch(getAllVentasAchuras())
+        dispatch(getAllVentasConSaldo())
+        dispatch(getAllVentasAchurasConSaldo())
     }, [dispatch])
 
-    const AllVentas= useSelector((state)=>(state.AllVentas))
-    const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchuras))
-  
+    const AllVentas= useSelector((state)=>(state.AllVentasConSaldo))
+    const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchurasConSaldo))
+
 
     AllVentas.sort(function(a,b){
         if(a.fecha>b.fecha){return -1}
         if(a.fecha<b.fecha){return 1}
         return 0})
 
-    
-
-    let ultimas15Ven = AllVentas.filter(a=>a.saldo>0)
     
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -41,8 +39,7 @@ export default function Ventas(){
         }) 
         return formatter.format(value)
         }
-   
- 
+
     return(
         <div className={style.ConteinerVenta}>
             <NavBar
@@ -58,10 +55,11 @@ export default function Ventas(){
                         <div><b>Cliente</b></div>
                         <div><b>Cant</b></div>
                         <div><b>kg</b></div>
-                        <div><b>Total($)</b></div>
+                        <div><b>Saldo($)</b></div>
                     </div>
                     <div className={style.cardsCont}>
-                        {ultimas15Ven.map((a,i)=>{
+                        {AllVentas.length?
+                            AllVentas.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
@@ -70,11 +68,15 @@ export default function Ventas(){
                                     para={a.cliente.length>15?a.cliente.slice(0,15):a.cliente}
                                     cant={a.cant}
                                     kg={a.kg}
-                                    total={a.total}
+                                    total={a.saldo}
                                     tipo={"Ventas"}
                                 />
                             )
                         })
+                        :
+                        <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
                         }
                     </div>
                     <div className={style.buttonLarge}>
@@ -86,21 +88,17 @@ export default function Ventas(){
                 </div>
                 <div className={style.contV}>
                     <h1 className={style.firstTitle}>Ventas de Achuras</h1>
-                    <div className={style.titleVenta} >
-                        <div><b>ID</b></div>
-                        <div><b>|</b></div>
+                    <div className={style.titleCards} >
+                    <div><b>ID</b></div>
                         <div><b>Fecha</b></div>
-                        <div><b>|</b></div>
                         <div><b>Cliente</b></div>
-                        <div><b>|</b></div>
                         <div><b>Cant</b></div>
-                        <div><b>|</b></div>
-                        <div><b>Total($)</b></div>
-                        <div><b>|</b></div>
+                        <div><b>Total</b></div>
                         <div><b>Saldo($)</b></div>
                     </div>
                     <div className={style.cardsCont}>
-                        {AllVentasAchuras.map((a,i)=>{
+                        {AllVentasAchuras.length?
+                            AllVentasAchuras.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}
@@ -117,6 +115,10 @@ export default function Ventas(){
                                 />
                             )
                         })
+                        :
+                        <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>
                         }
                     </div>
                     <div className={style.buttonLarge}>

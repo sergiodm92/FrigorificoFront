@@ -3,15 +3,15 @@ import {getFaenaById} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Table_Det_Faena({id}){
+export default function Table_Det_Faena({faena}){
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getFaenaById(id))
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getFaenaById(id))
+    // }, [dispatch])
 
-    const faena = useSelector((state)=>state.FaenaById)
+    // const faena = useSelector((state)=>state.FaenaById)
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
