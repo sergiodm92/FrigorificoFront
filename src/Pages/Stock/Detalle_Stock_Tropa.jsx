@@ -19,7 +19,7 @@ export default function Detalle_Stock_Tropa(){
     let AllFaenas = useSelector((state)=>state.AllFaenas)
     let faena = AllFaenas.find((a)=>a.tropa==tropa)
 
-    faena.detalle?.sort(function(a,b){
+    faena?.detalle.sort(function(a,b){
         if(a.correlativo>b.correlativo){return 1}
         if(a.correlativo<b.correlativo){return -1}
         return 0

@@ -1,13 +1,15 @@
-import React, { useEffect } from "react"
-import swal from "sweetalert"
-import NavBar from "../../Components/Navbar/Navbar"
-import { useParams, useNavigate } from "react-router"
-import TableCompra from "../../Components/Details/TableCompra"
-import style from "./Compras.module.scss"
-import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
-import { useDispatch, useSelector } from "react-redux"
-import { deleteCompraById, getComrpaByID, getPagosComprasByID, putEstadoCompraFaena } from "../../Redux/Actions/Actions"
+import React, { useEffect } from "react";
+import swal from "sweetalert";
+import NavBar from "../../Components/Navbar/Navbar";
+import { useParams, useNavigate } from "react-router";
+import TableCompra from "../../Components/Details/TableCompra";
+import style from "./Compras.module.scss";
+import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCompraById, getComrpaByID, getPagosComprasByID, putEstadoCompraFaena } from "../../Redux/Actions/Actions";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 export default function Detalle_Compra(){
@@ -90,13 +92,17 @@ export default function Detalle_Compra(){
                         onClick={deleteCompra}
                     />
                 </div>
+                {compra.id==id?
                 <div className={style.TableCompras}>
                     <TableCompra
-                        id_c={id}
+                        compra={compra}
                         comision_total={comision_total}
                     />
                 </div>
-
+                :
+                <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                    <CircularProgress />
+                </Box>}
             </div>
             <LargeButton
                     title={"Detalle de Grupos"}

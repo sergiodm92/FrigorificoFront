@@ -3,7 +3,7 @@ import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 export default function Tabla_Detalle_Stock_Tropa({reses}){
 
-    let resesStockTrue = reses.filter((a)=>a.stock==true)
+    let resesStockTrue = reses?.filter((a)=>a.stock==true)
 
     let kgVaca=0;
     let kgToro=0;
@@ -11,7 +11,7 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
     let kgVaquillona=0;
     let kgNovPes=0;
 
-    resesStockTrue.map(a=>{
+    resesStockTrue?.map(a=>{
         if(a.categoria==="Vaca"){
             kgVaca+=a.kg
         }
@@ -50,7 +50,7 @@ export default function Tabla_Detalle_Stock_Tropa({reses}){
                         <td>kg</td> 
                         <td>Costo/kg</td> 
                     </tr>
-                    {resesStockTrue.map((e,i) => {
+                    {resesStockTrue?.map((e,i) => {
                         totalEstenPesos = currencyFormatter({
                             currency: "USD",
                             value : e.costo_kg?e.costo_kg:0

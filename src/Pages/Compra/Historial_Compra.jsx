@@ -1,9 +1,11 @@
-import React, { useEffect } from "react"
-import NavBar from "../../Components/Navbar/Navbar"
-import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
-import style from "./Compras.module.scss"
-import { useDispatch, useSelector } from "react-redux"
-import { getAllComrpas } from "../../Redux/Actions/Actions"
+import React, { useEffect } from "react";
+import NavBar from "../../Components/Navbar/Navbar";
+import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
+import style from "./Compras.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllComrpas } from "../../Redux/Actions/Actions";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 export default function Historial_Compras(){
@@ -36,7 +38,8 @@ export default function Historial_Compras(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
-                    {AllCompras?.map((a,i)=>{
+                    {AllCompras.length>0?
+                        AllCompras?.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}
@@ -50,6 +53,10 @@ export default function Historial_Compras(){
                             />
                         )
                     })
+                    :
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>
                     }
                 </div>
             </div>

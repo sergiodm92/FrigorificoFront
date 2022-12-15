@@ -8,7 +8,9 @@ import stylePr from "./Proveedores.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import Table_Proveedor from "../../Components/Details/Table_Proveedor";
-import { deleteProveedorById, getAllComrpas, getAllComrpasByProveedor, getAllProveedores, getPagosComprasByProveedor, getProveedorByID } from "../../Redux/Actions/Actions";
+import { deleteProveedorById, getAllComrpasByProveedor, getAllProveedores, getProveedorByID } from "../../Redux/Actions/Actions";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Detalle_Proveedor(){
 
@@ -97,6 +99,7 @@ export default function Detalle_Proveedor(){
                 />
                 </div>
                 <div className={stylePr.cont}>
+                {AllComprasByProveedor[0]!=="sin datos"?
                     <div>
                         <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Compras con Saldo pendiente</h1></div>
                         <div className={stylePr.title}>
@@ -134,6 +137,11 @@ export default function Detalle_Proveedor(){
                             }
                         </div>
                     </div>
+                    :
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>
+                }
                     <div className={stylePr.buttonLarge}>
                         <LargeButton
                             title={"Historial de Compras"}

@@ -6,6 +6,8 @@ import { filtrarVentas, getAllVentas } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { createTheme, TextField, ThemeProvider } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -58,7 +60,8 @@ export default function Historial_Ventas(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
-                    {AllVentas.map((a, i)=>{
+                    {AllVentas.length>0?
+                        AllVentas?.map((a, i)=>{
                         return(
                             <CardLarge
                                 key={i}
@@ -72,6 +75,10 @@ export default function Historial_Ventas(){
                             />
                         )
                     })
+                    :
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>
                     }
                 </div>
             </div>

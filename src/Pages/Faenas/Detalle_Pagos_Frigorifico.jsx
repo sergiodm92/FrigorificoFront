@@ -6,7 +6,9 @@ import { deletePagoFaenaById, getAllFaenas, getPagosFaenasByFrigorifico, putSald
 import style from './Faenas.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import swal from "sweetalert"
-import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
+import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Detalle_Pagos_Frigorifico() {
     
@@ -74,7 +76,11 @@ export default function Detalle_Pagos_Frigorifico() {
             <NavBar
                 title={`Pagos de ${nombre}`}
             />
-            {pagos.length>0?
+            {pagos[0]=="sin datos" || pagos[0].frigorifico!==nombre?
+            <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                <CircularProgress />
+            </Box>
+            :pagos.length>0?
             <div>
                 <div className={style.tablefaena}>
                     <table className="table">
@@ -126,7 +132,8 @@ export default function Detalle_Pagos_Frigorifico() {
                     ></LargeButton>
                 </div>
             </div>
-            :<div><h4 className={style.text}>No existen pagos para éste frigorífico</h4></div>}      
+            :<div><h4 className={style.text}>No existen pagos para éste frigorífico</h4></div>            
+            }      
         </div>
     )
 }

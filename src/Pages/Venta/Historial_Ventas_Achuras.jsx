@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme, TextField } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -61,7 +63,8 @@ export default function Historial_Ventas_Achuras(){
                     <div><b>Saldo($)</b></div>
                 </div>
                 <div className={style.cardsCont}>
-                    {AllVentasAchuras.map((a,i)=>{
+                    {AllVentasAchuras.length>0?
+                        AllVentasAchuras?.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}
@@ -74,7 +77,11 @@ export default function Historial_Ventas_Achuras(){
                                 tipo={"Ventas/Achuras"}
                             />
                         )
-                    })}
+                    })
+                    :
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>}
                 </div>
             </div>
         </div>

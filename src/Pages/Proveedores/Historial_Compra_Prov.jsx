@@ -5,6 +5,9 @@ import NavBar from "../../Components/Navbar/Navbar";
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large";
 import stylePr from "./Proveedores.module.scss";
 import { getAllComrpasByProveedor } from "../../Redux/Actions/Actions";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 
 export default function Historial_Compras_Proveedor(){
@@ -37,7 +40,8 @@ export default function Historial_Compras_Proveedor(){
                     <div><b>Monto($)</b></div>
                 </div>
                 <div className={stylePr.cardsCont}>
-                    {AllComprasByProveedor?.map((a,i)=>{
+                    {AllComprasByProveedor.length>0?
+                        AllComprasByProveedor?.map((a,i)=>{
                         return(
                             <CardLarge
                                 key={i}
@@ -51,6 +55,10 @@ export default function Historial_Compras_Proveedor(){
                             />
                         )
                     })
+                    :
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+                    </Box>
                     }
                 </div>
             </div>

@@ -7,6 +7,8 @@ import style from "./Clientes.module.scss";
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Detalle_Pagos_Clientes() {
     
@@ -103,7 +105,11 @@ export default function Detalle_Pagos_Clientes() {
             <NavBar
                 title={`Pagos de ${nombre}`}
             />
-            {pagosT.length>0?
+            {pagosT[0]=="sin datos"?
+            <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                <CircularProgress />
+            </Box>
+            : pagosT.length>0?
             <div>
                 <div className={style.tablefaena}>
                     <table className="table">

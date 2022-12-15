@@ -6,16 +6,14 @@ import tableComprasStyle from "./tableCompraStyle.module.scss"
 import tableVentaStyle from "./tableVentaStyle.module.scss"
 
 
-export default function TableCompra({id_c, comision_total}){
+export default function TableCompra({compra, comision_total}){
 
         const dispatch = useDispatch()
 
         useEffect(() => {
-                dispatch(getComrpaByID(id_c))
-                dispatch(getPagosComprasByID(id_c))
-        }, [id_c])
+                dispatch(getPagosComprasByID(compra.id))
+        }, [compra])
 
-        const CompraByID = useSelector((state)=>state.CompraByID)
         const AllPagosbyCompra= useSelector((state)=>state.AllPagosbyCompra)
 
         function currencyFormatter({ currency, value}) {
@@ -29,28 +27,28 @@ export default function TableCompra({id_c, comision_total}){
         
         let saldoEnPesos = currencyFormatter({
         currency: "USD",
-        value : CompraByID.saldo
+        value : compra.saldo
         })
 
         let costohenpesos = currencyFormatter({
                 currency: "USD",
-                value : CompraByID.costo_total_hac
+                value : compra.costo_total_hac
                 })
         let costofleteenpesos = currencyFormatter({
                 currency: "USD",
-                value : CompraByID.costo_flete
+                value : compra.costo_flete
                 })
         let costovepsenpesos = currencyFormatter({
                 currency: "USD",
-                value : CompraByID.costo_veps_unit
+                value : compra.costo_veps_unit
                 })
         let costovepstotalenpesos = currencyFormatter({
                 currency: "USD",
-                value : CompraByID.costo_veps_total
+                value : compra.costo_veps_total
                 })
         let precioachuraspesos = currencyFormatter({
                 currency: "USD",
-                value : CompraByID.precio_venta_achuras_unit
+                value : compra.precio_venta_achuras_unit
                         })
         let comision_total_pesos = currencyFormatter({
                 currency: "USD",
@@ -58,7 +56,7 @@ export default function TableCompra({id_c, comision_total}){
                         })
         let recupero = currencyFormatter({
                 currency: "USD",
-                value : CompraByID.recupero_precio_kg
+                value : compra.recupero_precio_kg
                         })
         let pagos1
 
@@ -70,39 +68,39 @@ export default function TableCompra({id_c, comision_total}){
                         <tbody>
                                 <tr className="table-warning">
                                         <td>id</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.id}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.id}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >Fecha</td>
-                                        <td className={tableVentaStyle.tdr}>{(new Date(CompraByID.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                                        <td className={tableVentaStyle.tdr}>{(new Date(compra.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >Proveedor</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.proveedor}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.proveedor}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >Lugar</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.lugar}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.lugar}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >N° DTE</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.n_dte}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.n_dte}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >kgV Brutos Totales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_brutos_totales?.toFixed(2)}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.kgv_brutos_totales?.toFixed(2)}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >kgV Netos Totales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.kgv_netos_totales?.toFixed(2)}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.kgv_netos_totales?.toFixed(2)}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >kg Carne Totales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.kg_carne_totales?.toFixed(2)}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.kg_carne_totales?.toFixed(2)}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >Cant. Animales</td>
-                                        <td className={tableVentaStyle.tdr}>{CompraByID.cant_total}</td>
+                                        <td className={tableVentaStyle.tdr}>{compra.cant_total}</td>
                                 </tr>
                                 <tr className="table-warning">
                                         <td >Precio Venta de Achuras</td>
@@ -112,7 +110,7 @@ export default function TableCompra({id_c, comision_total}){
                                         <td >Recupero $/kg</td>
                                         <td className={tableVentaStyle.tdr}>{recupero}</td>
                                 </tr>
-                                {CompraByID.comision_total_pesos?
+                                {compra.comision_total_pesos?
                                 <tr className="table-warning">                                        
                                         <td >Comisión</td>
                                         <td className={tableVentaStyle.tdr}>{comision_total_pesos}</td>                 
@@ -158,7 +156,7 @@ export default function TableCompra({id_c, comision_total}){
         </table>
 
         <div>
-        {CompraByID.grupos?CompraByID.grupos.map((a)=>{
+        {compra.grupos?compra.grupos.map((a)=>{
                 
                 <CardGruposDetalle
                 key={a.id}

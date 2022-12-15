@@ -8,7 +8,9 @@ import TableVenta from "../../Components/Details/Detalle_Venta"
 import style from './Ventas.module.scss'
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import { deleteVentaById, getAllFaenas, getClienteByName, getPagosVentaByID, getVentaByID, putStockReses } from "../../Redux/Actions/Actions"
+import { deleteVentaById, getAllFaenas, getClienteByName, getPagosVentaByID, getVentaByID, putStockReses } from "../../Redux/Actions/Actions";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 export default function Detalle_Venta(){
@@ -123,12 +125,16 @@ const deleteVenta = ()=>{
                         onClick={deleteVenta}
                     />
                 </div>
+                {venta.id==id?
                 <div className={style.TableVenta}>
                     <TableVenta
                         venta={venta}
                         pagos={pagos}
                     />        
                 </div>
+                :<Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                    <CircularProgress />
+                </Box>}
                 <LargeButton
                     title="Detalle de Reses"
                     onClick={()=>Navigate(`/Ventas/DetalleReses/${id}`)}
