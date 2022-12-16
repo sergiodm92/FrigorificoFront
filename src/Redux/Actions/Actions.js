@@ -1,5 +1,5 @@
 import axios from "axios";
-//getPagosFaenasByFrigorifico
+//filter
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
@@ -11,15 +11,15 @@ export const pagosPDF = (pagos, saldoPagos, cliente) =>{
   return ({ type: "PAGOS_PDF", payload: [response,saldoPagos,cliente]  });
 }
 export const filtrarClientes = (filtro,AllClientes) => {
-  let filtrados = AllClientes.filter(a=>a.nombre.toLowerCase().includes(filtro))
+  let filtrados = AllClientes.filter(a=>a.nombre.toLowerCase().includes(filtro.toLowerCase()))
   return ({ type: "FILTRAR_CLIENTES", payload: filtrados  });
 };
 export const filtrarVentas = (filtro,AllVentas) => {
-  let filtrados = AllVentas.filter(a=>a.cliente.toLowerCase().includes(filtro))
+  let filtrados = AllVentas.filter(a=>a.cliente.toLowerCase().includes(filtro.toLowerCase()))
   return ({ type: "FILTRAR_VENTAS", payload: filtrados  });
 };
 export const filtrarVentasAchuras = (filtro,AllVentasAchuras) => {
-  let filtrados = AllVentasAchuras.filter(a=>a.clien.toLowerCase().includes(filtro))
+  let filtrados = AllVentasAchuras.filter(a=>a.clien.toLowerCase().includes(filtro.toLowerCase()))
   return ({ type: "FILTRAR_VENTAS_ACHURAS", payload: filtrados  });
 };
 

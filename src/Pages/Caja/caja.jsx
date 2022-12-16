@@ -41,7 +41,7 @@ export default function Caja(){
     const allPagosExtras= useSelector((state)=>(state.allPagosExtras))
     const allIngresosExtras= useSelector((state)=>(state.allIngresosExtras))
     const totalCaja = useSelector((state)=>(state.caja))
-    const [cant, setcant] = useState(10);
+    const [cant, setcant] = useState(5);
 
 
     let pagos=[...allPagosVentasAchuras, ...allPagosVentas, ...allPagosCompras, ...allPagosFaenas, ...allPagosExtras, ...allIngresosExtras]
