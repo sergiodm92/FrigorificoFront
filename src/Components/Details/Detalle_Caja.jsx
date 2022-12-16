@@ -3,7 +3,7 @@ import React from "react";
 import moment from 'moment'
 
 
-export default function Table_Det_Caja({pagos, total}){
+export default function Table_Det_Caja({pagos, total, fechaMod}){
 
     //ORDENAR POR FECHA
 pagos.sort((a, b) => moment(a.fecha, "DD-MM-YYYY").unix() - moment(b.fecha, "DD-MM-YYYY").unix());

@@ -35,7 +35,7 @@ export default function Detalle_Pagos_Proveedor() {
 
     let monto
 
-    const deletePago = (id, compraID, Monto)=>{
+    const deletePago = (pago)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -50,10 +50,10 @@ export default function Detalle_Pagos_Proveedor() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        let compra = compras.find(a=>a.id==compraID)
-                        let saldo= compra.saldo*1 + Monto*1
-                        dispatch(putSaldoCompra(compraID, saldo))
-                        dispatch(deletePagoCompraById(id))
+                        let compra = compras.find(a=>a.id==pago.compraID)
+                        let saldo= compra.saldo*1 + pago.monto*1
+                        dispatch(putSaldoCompra(pago.compraID, saldo))
+                        dispatch(deletePagoCompraById(pago))
                         dispatch(getPagosComprasByProveedor(nombre))
                         swal("Se eliminó el pago", {
                             icon: "success",
@@ -119,7 +119,7 @@ export default function Detalle_Pagos_Proveedor() {
                                         <ButtonNew
                                             style={"delete"}
                                             icon={"delete"}
-                                            onClick={() => {deletePago(e.id, e.compraID, e.monto)}}
+                                            onClick={() => {deletePago(e)}}
                                         /></td>                                    
                                     </tr>
                                 )

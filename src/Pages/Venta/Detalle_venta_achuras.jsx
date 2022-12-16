@@ -9,7 +9,8 @@ import style from './Ventas.module.scss'
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
 import { deleteVentaAchurasById, getClienteByName, getPagosVentaAchurasByID, getVentaAchurasByID, putSaldoCliente } from "../../Redux/Actions/Actions"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function Detalle_Venta_Achuras(){
 
@@ -89,13 +90,19 @@ const deleteVenta = ()=>{
                         onClick={deleteVenta}
                     />
                 </div>
+                {venta.id==id?
                 <div className={style.TableVenta}>
                     <TableVenta
                         venta={venta}
                         pagos={pagos}
                     />        
                 </div>
+                :<Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                    <CircularProgress />
+                </Box>
+                }
             </div>
+       
             <LargeButton
                     title="Generar PDF"
                     onClick={()=>Navigate(`/Ventas/Achuras/pdf/${id}`)}

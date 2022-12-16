@@ -35,7 +35,7 @@ export default function Detalle_Pagos_Frigorifico() {
     let monto
     let faena = {}
 
-    const deletePago = (id, faenaID, monto)=>{
+    const deletePago = (pago)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -50,10 +50,10 @@ export default function Detalle_Pagos_Frigorifico() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        let faena = faenas?.find(a=>a.tropa==faenaID)
-                        let saldo = faena.saldo + monto
-                        dispatch(putSaldoFaena(faenaID, saldo))
-                        dispatch(deletePagoFaenaById(id))
+                        let faena = faenas?.find(a=>a.tropa==pago.faenaID)
+                        let saldo = faena.saldo*1 + pago.monto*1
+                        dispatch(putSaldoFaena(pago.faenaID, saldo))
+                        dispatch(deletePagoFaenaById(pago))
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
@@ -117,7 +117,7 @@ export default function Detalle_Pagos_Frigorifico() {
                                         <ButtonNew
                                             style={"delete"}
                                             icon={"delete"}
-                                            onClick={() => {deletePago(e.id, e.faenaID, e.monto)}}
+                                            onClick={() => {deletePago(e)}}
                                         /></td>                                    
                                     </tr>
                                 )

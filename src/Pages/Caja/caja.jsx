@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import style from "./caja.module.scss";
-import {  getAllIngresosExtras, getAllPagosCompras, getAllPagosExtras, getAllPagosFaenas, getAllPagosVentas, getAllPagosVentasAchuras } from "../../Redux/Actions/Actions";
+import {  getAllIngresosExtras, getAllPagosCompras, getAllPagosExtras, getAllPagosFaenas, getAllPagosVentas, getAllPagosVentasAchuras, getCaja } from "../../Redux/Actions/Actions";
 import Table_Det_Caja from "../../Components/Details/Detalle_Caja";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import Marca from "../../Components/Marca/Marca";
@@ -13,6 +13,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { createTheme, ThemeProvider } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 
 
@@ -28,6 +31,7 @@ export default function Caja(){
         dispatch(getAllPagosVentas())
         dispatch(getAllPagosExtras())
         dispatch(getAllIngresosExtras())
+        dispatch(getCaja())
     }, [dispatch])
 
     const allPagosCompras= useSelector((state)=>(state.allPagosCompras))
@@ -36,6 +40,7 @@ export default function Caja(){
     const allPagosVentas= useSelector((state)=>(state.allPagosVentas))
     const allPagosExtras= useSelector((state)=>(state.allPagosExtras))
     const allIngresosExtras= useSelector((state)=>(state.allIngresosExtras))
+    const totalCaja = useSelector((state)=>(state.caja))
     const [cant, setcant] = useState(10);
 
 
@@ -80,6 +85,7 @@ export default function Caja(){
             <NavBar
                     title={"Caja"}
             />
+            {allPagosVentas.length?
             <div>
 
             <FormControl className={style.conteinerRadio}>
@@ -93,9 +99,9 @@ export default function Caja(){
                     onChange={handleChange}
                     
                 >
-                    <FormControlLabel value={10} control={<Radio />} label="10"  />
+                    <FormControlLabel value={5} control={<Radio />} label="5"  />
+                    <FormControlLabel value={10} control={<Radio />} label="10" />
                     <FormControlLabel value={20} control={<Radio />} label="20" />
-                    <FormControlLabel value={30} control={<Radio />} label="30" />
                     <FormControlLabel value={pagos.length} control={<Radio />} label="Todo" />
                 </RadioGroup>
                 </ThemeProvider>
@@ -103,9 +109,15 @@ export default function Caja(){
 
                 <Table_Det_Caja
                     pagos={pagos.slice(0,cant)}
-                    total={total}                
+                    total={totalCaja.total}
+                    fechaMod={totalCaja.fecha}             
                     />
             </div>
+            :
+            <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+            </Box>
+            }
             <div className={style.divButtons}>
                 <ShortButton
                     title={"Detalle de Extracciones"}

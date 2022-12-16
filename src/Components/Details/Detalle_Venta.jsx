@@ -49,39 +49,39 @@ export default function TableVenta({venta, pagos}){
                 <tbody>
                     <tr className="table-warning">
                         <td>id</td>
-                        <td className={tableVentaStyle.tdr}>{venta.id}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.id}</td>
                     </tr>
                     <tr className="table-warning">
                         <td >Fecha</td>
-                        <td className={tableVentaStyle.tdr}>{(new Date(venta.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{(new Date(venta.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td>
                     </tr>
                     <tr className="table-warning">
                         <td>Cliente</td>
-                        <td className={tableVentaStyle.tdr}>{venta.cliente}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.cliente}</td>
                     </tr>
                     <tr className="table-warning">
                         <td>Cantidad</td>
-                        <td className={tableVentaStyle.tdr}>{venta.cant}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.cant}</td>
                     </tr>
                     <tr className="table-warning">
                         <td>kg</td>
-                        <td className={tableVentaStyle.tdr}>{venta.kg}kg</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.kg}kg</td>
                     </tr>
                     <tr className="table-warning">
                         <td>Costo/kg</td>
-                        <td className={tableVentaStyle.tdr}>{costoPorKG}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{costoPorKG}</td>
                     </tr>
                     <tr className="table-warning">
                         <td>Margen</td>
-                        <td className={tableVentaStyle.tdr}>{margenEnPesos}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{margenEnPesos}</td>
                     </tr>
                     <tr className="table-warning">
                         <td>Margen %</td>
-                        <td className={tableVentaStyle.tdr}>{venta.margen_porc.toFixed(2)}%</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{venta.margen_porc.toFixed(2)}%</td>
                     </tr>
                     <tr className="table-warning">
                         <td>$/kg promedio</td>
-                        <td className={tableVentaStyle.tdr}>{precioPorKGProm}</td>
+                        <td className={tableVentaStyle.tdr} colSpan="2">{precioPorKGProm}</td>
                     </tr>
                     <tr className="table-warning">
                         <td >Total</td>

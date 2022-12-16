@@ -51,6 +51,7 @@ const initialState = {
     faenasPendientes:[],
     ClienteById:{},
     FaenaById:{},
+    caja:{},
     AllVentasByCliente:["sin datos"],
     AllVentasAchurasByCliente:[],
     AllComprasByProveedor:["sin datos"],
@@ -83,6 +84,11 @@ const rootReducer = (state = initialState, action) => {
             return {
             ...state,
             pagosPDF: action.payload,
+            }
+        case "GET_CAJA":
+            return {
+            ...state,
+            caja: action.payload,
             }
         case "FILTRAR_CLIENTES":
             return {

@@ -53,7 +53,7 @@ export default function Detalle_Pagos_Clientes() {
     }
     let monto
 
-    const deletePago = (id, ventaID, monto, cliente)=>{
+    const deletePago = (pago)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -69,20 +69,20 @@ export default function Detalle_Pagos_Clientes() {
                     .then((value) => {
                     if(value==="eliminar pago"){
                     
-                        if(cliente){
-                            let venta = ventas.find(a=>a.id==ventaID)
-                            let saldo2= venta.saldo*1 + monto*1
-                            dispatch(putSaldoVenta(ventaID, saldo2))
+                        if(pago.cliente){
+                            let venta = ventas.find(a=>a.id==pago.ventaID)
+                            let saldo2= venta.saldo*1 + pago.monto*1
+                            dispatch(putSaldoVenta(pago.ventaID, saldo2))
                             .then( (response) => {
-                                if(response) dispatch(deletePagoVentaById(id))
+                                if(response) dispatch(deletePagoVentaById(pago))
                             })                                                      
                         }
                         else{
-                            let venta = ventasAc.find(a=>a.id==ventaID)
-                            let saldo2= venta.saldo*1 + monto*1
-                            dispatch(putSaldoVentaAchuras(ventaID, saldo2))
+                            let venta = ventasAc.find(a=>a.id==pago.ventaID)
+                            let saldo2= venta.saldo*1 + pago.monto*1
+                            dispatch(putSaldoVentaAchuras(pago.ventaID, saldo2))
                             .then( (response) => {
-                                if(response) dispatch(deletePagoVentaAchurasById(id))
+                                if(response) dispatch(deletePagoVentaAchurasById(pago))
                             })                                              
                         }
                         swal("Se eliminó el pago", {
@@ -143,7 +143,7 @@ export default function Detalle_Pagos_Clientes() {
                                         <ButtonNew
                                             style={"delete"}
                                             icon={"delete"}
-                                            onClick={() => {deletePago(e.id, e.ventaID, e.monto, e.cliente?e.cliente:false)}}
+                                            onClick={() => {deletePago(e)}}
                                         /></td>                                    
                                     </tr>
                                 )

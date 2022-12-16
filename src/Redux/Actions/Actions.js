@@ -453,9 +453,14 @@ export const getAllVentas = () => {
                 'auth-token': `${token}`
               }
             });
+            let response = json.data.data.sort(function(a,b){
+              if(a.fecha>b.fecha){return -1}
+              if(a.fecha<b.fecha){return 1}
+              return 0})
+
             return dispatch({
             type: "GET_ALL_VENTAS",
-            payload: json.data.data})
+            payload: response})
         }
         catch (error) {
             console.log(error);
@@ -1052,6 +1057,25 @@ export const getPagosFaenasByFrigorifico = (nombre) => {
       };
 };
 
+//Traer caja
+export const getCaja = () => {
+  return async (dispatch) => {
+      try {
+          const json = await axios.get(`/caja`,{
+            headers: {
+              'auth-token': `${token}`
+            }
+          });
+          return dispatch({
+          type: "GET_CAJA",
+          payload: json.data.data})
+      }
+      catch (error) {
+          console.log(error);
+        }
+      };
+};
+
 //Traer todos los los pagos de VENTAS
 export const getAllPagosVentas = () => {
   return async (dispatch) => {
@@ -1563,16 +1587,14 @@ export const deleteVentaAchurasById = (id) => {
 
 //eliminar pago faena por id
 
-export const deletePagoFaenaById = (id) => {
+export const deletePagoFaenaById = (pago) => {
   return async (dispatch) => {
       try {
           const json = await axios.delete(`/pagoFaenas`,{
           headers: {
             'auth-token': `${token}`
           },
-          data: {
-            pf_id: id
-          }
+          data: pago
           })
           return dispatch({
           type: "DELETE_PAGO_FAENA",
@@ -1586,16 +1608,14 @@ export const deletePagoFaenaById = (id) => {
 
 //eliminar pago venta por id
 
-export const deletePagoVentaById = (id) => {
+export const deletePagoVentaById = (pago) => {
   return async (dispatch) => {
     try {
         const json = await axios.delete(`/pagoVentas`,{
         headers: {
           'auth-token': `${token}`
         },
-        data: {
-          pv_id: id
-        }
+        data: pago
         })
         return dispatch({
         type: "DELETE_PAGO_VENTA",
@@ -1614,16 +1634,14 @@ export const setDeletePagos = () => {
 
 //eliminar pago venta achuras por id
 
-export const deletePagoVentaAchurasById = (id) => {
+export const deletePagoVentaAchurasById = (pago) => {
   return async (dispatch) => {
       try {
           const json = await axios.delete(`/pagoVentaAchuras`,{
           headers: {
             'auth-token': `${token}`
           },
-          data: {
-            pv_id: id
-          }
+          data: pago
           })
           return dispatch({
           type: "DELETE_PAGO_VENTA_ACHURAS",
@@ -1642,16 +1660,14 @@ export const setDeletePagosAchuras = () => {
     
 //eliminar pago compra por id
 
-export const deletePagoCompraById = (id) => {
+export const deletePagoCompraById = (pago) => {
   return async (dispatch) => {
       try {
           const json = await axios.delete(`/pagoCompras`,{
           headers: {
             'auth-token': `${token}`
           },
-          data: {
-            pc_id: id
-          }
+          data: pago
           })
           return dispatch({
           type: "DELETE_PAGO_COMPRA",
@@ -1663,16 +1679,14 @@ export const deletePagoCompraById = (id) => {
       };
 };
 
-export const deletePagoExtra = (id) => {
+export const deletePagoExtra = (pago) => {
   return async (dispatch) => {
       try {
           const json = await axios.delete(`/pagoExtras`,{
           headers: {
             'auth-token': `${token}`
           },
-          data: {
-            id: id
-          }
+          data: pago
           })
           return dispatch({
           type: "DELETE_PAGO_EXTRA",
@@ -1684,16 +1698,14 @@ export const deletePagoExtra = (id) => {
       };
 };
 
-export const deleteIngresoExtra = (id) => {
+export const deleteIngresoExtra = (pago) => {
   return async (dispatch) => {
       try {
           const json = await axios.delete(`/ingresoExtras`,{
           headers: {
             'auth-token': `${token}`
           },
-          data: {
-            id: id
-          }
+          data: pago
           })
           return dispatch({
           type: "DELETE_PAGO_EXTRA",

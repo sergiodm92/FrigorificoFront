@@ -6,6 +6,8 @@ import {  getComrpaByID } from "../../Redux/Actions/Actions"
 import CardGruposDetalle from "../../Components/Cards/CardGruposDetalle/CardGruposDetalle.jsx"
 import style from "./Compras.module.scss"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 export default function DetalleGrupos(){
 
@@ -50,7 +52,12 @@ export default function DetalleGrupos(){
                 />
                 )
             })
-        :null}
+        :
+        <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+            <CircularProgress />
+        </Box>
+        
+        }
         
             </div>
             <LargeButton

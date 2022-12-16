@@ -5,7 +5,6 @@ import { deleteIngresoExtra, deletePagoExtra, getAllIngresosExtras} from "../../
 import style from './caja.module.scss'
 import swal from "sweetalert"
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew"
-import moment from "moment"
 
 export default function Detalle_Ingresos_Extras() {
     
@@ -28,7 +27,7 @@ export default function Detalle_Ingresos_Extras() {
     }
     let monto
 
-    const deletePago = (id)=>{
+    const deletePago = (pago)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -43,7 +42,7 @@ export default function Detalle_Ingresos_Extras() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        dispatch(deleteIngresoExtra(id))
+                        dispatch(deleteIngresoExtra(pago))
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
@@ -93,7 +92,7 @@ export default function Detalle_Ingresos_Extras() {
                                     <ButtonNew
                                         style={"delete"}
                                         icon={"delete"}
-                                        onClick={() => {deletePago(e.id)}}
+                                        onClick={() => {deletePago(e)}}
                                     /></td>
                                     <td ><a href={e.img_comp}>Link</a></td>
                                 </tr>

@@ -28,7 +28,7 @@ export default function Detalle_Pagos_Extras() {
     }
     let monto
 
-    const deletePago = (id)=>{
+    const deletePago = (pago)=>{
         swal({
             title: "¿Está seguro que desea eliminar el pago?",
             text: "Una vez eliminada perdera todos sus datos 😰",
@@ -43,7 +43,7 @@ export default function Detalle_Pagos_Extras() {
                     })
                     .then((value) => {
                     if(value==="eliminar pago"){
-                        dispatch(deletePagoExtra(id))
+                        dispatch(deletePagoExtra(pago))
                         swal("Se eliminó el pago", {
                             icon: "success",
                         })
@@ -93,7 +93,7 @@ export default function Detalle_Pagos_Extras() {
                                     <ButtonNew
                                         style={"delete"}
                                         icon={"delete"}
-                                        onClick={() => {deletePago(e.id)}}
+                                        onClick={() => {deletePago(e)}}
                                     /></td>
                                     <td ><a href={e.img_comp}>Link</a></td>
                                 </tr>
