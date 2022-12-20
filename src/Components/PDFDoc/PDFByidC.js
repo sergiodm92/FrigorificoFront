@@ -4,7 +4,7 @@ import {Table, TableHeader, TableCell, TableBody, DataTableCell} from 'react-pdf
 
 export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, array }){
     
-
+    let pagos = [...pagosAnteriores, ...pago]
     let fecha = new Date().toLocaleDateString('es').replaceAll("/", "-")
 
     function currencyFormatter({ currency, value}) {
@@ -64,10 +64,10 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                 <View style={{marginTop:"2vh", marginBottom:"2vh"}}>
                                     <Text style={datosCliente}>A continuacion se detalla el pago realizado por Carnes Don Alberto al proveedor {nombre}: </Text>
                                 </View>
-                                {pagosAnteriores.length>0?
+                                {pagos.length>0?
                                 <View>
-                                    <Text style={titlePagos}>Pagos anteriores:</Text>
-                                    <Table data = {pagosAnteriores}>
+                                    <Text style={titlePagos}>Pagos:</Text>
+                                    <Table data = {pagos}>
                                         <TableHeader includeBottomBorder={false}
                                                     includeLeftBorder={false}
                                                     includeRightBorder={false}
@@ -80,7 +80,7 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                                     includeLeftBorder={false}
                                                     includeRightBorder={false}
                                                     includeTopBorder={false}>
-                                            <DataTableCell getContent={(e)=>e.fecha} style={tableText} weighting={0.4}/>
+                                            <DataTableCell getContent={(e)=>(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")} style={tableText} weighting={0.4}/>
                                             <DataTableCell getContent={(e)=>e.formaDePago} style={tableText}/>
                                             <DataTableCell getContent={(e)=>currencyFormatter({
                                                                                 currency: "USD",
@@ -90,7 +90,7 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                     </Table>
                                 </View>
                                 :<View></View>}
-                                <Text style={titlePagos}>Pago actual:</Text>
+                                {/* <Text style={titlePagos}>Pago actual:</Text>
                                 <Table data = {pago}>
                                     <TableHeader includeBottomBorder={false}
                                                 includeLeftBorder={false}
@@ -111,7 +111,7 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                                                             value : e.monto
                                                                         })} style={tableText}/>
                                     </TableBody>
-                                </Table>
+                                </Table> */}
                                 <View style={{marginTop:"2.5vh", marginBottom:"0.5vh"}}>
                                     <Text style={datosClienteBold}>Detalle de la Compra:</Text>
                                 </View>
@@ -123,7 +123,8 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                         <TableCell style={border}><Text style={tableTitle}>categoría</Text></TableCell>
                                         <TableCell style={border}><Text style={tableTitle}>cantidad</Text></TableCell> 
                                         <TableCell style={border}><Text style={tableTitle}>kgv netos</Text></TableCell>
-                                        <TableCell style={border}><Text style={{fontSize:"1.5vh", margin:"0.5vh", borderColor:"white", fontFamily:"Helvetica-Bold", textAlign:"right"}}>Precio/kgv netos</Text></TableCell>
+                                        <TableCell style={border}><Text style={tableTitle}>$/kgv netos</Text></TableCell>
+                                        <TableCell style={border}><Text style={{fontSize:"1.5vh", margin:"0.5vh", borderColor:"white", fontFamily:"Helvetica-Bold", textAlign:"right"}}>Subtotal</Text></TableCell>
                                     </TableHeader>
                                     <TableBody  includeBottomBorder={false}
                                                 includeLeftBorder={false}
@@ -135,6 +136,10 @@ export default function DocPDFbyidC({pagosAnteriores, pago, compra, nombre, arra
                                         <DataTableCell getContent={(e)=>currencyFormatter({
                                                                             currency: "USD",
                                                                             value : e.precio_kgv_netos
+                                                                        })} style={tableText}/>
+                                        <DataTableCell getContent={(e)=>currencyFormatter({
+                                                                            currency: "USD",
+                                                                            value : e.precio_kgv_netos*e.kgv_netos
                                                                         })} style={{fontSize:"1.5vh", margin:"0.5vh", borderColor:"white", fontFamily:"Helvetica", textAlign:"right"}}/>
                                     </TableBody>
                                 </Table>

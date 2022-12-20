@@ -22,9 +22,12 @@ export default function PdfDetallePagoPorIdCliente(){
     let pago = []
     let pagosAnteriores = []
 
+
+
     const pagos = useSelector((state)=>state.pagosByCliente)
-    pago = pagos!==[]?pagos.filter(a=>a.id==id):[]
-    pagosAnteriores= pagos!==[]?pagos.filter(a=>(a.ventaID==pago[0].ventaID && a!==pago[0] )):[]
+
+    pago = pagos[0]!=='sin datos'?pagos.filter(a=>a.id==id):[]
+    pagosAnteriores= pagos[0]!=='sin datos'?pagos.filter(a=>(a.ventaID==pago[0].ventaID && a!==pago[0] )):[]
     
     useEffect(() => {
         if(pago.length!==0)dispatch(getVentaByID(pago[0].ventaID))

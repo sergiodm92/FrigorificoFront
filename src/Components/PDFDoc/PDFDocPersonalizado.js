@@ -21,7 +21,7 @@ export default function DocPDFPersonalizado({pagosT, person, name, saldo}){
                                 currency: "USD",
                                 value : a.monto
                                 })
-                    total+=a.monto
+                    total+=a.monto*1
                             })
 
         

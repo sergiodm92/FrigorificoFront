@@ -20,8 +20,8 @@ export default function PdfDetallePagoPorIdProveedor(){
     let pagosAnteriores = []
 
     const pagos = useSelector((state)=>state.pagosByProveedor)
-    pago = pagos!==[]?pagos.filter(a=>a.id==id):[]
-    pagosAnteriores= pagos!==[]?pagos.filter(a=>(a.compraID==pago[0].compraID && a!==pago[0] )):[]
+    pago = pagos[0]!=='sin datos'?pagos.filter(a=>a.id==id):[]
+    pagosAnteriores= pagos[0]!=='sin datos'?pagos.filter(a=>(a.compraID==pago[0].compraID && a!==pago[0] )):[]
     
     useEffect(() => {
         if(pago.length!==0)dispatch(getComrpaByID(pago[0].compraID))
