@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,7 +14,7 @@ const dispatch = useDispatch()
 
     useEffect(() => {
 
-    dispatch(getFaenasUltimosVeinteDias())
+    dispatch(getAllFaenas())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
     dispatch(getSaldoAllFaenas())

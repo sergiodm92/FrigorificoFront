@@ -162,7 +162,6 @@ export const getAllVentasAchurasConSaldo = () => {
         }
       };
 };
-
 //Traer todas las compras de un proveedor
 export const getAllComrpasByProveedor = (proveedor) => {
     return async (dispatch) => {
@@ -308,24 +307,24 @@ export const getAllFaenasConSaldo = () => {
 };
 
 //Traer todas las faenas
-export const getFaenasUltimosVeinteDias = () => {
-  return async (dispatch) => {
-      try {
-          const json = await axios.get(`/faenas/all/ultimas`,{
-            headers: {
-              'auth-token': `${token}`
-            }
-          })
-          return dispatch({
-          type: "ULTIMAS_FAENAS",
-          payload: json.data.data },{
-          } )
-      }
-      catch (error) {
-          console.log(error);
-        }
-      };
-};
+// export const getFaenasUltimosVeinteDias = () => {
+//   return async (dispatch) => {
+//       try {
+//           const json = await axios.get(`/faenas/all/ultimas`,{
+//             headers: {
+//               'auth-token': `${token}`
+//             }
+//           })
+//           return dispatch({
+//           type: "ULTIMAS_FAENAS",
+//           payload: json.data.data },{
+//           } )
+//       }
+//       catch (error) {
+//           console.log(error);
+//         }
+//       };
+// };
 
 
 //Traer todas las faenas

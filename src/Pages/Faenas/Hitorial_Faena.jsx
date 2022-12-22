@@ -11,7 +11,7 @@ export default function Historial_Faena(){
     const dispatch = useDispatch()
 
     useEffect(() => {
-    dispatch(getAllFaenas())
+    dispatch(getAllFaenas()) // trae las faenas de los ultimos 30 dias solamente
     }, [dispatch])
 
 const AllFaenas = useSelector((state)=>state.AllFaenas)

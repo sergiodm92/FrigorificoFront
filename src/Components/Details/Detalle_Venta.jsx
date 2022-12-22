@@ -68,7 +68,7 @@ export default function TableVenta({venta, pagos}){
                         <td className={tableVentaStyle.tdr} colSpan="2">{venta.kg}kg</td>
                     </tr>
                     <tr className="table-warning">
-                        <td>Costo/kg</td>
+                        <td>Costo</td>
                         <td className={tableVentaStyle.tdr} colSpan="2">{costoPorKG}</td>
                     </tr>
                     <tr className="table-warning">

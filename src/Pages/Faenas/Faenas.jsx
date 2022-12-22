@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar";
 import style from "./Faenas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
-import {getAllFaenas, getAllFaenasConSaldo} from "../../Redux/Actions/Actions.js"
+import { getAllFaenasConSaldo} from "../../Redux/Actions/Actions.js"
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CardSmallFaenas from "../../Components/Cards/Card_Small_faenas/Card_Small";

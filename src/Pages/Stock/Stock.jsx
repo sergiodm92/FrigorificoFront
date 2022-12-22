@@ -13,7 +13,7 @@ export default function Stock(){
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getFaenasUltimosVeinteDias())
+        dispatch(getAllFaenas())
     }, [dispatch])
 
     let AllFaenas = useSelector((state)=>state.ultimasFaenas)

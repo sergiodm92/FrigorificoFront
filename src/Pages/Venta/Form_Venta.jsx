@@ -7,7 +7,7 @@ import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
 import NavBar from '../../Components/Navbar/Navbar'
 import style from "./Ventas.module.scss";
-import { getAllClientes, getAllVentas, getClienteByName, getFaenasUltimosVeinteDias, postNewVentaCarne, putStockReses, setAlert } from "../../Redux/Actions/Actions";
+import { getAllClientes, getAllFaenas, getAllVentas, getClienteByName, getFaenasUltimosVeinteDias, postNewVentaCarne, putStockReses, setAlert } from "../../Redux/Actions/Actions";
 //calendario-----------------------------------
 import {  KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import esLocale from 'date-fns/locale/es';
@@ -81,8 +81,8 @@ const Form_Venta = () => {
     
     useEffect(() => {
         dispatch(getAllClientes())
-        dispatch(getFaenasUltimosVeinteDias())
-        dispatch(getAllVentas())
+        dispatch(getAllFaenas())
+        dispatch(getAllVentas()) //Trae las faenas de los ultimos 30 dias solamente
     }, [dispatch])
 
     //estados globales
