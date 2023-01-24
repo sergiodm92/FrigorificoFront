@@ -81,7 +81,7 @@ const Form_Venta = () => {
     
     useEffect(() => {
         dispatch(getAllClientes())
-        dispatch(getAllFaenas())
+        dispatch(getFaenasUltimosVeinteDias())
         dispatch(getAllVentas()) //Trae las faenas de los ultimos 30 dias solamente
     }, [dispatch])
 
