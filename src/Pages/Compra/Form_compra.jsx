@@ -451,11 +451,12 @@ const outerTheme = createTheme({
                             <table className="table">
                             <thead>
                             <tr className="table-warning">
-                                    <td>Categoria</td>
-                                    <td>Cantidad</td>
+                                    <td>Cat.</td>
+                                    <td>Cant.</td>
                                     <td>kg</td>
-                                    <td>0.59</td>
                                     <td>0.58</td>
+                                    <td>0.59</td>
+                                    <td>0.60</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -463,11 +464,12 @@ const outerTheme = createTheme({
                                 {grupos?.map(a=>
                                 a.cant!==0?
                                 <tr>
-                                    <td>{a.categoria}</td>
+                                    <td>{a.categoria=="Novillo Pesado"? "Nov P" : a.categoria.slice(0,5)}</td>
                                     <td>{a.cant}</td>
                                     <td>{a.kg}</td> 
-                                    <td>{(a.kg/0.59).toFixed(2)}</td> 
                                     <td>{(a.kg/0.58).toFixed(2)}</td> 
+                                    <td>{(a.kg/0.59).toFixed(2)}</td> 
+                                    <td>{(a.kg/0.6).toFixed(2)}</td> 
                                 </tr>
                                 :null
                                 )}
