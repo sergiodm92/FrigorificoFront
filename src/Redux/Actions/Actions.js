@@ -5,6 +5,7 @@ export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
 };
+//GET_CAJA
 
 export const pagosPDF = (pagos, saldoPagos, cliente) =>{
   let response= pagos.filter((a)=>a.check==true)
@@ -1065,6 +1066,7 @@ export const getCaja = () => {
               'auth-token': `${token}`
             }
           });
+          console.log(json.data.data)
           return dispatch({
           type: "GET_CAJA",
           payload: json.data.data})

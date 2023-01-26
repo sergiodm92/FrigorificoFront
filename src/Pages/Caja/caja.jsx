@@ -6,7 +6,6 @@ import style from "./caja.module.scss";
 import {  getAllIngresosExtras, getAllPagosCompras, getAllPagosExtras, getAllPagosFaenas, getAllPagosVentas, getAllPagosVentasAchuras, getCaja } from "../../Redux/Actions/Actions";
 import Table_Det_Caja from "../../Components/Details/Detalle_Caja";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
-import Marca from "../../Components/Marca/Marca";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -45,16 +44,13 @@ export default function Caja(){
 
 
     let pagos=[...allPagosVentasAchuras, ...allPagosVentas, ...allPagosCompras, ...allPagosFaenas, ...allPagosExtras, ...allIngresosExtras]
-    let total = 0
+ 
     pagos.sort(function(a,b){
         if(a.fecha>b.fecha){return -1}
         if(a.fecha<b.fecha){return 1}
         return 0})
+
         
-    pagos.map(a=>{
-        if(a.ventaID)total+=a.monto*1
-        else total-=a.monto*1
-        })
 
     const handleChange = (e) => {
         setcant(e.target.value)
@@ -85,9 +81,8 @@ export default function Caja(){
             <NavBar
                     title={"Caja"}
             />
-            {allPagosVentas.length?
+            {pagos.length?
             <div>
-
             <FormControl className={style.conteinerRadio}>
             <ThemeProvider theme={outerTheme}>
                 <FormLabel id="demo-row-radio-buttons-group-label">Ultimos Movimientos</FormLabel>
@@ -109,15 +104,17 @@ export default function Caja(){
 
                 <Table_Det_Caja
                     pagos={pagos.slice(0,cant)}
-                    total={totalCaja.total}
-                    fechaMod={totalCaja.fecha}             
+                    total={totalCaja?.total}
+                    fechaMod={totalCaja?.fecha}             
                     />
             </div>
-            :
-            <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
-                            <CircularProgress />
-            </Box>
+            :null
             }
+             {/* :
+             <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                             <CircularProgress />
+             </Box>
+            } */}
             <div className={style.divButtons}>
                 <ShortButton
                     title={"Detalle de Extracciones"}
