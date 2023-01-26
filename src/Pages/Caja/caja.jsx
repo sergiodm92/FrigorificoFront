@@ -77,6 +77,7 @@ export default function Caja(){
 
 
     return(
+   
         <div className={style.conteiner}>
             <NavBar
                     title={"Caja"}
@@ -108,13 +109,14 @@ export default function Caja(){
                     fechaMod={totalCaja?.fecha}             
                     />
             </div>
-            :null
+
+            :
+
+            <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                        <CircularProgress />
+            </Box>
             }
-             {/* :
-             <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
-                             <CircularProgress />
-             </Box>
-            } */}
+
             <div className={style.divButtons}>
                 <ShortButton
                     title={"Detalle de Extracciones"}
