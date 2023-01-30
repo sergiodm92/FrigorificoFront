@@ -46,6 +46,7 @@ const Form_Cliente = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        form.nombre = form.nombre.trim()
         if(!error.nombre && form.nombre){
             if(id==null || id==0){
                 form.id="Cl"+Math.floor(Math.random()*1000000)
