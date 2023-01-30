@@ -24,14 +24,14 @@ export default function Detalle_Cliente(){
 
     const ClienteById = useSelector((state)=>(state.ClienteById))
 
-
+console.log(ClienteById.nombre)
     useEffect(() => {
-        if(ClienteById)dispatch(getVentasByCliente(ClienteById.nombre))
-        if(ClienteById)dispatch(getVentasAchurasByCliente(ClienteById.nombre))
+        dispatch(getVentasByCliente(ClienteById.nombre))
+        dispatch(getVentasAchurasByCliente(ClienteById.nombre))
     }, [ClienteById])
 
-    
     let AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
+    console.log(AllVentasByCliente)
     let VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
     let AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
     let VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)

@@ -1,5 +1,6 @@
 import axios from "axios";
 //filter
+//GET_ALL_VENTAS_BY_CLIENTE
 // estado de login
 export const login_state = () => {
     const e = localStorage.getItem("login")
