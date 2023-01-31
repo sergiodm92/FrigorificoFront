@@ -183,6 +183,15 @@ const Form_Venta = () => {
             form.id="V"+form.detalle[0].correlativo + Math.floor(Math.random()*10000)
             if(form.detalle.length>0){
                 form.detalle.map(a=> {
+                    if(a.kg<10){
+                        swal({
+                            titleForm: "Alerta",
+                            text: "Faltan kg",
+                            icon: "warning",
+                            button: "ok",
+                        })
+                        return
+                    }
                     form.total+=a.kg*1*a.precio_kg
                     form.costo+=a.kg*1*a.costo_kg
                     form.kg+=a.kg*1
@@ -397,6 +406,7 @@ const Form_Venta = () => {
                                 <h5 className={style.titleForm}>kg </h5>
                                 <input
                                     type="number"
+                                    step="any"
                                     value={formCV.kg?formCV.kg:''}
                                     id="kg"
                                     name="kg"
