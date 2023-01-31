@@ -183,7 +183,8 @@ const Form_Pago_Faena = () => {
                     <div className={stylePagoF.formItem}>
                         <h5 className={stylePagoF.title}>Monto: </h5>
                         <input
-                            type="text"
+                            type="number"
+                            step="any"
                             value={form.monto?form.monto:''}
                             id="monto"
                             name="monto"

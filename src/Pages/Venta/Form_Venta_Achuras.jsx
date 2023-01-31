@@ -189,6 +189,7 @@ const Form_Venta_Achuras = () => {
                         <h5 className={style.titleForm}>$/Un: </h5>
                         <input
                             type="number"
+                            step="any"
                             value={form.precioUnitario==0?"":form.precioUnitario}
                             id="precioUnitario"
                             name="precioUnitario"

@@ -215,6 +215,7 @@ const Form_Pago_Venta = () => {
                         <h5 className={stylePagoV.title}>Monto: </h5>
                         <input
                             type="number"
+                            step="any"
                             value={form.monto?form.monto:''}
                             id="monto"
                             name="monto"
