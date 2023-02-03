@@ -30,7 +30,7 @@ import DateFnsUtils from "@date-io/date-fns";
 let formC = {
   id: "",
   proveedor: "", //
-  fecha: new Date().toLocaleDateString(), //
+  fecha: new Date().toLocaleDateString('en'), //
   lugar: "", //
   n_dte: "", //
   kgv_brutos_totales: 0, //
