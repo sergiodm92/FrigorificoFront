@@ -30,7 +30,7 @@ import DateFnsUtils from "@date-io/date-fns";
 var formV = {
   id: 0,
   cliente: "",
-  fecha: new Date().toLocaleDateString(),
+  fecha: new Date().toLocaleDateString('en'),
   detalle: [],
   costo: 0,
   saldo: 0,
