@@ -31,6 +31,7 @@ export default function Caja(){
         dispatch(getAllPagosExtras())
         dispatch(getAllIngresosExtras())
         dispatch(getCaja())
+
     }, [dispatch])
 
     const allPagosCompras= useSelector((state)=>(state.allPagosCompras))
@@ -44,13 +45,13 @@ export default function Caja(){
 
 
     let pagos=[...allPagosVentasAchuras, ...allPagosVentas, ...allPagosCompras, ...allPagosFaenas, ...allPagosExtras, ...allIngresosExtras]
- 
+
     pagos.sort(function(a,b){
         if(a.fecha>b.fecha){return -1}
         if(a.fecha<b.fecha){return 1}
         return 0})
 
-        
+    
 
     const handleChange = (e) => {
         setcant(e.target.value)
@@ -77,12 +78,12 @@ export default function Caja(){
 
 
     return(
-   
+        
         <div className={style.conteiner}>
             <NavBar
                     title={"Caja"}
             />
-            {pagos.length?
+            {totalCaja.total?
             <div>
             <FormControl className={style.conteinerRadio}>
             <ThemeProvider theme={outerTheme}>

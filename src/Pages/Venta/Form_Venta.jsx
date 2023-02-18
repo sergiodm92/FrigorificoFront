@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import swal from "sweetalert";
 import CardReses from "../../Components/Cards/CardReses/CardReses";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
@@ -26,12 +26,13 @@ import esLocale from "date-fns/locale/es";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
+import ValidationsVentaCarne from "./validationsVentaCarne";
 
 //Form Venta
 var formV = {
   id: 0,
   cliente: "",
-  fecha: new Date().toLocaleDateString('en'),
+  fecha: new Date().toLocaleDateString("en"),
   detalle: [],
   costo: 0,
   saldo: 0,
@@ -143,6 +144,7 @@ const Form_Venta = () => {
     }
     dispatch(setAlert());
     form.detalle = [];
+    setconfirm(false);
   }, [alert_msj]);
 
   useEffect(() => {
@@ -210,62 +212,9 @@ const Form_Venta = () => {
   //handleSubmit de la Venta completa
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.cliente) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe seleccionar un Cliente",
-      });
-      return;
-    }
-    if (form.fecha === new Date().toLocaleDateString()) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe seleccionar la Fecha",
-      });
-      return;
-    }
-    if (!form.detalle.length) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe cargar alguna res",
-      });
-      return;
-    }
-    setconfirm(true)
-    let detallesPut = [];
+    if (ValidationsVentaCarne(form)) {
+      setconfirm(true);
+      let detallesPut = [];
       form.fecha = form.fecha.getTime();
       form.id =
         "V" + form.detalle[0].correlativo + Math.floor(Math.random() * 10000);
@@ -363,8 +312,8 @@ const Form_Venta = () => {
       document.getElementById("categoria").selectedIndex = 0;
       document.getElementById("res").selectedIndex = 0;
       document.getElementById("Cliente").selectedIndex = 0;
-      setconfirm(false)
       setForm(formV);
+    }
   };
 
   //carga de calendario
@@ -623,7 +572,7 @@ const Form_Venta = () => {
           <div className={style.buttons} id={style.buttonOk}>
             <ShortButton
               title="✔ Confirmar"
-              onClick={handleSubmit}
+              onClick={!confirm ?handleSubmit: null}
               color={!confirm ? "green" : "grey"}
             />
           </div>

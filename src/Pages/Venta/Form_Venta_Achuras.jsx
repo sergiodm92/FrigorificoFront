@@ -12,6 +12,7 @@ import esLocale from 'date-fns/locale/es';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
+import ValidationsVentaAchuras from "./validationVentaAchuras";
 //Form Venta
 var formVA = {
     id: '',
@@ -55,6 +56,7 @@ const Form_Venta_Achuras = () => {
                 button: "ok",
             })}
             dispatch(setAlert())
+            setconfirm(false)
     }, [alert_msj]) 
 
     
@@ -62,6 +64,7 @@ const Form_Venta_Achuras = () => {
     //Estados locales
     const [form, setForm] = useState(formVA);
     const [error, setError] = useState({});
+    const [confirm, setconfirm] = useState(false);
 
     useEffect(() => {
         dispatch(getClienteByName(form.clien))
@@ -87,25 +90,14 @@ const Form_Venta_Achuras = () => {
     //handleSubmit de la Venta completa
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(
-        !error.cantidad && form.cantidad &&
-        !error.precioUnitario && form.precioUnitario &&
-        !error.clien && form.clien
-        ){
+        if(ValidationsVentaAchuras(form)){
+            setconfirm(true)
             form.total=form.precioUnitario*1*form.cantidad
             form.saldo=form.total
             form.fecha=form.fecha.getTime()
             form.id="VA"+Math.floor(Math.random()*1000000)
-            console.log(form)
             dispatch(postNewVentaAchura(form))
             setForm(formVA);
-        }
-        else{
-            swal({
-                title: "Datos incorrectos, por favor intente nuevamente",
-                icon: "warning",
-                button: "ok",
-            })
         }
     };
     //carga de calendario
@@ -202,8 +194,8 @@ const Form_Venta_Achuras = () => {
 
                         <ShortButton
                             title="✔ Confirmar"
-                            onClick={handleSubmit}
-                            color="green"
+                            onClick={!confirm ?handleSubmit: null}
+                            color={!confirm ? "green" : "grey"}
                         />
                     </div>
                 </form>
