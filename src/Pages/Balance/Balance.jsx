@@ -19,6 +19,7 @@ const dispatch = useDispatch()
     dispatch(getSaldoAllVentas())
     dispatch(getSaldoAllFaenas())
     dispatch(getAllVentasultimos30dias())
+    dispatch(getFaenasUltimosVeinteDias())
     }, [dispatch])
 
 

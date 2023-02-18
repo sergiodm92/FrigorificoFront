@@ -6,6 +6,7 @@ import {
   postNewFaena,
   setAlert,
 } from "../../Redux/Actions/Actions";
+import Swal from "sweetalert2";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import ButtonNew from "../../Components/Buttons/ButtonNew/ButtonNew";
@@ -25,7 +26,7 @@ import CardResesFaena from "../../Components/Cards/CardResesFaena/CardResesFaena
 
 //Form Faena
 const formF = {
-  fecha: new Date().toLocaleDateString('en'),
+  fecha: new Date().toLocaleDateString("en"),
   frigorifico: "",
   tropa: "",
   proveedor: "",
@@ -239,42 +240,127 @@ const Form_Faena = () => {
   //handleSubmit de la faena completa
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (
-      !error.fecha &&
-      form.fecha &&
-      !error.frigorifico &&
-      form.frigorifico &&
-      !error.tropa &&
-      form.tropa &&
-      !error.proveedor &&
-      form.proveedor &&
-      !error.costo_faena_kg &&
-      form.costo_faena_kg &&
-      !error.detalle &&
-      form.detalle
-    ) {
-      form.detalle.map((e) => {
-        form.total_kg = form.total_kg + e.kg * 1;
+    if (form.fecha === new Date().toLocaleDateString()) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
       });
-      form.fecha = form.fecha.getTime();
-      form.total_medias = form.detalle.length;
-      form.costo_total = form.costo_faena_kg * 1 * form.total_kg * 1;
-      form.saldo = form.costo_total;
-      console.log(form);
-      dispatch(postNewFaena(form));
-      setkg_totales(0);
-      document.getElementById("proveedor").selectedIndex = 0;
-      document.getElementById("frigorifico").selectedIndex = 0;
-      setForm(formF);
-    } else {
-      swal({
-        titleForm: "Alerta",
-        text: "Datos incorrectos, por favor intente nuevamente",
-        icon: "warning",
-        button: "ok",
+      Toast.fire({
+        icon: "error",
+        title: "Debe seleccionar la Fecha",
       });
+      return;
     }
+    if (!form.frigorifico) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Debe seleccionar un Frigorifico",
+      });
+      return;
+    }
+    if (!form.tropa) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Debe ingresar la Tropa",
+      });
+      return;
+    }
+    if (form.detalle.length<2) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Debe cargar al menos 2 reses",
+      });
+      return;
+    }
+    if (form.detalle.length%2!==0) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: "La cantidad de Reses debe ser par",
+      });
+      return;
+    }
+    if (!form.costo_faena_kg) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Debe ingresar el costo de faena / kg",
+      });
+      return;
+    }
+    form.detalle.map((e) => {
+      form.total_kg = form.total_kg + e.kg * 1;
+    });
+    form.fecha = form.fecha.getTime();
+    form.total_medias = form.detalle.length;
+    form.costo_total = form.costo_faena_kg * 1 * form.total_kg * 1;
+    form.saldo = form.costo_total;
+    console.log(form);
+    dispatch(postNewFaena(form));
+    setkg_totales(0);
+    document.getElementById("proveedor").selectedIndex = 0;
+    document.getElementById("frigorifico").selectedIndex = 0;
+    setForm(formF);
   };
 
   //Select de frigoríficos
