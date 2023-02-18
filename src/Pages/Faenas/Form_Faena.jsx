@@ -23,6 +23,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import CardResesFaena from "../../Components/Cards/CardResesFaena/CardResesFaena";
+import Validations from "./validations";
 
 //Form Faena
 const formF = {
@@ -110,6 +111,7 @@ const Form_Faena = () => {
   const [selectedDate, setSelectedDate] = React.useState(
     new Date("2014-08-18T21:11:54")
   );
+  const [confirm, setconfirm] = useState(false);
   let [kg_totales, setkg_totales] = useState(0);
 
   useEffect(() => {
@@ -130,6 +132,7 @@ const Form_Faena = () => {
       });
       dispatch(setAlert());
       form.detalle = [];
+      setconfirm(false)
     }
   }, [alert_msj]);
 
@@ -240,127 +243,21 @@ const Form_Faena = () => {
   //handleSubmit de la faena completa
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.fecha === new Date().toLocaleDateString()) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
+    if (Validations(form)) {
+      setconfirm(true)
+      form.detalle.map((e) => {
+        form.total_kg = form.total_kg + e.kg * 1;
       });
-      Toast.fire({
-        icon: "error",
-        title: "Debe seleccionar la Fecha",
-      });
-      return;
+      form.fecha = form.fecha.getTime();
+      form.total_medias = form.detalle.length;
+      form.costo_total = form.costo_faena_kg * 1 * form.total_kg * 1;
+      form.saldo = form.costo_total;
+      dispatch(postNewFaena(form));
+      setkg_totales(0);
+      document.getElementById("proveedor").selectedIndex = 0;
+      document.getElementById("frigorifico").selectedIndex = 0;
+      setForm(formF);
     }
-    if (!form.frigorifico) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe seleccionar un Frigorifico",
-      });
-      return;
-    }
-    if (!form.tropa) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe ingresar la Tropa",
-      });
-      return;
-    }
-    if (form.detalle.length<2) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe cargar al menos 2 reses",
-      });
-      return;
-    }
-    if (form.detalle.length%2!==0) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "La cantidad de Reses debe ser par",
-      });
-      return;
-    }
-    if (!form.costo_faena_kg) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Debe ingresar el costo de faena / kg",
-      });
-      return;
-    }
-    form.detalle.map((e) => {
-      form.total_kg = form.total_kg + e.kg * 1;
-    });
-    form.fecha = form.fecha.getTime();
-    form.total_medias = form.detalle.length;
-    form.costo_total = form.costo_faena_kg * 1 * form.total_kg * 1;
-    form.saldo = form.costo_total;
-    console.log(form);
-    dispatch(postNewFaena(form));
-    setkg_totales(0);
-    document.getElementById("proveedor").selectedIndex = 0;
-    document.getElementById("frigorifico").selectedIndex = 0;
-    setForm(formF);
   };
 
   //Select de frigoríficos
@@ -673,8 +570,8 @@ const Form_Faena = () => {
             <div className={style.shortButtons} id={style.buttonOk}>
               <ShortButton
                 title="✔ Confirmar"
-                onClick={handleSubmit}
-                color="green"
+                onClick={!confirm ?  handleSubmit : null}
+                color={confirm ? "grey" : "green"}
               />
             </div>
           </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
-import Swal from "sweetalert2";
+import Validations from "./validations";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import {
   getAllFaenas,
@@ -27,6 +27,7 @@ import esLocale from "date-fns/locale/es";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
+
 
 let formC = {
   id: "",
@@ -94,8 +95,6 @@ export const validate = (compra) => {
   if (!compra.kgv_brutos) error.kgv_brutos = "Falta kgV Brutos";
   else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(compra.kgv_brutos))
     error.kgv_brutos = "kgV Brutos debe ser un número";
-  // if (!compra.n_tropa) error.n_tropa = "Falta tropa";
-  // else if (!/^([0-9])*$/.test(compra.n_tropa)) error.n_tropa = "Tropa debe ser un número";
   else if (!/^\d*(\.\d{1})?\d{0,1}$/.test(compra.precio_venta_achuras))
     error.precio_venta_achuras = "$ Venta de Achuras debe ser un número";
   if (!compra.costo_flete) error.costo_flete = "Falta Costo de Flete";
@@ -129,6 +128,7 @@ const Form_Compra = () => {
         icon: alert_msj === "Compra creada con éxito" ? "success" : "warning",
         button: "ok",
       });
+      setconfirm(false)
     }
     dispatch(setAlert());
     form.grupos = [];
@@ -222,224 +222,74 @@ const Form_Compra = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.proveedor) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
+    if (Validations(form)) {
+      setconfirm(true)
+      //cargo el resto de las propiedades
+      form.id = "C" + form.grupos[0].n_tropa;
+      let arr = [];
+      let arrayGrupos = [];
+      form.grupos.map((a) => {
+        form.kgv_brutos_totales += a.kgv_brutos * 1;
+        form.kgv_netos_totales += a.kgv_netos * 1;
+        form.costo_total_hac += a.costo_hac * 1;
+        form.cant_achuras += a.cant * 1;
+        form.cant_total += a.cant * 1;
+        form.kg_carne_totales += a.kg_carne * 1;
       });
-      Toast.fire({
-        icon: "error",
-        title: "Debe seleccionar un Proveedor",
-      });
-      return;
-    }
-    if (form.fecha == new Date().toLocaleDateString()) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe seleccionar una fecha",
-      });
-      return;
-    }
-    if (!form.lugar) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe escribir el Lugar",
-      });
-      return;
-    }
-    if (!form.n_dte) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe escribir el Numero de DTE",
-      });
-      return;
-    }
-    if (!form.precio_venta_achuras_unit) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe escribir Precio de Achuras Unitario",
-      });
-      return;
-    }
-    if (!form.costo_flete) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe escribir el Costo de Flete",
-      });
-      return;
-    }
-    if (!form.costo_veps_unit) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe escribir el Costo VEPS",
-      });
-      return;
-    }
-    if (!form.grupos.length) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "error",
-        title: "Debe cargar al menos un grupo",
-      });
-      return;
-    }
-    setconfirm(true);
-    //cargo el resto de las propiedades
-    form.id = "C" + form.grupos[0].n_tropa;
-    let arr = [];
-    let arrayGrupos = [];
-    form.grupos.map((a) => {
-      form.kgv_brutos_totales += a.kgv_brutos * 1;
-      form.kgv_netos_totales += a.kgv_netos * 1;
-      form.costo_total_hac += a.costo_hac * 1;
-      form.cant_achuras += a.cant * 1;
-      form.cant_total += a.cant * 1;
-      form.kg_carne_totales += a.kg_carne * 1;
-    });
-    if (form.kg_carne_totales > 0) {
-      form.recupero_precio_kg =
-        (form.precio_venta_achuras_unit * 1 * form.cant_achuras) /
-        (form.kg_carne_totales * 1);
-    }
-    form.grupos.map((a) => {
-      if (form.kg_carne_totales * 1 !== 0) {
-        a.costo_flete =
-          (form.costo_flete * 1 * a.kg_carne) / (form.kg_carne_totales * 1);
+      if (form.kg_carne_totales > 0) {
+        form.recupero_precio_kg =
+          (form.precio_venta_achuras_unit * 1 * form.cant_achuras) /
+          (form.kg_carne_totales * 1);
       }
-      a.cosoVeps = form.costo_veps_unit * a.cant;
-      if (form.por_comision > 0)
-        a.comision = ((form.por_comision * 1) / 100) * a.costo_hac;
-      a.recupero = (form.precio_venta_achuras_unit * 1 * a.cant) / a.kg_carne;
-      a.costo_total =
-        a.cosoVeps * 1 +
-        a.comision * 1 +
-        a.costo_faena * 1 +
-        a.costo_hac * 1 +
-        a.costo_flete * 1 -
-        form.precio_venta_achuras_unit * 1 * a.cant;
-      a.costo_kg = a.costo_total / (a.kg_carne * 1);
-      if (!arr.some((t) => t.tropa == a.n_tropa))
-        arr.push({
-          id: a.n_tropa.toString(),
-          estadoCompra: true,
-          compraID: form.id,
+      form.grupos.map((a) => {
+        if (form.kg_carne_totales * 1 !== 0) {
+          a.costo_flete =
+            (form.costo_flete * 1 * a.kg_carne) / (form.kg_carne_totales * 1);
+        }
+        a.cosoVeps = form.costo_veps_unit * a.cant;
+        if (form.por_comision > 0)
+          a.comision = ((form.por_comision * 1) / 100) * a.costo_hac;
+        a.recupero = (form.precio_venta_achuras_unit * 1 * a.cant) / a.kg_carne;
+        a.costo_total =
+          a.cosoVeps * 1 +
+          a.comision * 1 +
+          a.costo_faena * 1 +
+          a.costo_hac * 1 +
+          a.costo_flete * 1 -
+          form.precio_venta_achuras_unit * 1 * a.cant;
+        a.costo_kg = a.costo_total / (a.kg_carne * 1);
+        if (!arr.some((t) => t.tropa == a.n_tropa))
+          arr.push({
+            id: a.n_tropa.toString(),
+            estadoCompra: true,
+            compraID: form.id,
+          });
+        arrayGrupos.push({
+          tropa: a.n_tropa,
+          categoria: a.categoria,
+          costo_kg: a.costo_kg,
         });
-      arrayGrupos.push({
-        tropa: a.n_tropa,
-        categoria: a.categoria,
-        costo_kg: a.costo_kg,
       });
-    });
-    form.saldo = form.costo_total_hac;
-    form.fecha = form.fecha.getTime();
-    let detalles = [];
+      form.saldo = form.costo_total_hac;
+      form.fecha = form.fecha.getTime();
+      let detalles = [];
 
-    arr.map((t) => {
-      let det = AllFaenas.find((f) => f.tropa == t.id).detalle;
-      det.map((r) => {
-        r.costo_kg = arrayGrupos.find(
-          (g) => g.categoria == r.categoria
-        ).costo_kg;
+      arr.map((t) => {
+        let det = AllFaenas.find((f) => f.tropa == t.id).detalle;
+        det.map((r) => {
+          r.costo_kg = arrayGrupos.find(
+            (g) => g.categoria == r.categoria
+          ).costo_kg;
+        });
+        console.log(det);
+        detalles.push({ detalle: det, id: t.id });
       });
-      console.log(det);
-      detalles.push({ detalle: det, id: t.id });
-    });
-    dispatch(putStockReses(detalles));
-    dispatch(putEstadoCompraFaena(arr));
-    dispatch(postNewCompra(form));
-    document.getElementById("proveedor").selectedIndex = 0;
-    setconfirm(false);
-    setForm(formC);
+        dispatch(putStockReses(detalles));
+        dispatch(putEstadoCompraFaena(arr));
+        dispatch(postNewCompra(form));
+        document.getElementById("proveedor").selectedIndex = 0;
+        setForm(formC);
+    }
   };
 
   function handleSelectCat(e) {
@@ -911,8 +761,8 @@ const Form_Compra = () => {
             <div className={style.shortButtons} id={style.buttonOk}>
               <ShortButton
                 title="✔ Confirmar"
-                onClick={!confirm ? handleSubmit : null}
-                color={!confirm ? "green" : "grey"}
+                onClick={!confirm ?  handleSubmit : null}
+                color={confirm ? "grey" : "green"}
               />
             </div>
           </div>

@@ -456,7 +456,6 @@ const Form_Venta = () => {
                 <KeyboardDatePicker
                   format="dd-MM-yyyy"
                   value={form.fecha}
-                  disableFuture
                   onChange={handleChangeDate}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
