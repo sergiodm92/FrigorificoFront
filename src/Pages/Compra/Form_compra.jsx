@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import swal from "sweetalert";
+import Swal from 'sweetalert2'
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import {
   getAllFaenas,
@@ -30,7 +31,7 @@ import DateFnsUtils from "@date-io/date-fns";
 let formC = {
   id: "",
   proveedor: "", //
-  fecha: new Date().toLocaleDateString(), //
+  fecha: new Date().toLocaleDateString('en'), //
   lugar: "", //
   n_dte: "", //
   kgv_brutos_totales: 0, //
@@ -142,6 +143,7 @@ const Form_Compra = () => {
   const [error2, setError2] = useState({});
   const [Switch_KgBrutos, setSwitch_KgBrutos] = useState(true);
   const [tropa, settropa] = useState(0);
+  const [confirm, setconfirm] = useState(false);
 
   useEffect(() => {
     if (tropa !== 0) dispatch(getGruposByTropa(tropa));
@@ -160,12 +162,6 @@ const Form_Compra = () => {
 
   const handleChangeG = (e) => {
     e.preventDefault();
-    // setError2(
-    // validate({
-    //     ...formGCT,
-    //     [e.target.name]: e.target.value,
-    // })
-    // );
     setFormCGT({
       ...formGCT,
       [e.target.name]: e.target.value,
@@ -226,20 +222,159 @@ const Form_Compra = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      true
-      // -!error.proveedor && form.proveedor &&
-      // -!error.fecha && form.fecha &&
-      // -!error.n_dte && form.n_dte &&
-      // -!error.categoria && form.categoria &&
-      // -!error.cant && form.cant &&
-      //- !error.kgv_brutos && form.kgv_brutos &&
-      // -!error.desbaste && form.desbaste &&
-      // -!error.n_tropa && form.n_tropa &&
-      // -!error.precio_venta_achuras && form.precio_venta_achuras &&
-      // -!error.costo_flete && form.costo_flete &&
-      // -!error.costo_veps_unit && form.costo_veps_unit
-    ) {
+      if(!form.proveedor){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe seleccionar un Proveedor'
+        })
+        return
+      }
+      if(form.fecha == new Date().toLocaleDateString()){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe seleccionar una fecha'
+        })
+        return
+      }
+      if(!form.lugar){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe escribir el Lugar'
+        })
+        return
+      }
+      if(!form.n_dte){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe escribir el Numero de DTE'
+        })
+        return
+      }
+      if(!form.precio_venta_achuras_unit){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe escribir Precio de Achuras Unitario'
+        })
+        return
+      }
+      if(!form.costo_flete){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe escribir el Costo de Flete'
+        })
+        return
+      }
+      if(!form.costo_veps_unit){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe escribir el Costo VEPS'
+        })
+        return
+      }
+      if(!form.grupos.length){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        
+        Toast.fire({
+          icon: 'error',
+          title: 'Debe cargar al menos un grupo'
+        })
+        return
+      }
+      setconfirm(true)
       //cargo el resto de las propiedades
       form.id = "C" + form.grupos[0].n_tropa;
       let arr = [];
@@ -302,17 +437,11 @@ const Form_Compra = () => {
       });
       dispatch(putStockReses(detalles));
       dispatch(putEstadoCompraFaena(arr));
-      console.log(form);
       dispatch(postNewCompra(form));
       document.getElementById("proveedor").selectedIndex = 0;
+      setconfirm(false)
       setForm(formC);
-    } else {
-      swal({
-        titleForm: "Faltan Datos",
-        icon: "warning",
-        button: "ok",
-      });
-    }
+    
   };
 
   function handleSelectCat(e) {
@@ -528,18 +657,18 @@ const Form_Compra = () => {
               <table className="table">
                 <thead>
                   <tr className="table-warning">
-                    <td>Cat.</td>
-                    <td>Cant.</td>
-                    <td>kg</td>
-                    <td>0.58</td>
-                    <td>0.59</td>
-                    <td>0.60</td>
+                    <td >Cat.</td>
+                    <td >Cant.</td>
+                    <td >kg</td>
+                    <td >0.58</td>
+                    <td >0.59</td>
+                    <td >0.60</td>
                   </tr>
                 </thead>
                 <tbody>
-                  {grupos?.map((a) =>
+                  {grupos?.map((a,i) =>
                     a.cant !== 0 ? (
-                      <tr>
+                      <tr key={i}>
                         <td>
                           {a.categoria == "Novillo Pesado"
                             ? "Nov P"
@@ -784,8 +913,8 @@ const Form_Compra = () => {
             <div className={style.shortButtons} id={style.buttonOk}>
               <ShortButton
                 title="✔ Confirmar"
-                onClick={handleSubmit}
-                color="green"
+                onClick={!confirm?handleSubmit:null}
+                color={!confirm?"green":"grey"}
               />
             </div>
           </div>

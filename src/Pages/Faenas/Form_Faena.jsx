@@ -25,7 +25,7 @@ import CardResesFaena from "../../Components/Cards/CardResesFaena/CardResesFaena
 
 //Form Faena
 const formF = {
-  fecha: new Date().toLocaleDateString(),
+  fecha: new Date().toLocaleDateString('en'),
   frigorifico: "",
   tropa: "",
   proveedor: "",
