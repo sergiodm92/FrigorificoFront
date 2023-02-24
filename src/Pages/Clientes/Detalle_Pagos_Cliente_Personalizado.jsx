@@ -63,8 +63,8 @@ function generarPDF(){
                         <input id={i} type="checkbox" onChange={(e)=> checkear(e)} />
                         <CardLargeDetallePagos
                             key={i}
-                            id={a.id.slice(-3,0)}
-                            idv={a.ventaID.slice(-3,0)}
+                            id={a.id.slice(-3,a.id.length)}
+                            idv={a.ventaID.slice(-3,a.ventaID.length)}
                             fecha={a.fecha}
                             formaDePago={a.formaDePago}
                             monto={a.monto}
