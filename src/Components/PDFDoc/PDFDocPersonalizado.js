@@ -17,11 +17,12 @@ export default function DocPDFPersonalizado({pagosT, person, name, saldo}){
 
     let total = 0
 
-    pagosT.map(a=> {a.newMonto = currencyFormatter({
+    pagosT.map(a=> {total+=a.monto*1
+                    a.newMonto = currencyFormatter({
                                 currency: "USD",
                                 value : a.monto
                                 })
-                    total+=a.monto*1
+                    
                             })
 
         
