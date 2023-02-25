@@ -7,7 +7,7 @@ export const login_state = () => {
     return ({ type: "LOGIN_STATE", payload: e  });
 };
 //GET_CAJA
-
+//getSaldoVentasByCliente
 export const pagosPDF = (pagos, saldoPagos, cliente) =>{
   let response= pagos.filter((a)=>a.check==true)
   return ({ type: "PAGOS_PDF", payload: [response,saldoPagos,cliente]  });
@@ -858,8 +858,8 @@ export const getSaldoVentasByCliente = (nombre) => {
           });
           let saldoVentaTotal = 0
          
-          json1.data.data.map((a)=>saldoVentaTotal+=a.saldo)
-          json2.data.data.map((a)=>saldoVentaTotal+=a.saldo)
+          json1.data.data.map((a)=>saldoVentaTotal+=a.saldo*1)
+          json2.data.data.map((a)=>saldoVentaTotal+=a.saldo*1)
           return dispatch({
           type: "SALDO_VENTA_TOTAL",
           payload: saldoVentaTotal})
