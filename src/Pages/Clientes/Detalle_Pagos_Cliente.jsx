@@ -127,8 +127,8 @@ export default function Detalle_Pagos_Clientes() {
                             {pagosT.map((e,i) => {
                                 return(
                                     <tr key={i} className={"table-primary"} align="center"> 
-                                        <td >{e.id}</td> 
-                                        <td >{e.cliente?e.ventaID+"-V":e.ventaID+"-VAch"}</td> 
+                                        <td >{e.id.slice(-3,e.id.length)}</td> 
+                                        <td >{e.cliente?(e.ventaID+"-V").slice(-3,e.ventaID+1):(e.ventaID+"-VAch").slice(-6,e.ventaID+1)}</td> 
                                         <td>{(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")}</td> 
                                         <td>{e.formaDePago}</td>
                                         <td>{
