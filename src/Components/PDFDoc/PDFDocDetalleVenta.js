@@ -86,7 +86,7 @@ export default function DocPDFDetalleV({transaccion,transaccionName, person, nam
                                     <DataTableCell getContent={(e)=>e.correlativo} style={tableText}/>
                                     <DataTableCell getContent={(e)=>e.categoria} style={tableText}/>
                                     <DataTableCell getContent={(e)=>e.total_media} style={tableText}/>
-                                    <DataTableCell getContent={(e)=>e.kg} style={tableText}/>
+                                    <DataTableCell getContent={(e)=>e.kg.toFixed(2)} style={tableText}/>
                                     <DataTableCell getContent={(e)=>currencyFormatter({
                                                                         currency: "USD",
                                                                         value : e.precio_kg
