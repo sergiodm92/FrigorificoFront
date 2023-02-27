@@ -133,7 +133,7 @@ console.log(ClienteById.nombre)
                                         fecha={a.fecha}
                                         para={a.cliente}
                                         cant={a.cant}
-                                        kg={a.kg}
+                                        kg={a.kg.toFixed(2)}
                                         total={a.saldo.toFixed(2)}
                                         tipo={"Ventas"}
                                         pago={true}
