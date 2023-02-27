@@ -31,7 +31,6 @@ console.log(ClienteById.nombre)
     }, [ClienteById])
 
     let AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
-    console.log(AllVentasByCliente)
     let VentasPendientes = AllVentasByCliente.filter((a)=>a.cliente===ClienteById.nombre && a.saldo>0)
     let AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
     let VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)

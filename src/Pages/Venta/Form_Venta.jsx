@@ -248,7 +248,7 @@ const Form_Venta = () => {
                         detalle: g.detalle,
                       };
                   });
-                  current.res.CuartoD = a.kg_total * 1 - a.kg * 1;
+                  current.res.CuartoD = (a.kg_total * 1 - a.kg * 1).toFixed(2);
                   current.res.ventaID =
                     current.res.ventaID == null
                       ? form.id

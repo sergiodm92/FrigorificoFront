@@ -24,15 +24,15 @@ const CardLarge = ({ id, fecha, para, cant, kg, total, tipo, pago, bstyle, bicon
     return (
         <div>
             <div className={styleCL.cont} onClick={()=>navigate(`/${tipo}/${id}`)}>
-                <div className={styleCL.item1}><p>{id.length>3?id.slice(id.length-3,id.length):id}</p></div>
+                <div className={styleCL.item1}><p>{id?.length>3?id.slice(id.length-3,id.length):id}</p></div>
 
                 <div className={styleCL.item2}><p>{fechaFormat}</p></div>
 
-                <div className={styleCL.item3}><p>{para.length>10?para.slice(0,13):para}</p></div>
+                <div className={styleCL.item3}><p>{para?.length>10?para.slice(0,13):para}</p></div>
 
                 <div className={styleCL.item4}><p>{cant}</p></div>
 
-                <div className={styleCL.item5}><p>{kg}</p></div>
+                <div className={styleCL.item5}><p>{typeof(kg)==="number"?kg.toFixed(2):kg}</p></div>
 
                 <div className={styleCL.item6}><p>{totalEstenPesos}</p></div>
             </div>

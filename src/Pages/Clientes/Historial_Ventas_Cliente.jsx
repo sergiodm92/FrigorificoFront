@@ -52,7 +52,7 @@ export default function Historial_Ventas_Cliente(){
                                 key={i}
                                 id={a.id}
                                 fecha={a.fecha}
-                                para={a.cliente.length>10?a.cliente.slice(0,10):a.cliente}
+                                para={a.cliente?.length>10?a.cliente.slice(0,10):a.cliente}
                                 cant={a.cant}
                                 kg={a.kg}
                                 total={a.total}
