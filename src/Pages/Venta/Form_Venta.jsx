@@ -367,6 +367,7 @@ const Form_Venta = () => {
       ...form,
       detalle: form.detalle.filter((d) => d !== e),
     });
+    setArrResesTotales(arrResesTotales.filter((r) => r !== e.correlativo))
   };
   //tema del calendario
   const outerTheme = createTheme({
