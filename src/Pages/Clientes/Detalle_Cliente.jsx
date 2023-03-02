@@ -24,7 +24,6 @@ export default function Detalle_Cliente(){
 
     const ClienteById = useSelector((state)=>(state.ClienteById))
 
-console.log(ClienteById.nombre)
     useEffect(() => {
         dispatch(getVentasByCliente(ClienteById.nombre))
         dispatch(getVentasAchurasByCliente(ClienteById.nombre))
@@ -107,7 +106,7 @@ console.log(ClienteById.nombre)
                 </div>
                 
                 <div className={style.cont}>
-                    {AllVentasByCliente[0]!=="sin datos"?
+                    {AllVentasByCliente[0]!=="sin datos" && VentasPendientes.length>0 &&  id == ClienteById.id ?
                     <div>
                         <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Carne con Saldo pendiente</h1></div>
                         <div className={style.title}>
@@ -124,7 +123,7 @@ console.log(ClienteById.nombre)
                             <div><b>Saldo($)</b></div>
                         </div>
                         <div className={style.cardsCont}>
-                            {VentasPendientes.map((a,i)=>{
+                            {VentasPendientes?.map((a,i)=>{
                                 return(
                                     <CardLarge
                                         id={a.id}
@@ -145,11 +144,14 @@ console.log(ClienteById.nombre)
                             }
                         </div>
                     </div>
+                    : AllVentasByCliente[0]!=="sin datos" && VentasPendientes.length==0 &&  id == ClienteById.id ?
+                    null
                     :   <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
                             <CircularProgress />
                         </Box>
                         }
-                    {VentasAchurasPendientes.length>0?
+                    {
+                        AllVentasAchurasByCliente[0]!=="sin datos" && VentasAchurasPendientes.length>0 &&  id == ClienteById.id ?
                     <div>
                         <div className={style.contTitle}><h1 className={style.titleP}>Ventas de Achuras con Saldo pendiente</h1></div>
                         <div className={style.title}>
@@ -166,7 +168,7 @@ console.log(ClienteById.nombre)
                             <div><b>Saldo($)</b></div>
                         </div>
                         <div className={style.cardsCont}>
-                            {VentasAchurasPendientes.map((a,i)=>{
+                            {VentasAchurasPendientes?.map((a,i)=>{
                                 return(
                                     <CardLarge
                                         id={a.id}
@@ -187,8 +189,12 @@ console.log(ClienteById.nombre)
                             }
                         </div>
                     </div>
-                    :null}
-                    {ClienteById.nombre?
+                    : AllVentasAchurasByCliente[0]!=="sin datos" && VentasAchurasPendientes.length==0 &&  id == ClienteById.id?
+                    null
+                    :<Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
+                            <CircularProgress />
+                        </Box>}
+                    {ClienteById.id?
                     <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Historial de Ventas"}
@@ -196,7 +202,7 @@ console.log(ClienteById.nombre)
                         ></LargeButton>
                     </div>
                     :null}
-                    {ClienteById.nombre?
+                    {ClienteById.id?
                     <div className={style.buttonLarge}>
                         <LargeButton
                             title={"Detalle de Pagos"}

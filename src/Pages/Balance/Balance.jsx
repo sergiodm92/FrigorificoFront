@@ -38,15 +38,15 @@ const dispatch = useDispatch()
             
                     if(r.CuartoT==0 && r.CuartoD==0 && r.stock==true && r.costo_kg){
                                                         kgStock+=r.kg
-                                                        totalEst+=r.costo_kg*r.kg*1.07
+                                                        totalEst+=r.costo_kg*1*r.kg*1.07
                                                     }
                     if(r.CuartoT>0 && r.stock==true ){
-                                        kgStock+=r.CuartoT
-                                        totalEst+=r.costo_kg*r.CuartoT*1.07
+                                        kgStock+=r.CuartoT*1
+                                        totalEst+=r.costo_kg*1*r.CuartoT*1.07
                                     }
                     if(r.CuartoD>0 && r.stock==true ){
-                                        kgStock+=r.CuartoD
-                                        totalEst+=r.costo_kg*r.CuartoD*1.07
+                                        kgStock+=r.CuartoD*1
+                                        totalEst+=r.costo_kg*1*r.CuartoD*1.07
                                     }
                 })
         })

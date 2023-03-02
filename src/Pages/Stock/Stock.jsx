@@ -27,9 +27,9 @@ export default function Stock(){
 
     AllFaenas.map((e)=>{
             e.detalle.map((a)=>{
-                if(a.CuartoT==0 && a.CuartoD==0 && a.stock==true )total_kg[3]+=a.kg
-                if(a.CuartoT>0 && a.stock==true)total_kg[3]+=a.CuartoT
-                if(a.CuartoD>0 && a.stock==true)total_kg[3]+=a.CuartoD
+                if(a.CuartoT==0 && a.CuartoD==0 && a.stock==true )total_kg[3]+=a.kg*1
+                if(a.CuartoT>0 && a.stock==true)total_kg[3]+=a.CuartoT*1
+                if(a.CuartoD>0 && a.stock==true)total_kg[3]+=a.CuartoD*1
 
 
             if(a.categoria==="Vaquillona" && a.stock==true){

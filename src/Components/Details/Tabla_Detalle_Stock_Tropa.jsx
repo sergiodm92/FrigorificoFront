@@ -12,21 +12,21 @@ export default function Tabla_Detalle_Stock_Tropa({ reses }) {
 
   resesStockTrue?.map((a) => {
     if (a.categoria === "Vaca") {
-      kgVaca += a.CuartoT > 0 ? a.CuartoT : a.CuartoD > 0 ? a.CuartoD : a.kg;
+      kgVaca += a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
     }
     if (a.categoria === "Vaquillona") {
       kgVaquillona +=
-        a.CuartoT > 0 ? a.CuartoT : a.CuartoD > 0 ? a.CuartoD : a.kg;
+        a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
     }
     if (a.categoria === "Novillito") {
       kgNovillito +=
-        a.CuartoT > 0 ? a.CuartoT : a.CuartoD > 0 ? a.CuartoD : a.kg;
+      a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
     }
     if (a.categoria === "Toro") {
-      kgToro += a.CuartoT > 0 ? a.CuartoT : a.CuartoD > 0 ? a.CuartoD : a.kg;
+      kgToro += a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
     }
     if (a.categoria === "Novillo Pesado") {
-      kgNovPes += a.CuartoT > 0 ? a.CuartoT : a.CuartoD > 0 ? a.CuartoD : a.kg;
+      kgNovPes += a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
     }
   });
 
@@ -73,12 +73,12 @@ export default function Tabla_Detalle_Stock_Tropa({ reses }) {
                 )}
                 <td>{e.categoria ? e.categoria : null}</td>
                 <td>
-                  {(e.CuartoT > 0
-                    ? e.CuartoT
-                    : e.CuartoD > 0
-                    ? e.CuartoD
-                    : e.kg
-                    ? e.kg
+                  {(e.CuartoT*1 > 0
+                    ? e.CuartoT*1
+                    : e.CuartoD*1 > 0
+                    ? e.CuartoD*1
+                    : e.kg*1
+                    ? e.kg*1
                     : 0
                   ).toFixed(2)}
                 </td>
