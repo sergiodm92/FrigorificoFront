@@ -183,10 +183,11 @@ const Form_Venta = () => {
       !error2.precio_kg &&
       formCV.precio_kg
     ) {
-      formCV.costo_kg = resSelect.costo_kg;
-      formCV.kg_total = resSelect.kg;
-      formCV.CuartoD = resSelect.CuartoD;
-      formCV.CuartoT = resSelect.CuartoT;
+      formCV.costo_kg = resSelect.costo_kg*1;
+      formCV.kg_total = resSelect.kg*1;
+      formCV.CuartoD = resSelect.CuartoD*1;
+      formCV.CuartoT = resSelect.CuartoT*1;
+      formCV.precio_kg = formCV.precio_kg*1;
       if (formCV.CuartoT > 0) formCV.kg = resSelect.CuartoT;
       if (formCV.CuartoD > 0) formCV.kg = resSelect.CuartoD;
       form.detalle.unshift(formCV);
@@ -564,7 +565,7 @@ const Form_Venta = () => {
                     res={e.res}
                     costo_kg={e.costo_kg}
                     margen={e.margen}
-                    precio_kg={e.precio_kg}
+                    precio_kg={e.precio_kg*1}
                     onClick={() => handleDelete(e)}
                   />
                 );

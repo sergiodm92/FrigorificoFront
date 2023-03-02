@@ -6,14 +6,11 @@ import styleBalance from "./Balance.module.scss"
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-
-
 export default function Balance(){
 
 const dispatch = useDispatch()
 
     useEffect(() => {
-
     dispatch(getAllFaenas())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
@@ -21,7 +18,6 @@ const dispatch = useDispatch()
     dispatch(getAllVentasultimos30dias())
     dispatch(getFaenasUltimosVeinteDias())
     }, [dispatch])
-
 
     const AllFaenas = useSelector((state)=>state.ultimasFaenas)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
