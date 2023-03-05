@@ -7,13 +7,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { getVentaByID } from "../../Redux/Actions/Actions"
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large"
 
-
-
 export default function Detalle_Reses_Venta() {
     const dispatch = useDispatch()
     const Navigate = useNavigate()
     const {id}=useParams()
-
 
     useEffect(() => {
         dispatch(getVentaByID(id))

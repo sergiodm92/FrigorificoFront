@@ -49,7 +49,7 @@ export default function DocPDFbyidV({pagosAnteriores, pago, venta, nombre, array
 
     return(
             <Document>
-                <Page size='A4'>
+                <Page size='A4' wrap={false}>
                     <View>
                         <View style={{width:"100%"}}>
                             <Image src="https://res.cloudinary.com/dc8ustv0k/image/upload/v1667830724/GestionApp/membrete_primera_opcion_neo3mh.png"/>
@@ -112,14 +112,14 @@ export default function DocPDFbyidV({pagosAnteriores, pago, venta, nombre, array
                                     <DataTableCell getContent={(e)=>e.correlativo} style={tableText}/>
                                     <DataTableCell getContent={(e)=>e.categoria} style={tableText}/>
                                     <DataTableCell getContent={(e)=>e.total_media} style={tableText}/>
-                                    <DataTableCell getContent={(e)=>e.kg.toFixed(2)} style={tableText}/>
+                                    <DataTableCell getContent={(e)=>e.kg} style={tableText}/>
                                     <DataTableCell getContent={(e)=>currencyFormatter({
                                                                         currency: "USD",
                                                                         value : e.precio_kg
                                                                     })} style={tableText}/>
                                     <DataTableCell getContent={(e)=>currencyFormatter({
                                                                         currency: "USD",
-                                                                        value : (e.precio_kg*e.kg)
+                                                                        value : (e.precio_kg*1*e.kg)
                                                                     })} style={{fontSize:"1.5vh", margin:"0.5vh", borderColor:"white", fontFamily:"Helvetica", textAlign:"right"}}/>
                                 </TableBody>
                             </Table>
@@ -132,7 +132,7 @@ export default function DocPDFbyidV({pagosAnteriores, pago, venta, nombre, array
                             <View style={{marginTop:"0.1vh", marginBottom:"0.1vh", textAlign:"right"}}>
                                 <Text style={datosClienteBold}>Total Pagado:   {currencyFormatter({
                                                                         currency: "USD",
-                                                                        value : (venta.total-venta.saldo)
+                                                                        value : (venta.total*-venta.saldo*1)
                                                                     })}</Text>
                             </View>
                             <View style={{marginTop:"0.1vh", marginBottom:"0.1vh", textAlign:"right"}}>

@@ -22,11 +22,6 @@ export default function Faenas(){
 
     const navigate = useNavigate();
 
-    faenas.sort(function(a,b){
-        if(a.fecha>b.fecha){return -1}
-        if(a.fecha<b.fecha){return 1}
-        return 0})
-
     return(
         <div className={style.ConteinerFaenas}>
             <NavBar

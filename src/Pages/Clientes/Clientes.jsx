@@ -63,7 +63,6 @@ export default function Clientes(){
                     </div>
                     <div className={style.cardsCont}>
                     {AllClientes.length>0?AllClientes.map((a)=>{
-
                         return(
                             <CardSmallCliente
                                 key={a.id}

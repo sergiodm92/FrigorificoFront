@@ -14,8 +14,8 @@ export default function PdfDetallePagosFrigorifico() {
   useEffect(() => {
     dispatch(getPagosFaenasByFrigorifico(nombre));
   }, [dispatch]);
-
-  const pagos = useSelector((state) => state.pagosByFrigorifico);
+  
+  const pagos = JSON.parse(localStorage.getItem("pagosFaenaByFrigorifico")).data
 
   return (
     <div className={style.ConteinerFaenas} id={style.ConteinerCenterPDF}>

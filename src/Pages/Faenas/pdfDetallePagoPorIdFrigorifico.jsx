@@ -21,7 +21,7 @@ export default function PdfDetallePagoPorIdFrigorifico() {
   let pago = [];
   let pagosAnteriores = [];
 
-  const pagos = useSelector((state) => state.pagosByFrigorifico);
+  const pagos = JSON.parse(localStorage.getItem("pagosFaenaByFrigorifico")).data
   pago = pagos !== [] ? pagos.filter((a) => a.id == id) : [];
   pagosAnteriores =
     pagos !== []

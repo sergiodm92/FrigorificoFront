@@ -8,8 +8,12 @@ export const login_state = () => {
 };
 //GET_CAJA
 //getSaldoVentasByCliente
-export const pagosPDF = (pagos, saldoPagos, cliente) =>{
-  let response= pagos.filter((a)=>a.check==true)
+export const pagosPDF = (arrPagosCancelados,saldoPagos,cliente,arrPagosConSaldo) =>{
+  let pagos = arrPagosCancelados.filter((a)=>a.check==true)
+  let response = [...pagos, ...arrPagosConSaldo]
+  localStorage.setItem("pagos",JSON.stringify({data:response}))
+  localStorage.setItem("saldoPagos",saldoPagos)
+  localStorage.setItem("cliente",JSON.stringify(cliente))
   return ({ type: "PAGOS_PDF", payload: [response,saldoPagos,cliente]  });
 }
 export const filtrarClientes = (filtro,AllClientes) => {
@@ -296,10 +300,14 @@ export const getAllFaenasConSaldo = () => {
               'auth-token': `${token}`
             }
           })
-          console.log(json.data.data)
+          let response = json.data.data.sort((a,b)=>{
+            if(a.fecha>b.fecha) return -1
+            else if(a.fecha<b.fecha) return 1
+            else return 0
+          })
           return dispatch({
           type: "GET_ALL_FAENAS_CON_SALDO",
-          payload: json.data.data},{
+          payload: response},{
           } )
       }
       catch (error) {
@@ -567,6 +575,7 @@ export const getVentasByCliente = (clientName) => {
               'auth-token': `${token}`
             }
           });
+          localStorage.setItem("ventasByCliente",JSON.stringify({data:json.data.data}))
           return dispatch({
           type: "GET_ALL_VENTAS_BY_CLIENTE",
           payload: json.data.data})
@@ -586,6 +595,7 @@ export const getVentasAchurasByCliente = (clientName) => {
               'auth-token': `${token}`
             }
           });
+          localStorage.setItem("ventasAchurasByCliente",JSON.stringify({data:json.data.data}))
           return dispatch({
           type: "GET_ALL_VENTAS_ACHURAS_BY_CLIENTE",
           payload: json.data.data})
@@ -624,7 +634,7 @@ export const getVentaByID = (id) => {
         };
 };
 
-      //Traer venta por ID
+//Traer venta por ID
 export const getVentaAchurasByID = (id) => {
   return async (dispatch) => {
       try {
@@ -1048,9 +1058,15 @@ export const getPagosFaenasByFrigorifico = (nombre) => {
               'auth-token': `${token}`
             }
           });
+          let response = json.data.data.sort((a,b)=>{
+            if(a.fecha>b.fecha) return 1
+            else if(a.fecha<b.fecha) return -1
+            else return 0
+          })
+          localStorage.setItem("pagosFaenaByFrigorifico",JSON.stringify({data:response}))
           return dispatch({
           type: "GET_PAGOS_FAENAS_BY_FRIGORIFICO",
-          payload: json.data.data})
+          payload: response})
       }
       catch (error) {
           console.log(error);

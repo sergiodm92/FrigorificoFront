@@ -47,7 +47,7 @@ export default function DocPDFByidF({pagosAnteriores, pago, faena, nombre}){
 
     return(
             <Document>
-                <Page size='A4'>
+                <Page size='A4' wrap={false}>
                     <View>
                         <View style={{width:"100%"}}>
                             <Image src="https://res.cloudinary.com/dc8ustv0k/image/upload/v1667830724/GestionApp/membrete_primera_opcion_neo3mh.png"/>
@@ -78,7 +78,7 @@ export default function DocPDFByidF({pagosAnteriores, pago, faena, nombre}){
                                             includeLeftBorder={false}
                                             includeRightBorder={false}
                                             includeTopBorder={false}>
-                                    <DataTableCell getContent={(e)=>e.fecha} style={tableText} weighting={0.4}/>
+                                    <DataTableCell getContent={(e)=>(new Date(e.fecha*1)).toLocaleDateString('es').replaceAll("/", "-")} style={tableText} weighting={0.4}/>
                                     <DataTableCell getContent={(e)=>e.formaDePago} style={tableText}/>
                                     <DataTableCell getContent={(e)=>currencyFormatter({
                                                                         currency: "USD",
@@ -87,7 +87,7 @@ export default function DocPDFByidF({pagosAnteriores, pago, faena, nombre}){
                                 </TableBody>
                             </Table>
                             </View>
-                            :<View></View>}
+                            :null}
                             <Text style={titlePagos}>Pago actual:</Text>
                             <Table data = {pago}>
                                 <TableHeader includeBottomBorder={false}
