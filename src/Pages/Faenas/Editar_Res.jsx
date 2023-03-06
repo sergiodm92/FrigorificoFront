@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { putkgRes} from "../../Redux/Actions/Actions.js";
+import { getFaenaById, getFaenasByTropa, putkgRes, putStockReses} from "../../Redux/Actions/Actions.js";
 import swal from "sweetalert";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import NavBar from '../../Components/Navbar/Navbar'
@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 const formCl = {
     correlativo:'',
-    kg:0
+    kg:null
 };
 
 //validaciones
@@ -23,15 +23,18 @@ export const validate = (cliente) => {
 const Form_Editar_Res = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const {tropa}=useParams()
+    const {id}=useParams()
 
-
+    useEffect(() => {
+        dispatch(getFaenaById(id))
+    }, [dispatch])
 
     //Estados globales
-    const AllReses = useSelector((state)=>(state.AllReses))
-    let arrayReses = AllReses.filter(a=>a.tropa==tropa && a.stock==true)
+    const faena= useSelector((state)=>(state.FaenaById))
 
+    let arrayReses = (faena.detalle)?.filter((a)=>a.stock===true)
+    console.log(arrayReses)
+    
     const [form, setForm] = useState(formCl);
     const [error, setError] = useState({});
 
@@ -54,7 +57,27 @@ const Form_Editar_Res = () => {
         if(
         !error.correlativo && form.correlativo 
         ){
-            dispatch(putkgRes(form))
+            let arr = arrayReses.find(a=>a.correlativo==form.correlativo)
+            console.log(arr)
+            let newDetalle=faena.detalle.filter(a=>a.correlativo!==form.correlativo)
+            if(arr.CuartoD>0){
+                form.CuartoD=form.kg*1
+                form.kg=arr.kg*1
+            }
+            else if(arr.CuartoT>0){
+                form.CuartoT=form.kg*1
+                form.kg=arr.kg*1
+            }
+            else{
+                form.CuartoD=arr.CuartoD
+                form.CuartoT=arr.CuartoT
+                form.kg=form.kg*1
+            }
+            form.categoria=arr.categoria
+            form.costo_kg=arr.costo_kg
+            form.stock=arr.stock
+            newDetalle.push(form)
+            dispatch(putStockReses([{id: id, detalle: newDetalle}]))
         swal({
             title: "Res modificada con éxito",
             text: "kg cargados correctamente",
@@ -81,10 +104,6 @@ const Form_Editar_Res = () => {
         })
     }
 
-    const handleDet = () => {
-        navigate("/Faenas")
-    };
-
     return (
         <div className={style.ConteinerFaenas}>
             <NavBar
@@ -96,7 +115,7 @@ const Form_Editar_Res = () => {
                         <h5 className={style.titleForm}>Correlativo: </h5>
                         <select id="correlativo" className="selectform" onChange={(e)=> handleSelect(e)}>
                             <option defaultValue>-</option>
-                            {arrayReses.length > 0 &&  
+                            {arrayReses?.length > 0 &&  
                                 arrayReses.map((e,i) => (
                                     <option key={i}	value={e.correlativo}>{e.correlativo}</option>
                                     ))
@@ -107,7 +126,7 @@ const Form_Editar_Res = () => {
                     <div className={style.formItem}>
                         <h5 className={style.titleForm}>kg: </h5>
                         <input
-                            type="text"
+                            type="number"
                             value={form.kg}
                             id="kg"
                             name="kg"
@@ -115,11 +134,6 @@ const Form_Editar_Res = () => {
                         />
                     </div>
                     <div className={style.buttons}>
-                        <ShortButton
-                            title="📃 Detalle"
-                            onClick={handleDet}
-                            color="primary"
-                        />
                         <ShortButton
                             title="✔ Confirmar"
                             onClick={handleSubmit}

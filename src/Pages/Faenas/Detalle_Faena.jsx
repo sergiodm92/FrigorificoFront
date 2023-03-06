@@ -25,6 +25,7 @@ export default function Detalle_Faena(){
     }, [dispatch])
 
     const faena= useSelector((state)=>(state.FaenaById))
+    console.log(faena)
     const pagos= useSelector((state)=>(state.AllPagosbyFaena))
     
     const deleteFaena = ()=>{

@@ -10,7 +10,7 @@ const CardLarge = ({ id, fecha, para, cant, kg, total, tipo, pago, bstyle, bicon
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
-            minimumFractionDigits: 2,
+            minimumFractionDigits: 0,
             currency
         }) //comentario para borrar
         return formatter.format(value)
@@ -32,7 +32,7 @@ const CardLarge = ({ id, fecha, para, cant, kg, total, tipo, pago, bstyle, bicon
 
                 <div className={styleCL.item4}><p>{cant}</p></div>
 
-                <div className={styleCL.item5}><p>{typeof(kg)==="number"?kg.toFixed(2):kg}</p></div>
+                <div className={styleCL.item5}><p>{typeof(kg)==="number"?kg.toFixed(1):kg}</p></div>
 
                 <div className={styleCL.item6}><p>{totalEstenPesos}</p></div>
             </div>

@@ -89,7 +89,7 @@ function App() {
       <Route exact path="/Faenas/Historial" element={state_login?<Historial_Faena />:<NoAccess/>} />
       <Route exact path="/Faenas/FormPagos/:id" element={state_login?<Form_Pago_Faena />:<NoAccess/>} />
       <Route exact path="/Faenas/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
-      <Route exact path="/Faenas/editarRes/:tropa" element={state_login?<Form_Editar_Res />:<NoAccess/>} />
+      <Route exact path="/Faenas/editarRes/:id" element={state_login?<Form_Editar_Res />:<NoAccess/>} />
       <Route exact path="/FormFaena" element={state_login?<Form_Faena />:<NoAccess/>} />
       <Route exact path="/Faenas/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosFrigorifico/>:<NoAccess/>}/>
       <Route exact path="/Faenas/DetallePagos/:nombre/:id/pdf" element=<PdfDetallePagoPorIdFrigorifico/>/>

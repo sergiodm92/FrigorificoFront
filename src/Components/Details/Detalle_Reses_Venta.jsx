@@ -31,7 +31,7 @@ export default function TableDetRes({ venta }) {
           </tr>
         </thead>
         <tbody>
-          {venta.detalle.map((a, j) => {
+          {venta.detalle?.map((a, j) => {
             return (
               <tr key={j} className={"table-warning"}>
                 <td>
