@@ -30,6 +30,10 @@ export default function Detalle_Proveedor(){
     
     const AllComprasByProveedor = useSelector((state)=>state.AllComprasByProveedor)
     const ComprasPendientes = AllComprasByProveedor.filter((a)=>a.saldo>0)
+    ComprasPendientes.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
 
     const deleteProveedor = ()=>{
         if(AllComprasByProveedor.length>0){
@@ -102,19 +106,14 @@ export default function Detalle_Proveedor(){
                 {AllComprasByProveedor[0]!=="sin datos"?
                     <div>
                         <div className={stylePr.contTitle}><h1 className={stylePr.titleP}>Compras con Saldo pendiente</h1></div>
-                        <div className={stylePr.title}>
-                            <div><b>ID</b></div>
-                            <div><b>|</b></div>
-                            <div><b>Fecha</b></div>
-                            <div><b>|</b></div>
-                            <div><b>Proveedor</b></div>
-                            <div><b>|</b></div>
-                            <div><b>Cant</b></div>
-                            <div><b>|</b></div>
-                            <div><b>kg</b></div>
-                            <div><b>|</b></div>
-                            <div><b>Saldo($)</b></div>
-                        </div>
+                        <div className={stylePr.titleCards}>
+                    <div><b>ID</b></div>
+                    <div><b>Fecha</b></div>
+                    <div><b>Proveedor</b></div>
+                    <div><b>Cant</b></div>
+                    <div><b>kg</b></div>
+                    <div><b>Saldo($)</b></div>
+                </div>
                         <div className={stylePr.cardsCont}>
                             {ComprasPendientes.map((a)=>{
                                 return(

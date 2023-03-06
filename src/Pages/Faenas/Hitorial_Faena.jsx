@@ -29,29 +29,12 @@ export default function Historial_Faena() {
     <div className={style.ConteinerFaenas}>
       <NavBar title={"Hist. Faenas"} />
       <div>
-        <div className={style.title}>
-          <div>
-            <b>Fecha</b>
-          </div>
-          <div>
-            <b>|</b>
-          </div>
-          <div>
-            <b>Frigorífico</b>
-          </div>
-          <div>
-            <b>|</b>
-          </div>
-          <div>
-            <b>Tropa</b>
-          </div>
-          <div>
-            <b>|</b>
-          </div>
-          <div>
-            <b>Monto($)</b>
-          </div>
-        </div>
+      <div className={style.titles}>
+                    <div className={style.title1}><b>Fecha</b></div>
+                    <div className={style.title2}><b>Frigorífico</b></div>
+                    <div className={style.title3}><b>Tropa</b></div>
+                    <div className={style.title4}><b>Saldo($)</b></div>
+                </div>
         <div className={style.cardsCont}>
           {AllFaenas.length > 0 ? (
             AllFaenas?.map((a, i) => {

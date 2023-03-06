@@ -22,6 +22,10 @@ export default function Historial_Ventas_Achuras(){
         dispatch(getAllVentasAchuras())
     }, [dispatch])
     const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchuras))
+    AllVentasAchuras.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
 
     const filtrado = (e) =>{
         e.preventDefault()
@@ -39,7 +43,6 @@ export default function Historial_Ventas_Achuras(){
     }
 }
 })
-
     return(
         <div className={style.ConteinerVenta}>
             <NavBar
@@ -51,17 +54,14 @@ export default function Historial_Ventas_Achuras(){
                 </ThemeProvider>
             </div>
             <div>
-                <div className={style.title}>
-                    <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cliente</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cant</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Monto($)</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Saldo($)</b></div>
-                </div>
+            <div className={style.titleCards} >
+                <div><b>ID</b></div>
+                <div><b>Fecha</b></div>
+                <div><b>Cliente</b></div>
+                <div><b>Cant</b></div>
+                <div><b>kg</b></div>
+                <div><b>Saldo($)</b></div>
+            </div>
                 <div className={style.cardsCont}>
                     {AllVentasAchuras.length>0?
                         AllVentasAchuras?.map((a,i)=>{

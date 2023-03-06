@@ -48,17 +48,14 @@ export default function Historial_Ventas(){
                 </ThemeProvider>
             </div>
             <div>
-                <div className={style.title}>
-                    <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cliente</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cant</b></div>
-                    <div><b>|</b></div>
-                    <div><b>kg</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Monto($)</b></div>
-                </div>
+            <div className={style.titleCards} >
+                <div><b>ID</b></div>
+                <div><b>Fecha</b></div>
+                <div><b>Cliente</b></div>
+                <div><b>Cant</b></div>
+                <div><b>kg</b></div>
+                <div><b>Saldo($)</b></div>
+            </div>
                 <div className={style.cardsCont}>
                     {AllVentas.length>0?
                         AllVentas?.map((a, i)=>{

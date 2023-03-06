@@ -127,10 +127,23 @@
 .tablefaena{
     margin-top: 2%;
     width: 600px;
+    font-size: 12px;
 }
 @media screen and (max-width: 500px) {
     .tablefaena{
 scale: 0.68;
+    }
+    .titleCards{
+        display: flex;
+        position: relative;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        color: var(--ColorFontTwo);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        margin-top: 20px;
     }
 }
 .tdDF{
@@ -176,6 +189,18 @@ scale: 0.68;
 }
 .title{
     font-size: 16px;
+}
+.titleCards{
+    display: flex;
+    position: relative;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    color: var(--ColorFontTwo);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    margin-top: 20px;
 }
 p.danger {
 	color: var(--ColorFontTrhee);

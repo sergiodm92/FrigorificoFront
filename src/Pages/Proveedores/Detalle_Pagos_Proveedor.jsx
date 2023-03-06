@@ -22,6 +22,10 @@ export default function Detalle_Pagos_Proveedor() {
     }, [dispatch])
 
     const pagos = useSelector((state)=>state.pagosByProveedor)
+    pagos.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
     const compras = useSelector((state)=>state.AllComprasByProveedor)
     
     function currencyFormatter({ currency, value}) {
@@ -77,7 +81,7 @@ export default function Detalle_Pagos_Proveedor() {
             <NavBar
                 title={`Pagos de ${nombre}`}
             />
-            {pagos[0]=="sin datos" || pagos[0].proveedor!==nombre?
+            {pagos[0]=="sin datos" && pagos[0]?.proveedor!==nombre?
             <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
                 <CircularProgress />
             </Box>

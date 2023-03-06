@@ -34,6 +34,15 @@ export default function Detalle_Cliente(){
     let AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
     let VentasAchurasPendientes = AllVentasAchurasByCliente.filter((a)=>a.clien===ClienteById.nombre && a.saldo>0)
 
+    VentasPendientes.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+    VentasAchurasPendientes.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+
     const deleteCliente = ()=>{
         if(AllVentasByCliente.length>0 && AllVentasAchurasByCliente.length>0){
             swal({

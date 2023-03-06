@@ -25,6 +25,16 @@ export default function Historial_Ventas_Cliente(){
     const AllVentasByCliente = useSelector((state)=>state.AllVentasByCliente)
     const AllVentasAchurasByCliente = useSelector((state)=>state.AllVentasAchurasByCliente)
 
+    AllVentasByCliente.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+    
+    AllVentasAchurasByCliente.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+
     return(
         <div className={style.conteinerAll}>
             <NavBar

@@ -22,6 +22,10 @@ export default function Detalle_Pagos_Frigorifico() {
     }, [dispatch])
 
     const pagos = useSelector((state)=>state.pagosByFrigorifico)
+    pagos.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
     const faenas = useSelector((state)=>state.AllFaenas)
     
     function currencyFormatter({ currency, value}) {

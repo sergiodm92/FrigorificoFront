@@ -20,24 +20,24 @@ export default function Historial_Compras_Proveedor(){
     
     const AllComprasByProveedor = useSelector((state)=>state.AllComprasByProveedor)
 
+    AllComprasByProveedor.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+
     return(
         <div className={stylePr.ConteinerProveedores}>
             <NavBar
             title={name}
             />
             <div>
-                <div className={stylePr.title}>
+            <div className={stylePr.titleCards}>
                     <div><b>ID</b></div>
-                    <div><b>|</b></div>
                     <div><b>Fecha</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Cliente</b></div>
-                    <div><b>|</b></div>
+                    <div><b>Proveedor</b></div>
                     <div><b>Cant</b></div>
-                    <div><b>|</b></div>
                     <div><b>kg</b></div>
-                    <div><b>|</b></div>
-                    <div><b>Monto($)</b></div>
+                    <div><b>Saldo($)</b></div>
                 </div>
                 <div className={stylePr.cardsCont}>
                     {AllComprasByProveedor.length>0?
