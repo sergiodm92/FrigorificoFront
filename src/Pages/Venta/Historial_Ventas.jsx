@@ -5,9 +5,11 @@ import style from "./Ventas.module.scss";
 import { filtrarVentas, getAllVentas } from "../../Redux/Actions/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { createTheme, TextField, ThemeProvider } from "@mui/material";
+import { createTheme, Input, TextField, ThemeProvider } from "@mui/material";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { Button } from "@material-ui/core";
+import Swal from "sweetalert2";
 
 
 
@@ -17,17 +19,49 @@ export default function Historial_Ventas(){
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [filter,setFilter] = useState("")
+    const [Ventas,setVentas] = useState(AllVentas)
 
     useEffect(() => {
         dispatch(getAllVentas())
     }, [dispatch])
 
-    const filtrado = (e) =>{
+    const onChangefiltrado = (e) =>{
         e.preventDefault()
         setFilter(e.target.value)
-        dispatch(filtrarVentas(filter,AllVentas))
-        if(e.target.value=="")dispatch(getAllVentas())
     }
+    const filtrarPorCorrelativo = ()=>{
+        let filterVentas = []
+        filterVentas = AllVentas.filter((venta) =>
+        venta.detalle.some((res) => res.correlativo.includes(filter)))
+        setVentas(filterVentas.length===0?AllVentas:filterVentas)
+        if(filterVentas.length===0){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'warning',
+            title: `No se encontraron ventas que incluyan el correlativo ${filter}`
+          })  
+    }
+    }
+
+    AllVentas.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
+
+        useEffect(() => {
+            setVentas(AllVentas)
+    }, [AllVentas])
 
     const outerTheme = createTheme({
         palette: {
@@ -42,12 +76,17 @@ export default function Historial_Ventas(){
             <NavBar
             title={"Hist. Ventas"}
             />
-            <div  className={style.search}>
-                <ThemeProvider theme={outerTheme}>
-                    <TextField value={filter} focused="true"  placeholder="ingrese nombre🔎"  onChange={filtrado}/>
-                </ThemeProvider>
-            </div>
             <div>
+            <div className={style.search}>
+                <div>
+                    <ThemeProvider theme={outerTheme}>
+                    <Input  value={filter}   placeholder="ingrese un correlativo" onChange={onChangefiltrado} />
+                    </ThemeProvider>
+                </div>
+                <div>
+                    <Button onClick={filtrarPorCorrelativo}>ok</Button>
+                </div>
+            </div>
             <div className={style.titleCards} >
                 <div><b>ID</b></div>
                 <div><b>Fecha</b></div>
@@ -57,8 +96,8 @@ export default function Historial_Ventas(){
                 <div><b>Saldo($)</b></div>
             </div>
                 <div className={style.cardsCont}>
-                    {AllVentas.length>0?
-                        AllVentas?.map((a, i)=>{
+                    {Ventas.length?
+                        Ventas?.map((a, i)=>{
                         return(
                             <CardLarge
                                 key={i}

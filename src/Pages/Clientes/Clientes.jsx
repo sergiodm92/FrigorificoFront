@@ -43,7 +43,6 @@ export default function Clientes(){
         }
         })
 
-
     return(
         <div className={style.conteinerAll}>
                 <NavBar
@@ -87,10 +86,6 @@ export default function Clientes(){
                         ></LargeButton>
                     </div>
                 </div>
-            
-            {/* <div className={styleCl.marca}>
-                <Marca/>
-            </div> */}
         </div>
     )
 }

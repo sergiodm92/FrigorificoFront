@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {getAllVentasAchurasConSaldo, getAllVentasConSaldo } from "../../Redux/Actions/Actions";
-import { useNavigate } from "react-router-dom";
+import { useFetcher, useNavigate } from "react-router-dom";
 import NavBar from "../../Components/Navbar/Navbar"
 import CardLarge from "../../Components/Cards/Card_Large/Card_Large"
 import style from "./Ventas.module.scss";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
+import { ThemeProvider } from "@emotion/react";
+import { createTheme, Input, TextField } from "@mui/material";
+import { Button } from "@material-ui/core";
+import Swal from "sweetalert2";
 
 
 export default function Ventas(){
@@ -21,8 +24,17 @@ export default function Ventas(){
         dispatch(getAllVentasAchurasConSaldo())
     }, [dispatch])
 
-    const AllVentas= useSelector((state)=>(state.AllVentasConSaldo))
-    const AllVentasAchuras= useSelector((state)=>(state.AllVentasAchurasConSaldo))
+
+
+    let AllVentas= useSelector((state)=>(state.AllVentasConSaldo))
+    let AllVentasAchuras= useSelector((state)=>(state.AllVentasAchurasConSaldo))
+
+
+    const [filter,setFilter] = useState("")
+    const [Ventas,setVentas] = useState(AllVentas)
+    console.log(Ventas)
+    console.log(AllVentas)
+    
 
     AllVentas.sort(function(a,b){
         if(a.fecha>b.fecha){return -1}
@@ -34,7 +46,49 @@ export default function Ventas(){
         if(a.fecha<b.fecha){return 1}
         return 0})
 
-    
+        useEffect(() => {
+            setVentas(AllVentas)
+    }, [AllVentas])
+
+
+const onChangefiltrado = (e) =>{
+    e.preventDefault()
+    setFilter(e.target.value)
+}
+
+const filtrarPorCorrelativo = ()=>{
+    let filterVentas = []
+    filterVentas = AllVentas.filter((venta) =>
+    venta.detalle.some((res) => res.correlativo.includes(filter)))
+    setVentas(filterVentas.length===0?AllVentas:filterVentas)
+    if(filterVentas.length===0){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'warning',
+            title: `No se encontraron ventas que incluyan el correlativo ${filter}`
+          })  
+    }
+}
+
+const outerTheme = createTheme({
+    palette: {
+        primary: {
+            main: 'rgb(255, 159, 0)',
+        }
+    }
+    })
+
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -51,8 +105,19 @@ export default function Ventas(){
             onClick={"/home"}
             />
             <div>
+       
                 <div className={style.contV}>
                     <h1 className={style.firstTitle}>Ventas de Carne</h1>
+                    <div className={style.search}>
+                <div>
+                    <ThemeProvider theme={outerTheme}>
+                    <Input  value={filter}   placeholder="ingrese un correlativo" onChange={onChangefiltrado} />
+                    </ThemeProvider>
+                </div>
+                <div>
+                    <Button onClick={filtrarPorCorrelativo}>ok</Button>
+                </div>
+            </div>
                     <div className={style.titleCards} >
                         <div><b>ID</b></div>
                         <div><b>Fecha</b></div>
@@ -62,8 +127,8 @@ export default function Ventas(){
                         <div><b>Saldo($)</b></div>
                     </div>
                     <div className={style.cardsCont}>
-                        {AllVentas.length?
-                            AllVentas.map((a,i)=>{
+                        {Ventas.length?
+                            Ventas.map((a,i)=>{
                             return(
                                 <CardLarge
                                     id={a.id}

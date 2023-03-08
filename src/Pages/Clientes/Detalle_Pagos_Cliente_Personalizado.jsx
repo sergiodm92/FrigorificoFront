@@ -11,6 +11,7 @@ import {
 import style from "./Clientes.module.scss";
 import CardLargeDetallePagos from "../../Components/Cards/Card_Large_Detalle_Pagos/Card_Large_Detalle_Pagos";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
+import Swal from "sweetalert2";
 
 export default function PdfDetallePagosClientesPersonalizado() {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ export default function PdfDetallePagosClientesPersonalizado() {
       }
     });
   });
+  arrPagosCancelados.sort(function(a,b){
+    if(a.fecha>b.fecha){return -1}
+    if(a.fecha<b.fecha){return 1}
+    return 0})
 
   function checkear(e) {
     arrPagosCancelados[e.target.id].check = arrPagosCancelados[e.target.id]
@@ -54,11 +59,52 @@ export default function PdfDetallePagosClientesPersonalizado() {
       ? false
       : true;
   }
+
+  function hasSameVentaID(pagos, pagosNoCheck) {
+    // Recorrer cada objeto del array 'pagosNoCheck'
+    for (let i = 0; i < pagosNoCheck.length; i++) {
+      const ventaID = pagosNoCheck[i].ventaID;
+      
+      // Comprobar si algún objeto del array 'pagos' tiene el mismo 'ventaID'
+      const found = pagos.some(pago => pago.ventaID === ventaID);
+      
+      if (found) {
+        // Se encontró una coincidencia, devolver 'true'
+        return true;
+      }
+    }
+    
+    // No se encontró ninguna coincidencia
+    return false;
+  }
+
   function generarPDF() {
+    let pagos = []
+    let pagosNoCheck = []
+    arrPagosCancelados.map((pago)=>pago.check==true?pagos.push(pago):pagosNoCheck.push(pago))
+    if(!hasSameVentaID(pagos, pagosNoCheck)){
     dispatch(
-      pagosPDF(arrPagosCancelados, saldoPagos, cliente, arrPagosConSaldo)
+      pagosPDF(pagos, saldoPagos, cliente, arrPagosConSaldo)
     );
     navigate("/Clientes/DetallePagos/PdfDetallePagosClientesPersonalizado");
+    }
+    else {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      Toast.fire({
+        icon: 'warning',
+        title: "debe seleccionar todos los pagos que pertenecen a una misma venta"
+      })  
+      }
   }
   return (
     <div className={style.conteinerAll}>

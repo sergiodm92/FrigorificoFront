@@ -54,6 +54,10 @@ export default function PdfDetallePagosClientesPersonalizado(){
             })
         }
     })
+    ventas.sort(function(a,b){
+        if(a.fecha>b.fecha){return -1}
+        if(a.fecha<b.fecha){return 1}
+        return 0})
     return(
         <div className={style.conteinerAll} id={style.asd}>
             <div className="d-none d-lg-block">

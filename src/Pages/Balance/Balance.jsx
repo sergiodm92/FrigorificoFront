@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllVentas, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import CircularProgress from '@mui/material/CircularProgress';
@@ -12,6 +12,7 @@ const dispatch = useDispatch()
 
     useEffect(() => {
     dispatch(getAllFaenas())
+    dispatch(getAllVentas())
     dispatch(getSaldoAllComrpas())
     dispatch(getSaldoAllVentas())
     dispatch(getSaldoAllFaenas())
@@ -20,6 +21,7 @@ const dispatch = useDispatch()
     }, [dispatch])
 
     const AllFaenas = useSelector((state)=>state.ultimasFaenas)
+    const AllVentas = useSelector((state)=>state.AllVentas)
     const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
     const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
@@ -28,6 +30,7 @@ const dispatch = useDispatch()
     let [kgStock,setKgStock] = useState(0)
     let [totalEst,setTotalEst] = useState(0)
     let [gananciaMensual,setGananciaMensual] = useState(0)
+    let [kgMensual,setkgMensual] = useState(0)
 
     AllFaenas.map((a)=>{
         a.detalle.map((r)=>{
@@ -46,9 +49,27 @@ const dispatch = useDispatch()
                                     }
                 })
         })
-    
-        if(VentasUltimos30Dias.length)VentasUltimos30Dias.map(a=>{gananciaMensual+=(a.total-a.costo)})
+        let acumKg = 0;
+        let gananciaUltimos30Dias = 0;
 
+        if(VentasUltimos30Dias.length){
+            VentasUltimos30Dias.map(a=>{
+                gananciaUltimos30Dias+=(a.total-a.costo)
+                if(new Date(a.fecha).toLocaleDateString("es").slice(2,3)==new Date().toLocaleDateString("es").slice(2,3)){
+                gananciaMensual+=(a.total-a.costo)
+                }
+            }
+            ) 
+        }
+        if(AllVentas.length){
+            AllVentas.map(a=>{
+                if(new Date(a.fecha).toLocaleDateString("es").slice(2,3)==new Date().toLocaleDateString("es").slice(2,3)){
+                    acumKg+=a.kg
+                }
+            }
+            ) 
+        }
+        
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -62,10 +83,14 @@ const dispatch = useDispatch()
         currency: "USD",
         value : totalEst
         })
-    const gananciaMensualEnPesos = currencyFormatter({
+    const gananciaMensualUltimos30EnPesos = currencyFormatter({
         currency: "USD",
-        value : gananciaMensual
+        value : gananciaUltimos30Dias
         })
+        const gananciaMensualEnPesos = currencyFormatter({
+            currency: "USD",
+            value : gananciaMensual
+            })
     const saldoFaenaPendienteEnPesos = currencyFormatter({
         currency: "USD",
         value : saldoTotalFaenas
@@ -93,8 +118,16 @@ const dispatch = useDispatch()
                     <table className="table">
                         <tbody>
                             <tr>
-                                <td className="table-warning">Ganancia mensual</td>
+                                <td className="table-warning">Ganancia de los ultimos 30 Dias</td>
+                                <td className="table-warning">{gananciaMensualUltimos30EnPesos}</td>
+                            </tr>
+                            <tr>
+                                <td className="table-warning">Ganancia mes actual</td>
                                 <td className="table-warning">{gananciaMensualEnPesos}</td>
+                            </tr>
+                            <tr>
+                                <td className="table-warning">Kg vendidos mes actual</td>
+                                <td className="table-warning">{acumKg}kg</td>
                             </tr>
                             <tr>
                                 <td className="table-dark" colSpan="2">Stock</td>

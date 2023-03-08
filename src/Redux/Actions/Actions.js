@@ -1,15 +1,15 @@
 import axios from "axios";
-//filter
+
 //GET_ALL_VENTAS_BY_CLIENTE
 // estado de login
+
 export const login_state = () => {
     const e = localStorage.getItem("login")
     return ({ type: "LOGIN_STATE", payload: e  });
 };
 //GET_CAJA
 //getSaldoVentasByCliente
-export const pagosPDF = (arrPagosCancelados,saldoPagos,cliente,arrPagosConSaldo) =>{
-  let pagos = arrPagosCancelados.filter((a)=>a.check==true)
+export const pagosPDF = (pagos,saldoPagos,cliente,arrPagosConSaldo) =>{
   let response = [...pagos, ...arrPagosConSaldo]
   localStorage.setItem("pagos",JSON.stringify({data:response}))
   localStorage.setItem("saldoPagos",saldoPagos)
@@ -504,7 +504,6 @@ export const getAllVentasultimos30dias = () => {
               'auth-token': `${token}`
             }
           });
-          console.log(json.data.data)
           return dispatch({
           type: "GET_ALL_VENTAS_ULTIMOS_30_DIAS",
           payload: json.data.data})
