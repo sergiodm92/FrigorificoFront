@@ -1,119 +1,120 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllVentas, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas} from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllVentas, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas } from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Graph from '../../Components/Graph/Graph'
 
-export default function Balance(){
+export default function Balance() {
 
-const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
-    dispatch(getAllFaenas())
-    dispatch(getAllVentas())
-    dispatch(getSaldoAllComrpas())
-    dispatch(getSaldoAllVentas())
-    dispatch(getSaldoAllFaenas())
-    dispatch(getAllVentasultimos30dias())
-    dispatch(getFaenasUltimosVeinteDias())
+        dispatch(getAllFaenas())
+        dispatch(getAllVentas())
+        dispatch(getSaldoAllComrpas())
+        dispatch(getSaldoAllVentas())
+        dispatch(getSaldoAllFaenas())
+        dispatch(getAllVentasultimos30dias())
+        dispatch(getFaenasUltimosVeinteDias())
     }, [dispatch])
 
-    const AllFaenas = useSelector((state)=>state.ultimasFaenas)
-    const AllVentas = useSelector((state)=>state.AllVentas)
-    const VentasUltimos30Dias = useSelector((state)=>state.VentasUltimos30Dias)
-    const saldoTotalProveedores = useSelector((state)=>state.saldoAllCompras)
-    const saldoTotalClientes = useSelector((state)=>state.saldoAllVentas)
-    const saldoTotalFaenas = useSelector((state)=>state.saldoAllFaenas)
+    const AllFaenas = useSelector((state) => state.ultimasFaenas)
+    const AllVentas = useSelector((state) => state.AllVentas)
+    const VentasUltimos30Dias = useSelector((state) => state.VentasUltimos30Dias)
+    const saldoTotalProveedores = useSelector((state) => state.saldoAllCompras)
+    const saldoTotalClientes = useSelector((state) => state.saldoAllVentas)
+    const saldoTotalFaenas = useSelector((state) => state.saldoAllFaenas)
 
-    let [kgStock,setKgStock] = useState(0)
-    let [totalEst,setTotalEst] = useState(0)
-    let [gananciaMensual,setGananciaMensual] = useState(0)
-    let [kgMensual,setkgMensual] = useState(0)
+    let [kgStock, setKgStock] = useState(0)
+    let [totalEst, setTotalEst] = useState(0)
+    let [gananciaMensual, setGananciaMensual] = useState(0)
+    let [kgMensual, setkgMensual] = useState(0)
 
-    AllFaenas.map((a)=>{
-        a.detalle.map((r)=>{
-            
-                    if(r.CuartoT==0 && r.CuartoD==0 && r.stock==true && r.costo_kg){
-                                                        kgStock+=r.kg
-                                                        totalEst+=r.costo_kg*1*r.kg*1.07
-                                                    }
-                    if(r.CuartoT>0 && r.stock==true ){
-                                        kgStock+=r.CuartoT*1
-                                        totalEst+=r.costo_kg*1*r.CuartoT*1.07
-                                    }
-                    if(r.CuartoD>0 && r.stock==true ){
-                                        kgStock+=r.CuartoD*1
-                                        totalEst+=r.costo_kg*1*r.CuartoD*1.07
-                                    }
-                })
+    AllFaenas.map((a) => {
+        a.detalle.map((r) => {
+
+            if (r.CuartoT == 0 && r.CuartoD == 0 && r.stock == true && r.costo_kg) {
+                kgStock += r.kg
+                totalEst += r.costo_kg * 1 * r.kg * 1.07
+            }
+            if (r.CuartoT > 0 && r.stock == true) {
+                kgStock += r.CuartoT * 1
+                totalEst += r.costo_kg * 1 * r.CuartoT * 1.07
+            }
+            if (r.CuartoD > 0 && r.stock == true) {
+                kgStock += r.CuartoD * 1
+                totalEst += r.costo_kg * 1 * r.CuartoD * 1.07
+            }
         })
-        let acumKg = 0;
-        let gananciaUltimos30Dias = 0;
+    })
+    let acumKg = 0;
+    let gananciaUltimos30Dias = 0;
 
-        if(VentasUltimos30Dias.length){
-            VentasUltimos30Dias.map(a=>{
-                gananciaUltimos30Dias+=(a.total-a.costo)
-                if(new Date(a.fecha).toLocaleDateString("es").slice(2,3)==new Date().toLocaleDateString("es").slice(2,3)){
-                gananciaMensual+=(a.total-a.costo)
-                }
+    if (VentasUltimos30Dias.length) {
+        VentasUltimos30Dias.map(a => {
+            gananciaUltimos30Dias += (a.total - a.costo)
+            if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
+                gananciaMensual += (a.total - a.costo)
             }
-            ) 
         }
-        if(AllVentas.length){
-            AllVentas.map(a=>{
-                if(new Date(a.fecha).toLocaleDateString("es").slice(2,3)==new Date().toLocaleDateString("es").slice(2,3)){
-                    acumKg+=a.kg
-                }
+        )
+    }
+    if (AllVentas.length) {
+        AllVentas.map(a => {
+            if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
+                acumKg += a.kg
             }
-            ) 
         }
-        
-    function currencyFormatter({ currency, value}) {
+        )
+    }
+
+    function currencyFormatter({ currency, value }) {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
             minimumFractionDigits: 2,
             currency
-        }) 
+        })
         return formatter.format(value)
-        }
+    }
 
     const totalEstenPesos = currencyFormatter({
         currency: "USD",
-        value : totalEst
-        })
+        value: totalEst
+    })
     const gananciaMensualUltimos30EnPesos = currencyFormatter({
         currency: "USD",
-        value : gananciaUltimos30Dias
-        })
-        const gananciaMensualEnPesos = currencyFormatter({
-            currency: "USD",
-            value : gananciaMensual
-            })
+        value: gananciaUltimos30Dias
+    })
+    const gananciaMensualEnPesos = currencyFormatter({
+        currency: "USD",
+        value: gananciaMensual
+    })
     const saldoFaenaPendienteEnPesos = currencyFormatter({
         currency: "USD",
-        value : saldoTotalFaenas
-        })
+        value: saldoTotalFaenas
+    })
     const saldoProvPendienteEnPesos = currencyFormatter({
         currency: "USD",
-        value : saldoTotalProveedores
-        })
+        value: saldoTotalProveedores
+    })
     const saldoClientePendienteEnPesos = currencyFormatter({
         currency: "USD",
-        value : saldoTotalClientes
-        })
+        value: saldoTotalClientes
+    })
     const saldoPagarEnPesos = currencyFormatter({
         currency: "USD",
-        value : (saldoTotalFaenas+saldoTotalProveedores)
-        })
+        value: (saldoTotalFaenas + saldoTotalProveedores)
+    })
 
-    return(
+    return (
         <div className={styleBalance.ConteinerBalance}>
-                <NavBar
+            <NavBar
                 title="Balance"
-                />
-                {saldoTotalClientes?
+            />
+            {saldoTotalClientes ?
                 <div className={styleBalance.tableBalance}>
                     <table className="table">
                         <tbody>
@@ -161,7 +162,7 @@ const dispatch = useDispatch()
                                 <td className="table-warning">Saldo pendiente</td>
                                 <td className="table-warning">{saldoFaenaPendienteEnPesos}</td>
                             </tr>
-                        
+
                             <tr>
                                 <td className="table-dark" colSpan="2">General</td>
                             </tr>
@@ -177,14 +178,14 @@ const dispatch = useDispatch()
                     </table>
                 </div>
                 :
-                <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center', height:'200px' }}>
-                            <CircularProgress />
-                        </Box>
-                }
-                {/* <Graph
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                </Box>
+            }
+            {/* <Graph
                     className={styleBalance.Graph}
-                /> */}
-            
+                />  */}
+
         </div>
     )
 }

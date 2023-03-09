@@ -196,13 +196,13 @@ export default function DocPDFPersonalizado({
                     getContent={(e) =>
                       e.cant
                         ? currencyFormatter({
-                            currency: "USD",
-                            value: e.total / e.kg,
-                          })
+                          currency: "USD",
+                          value: e.total / e.kg,
+                        })
                         : currencyFormatter({
-                            currency: "USD",
-                            value: e.total / e.cantidad,
-                          })
+                          currency: "USD",
+                          value: e.total / e.cantidad,
+                        })
                     }
                     style={tableText}
                   />
@@ -248,82 +248,82 @@ export default function DocPDFPersonalizado({
             </View>
             {pagosT.length > 0 ? (
               <View>
-              <View>
-                <Table data={pagosT}>
-                  <TableHeader
-                    includeBottomBorder={false}
-                    includeLeftBorder={false}
-                    includeRightBorder={false}
-                    includeTopBorder={false}
-                  >
-                    <TableCell style={border} weighting={0.4}>
-                      <Text style={tableTitle}>Fecha</Text>
-                    </TableCell>
-                    <TableCell style={border}>
-                      <Text style={tableTitle}>Forma de pago</Text>
-                    </TableCell>
-                    <TableCell style={border}>
-                      <Text
+                <View>
+                  <Table data={pagosT}>
+                    <TableHeader
+                      includeBottomBorder={false}
+                      includeLeftBorder={false}
+                      includeRightBorder={false}
+                      includeTopBorder={false}
+                    >
+                      <TableCell style={border} weighting={0.4}>
+                        <Text style={tableTitle}>Fecha</Text>
+                      </TableCell>
+                      <TableCell style={border}>
+                        <Text style={tableTitle}>Forma de pago</Text>
+                      </TableCell>
+                      <TableCell style={border}>
+                        <Text
+                          style={{
+                            fontSize: "1.5vh",
+                            margin: "0.5vh",
+                            borderColor: "white",
+                            fontFamily: "Helvetica-Bold",
+                            textAlign: "right",
+                          }}
+                        >
+                          Monto
+                        </Text>
+                      </TableCell>
+                    </TableHeader>
+                    <TableBody
+                      includeBottomBorder={false}
+                      includeLeftBorder={false}
+                      includeRightBorder={false}
+                      includeTopBorder={false}
+                    >
+                      <DataTableCell
+                        getContent={(e) =>
+                          new Date(e.fecha * 1)
+                            .toLocaleDateString("es")
+                            .replaceAll("/", "-")
+                        }
+                        style={tableText}
+                        weighting={0.4}
+                      />
+                      <DataTableCell
+                        getContent={(e) => e.formaDePago}
+                        style={tableText}
+                      />
+                      <DataTableCell
+                        getContent={(e) => e.newMonto}
                         style={{
-                          fontSize: "1.5vh",
+                          fontSize: "1.25vh",
                           margin: "0.5vh",
                           borderColor: "white",
-                          fontFamily: "Helvetica-Bold",
+                          fontFamily: "Helvetica",
                           textAlign: "right",
                         }}
-                      >
-                        Monto
-                      </Text>
-                    </TableCell>
-                  </TableHeader>
-                  <TableBody
-                    includeBottomBorder={false}
-                    includeLeftBorder={false}
-                    includeRightBorder={false}
-                    includeTopBorder={false}
-                  >
-                    <DataTableCell
-                      getContent={(e) =>
-                        new Date(e.fecha * 1)
-                          .toLocaleDateString("es")
-                          .replaceAll("/", "-")
-                      }
-                      style={tableText}
-                      weighting={0.4}
-                    />
-                    <DataTableCell
-                      getContent={(e) => e.formaDePago}
-                      style={tableText}
-                    />
-                    <DataTableCell
-                      getContent={(e) => e.newMonto}
-                      style={{
-                        fontSize: "1.25vh",
-                        margin: "0.5vh",
-                        borderColor: "white",
-                        fontFamily: "Helvetica",
-                        textAlign: "right",
-                      }}
-                    />
-                  </TableBody>
-                </Table>
+                      />
+                    </TableBody>
+                  </Table>
+                </View>
+                <View
+                  style={{
+                    marginTop: "0.5vh",
+                    marginBottom: "0.1vh",
+                    textAlign: "right",
+                  }}
+                >
+                  <Text style={datosClienteBold}>
+                    Total Pagado:{" "}
+                    {currencyFormatter({
+                      currency: "USD",
+                      value: total,
+                    })}
+                  </Text>
+                </View>
               </View>
-              <View
-              style={{
-                marginTop: "0.5vh",
-                marginBottom: "0.1vh",
-                textAlign: "right",
-              }}
-            >
-              <Text style={datosClienteBold}>
-                Total Pagado:{" "}
-                {currencyFormatter({
-                  currency: "USD",
-                  value: total,
-                })}
-              </Text>
-            </View>
-            </View>
             ) : (
               <View>
                 <Text style={datosPerson}>No realizo pagos</Text>
