@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllVentas, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas } from "../../Redux/Actions/Actions.js"
+import { getAllFaenas, getAllVentas, getAllVentasAchuras, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas } from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,6 +14,7 @@ export default function Balance() {
     useEffect(() => {
         dispatch(getAllFaenas())
         dispatch(getAllVentas())
+        dispatch(getAllVentasAchuras())
         dispatch(getSaldoAllComrpas())
         dispatch(getSaldoAllVentas())
         dispatch(getSaldoAllFaenas())
@@ -23,6 +24,7 @@ export default function Balance() {
 
     const AllFaenas = useSelector((state) => state.ultimasFaenas)
     const AllVentas = useSelector((state) => state.AllVentas)
+    const AllVentasAchuras = useSelector((state) => state.AllVentasAchuras)
     const VentasUltimos30Dias = useSelector((state) => state.VentasUltimos30Dias)
     const saldoTotalProveedores = useSelector((state) => state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state) => state.saldoAllVentas)
@@ -30,8 +32,9 @@ export default function Balance() {
 
     let [kgStock, setKgStock] = useState(0)
     let [totalEst, setTotalEst] = useState(0)
+    let [totalDeAchuras, settotalDeAchuras] = useState(0)
+    let [totalDeAchuras30Dias, settotalDeAchuras30Dias] = useState(0)
     let [gananciaMensual, setGananciaMensual] = useState(0)
-    let [kgMensual, setkgMensual] = useState(0)
 
     AllFaenas.map((a) => {
         a.detalle.map((r) => {
@@ -51,7 +54,10 @@ export default function Balance() {
         })
     })
     let acumKg = 0;
+    let acumKg30dias = 0;
     let gananciaUltimos30Dias = 0;
+
+
 
     if (VentasUltimos30Dias.length) {
         VentasUltimos30Dias.map(a => {
@@ -64,8 +70,19 @@ export default function Balance() {
     }
     if (AllVentas.length) {
         AllVentas.map(a => {
+            acumKg30dias += a.kg;
             if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
-                acumKg += a.kg
+                acumKg += a.kg;
+            }
+        }
+        )
+    }
+
+    if (AllVentasAchuras.length) {
+        AllVentasAchuras.map(a => {
+            totalDeAchuras30Dias += a.cantidad * 1
+            if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
+                totalDeAchuras += a.cantidad * 1
             }
         }
         )
@@ -119,16 +136,28 @@ export default function Balance() {
                     <table className="table">
                         <tbody>
                             <tr>
-                                <td className="table-warning">Ganancia de los ultimos 30 Dias</td>
+                                <td className="table-warning">Ganancia (30 Dias)</td>
                                 <td className="table-warning">{gananciaMensualUltimos30EnPesos}</td>
                             </tr>
                             <tr>
-                                <td className="table-warning">Ganancia mes actual</td>
+                                <td className="table-warning">Ganancia (mes actual)</td>
                                 <td className="table-warning">{gananciaMensualEnPesos}</td>
                             </tr>
                             <tr>
-                                <td className="table-warning">Kg vendidos mes actual</td>
-                                <td className="table-warning">{acumKg}kg</td>
+                                <td className="table-warning">Kg vendidos (30 Dias)</td>
+                                <td className="table-warning">{acumKg30dias.toFixed(2)}kg</td>
+                            </tr>
+                            <tr>
+                                <td className="table-warning">Kg vendidos (mes actual)</td>
+                                <td className="table-warning">{acumKg.toFixed(2)}kg</td>
+                            </tr>
+                            <tr>
+                                <td className="table-warning">N° de juegos de achuras (mes actual)</td>
+                                <td className="table-warning">{totalDeAchuras}</td>
+                            </tr>
+                            <tr>
+                                <td className="table-warning">N° de juegos de achuras (30 dias)</td>
+                                <td className="table-warning">{totalDeAchuras30Dias}</td>
                             </tr>
                             <tr>
                                 <td className="table-dark" colSpan="2">Stock</td>
