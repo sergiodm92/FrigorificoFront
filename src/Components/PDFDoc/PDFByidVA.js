@@ -45,16 +45,24 @@ export default function DocPDFbyidVA({pagosAnteriores, pago, venta, nombre }){
         margin:"0.5vh",
         fontFamily:"Helvetica-Bold"
     }
-
+    const pageNumber = {
+        position: 'absolute',
+        fontSize: 12,
+        bottom: 30,
+        left: 0,
+        right: 0,
+        textAlign: 'center',
+        color: 'grey',
+      }
 
     return(
             <Document>
-                <Page size='A4'>
+                 <Page size="A4" style={{paddingBottom: 65}}>
                     <View>
-                        <View style={{width:"100%"}}>
+                        <View style={{ width: "100%", marginBottom: 20 }} fixed>
                             <Image src="https://res.cloudinary.com/dc8ustv0k/image/upload/v1667830724/GestionApp/membrete_primera_opcion_neo3mh.png"/>
                         </View>
-                        <View style={{margin:"4vh", marginTop:0}}>
+                        <View style={{margin:"4vh", marginTop:0, marginBottom: 0}}>
                             <View>
                                 <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica", marginBottom:"2vh"}}>Fecha de emisión: {fecha}</Text>
                             </View>
@@ -160,6 +168,9 @@ export default function DocPDFbyidVA({pagosAnteriores, pago, venta, nombre }){
                             </View>
                         </View>
                     </View>
+                    <Text style={pageNumber} render={({ pageNumber, totalPages }) => (
+          `${pageNumber} / ${totalPages}`
+        )} fixed />
                 </Page>
             </Document>       
     )

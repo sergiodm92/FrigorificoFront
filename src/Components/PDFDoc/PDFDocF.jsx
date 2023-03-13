@@ -52,15 +52,24 @@ export default function DocPDFFaena({ pagos, nombre }) {
     fontSize: "1.5vh",
     margin: "0.5vh",
   };
+  const pageNumber = {
+    position: 'absolute',
+    fontSize: 12,
+    bottom: 30,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    color: 'grey',
+  }
   //faena
   return (
     <Document>
-      <Page size="A4">
+      <Page size="A4" style={{paddingBottom: 65}}>
         <View>
-          <View style={{ width: "100%" }}>
+          <View style={{ width: "100%", marginBottom: 20 }} fixed>
             <Image src="https://res.cloudinary.com/dc8ustv0k/image/upload/v1667830724/GestionApp/membrete_primera_opcion_neo3mh.png" />
           </View>
-          <View style={{ margin: "4vh", marginTop: 0 }}>
+          <View style={{ margin: "4vh", marginTop: 0, marginBottom: 0 }}>
             <View>
               <Text
                 style={{
@@ -172,6 +181,9 @@ export default function DocPDFFaena({ pagos, nombre }) {
             <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica", marginTop:"10vh", marginBottom: "5vh", marginRight:"4vh"}}>Carnes Don Alberto</Text>
           </View>
         </View>
+        <Text style={pageNumber} render={({ pageNumber, totalPages }) => (
+          `${pageNumber} / ${totalPages}`
+        )} fixed />
       </Page>
     </Document>
   );
