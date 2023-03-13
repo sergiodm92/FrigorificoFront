@@ -63,7 +63,7 @@ export default function DocPDFPersonalizado({
 
   return (
     <Document>
-      <Page size="A4" wrap={false}>
+      <Page size="A4">
         <View>
           <View style={{ width: "100%" }}>
             <Image src="https://res.cloudinary.com/dc8ustv0k/image/upload/v1667830724/GestionApp/membrete_primera_opcion_neo3mh.png" />
