@@ -16,13 +16,13 @@ const Nueva_Faena = ()=>{
             <div className={style.cont}>
                 <div>
                     <LargeButton
-                        title={"Faena de Cerdo"}
+                        title={"Faena de Cerdo 🐷"}
                         onClick={()=>navigate("/NuevaFaena/FormFaenaCerdo")}
                     />
                 </div>
                 <div>
                     <LargeButton
-                        title={"Faena de Carne"}
+                        title={"Faena de Carne 🐮"}
                         onClick={()=>navigate("/NuevaFaena/FormFaenaCarne")}
                     />
                 </div>
