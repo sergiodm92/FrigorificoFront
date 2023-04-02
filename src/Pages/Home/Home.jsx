@@ -32,12 +32,6 @@ export default function Home(){
                     }
                 });
     }
-    // useEffect(() => {
-    //     dispatch(getAlertRes())
-    // }, [dispatch]);
-    // const alertRes = useSelector((state)=>state.alertRes)
-
-
 
     return(
         <div className={styleH.conteiner}>
@@ -45,8 +39,8 @@ export default function Home(){
             <div className={styleH.block1BH}><div className={styleH.logo}></div></div>
             <div className={styleH.block2BH}>
                 
-                <DoubleButton title={"Faenas"} onClick1={()=> navigate("/Faenas")} onClick2={()=> navigate("/FormFaena")}/>
-                <DoubleButton title={"Compras"} onClick1={()=> navigate("/Compras")} onClick2={()=> navigate("/FormCompra")}/>
+                <DoubleButton title={"Faenas"} onClick1={()=> navigate("/Faenas")} onClick2={()=> navigate("/NuevaFaena")}/>
+                <DoubleButton title={"Compras"} onClick1={()=> navigate("/Compras")} onClick2={()=> navigate("/NuevaCompra")}/>
                 <DoubleButton title={"Ventas"} onClick1={()=> navigate("/Ventas")} onClick2={()=> navigate("/NuevaVenta")}/>
                 <LargeButton title={"Clientes"} onClick={()=> navigate("/Clientes")}/>
                 <LargeButton title={"Proveedores"} onClick={()=> navigate("/Proveedores")}/>

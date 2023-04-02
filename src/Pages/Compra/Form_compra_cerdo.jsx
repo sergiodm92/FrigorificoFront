@@ -9,10 +9,11 @@ import {
   getAllProveedores,
   getFaenasByTropa,
   getGruposByTropa,
+  getGruposCerdoByTropa,
   postNewCompra,
   putEstadoCompraFaena,
   putStockReses,
-  setAlert,
+  setAlert,         
 } from "../../Redux/Actions/Actions";
 import NavBar from "../../Components/Navbar/Navbar";
 import style from "./Compras.module.scss";
@@ -31,6 +32,7 @@ import DateFnsUtils from "@date-io/date-fns";
 
 let formC = {
   id: "",
+  type: "cerdo",
   proveedor: "", //
   fecha: new Date().toLocaleDateString("en"), //
   lugar: "", //
@@ -39,9 +41,6 @@ let formC = {
   kgv_netos_totales: 0, //
   kg_carne_totales: 0, //
   costo_flete: 0, //
-  cant_achuras: 0, //
-  precio_venta_achuras_unit: 0, //
-  recupero_precio_kg: 0, //precio_venta_achuras/kg_carne//
   costo_total_hac: 0, //kgv_netos * precio_kgv_netos//
   costo_flete: 0, //
   costo_veps_unit: 0, //
@@ -75,17 +74,15 @@ let FormGCT = {
 };
 
 const categorias = [
-  "Vaquillona",
-  "Novillito",
-  "Vaca",
-  "Toro",
-  "Novillo Pesado",
+  "Capon",
+  "Chancha"
 ];
 let n = 0;
 
+//validaciones
 
 
-const Form_Compra = () => {
+const Form_Compra_Cerdo = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -97,7 +94,7 @@ const Form_Compra = () => {
   let alert_msj = useSelector((state) => state.alert_msj);
   let proveedores = useSelector((state) => state.AllProveedores);
   let AllFaenas = useSelector((state) => state.AllFaenas);
-  let faenasDisp = AllFaenas.filter((a) => a.estadoCompra !== true && a.tropa[a.tropa.length-1]!=="C");
+  let faenasDisp = AllFaenas.filter((a) => a.estadoCompra !== true && a.tropa[a.tropa.length-1]==="C");
 
   useEffect(() => {
     if (alert_msj !== "") {
@@ -112,6 +109,8 @@ const Form_Compra = () => {
     form.grupos = [];
   }, [alert_msj]);
 
+  // let gruposRes = useSelector((state)=>state.gruposRes)
+
   //estados locales
   const [form, setForm] = useState(formC);
   const [error, setError] = useState({});
@@ -122,9 +121,8 @@ const Form_Compra = () => {
   const [confirm, setconfirm] = useState(false);
 
   useEffect(() => {
-    if (tropa !== 0) dispatch(getGruposByTropa(tropa));
+    if (tropa !== 0) dispatch(getGruposCerdoByTropa(tropa));
   }, [tropa]);
-
   let grupos = useSelector((state) => state.grupos);
 
   useEffect(() => {
@@ -164,20 +162,20 @@ const Form_Compra = () => {
       if (faenabytropa.total_kg) {
         faenabytropa.detalle.filter((a) => {
           if (a.categoria == formGCT.categoria) {
-            formGCT.kg_carne += a.kg * 1;
+            formGCT.kg_carne += +a.kg;
           }
         });
         if (Switch_KgBrutos == true)
           formGCT.kgv_netos =
-            formGCT.kgv_brutos - formGCT.kgv_brutos * formGCT.desbaste;
+            +formGCT.kgv_brutos - +formGCT.kgv_brutos * +formGCT.desbaste;
         if (Switch_KgBrutos == false)
-          formGCT.kgv_brutos = formGCT.kgv_netos / (1 - formGCT.desbaste);
-        formGCT.pesoProm = +formGCT.kgv_brutos / +formGCT.cant;
-        formGCT.costo_hac = formGCT.kgv_netos * (+formGCT.precio_kgv_netos);
+          formGCT.kgv_brutos = +formGCT.kgv_netos / +(1 - formGCT.desbaste);
+        formGCT.pesoProm = (+formGCT.kgv_brutos) / (+formGCT.cant);
+        formGCT.costo_hac = +formGCT.kgv_netos * (+formGCT.precio_kgv_netos);
         formGCT.costo_faena_kg =
-          faenabytropa.costo_total / faenabytropa.total_kg;
-        formGCT.costo_faena = formGCT.costo_faena_kg * formGCT.kg_carne;
-        formGCT.rinde = (formGCT.kg_carne * 100) / formGCT.kgv_netos;
+          +faenabytropa.costo_total / +faenabytropa.total_kg;
+        formGCT.costo_faena = +formGCT.costo_faena_kg * +formGCT.kg_carne;
+        formGCT.rinde = +(formGCT.kg_carne * 100) / +formGCT.kgv_netos;
         formGCT.n_grupo = n++;
 
         form.grupos.unshift(formGCT);
@@ -202,7 +200,7 @@ const Form_Compra = () => {
     if (validateForm(form)) {
       setconfirm(true)
       //cargo el resto de las propiedades
-      form.id = "C" + form.grupos[0].n_tropa;
+      form.id = "C" + form.grupos[0].n_tropa;//editar para diferenciar cerdo de carne
       let arr = [];
       let arrayGrupos = [];
       form.grupos.map((a) => {
@@ -213,28 +211,23 @@ const Form_Compra = () => {
         form.cant_total += +a.cant;
         form.kg_carne_totales += +a.kg_carne;
       });
-      if (form.kg_carne_totales > 0) {
-        form.recupero_precio_kg =
-          (form.precio_venta_achuras_unit * 1 * form.cant_achuras) /
-          (form.kg_carne_totales * 1);
-      }
       form.grupos.map((a) => {
-        if (form.kg_carne_totales * 1 !== 0) {
+        if (+form.kg_carne_totales !== 0) {
           a.costo_flete =
-            (form.costo_flete * 1 * a.kg_carne) / (form.kg_carne_totales * 1);
+            (+form.costo_flete* +a.kg_carne) / (+form.kg_carne_totales);
         }
-        a.cosoVeps = form.costo_veps_unit * a.cant;
-        if (form.por_comision > 0)
-          a.comision = ((form.por_comision * 1) / 100) * a.costo_hac;
-        a.recupero = (form.precio_venta_achuras_unit * 1 * a.cant) / a.kg_carne;
+        a.cosoVeps = +form.costo_veps_unit * +a.cant;
+        if (+form.por_comision > 0)
+          a.comision = ((+form.por_comision) / 100) * +a.costo_hac;
+        a.recupero = (+form.precio_venta_achuras_unit * +a.cant) / +a.kg_carne;
         a.costo_total =
           +a.cosoVeps +
           +a.comision +
           +a.costo_faena +
           +a.costo_hac +
           +a.costo_flete -
-          +form.precio_venta_achuras_unit * a.cant;
-        a.costo_kg = a.costo_total / (a.kg_carne * 1);
+          +form.precio_venta_achuras_unit * +a.cant;
+        a.costo_kg = +a.costo_total / (+a.kg_carne);
         if (!arr.some((t) => t.tropa == a.n_tropa))
           arr.push({
             id: a.n_tropa.toString(),
@@ -244,10 +237,10 @@ const Form_Compra = () => {
         arrayGrupos.push({
           tropa: a.n_tropa,
           categoria: a.categoria,
-          costo_kg: a.costo_kg,
+          costo_kg: +a.costo_kg,
         });
       });
-      form.saldo = form.costo_total_hac;
+      form.saldo = +form.costo_total_hac;
       form.fecha = form.fecha.getTime();
       let detalles = [];
 
@@ -258,7 +251,6 @@ const Form_Compra = () => {
             (g) => g.categoria == r.categoria
           ).costo_kg;
         });
-        console.log(det);
         detalles.push({ detalle: det, id: t.id });
       });
         dispatch(putStockReses(detalles));
@@ -380,31 +372,6 @@ const Form_Compra = () => {
           </p>
           <div className={style.formItem}>
             <div>
-              <h5 className={style.titleForm}>$ Ach. unit: </h5>
-            </div>
-            <div className={style.numero}>
-              <h5 className={style.titleForm}>$ </h5>
-              <input
-                type="number"
-                step="any"
-                value={
-                  form.precio_venta_achuras_unit
-                    ? form.precio_venta_achuras_unit
-                    : ""
-                }
-                id="precio_venta_achuras_unit"
-                name="precio_venta_achuras_unit"
-                onChange={handleChange}
-                placeholder="0.00"
-                className={style.size2}
-              />
-            </div>
-          </div>
-          <p className={error.precio_venta_achuras ? style.danger : style.pass}>
-            {error.precio_venta_achuras}
-          </p>
-          <div className={style.formItem}>
-            <div>
               <h5 className={style.titleForm}>Comisión: </h5>
             </div>
             <div className={style.numero}>
@@ -478,22 +445,22 @@ const Form_Compra = () => {
           </div>
 
           {tropa !== 0 && grupos !== [] ? (
-            <div className={style.cardGrupo2}>
+            <div  className={style.cardGrupo2} >
               <table className="table">
                 <thead>
-                  <tr className="table-warning">
+                  <tr className="table-warning" style={{fontSize:"11px"}}>
                     <td>Cat.</td>
                     <td>Cant.</td>
                     <td>kg</td>
-                    <td>0.58</td>
-                    <td>0.59</td>
-                    <td>0.60</td>
+                    <td>0.81</td>
+                    <td>0.82</td>
+                    <td>0.83</td>
                   </tr>
                 </thead>
                 <tbody>
                   {grupos?.map((a, i) =>
                     a.cant !== 0 ? (
-                      <tr key={i}>
+                      <tr key={i} style={{fontSize:"11px"}}>
                         <td>
                           {a.categoria == "Novillo Pesado"
                             ? "Nov P"
@@ -501,9 +468,9 @@ const Form_Compra = () => {
                         </td>
                         <td>{a.cant}</td>
                         <td>{a.kg}</td>
-                        <td>{(a.kg / 0.58).toFixed(2)}</td>
-                        <td>{(a.kg / 0.59).toFixed(2)}</td>
-                        <td>{(a.kg / 0.6).toFixed(2)}</td>
+                        <td>{(a.kg / 0.81).toFixed(2)}</td>
+                        <td>{(a.kg / 0.82).toFixed(2)}</td>
+                        <td>{(a.kg / 0.83).toFixed(2)}</td>
                       </tr>
                     ) : null
                   )}
@@ -724,13 +691,13 @@ const Form_Compra = () => {
                     key={i}
                     tropa={e.n_tropa}
                     categoria={e.categoria}
-                    kgv_brutos={(+e.kgv_brutos).toFixed(2)}
+                    kgv_brutos={(e.kgv_brutos * 1).toFixed(2)}
                     desbaste={e.desbaste}
-                    kgv_netos={(+e.kgv_netos).toFixed(2)}
+                    kgv_netos={(e.kgv_netos * 1).toFixed(2)}
                     cant={e.cant}
-                    precio_kgv_netos={+e.precio_kgv_netos}
+                    precio_kgv_netos={e.precio_kgv_netos}
                     onClick={() => handleDelete(e)}
-                    type={"vaca"}
+                    type={"cerdo"}
                   />
                 );
               })
@@ -750,4 +717,4 @@ const Form_Compra = () => {
   );
 };
 
-export default Form_Compra;
+export default Form_Compra_Cerdo;

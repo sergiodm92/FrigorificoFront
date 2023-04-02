@@ -12,7 +12,6 @@ import { deleteVentaById, getAllFaenas, getClienteByName, getPagosVentaByID, get
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-
 export default function Detalle_Venta(){
 
 const dispatch = useDispatch()
@@ -89,9 +88,7 @@ const deleteVenta = ()=>{
                                 }
                             })
                         })
-                        console.log(detallesPut)
-                        dispatch(putStockReses(detallesPut))
-                                        
+                    dispatch(putStockReses(detallesPut))                                  
                     dispatch(deleteVentaById(id))
                     swal("Se eliminó la venta", {
                         icon: "success",
@@ -144,3 +141,88 @@ const deleteVenta = ()=>{
 
     )
 }
+
+
+/*
+
+//revisar el siguiente codigo para eliminar una venta trabaja con async await
+
+
+const deleteVenta = async () => {
+    if (pagos.length > 0) {
+      await swal({
+        title: "¡Error! No puede eliminar ventas con pagos",
+        text: "Primero debe eliminar los pagos de la venta. ",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      });
+    } else {
+      const willDelete = await swal({
+        title: "Está seguro que desea eliminar la venta?",
+        text: "Una vez eliminada perdera todos sus datos 😰",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      });
+      if (willDelete) {
+        const value = await swal('Escriba "eliminar venta" para confirmar:', {
+          content: "input",
+        });
+        if (value === "eliminar venta") {
+          try {
+            let detallesPut = [];
+            venta.detalle.forEach((a) => {
+              AllFaenas.forEach((g) => {
+                if (g.detalle.some((f) => f.correlativo == a.correlativo)) {
+                  let current = {};
+                  g.detalle.forEach((f, i) => {
+                    if (f.correlativo == a.correlativo) {
+                      current = {
+                        res: f,
+                        pos: i,
+                        tropa: g.tropa,
+                        detalle: g.detalle,
+                      };
+                    }
+                  });
+                  if (a.total_media == "total") {
+                    current.res.stock = true;
+                    current.res.ventaID = null;
+                    current.detalle[current.pos] = current.res;
+                    detallesPut.push({ detalle: current.detalle, id: current.tropa });
+                  }
+                  if (a.total_media == "1/4D" || a.total_media == "1/4T") {
+                    if (current.res.stock === true) {
+                      current.res.CuartoT = 0;
+                      current.res.CuartoD = 0;
+                      current.res.ventaID = null;
+                      detallesPut.push({ detalle: current.detalle, id: current.tropa });
+                    } else {
+                      current.res.stock = true;
+                      current.res.ventaID = null;
+                      detallesPut.push({ detalle: current.detalle, id: current.tropa });
+                    }
+                  }
+                }
+              });
+            });
+            console.log(detallesPut);
+            await dispatch(putStockReses(detallesPut));
+            await dispatch(deleteVentaById(id));
+            await swal("Se eliminó la venta", {
+              icon: "success",
+            });
+            Navigate("/Ventas");
+          } catch {
+            swal(" no se pudo eliminar la venta");
+          }
+        } else {
+          swal("Frase incorrecta, no se eliminó la venta");
+        }
+      } else {
+        swal("No se eliminó la venta");
+      }
+    }
+  };
+  */

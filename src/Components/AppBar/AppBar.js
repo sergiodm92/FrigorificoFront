@@ -15,14 +15,6 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import Search from '@mui/icons-material/Search';
 
-
-
-
-
-
-
-
-
 export default function PrimarySearchAppBar() {
 
   const dispatch =useDispatch()

@@ -15,12 +15,19 @@ export default function Table_Stock({ array }) {
         </thead>
         <tbody>
           {array.map((e, j) => {
+
             return (
-              <tr key={j} className={"table-warning"}>
-                {e.map((a, i) => {
-                  return <td key={i}>{a}</td>;
-                })}
-              </tr>
+              e[0] === "Total kg Vaca" || e[0] === "Total kg Cerdo" ?
+                <tr key={j} className="table-dark">
+                  {e.map((a, i) => {
+                    return <td key={i}>{a}</td>;
+                  })}
+                </tr> :
+                <tr key={j} className={"table-warning"}>
+                  {e.map((a, i) => {
+                    return <td key={i}>{a}</td>;
+                  })}
+                </tr>
             );
           })}
         </tbody>

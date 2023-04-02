@@ -2,10 +2,10 @@ import React from "react";
 import ButtonNew from "../../Buttons/ButtonNew/ButtonNew";
 import styleCard from "./CardGrupos.module.scss";
 
-const CardGrupos = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos, onClick}) => {
+const CardGrupos = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos, onClick, type}) => {
 
     return (
-        <div>
+        <div style={{width:"300px"}}>
             <div className={styleCard.miniButton}>
                 <ButtonNew
                     onClick={onClick}
@@ -24,7 +24,7 @@ const CardGrupos = ({ tropa, categoria, kgv_brutos, desbaste, kgv_netos, cant, p
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Cant: </b></div>
-                    <div><p>{"🐮".repeat(cant)+' ('+cant+')'}</p></div>
+                    {type==="vaca"?<div><p>{"🐮".repeat(cant)+' ('+cant+')'}</p></div>:type==="cerdo"?<div><p>{"🐷".repeat(cant)+' ('+cant+')'}</p></div>:null}
                 </div>
                 <div className={styleCard.items}>
                     <div><b>kg vivos brutos: </b></div>

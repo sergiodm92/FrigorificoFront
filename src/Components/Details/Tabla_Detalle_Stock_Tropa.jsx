@@ -2,33 +2,33 @@ import React from "react";
 import tableVentaStyle from "./tableVentaStyle.module.scss";
 
 export default function Tabla_Detalle_Stock_Tropa({ reses }) {
-  let resesStockTrue = reses?.filter((a) => a.stock == true);
-
+  let resesStockTrue = reses?.filter((res) => res.stock == true);
   let kgVaca = 0;
   let kgToro = 0;
   let kgNovillito = 0;
   let kgVaquillona = 0;
   let kgNovPes = 0;
 
-  resesStockTrue?.map((a) => {
-    if (a.categoria === "Vaca") {
-      kgVaca += a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
+  const totalesPorCategoria = resesStockTrue?.reduce((totales, res) => {
+    const categoria = res.categoria || 0;
+    const cuartoT = +res.CuartoT || 0;
+    const cuartoD = +res.CuartoD || 0;
+    const kg = +res.kg;
+
+    if (categoria === "Vaca") {
+      totales.Vaca += cuartoT > 0 ? cuartoT : (cuartoD > 0 ? cuartoD : kg);
+    } else if (categoria === "Vaquillona") {
+      totales.Vaquillona += cuartoT > 0 ? cuartoT : (cuartoD > 0 ? cuartoD : kg);
+    } else if (categoria === "Novillito") {
+      totales.Novillito += cuartoT > 0 ? cuartoT : (cuartoD > 0 ? cuartoD : kg);
+    } else if (categoria === "Toro") {
+      totales.Toro += cuartoT > 0 ? cuartoT : (cuartoD > 0 ? cuartoD : kg);
+    } else if (categoria === "Novillo Pesado") {
+      totales.NovilloPesado += cuartoT > 0 ? cuartoT : (cuartoD > 0 ? cuartoD : kg);
     }
-    if (a.categoria === "Vaquillona") {
-      kgVaquillona +=
-        a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
-    }
-    if (a.categoria === "Novillito") {
-      kgNovillito +=
-      a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
-    }
-    if (a.categoria === "Toro") {
-      kgToro += a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
-    }
-    if (a.categoria === "Novillo Pesado") {
-      kgNovPes += a.CuartoT*1 > 0 ? a.CuartoT*1 : a.CuartoD*1 > 0 ? a.CuartoD*1 : a.kg*1;
-    }
-  });
+    return totales;
+  }, { Vaca: 0, Vaquillona: 0, Novillito: 0, Toro: 0, NovilloPesado: 0 });
+
 
   function currencyFormatter({ currency, value }) {
     const formatter = new Intl.NumberFormat("en-US", {
@@ -73,13 +73,13 @@ export default function Tabla_Detalle_Stock_Tropa({ reses }) {
                 )}
                 <td>{e.categoria ? e.categoria : null}</td>
                 <td>
-                  {(e.CuartoT*1 > 0
-                    ? e.CuartoT*1
-                    : e.CuartoD*1 > 0
-                    ? e.CuartoD*1
-                    : e.kg*1
-                    ? e.kg*1
-                    : 0
+                  {(+e.CuartoT > 0
+                    ? +e.CuartoT
+                    : +e.CuartoD > 0
+                      ? +e.CuartoD
+                      : +e.kg
+                        ? +e.kg
+                        : 0
                   ).toFixed(2)}
                 </td>
                 <td align="center">
@@ -88,44 +88,44 @@ export default function Tabla_Detalle_Stock_Tropa({ reses }) {
               </tr>
             );
           })}
-          {kgNovillito ? (
+          {totalesPorCategoria?.Novillito ? (
             <tr className={"table-secondary"}>
               <td colSpan="2">
                 <b>Total kg Novillito</b>
               </td>
-              <td colSpan="2">{kgNovillito}</td>
+              <td colSpan="2">{totalesPorCategoria.Novillito}</td>
             </tr>
           ) : null}
-          {kgNovPes ? (
+          {totalesPorCategoria?.NovilloPesado ? (
             <tr className={"table-secondary"}>
               <td colSpan="2">
                 <b>Total kg Novillo Pesado</b>
               </td>
-              <td colSpan="2">{kgNovPes}</td>
+              <td colSpan="2">{totalesPorCategoria.NovilloPesado}</td>
             </tr>
           ) : null}
-          {kgToro ? (
+          {totalesPorCategoria?.Toro ? (
             <tr className={"table-secondary"}>
               <td colSpan="2">
                 <b>Total kg Toro</b>
               </td>
-              <td colSpan="2">{kgToro}</td>
+              <td colSpan="2">{totalesPorCategoria.Toro}</td>
             </tr>
           ) : null}
-          {kgVaca ? (
+          {totalesPorCategoria?.Vaca ? (
             <tr className={"table-secondary"}>
               <td colSpan="2">
                 <b>Total kg Vaca</b>
               </td>
-              <td colSpan="2">{kgVaca}</td>
+              <td colSpan="2">{totalesPorCategoria.Vaca}</td>
             </tr>
           ) : null}
-          {kgVaquillona ? (
+          {totalesPorCategoria?.Vaquillona ? (
             <tr className={"table-secondary"}>
               <td colSpan="2">
                 <b>Total kg Vaquillona</b>
               </td>
-              <td colSpan="2">{kgVaquillona}</td>
+              <td colSpan="2">{totalesPorCategoria.Vaquillona}</td>
             </tr>
           ) : null}
         </tbody>

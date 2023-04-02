@@ -26,11 +26,12 @@ import esLocale from "date-fns/locale/es";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
-import {ValidationsVentaCarne, validate, validate2} from "./validationsVentaCarne";
+import { ValidationsVentaCarne, validate, validate2 } from "./validationsVentaCarne";
 
 //Form Venta
 var formV = {
   id: 0,
+  type: "cerdo",
   cliente: "",
   fecha: new Date().toLocaleDateString("en"),
   detalle: [],
@@ -54,22 +55,18 @@ var formComV = {
 
 // Arrays para los selects
 const categorias = [
-  "Vaquillona",
-  "Novillito",
-  "Vaca",
-  "Toro",
-  "Novillo Pesado",
+  "Capon",
+  "Chancha"
 ];
-const res = ["total", "1/4T", "1/4D"];
+const res = ["total"];
 
-const Form_Venta = () => {
+const Form_Venta_Cerdo = () => {
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   //Estados locales
   const [form, setForm] = useState(formV);
   const [formCV, setFormCV] = useState(formComV);
-  const [error, setError] = useState({});
   const [error2, setError2] = useState({});
   const [resSelect, setresSelect] = useState({});
   const [margen, setMargen] = useState(0);
@@ -88,11 +85,11 @@ const Form_Venta = () => {
   const AllFaenas = useSelector((state) => state.ultimasFaenas);
 
   let resesStockTrue = AllFaenas.reduce((allReses, a) => {
-    return [...allReses, ...a.detalle.filter((s) => s.stock == true)];
+    return [...allReses, ...a.detalle.filter((s) => s.stock === true)];
   }, []);
 
   let stockByCat = resesStockTrue.filter(
-    (a) => a.categoria == formCV.categoria && a.costo_kg
+    (a) => a.categoria === formCV.categoria && a.costo_kg
   ); //reses con stock true filtrados por categoria
 
   useEffect(() => {
@@ -103,12 +100,12 @@ const Form_Venta = () => {
     if (formCV.precio_kg !== 0)
       setMargen(
         (
-          ((formCV.precio_kg - resSelect.costo_kg * 1) /
-            (resSelect.costo_kg * 1)) *
+          ((+formCV.precio_kg - +resSelect.costo_kg) /
+            (+resSelect.costo_kg)) *
           100
         ).toFixed(2)
       );
-    if (formCV.total_media === "total") formCV.kg = resSelect.kg;
+    if (formCV.total_media === "total") formCV.kg = +resSelect.kg;
   }, [formCV]);
 
   useEffect(() => {
@@ -160,23 +157,13 @@ const Form_Venta = () => {
       !error2.precio_kg &&
       formCV.precio_kg
     ) {
-      formCV.costo_kg = resSelect.costo_kg*1;
-      formCV.kg_total = resSelect.kg*1;
-      formCV.CuartoD = resSelect.CuartoD*1;
-      formCV.CuartoT = resSelect.CuartoT*1;
-      formCV.precio_kg = formCV.precio_kg*1;
-      if (formCV.CuartoT > 0) formCV.kg = resSelect.CuartoT;
-      if (formCV.CuartoD > 0) formCV.kg = resSelect.CuartoD;
+      formCV.costo_kg = +resSelect.costo_kg;
+      formCV.kg_total = +resSelect.kg;
+      formCV.precio_kg = +formCV.precio_kg;
       form.detalle.unshift(formCV);
-      if (
-        formCV.total_media == "total" ||
-        formCV.CuartoT !== 0 ||
-        formCV.CuartoD !== 0
-      )
-        arrResesTotales.push(formCV.correlativo);
+      arrResesTotales.push(formCV.correlativo);
       document.getElementById("categoria").selectedIndex = 0;
       document.getElementById("res").selectedIndex = 0;
-
       setFormCV(formComV);
     } else {
       swal({
@@ -195,10 +182,10 @@ const Form_Venta = () => {
       let detallesPut = [];
       form.fecha = form.fecha.getTime();
       form.id =
-        "V" + form.detalle[0].correlativo + Math.floor(Math.random() * 10000);
+        "V" + form.detalle[0].correlativo + Math.floor(Math.random() * 10000) + "C";
       if (form.detalle.length > 0) {
         form.detalle.map((a) => {
-          if (a.kg < 10) {
+          if (+a.kg < 10) {
             swal({
               titleForm: "Alerta",
               text: "Faltan kg",
@@ -207,62 +194,10 @@ const Form_Venta = () => {
             });
             return;
           }
-          form.total += a.kg * 1 * a.precio_kg;
-          form.costo += a.kg * 1 * a.costo_kg;
-          form.kg += a.kg * 1;
-          if (a.total_media == "total") form.cant++;
-          if (a.total_media !== "total") form.cant += 0.5;
-          if (a.CuartoT == 0 && a.CuartoD == 0) {
-            if (a.total_media == "1/4T") {
-              AllFaenas.map((g) => {
-                if (g.detalle.some((f) => f.correlativo == a.correlativo)) {
-                  let current = {};
-                  g.detalle.map((f, i) => {
-                    if (f.correlativo == a.correlativo)
-                      current = {
-                        res: f,
-                        pos: i,
-                        tropa: g.tropa,
-                        detalle: g.detalle,
-                      };
-                  });
-                  current.res.CuartoD = (a.kg_total * 1 - a.kg * 1).toFixed(2);
-                  current.res.ventaID =
-                    current.res.ventaID == null
-                      ? form.id
-                      : current.res.ventaID + "-" + form.id;
-                  detallesPut.push({
-                    detalle: current.detalle,
-                    id: current.tropa,
-                  });
-                }
-              });
-            } else if (a.total_media == "1/4D") {
-              AllFaenas.map((g) => {
-                if (g.detalle.some((f) => f.correlativo == a.correlativo)) {
-                  let current = {};
-                  g.detalle.map((f, i) => {
-                    if (f.correlativo == a.correlativo)
-                      current = {
-                        res: f,
-                        pos: i,
-                        tropa: g.tropa,
-                        detalle: g.detalle,
-                      };
-                  });
-                  current.res.CuartoT = a.kg_total * 1 - a.kg * 1;
-                  current.res.ventaID =
-                    current.res.ventaID == null
-                      ? form.id
-                      : current.res.ventaID + "-" + form.id;
-                  detallesPut.push({
-                    detalle: current.detalle,
-                    id: current.tropa,
-                  });
-                }
-              });
-            }
-          }
+          form.total += +a.kg * a.precio_kg;
+          form.costo += +a.kg * a.costo_kg;
+          form.kg += +a.kg;
+          form.cant++;
         });
       }
       form.saldo = form.total;
@@ -333,11 +268,6 @@ const Form_Venta = () => {
       categoria: e.target.value,
     });
   }
-
-  //ir a ventas para ver el detalle
-  const handleDet = () => {
-    navigate("/Ventas");
-  };
 
   //funcion para eliminar reses del detalle
   const handleDelete = (e) => {
@@ -423,13 +353,7 @@ const Form_Venta = () => {
                 className="selectform"
                 onChange={(e) => handleSelectRes(e)}
               >
-                <option defaultValue>res</option>
-                {res.length > 0 &&
-                  res.map((c, i) => (
-                    <option key={i} value={c}>
-                      {c}
-                    </option>
-                  ))}
+                <option defaultValue="total">total</option>
               </select>
             </div>
             <div className={style.formItem}>
@@ -442,68 +366,28 @@ const Form_Venta = () => {
                 {stockByCat.length > 0 &&
                   stockByCat.map((c, i) => (
                     <option key={i} value={c.correlativo}>
-                      {c.CuartoT > 0
-                        ? c.correlativo + "T-" + c.kg
-                        : c.CuartoD > 0
-                        ? c.correlativo + "D-" + c.kg
-                        : c.correlativo + "-" + c.kg}
+                      {c.correlativo + "-" + c.kg}
                     </option>
                   ))}
               </select>
             </div>
+            <div>
+              <div className={style.item}>
+                <h5 className={style.titleForm}>kg </h5>
+                <h5 className={style.titleForm}>
+                  {resSelect.kg}
+                </h5>
+              </div>
+              <div className={style.item}>
+                <h5 className={style.titleForm}>Costo/kg </h5>
+                <h5 className={style.titleForm}>
+                  {typeof resSelect.costo_kg !== "number"
+                    ? null
+                    : (+resSelect.costo_kg).toFixed(2)}
+                </h5>
+              </div>
+            </div>
 
-            {formCV.total_media === "total" ||
-            resSelect.CuartoT > 0 ||
-            resSelect.CuartoD > 0 ? (
-              <div>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>kg </h5>
-                  <h5 className={style.titleForm}>
-                    {resSelect.CuartoT !== 0
-                      ? resSelect.CuartoT
-                      : resSelect.CuartoD !== 0
-                      ? resSelect.CuartoD
-                      : resSelect.kg}
-                  </h5>
-                </div>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>Costo/kg </h5>
-                  <h5 className={style.titleForm}>
-                    {typeof resSelect.costo_kg !== "number"
-                      ? null
-                      : (resSelect.costo_kg * 1).toFixed(2)}
-                  </h5>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>kg total </h5>
-                  <h5 className={style.titleForm}>{resSelect.kg}</h5>
-                </div>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>Costo/kg </h5>
-                  <h5 className={style.titleForm}>
-                    {typeof resSelect.costo_kg !== "number"
-                      ? null
-                      : (resSelect.costo_kg * 1).toFixed(2)}
-                  </h5>
-                </div>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>kg </h5>
-                  <input
-                    type="number"
-                    step="any"
-                    value={formCV.kg ? formCV.kg : ""}
-                    id="kg"
-                    name="kg"
-                    onChange={handleChangeCV}
-                    placeholder="000"
-                    className={style.size2}
-                  />
-                </div>
-              </div>
-            )}
             <div className={style.item}>
               <h5 className={style.titleForm}>$/kg </h5>
               <input
@@ -533,25 +417,25 @@ const Form_Venta = () => {
 
           {form.detalle.length
             ? form.detalle.map((e, i) => {
-                return (
-                  <CardReses
-                    key={i}
-                    correlativo={e.correlativo}
-                    categoria={e.categoria}
-                    kg={e.kg}
-                    res={e.res}
-                    costo_kg={e.costo_kg}
-                    margen={e.margen}
-                    precio_kg={e.precio_kg*1}
-                    onClick={() => handleDelete(e)}
-                  />
-                );
-              })
+              return (
+                <CardReses
+                  key={i}
+                  correlativo={e.correlativo}
+                  categoria={e.categoria}
+                  kg={e.kg}
+                  res={e.res}
+                  costo_kg={e.costo_kg}
+                  margen={e.margen}
+                  precio_kg={+e.precio_kg}
+                  onClick={() => handleDelete(e)}
+                />
+              );
+            })
             : null}
           <div className={style.buttons} id={style.buttonOk}>
             <ShortButton
               title="✔ Confirmar"
-              onClick={!confirm ?handleSubmit: null}
+              onClick={!confirm ? handleSubmit : null}
               color={!confirm ? "green" : "grey"}
             />
           </div>
@@ -561,4 +445,4 @@ const Form_Venta = () => {
   );
 };
 
-export default Form_Venta;
+export default Form_Venta_Cerdo;

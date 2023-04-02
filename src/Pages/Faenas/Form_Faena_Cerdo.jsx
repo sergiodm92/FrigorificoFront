@@ -23,11 +23,13 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import CardResesFaena from "../../Components/Cards/CardResesFaena/CardResesFaena";
-import {Validations} from "./validations";
+import {Validations, validationDetail} from "./validations";
+
 
 //Form Faena
 const formF = {
   fecha: new Date().toLocaleDateString("en"),
+  type: "cerdo",
   frigorifico: "",
   tropa: "",
   proveedor: "",
@@ -55,11 +57,8 @@ var elHueco = [];
 //Array para select de frigorífico
 const frigorificos = ["Natilla", "El Hueco"];
 const categorias = [
-  "Vaquillona",
-  "Novillito",
-  "Vaca",
-  "Toro",
-  "Novillo Pesado",
+  "Capon",
+  "Chancha"
 ];
 
 //validaciones form Faena
@@ -98,7 +97,7 @@ export const validate3 = (res) => {
   return error3;
 };
 
-const Form_Faena = () => {
+const Form_Faena_Cerdo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -113,6 +112,8 @@ const Form_Faena = () => {
   );
   const [confirm, setconfirm] = useState(false);
   let [kg_totales, setkg_totales] = useState(0);
+
+
 
   useEffect(() => {
     dispatch(getAllProveedores());
@@ -160,19 +161,6 @@ const Form_Faena = () => {
   };
 
   //handleChange de reses
-  const handleChangeCF = (e) => {
-    e.preventDefault();
-    setError2(
-      validate2({
-        ...formCF,
-        [e.target.name]: e.target.value,
-      })
-    );
-    setFormCF({
-      ...formCF,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleChangeCF2 = (e) => {
     e.preventDefault();
@@ -191,46 +179,29 @@ const Form_Faena = () => {
   //handleSubmit de las reses
   const handleSubmitRes = (e) => {
     e.preventDefault();
-    try {
-      if (form.frigorifico === "El Hueco") {
-        if (!error3.kg1 && formCF.kg1 && !error3.kg2 && formCF.kg2) {
+    try { 
           // dividimos garron en dos reses con correlativo
           //primera res correlativo garron-kg1
           var formRes = {};
           formRes.categoria = formCF.categoria;
           formRes.correlativo = formCF.garron + "-A" + formCF.kg1;
-          formRes.kg = formCF.kg1 * 1;
+          formRes.kg = +formCF.kg1;
           formRes.stock = true;
-          formRes.CuartoD = 0;
-          formRes.CuartoT = 0;
-          form.detalle.unshift(formRes);
+          form.detalle.unshift(formRes); 
           //segunda res correlativo garron-kg2
           var formRes2 = {};
           formRes2.categoria = formCF.categoria;
           formRes2.correlativo = formCF.garron + "-B" + formCF.kg2;
-          formRes2.kg = formCF.kg2 * 1;
+          formRes2.kg = +formCF.kg2;
           formRes2.stock = true;
-          formRes2.CuartoD = 0;
-          formRes2.CuartoT = 0;
           form.detalle.unshift(formRes2);
-          setkg_totales(kg_totales + formCF.kg1 * 1 + formCF.kg2 * 1);
-        }
-      } else if (form.frigorifico === "Natilla") {
-        if (!error2.kg && formCF.kg) {
-          var formRes3 = {};
-          formRes3.categoria = formCF.categoria;
-          formRes3.correlativo = formCF.correlativo;
-          formRes3.kg = formCF.kg * 1;
-          formRes3.stock = true;
-          formRes3.CuartoD = 0;
-          formRes3.CuartoT = 0;
-          setkg_totales(kg_totales + formCF.kg * 1);
-          form.detalle.unshift(formRes3);
-        }
-      }
+          setkg_totales(+kg_totales + +formCF.kg1 + +formCF.kg2);
+   
       document.getElementById("categoria").selectedIndex = 0;
+      
       setFormCF(formComF);
     } catch (err) {
+      setForm.detalle([]);
       swal({
         titleForm: "Alerta",
         text: "Datos incorrectos, por favor intente nuevamente",
@@ -241,24 +212,25 @@ const Form_Faena = () => {
   };
 
   //handleSubmit de la faena completa
-  
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (Validations(form)) {
+      e.preventDefault();
       setconfirm(true);
+      form.costo_faena_kg = +form.costo_faena_kg;
+      form.tropa = form.tropa + "C"
       form.total_kg = form.detalle.reduce((acc, e) => acc + +e.kg, 0);
       form.fecha = form.fecha.getTime();
       form.total_medias = form.detalle.length;
       form.costo_total = +form.costo_faena_kg * +form.total_kg;
       form.saldo = form.costo_total;
       dispatch(postNewFaena(form));
+      console.log(form)
       setkg_totales(0);
       document.getElementById("proveedor").selectedIndex = 0;
       document.getElementById("frigorifico").selectedIndex = 0;
       setForm(formF);
-    }
   };
-  
+
 
   //Select de frigoríficos
   function handleSelectFr(e) {
@@ -383,121 +355,68 @@ const Form_Faena = () => {
           </div>
           {/*----------------Carga del detalle---------------------*/}
           <div className={style.formItem2}>
-            {form.frigorifico === "El Hueco" ? (
-              <div className={style.inbox}>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>Garrón: </h5>
-                  <input
-                    type="text"
-                    value={formCF.garron}
-                    id="garron"
-                    name="garron"
-                    onChange={handleChangeCF2}
-                    placeholder="0000"
-                    className={style.size2}
-                  />
-                </div>
-                <p className={error3.garron ? style.danger : style.pass}>
-                  {error3.garron}
-                </p>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>kg1: </h5>
-                  <input
-                    type="text"
-                    value={formCF.kg1}
-                    id="kg1"
-                    name="kg1"
-                    onChange={handleChangeCF2}
-                    placeholder="0000"
-                    className={style.size2}
-                  />
-                </div>
-                <p className={error3.kg1 ? style.danger : style.pass}>
-                  {error3.kg1}
-                </p>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>kg2: </h5>
-                  <input
-                    type="text"
-                    value={formCF.kg2}
-                    id="kg2"
-                    name="kg2"
-                    onChange={handleChangeCF2}
-                    placeholder="0000"
-                    className={style.size2}
-                  />
-                </div>
-                <p className={error3.kg2 ? style.danger : style.pass}>
-                  {error3.kg2}
-                </p>
-                <div className={style.item}>
-                  <select
-                    id="categoria"
-                    className="selectform"
-                    onChange={(e) => handleSelect(e)}
-                  >
-                    <option defaultValue>Categoría</option>
-                    {categorias.length > 0 &&
-                      categorias.map((c, i) => (
-                        <option key={i} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                  </select>
-                </div>
+            <div className={style.inbox}>
+              <div className={style.item}>
+                <h5 className={style.titleForm}>Garrón: </h5>
+                <input
+                  type="text"
+                  value={formCF.garron}
+                  id="garron"
+                  name="garron"
+                  onChange={handleChangeCF2}
+                  placeholder="0000"
+                  className={style.size2}
+                />
               </div>
-            ) : (
-              <div className={style.inbox}>
-                <div className={style.item}>
-                  <h5 className={style.titleForm}>Correlativo: </h5>
-                  <input
-                    type="text"
-                    value={formCF.correlativo}
-                    id="correlativo"
-                    name="correlativo"
-                    onChange={handleChangeCF}
-                    placeholder="0000"
-                    className={style.size2}
-                  />
-                </div>
-                <p className={error2.correlativo ? style.danger : style.pass}>
-                  {error2.correlativo}
-                </p>
-                <div className={style.item}>
-                  <select
-                    id="categoria"
-                    className="selectform"
-                    onChange={(e) => handleSelect(e)}
-                  >
-                    <option value="" defaultValue>
-                      Categoría
-                    </option>
-                    {categorias.length > 0 &&
-                      categorias.map((c, i) => (
-                        <option value={c} key={i}>
-                          {c}
-                        </option>
-                      ))}
-                  </select>
-                  <div className={style.numero}>
-                    <h5 className={style.titleForm}>kg </h5>
-                    <input
-                      type="number"
-                      step="any"
-                      value={formCF.kg}
-                      id="kg"
-                      name="kg"
-                      onChange={handleChangeCF}
-                      placeholder="00"
-                      className={style.size2}
-                    />
-                  </div>
-                  <p className={error2.kg ? style.danger : style.pass}>
-                    {error2.kg}
-                  </p>
-                </div>
+              <p className={error3.garron ? style.danger : style.pass}>
+                {error3.garron}
+              </p>
+              <div className={style.item}>
+                <h5 className={style.titleForm}>kg1: </h5>
+                <input
+                  type="number"
+                  value={formCF.kg1}
+                  id="kg1"
+                  name="kg1"
+                  onChange={handleChangeCF2}
+                  placeholder="0000"
+                  className={style.size2}
+                />
               </div>
-            )}
+              <p className={error3.kg1 ? style.danger : style.pass}>
+                {error3.kg1}
+              </p>
+              <div className={style.item}>
+                <h5 className={style.titleForm}>kg2: </h5>
+                <input
+                  type="number"
+                  value={formCF.kg2}
+                  id="kg2"
+                  name="kg2"
+                  onChange={handleChangeCF2}
+                  placeholder="0000"
+                  className={style.size2}
+                />
+              </div>
+              <p className={error3.kg2 ? style.danger : style.pass}>
+                {error3.kg2}
+              </p>
+              <div className={style.item}>
+                <select
+                  id="categoria"
+                  className="selectform"
+                  onChange={(e) => handleSelect(e)}
+                >
+                  <option defaultValue>Categoría</option>
+                  {categorias.length > 0 &&
+                    categorias.map((c, i) => (
+                      <option key={i} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
           </div>
           <div className={style.button}>
             <ButtonNew
@@ -509,18 +428,18 @@ const Form_Faena = () => {
 
           {form.detalle.length
             ? form.detalle.map((e, i) => {
-                return (
-                  <CardResesFaena
-                    key={i}
-                    correlativo={e.correlativo}
-                    categoria={e.categoria}
-                    kg={e.kg}
-                    onClick={() => handleDelete(e)}
-                  />
-                );
-              })
+              return (
+                <CardResesFaena
+                  key={i}
+                  correlativo={e.correlativo}
+                  categoria={e.categoria}
+                  kg={e.kg}
+                  onClick={() => handleDelete(e)}
+                />
+              );
+            })
             : elHueco.length
-            ? elHueco.map((e, i) => {
+              ? elHueco.map((e, i) => {
                 return (
                   <CardReses
                     key={i}
@@ -532,7 +451,7 @@ const Form_Faena = () => {
                   />
                 );
               })
-            : null}
+              : null}
           <div className={style.formItem}>
             <div>
               <h5 className={style.titleForm}>Costo Faena/kg: </h5>
@@ -542,7 +461,7 @@ const Form_Faena = () => {
               <input
                 type="number"
                 step="any"
-                value={form.costo_faena_kg ? form.costo_faena_kg : ""}
+                value={form.costo_faena_kg ? form.costo_faena_kg : null}
                 id="costo_faena_kg"
                 name="costo_faena_kg"
                 onChange={handleChange}
@@ -570,7 +489,7 @@ const Form_Faena = () => {
             <div className={style.shortButtons} id={style.buttonOk}>
               <ShortButton
                 title="✔ Confirmar"
-                onClick={!confirm ?  handleSubmit : null}
+                onClick={!confirm ? handleSubmit : null}
                 color={confirm ? "grey" : "green"}
               />
             </div>
@@ -581,4 +500,4 @@ const Form_Faena = () => {
   );
 };
 
-export default Form_Faena;
+export default Form_Faena_Cerdo;

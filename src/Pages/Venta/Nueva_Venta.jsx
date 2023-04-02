@@ -1,29 +1,35 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LargeButton from "../../Components/Buttons/Button_Large/Button_Large";
 import NavBar from "../../Components/Navbar/Navbar";
 import style from "./Ventas.module.scss";
 
-const Nueva_Venta = ()=>{
+const Nueva_Venta = () => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
-    return(
+    return (
         <div className={style.ConteinerVenta}>
             <NavBar
-            title={"Nueva Venta"}
+                title={"Nueva Venta"}
             />
             <div className={style.cont}>
-                <div>
+            <div>
                     <LargeButton
-                        title={"Venta de Achuras"}
-                        onClick={()=>navigate("/NuevaVenta/FormAchuras")}
+                        title={"Venta de Carne"}
+                        onClick={() => navigate("/NuevaVenta/FormCarne")}
                     />
                 </div>
                 <div>
                     <LargeButton
-                        title={"Venta de Carne"}
-                        onClick={()=>navigate("/NuevaVenta/FormCarne")}
+                        title={"Venta de Achuras"}
+                        onClick={() => navigate("/NuevaVenta/FormAchuras")}
+                    />
+                </div>
+                <div>
+                    <LargeButton
+                        title={"Venta de Cerdo"}
+                        onClick={() => navigate("/NuevaVenta/FormCerdo")}
                     />
                 </div>
             </div>

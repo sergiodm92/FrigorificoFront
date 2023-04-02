@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllFaenas, getAllVentas, getAllVentasAchuras, getAllVentasultimos30dias, getFaenasUltimosVeinteDias, getSaldoAllComrpas, getSaldoAllFaenas, getSaldoAllVentas } from "../../Redux/Actions/Actions.js"
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
+import {
+    getAllFaenas,
+    getAllVentas,
+    getAllVentasAchuras,
+    getAllVentasultimos30dias,
+    getCaja,
+    getFaenasUltimosVeinteDias,
+    getSaldoAllComrpas,
+    getSaldoAllFaenas,
+    getSaldoAllVentas
+} from "../../Redux/Actions/Actions.js"
 import NavBar from "../../Components/Navbar/Navbar"
 import styleBalance from "./Balance.module.scss"
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Graph from '../../Components/Graph/Graph'
+import PieChart from "../../Components/Graph/Pie.jsx";
+import GraficoGanancias from "../../Components/Graph/GraphGanancias.jsx";
 
 export default function Balance() {
 
@@ -20,69 +35,82 @@ export default function Balance() {
         dispatch(getSaldoAllFaenas())
         dispatch(getAllVentasultimos30dias())
         dispatch(getFaenasUltimosVeinteDias())
+        dispatch(getCaja())
     }, [dispatch])
 
     const AllFaenas = useSelector((state) => state.ultimasFaenas)
-    const AllVentas = useSelector((state) => state.AllVentas)
     const AllVentasAchuras = useSelector((state) => state.AllVentasAchuras)
     const VentasUltimos30Dias = useSelector((state) => state.VentasUltimos30Dias)
     const saldoTotalProveedores = useSelector((state) => state.saldoAllCompras)
     const saldoTotalClientes = useSelector((state) => state.saldoAllVentas)
     const saldoTotalFaenas = useSelector((state) => state.saldoAllFaenas)
+    const caja = useSelector((state) => state.caja.total)
 
-    let [kgStock, setKgStock] = useState(0)
-    let [totalEst, setTotalEst] = useState(0)
+
     let [totalDeAchuras, settotalDeAchuras] = useState(0)
     let [totalDeAchuras30Dias, settotalDeAchuras30Dias] = useState(0)
-    let [gananciaMensual, setGananciaMensual] = useState(0)
 
-    AllFaenas.map((a) => {
-        a.detalle.map((r) => {
+    const kgPorSemana = VentasUltimos30Dias.reduce((acumulador, venta) => {
+        const fechaVenta = new Date(venta.fecha);
+        const diaSemana = fechaVenta.getDay();
+        const fechaInicioSemana = new Date(fechaVenta.getFullYear(), fechaVenta.getMonth(), fechaVenta.getDate() - diaSemana);
+        const fechaInicioSemanaStr = fechaInicioSemana.toLocaleDateString();
 
-            if (r.CuartoT == 0 && r.CuartoD == 0 && r.stock == true && r.costo_kg) {
-                kgStock += r.kg
-                totalEst += r.costo_kg * 1 * r.kg * 1.07
+        acumulador[fechaInicioSemanaStr] = (acumulador[fechaInicioSemanaStr] || 0) + venta.kg;
+
+        return acumulador;
+    }, {});
+
+    const kgPorSemanaArray = Object.values(kgPorSemana);
+
+
+
+    const margen = 1.07;  // El valor estimado del stock se le considera una venta con margen del 7%.
+    let kgEnStock = 0;      // Variable que acumula la cantidad de kilogramos en stock.
+    let totalEstimado = 0;  // Variable que acumula el costo estimado de los productos en stock.
+
+    // Recorre todas las faenas y sus detalles.
+    AllFaenas.forEach(faena => {
+        faena.detalle.forEach(detalle => {
+
+            // Suma el costo estimado y la cantidad de kilogramos en stock si se cumple alguna de estas condiciones.
+            if (detalle.stock && detalle.costo_kg) {
+                if (detalle.CuartoT > 0) {
+                    kgEnStock += +detalle.CuartoT;
+                    totalEstimado += +detalle.costo_kg * +detalle.CuartoT * margen;
+                } else if (detalle.CuartoD > 0) {
+                    kgEnStock += +detalle.CuartoD;
+                    totalEstimado += +detalle.costo_kg * +detalle.CuartoD * margen;
+                } else if (detalle.kg > 0) {
+                    kgEnStock += +detalle.kg;
+                    totalEstimado += +detalle.costo_kg * +detalle.kg * margen;
+                }
             }
-            if (r.CuartoT > 0 && r.stock == true) {
-                kgStock += r.CuartoT * 1
-                totalEst += r.costo_kg * 1 * r.CuartoT * 1.07
-            }
-            if (r.CuartoD > 0 && r.stock == true) {
-                kgStock += r.CuartoD * 1
-                totalEst += r.costo_kg * 1 * r.CuartoD * 1.07
-            }
-        })
-    })
+        });
+    });
+
     let acumKg = 0;
     let acumKg30dias = 0;
     let gananciaUltimos30Dias = 0;
+    let gananciaMensual = 0;
 
-
-
+    const mesActual = new Date().getMonth()
     if (VentasUltimos30Dias.length) {
-        VentasUltimos30Dias.map(a => {
-            gananciaUltimos30Dias += (a.total - a.costo)
-            if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
-                gananciaMensual += (a.total - a.costo)
+        VentasUltimos30Dias.forEach(venta => {
+            gananciaUltimos30Dias += +venta.total - +venta.costo;
+            acumKg30dias += +venta.kg;
+            if (new Date(venta.fecha).getMonth() === mesActual) {
+                gananciaMensual += +venta.total - +venta.costo;
+                acumKg += +venta.kg;
             }
-        }
-        )
-    }
-    if (AllVentas.length) {
-        AllVentas.map(a => {
-            acumKg30dias += a.kg;
-            if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
-                acumKg += a.kg;
-            }
-        }
-        )
+        });
     }
 
     if (AllVentasAchuras.length) {
-        AllVentasAchuras.map(a => {
-            totalDeAchuras30Dias += a.cantidad * 1
-            if (new Date(a.fecha).toLocaleDateString("es").slice(2, 3) == new Date().toLocaleDateString("es").slice(2, 3)) {
-                totalDeAchuras += a.cantidad * 1
+        AllVentasAchuras.forEach(venta => {
+            totalDeAchuras30Dias += +venta.cantidad;
+            if (new Date(venta.fecha).getMonth() === mesActual) {
+                totalDeAchuras += +venta.cantidad;
             }
         }
         )
@@ -97,34 +125,26 @@ export default function Balance() {
         return formatter.format(value)
     }
 
-    const totalEstenPesos = currencyFormatter({
-        currency: "USD",
-        value: totalEst
-    })
-    const gananciaMensualUltimos30EnPesos = currencyFormatter({
-        currency: "USD",
-        value: gananciaUltimos30Dias
-    })
-    const gananciaMensualEnPesos = currencyFormatter({
-        currency: "USD",
-        value: gananciaMensual
-    })
-    const saldoFaenaPendienteEnPesos = currencyFormatter({
-        currency: "USD",
-        value: saldoTotalFaenas
-    })
-    const saldoProvPendienteEnPesos = currencyFormatter({
-        currency: "USD",
-        value: saldoTotalProveedores
-    })
-    const saldoClientePendienteEnPesos = currencyFormatter({
-        currency: "USD",
-        value: saldoTotalClientes
-    })
-    const saldoPagarEnPesos = currencyFormatter({
-        currency: "USD",
-        value: (saldoTotalFaenas + saldoTotalProveedores)
-    })
+    function formatCurrency(value) {
+        return currencyFormatter({
+            currency: "USD",
+            value: value
+        });
+    }
+
+    const totalEstenPesos = formatCurrency(totalEstimado);
+    const gananciaMensualUltimos30EnPesos = formatCurrency(gananciaUltimos30Dias);
+    const gananciaMensualEnPesos = formatCurrency(gananciaMensual);
+    const saldoFaenaPendienteEnPesos = formatCurrency(saldoTotalFaenas);
+    const saldoProvPendienteEnPesos = formatCurrency(saldoTotalProveedores);
+    const saldoClientePendienteEnPesos = formatCurrency(saldoTotalClientes);
+    const saldoPagarEnPesos = formatCurrency(saldoTotalFaenas + saldoTotalProveedores);
+    const patrimonioEnPesos = formatCurrency(saldoTotalClientes + caja);
+    const cajaFormat = formatCurrency(caja);
+
+    const chartData = [totalEstimado, saldoTotalClientes, caja];
+    const chartData2 = [totalEstimado, saldoTotalClientes, caja, saldoTotalFaenas + saldoTotalProveedores]
+    const chartData3 = [saldoTotalFaenas, saldoTotalProveedores]
 
     return (
         <div className={styleBalance.ConteinerBalance}>
@@ -132,8 +152,140 @@ export default function Balance() {
                 title="Balance"
             />
             {saldoTotalClientes ?
-                <div className={styleBalance.tableBalance}>
-                    <table className="table">
+                <div className={styleBalance.dashboard}>
+                    <div className={styleBalance.dashboardTopConteiner}>
+                        <div className={styleBalance.dashboardTop}>
+                            <div className={styleBalance.divTop}>
+
+                                <p>{gananciaMensualEnPesos} </p>
+                                <p className={styleBalance.titles}>Ganancia mensual </p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{gananciaMensualUltimos30EnPesos} </p>
+                                <p className={styleBalance.titles}>Ganancia 30 dias </p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{totalDeAchuras} un.</p>
+                                <p className={styleBalance.titles}>N° de achuras </p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{acumKg.toFixed(2)} kg</p>
+                                <p className={styleBalance.titles}>Kg vendidos mensual </p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{acumKg30dias.toFixed(2)} kg</p>
+                                <p className={styleBalance.titles}>Kg vendidos 30 dias</p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{kgEnStock} kg</p>
+                                <p className={styleBalance.titles}>Kg en Stock </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styleBalance.dashboardTopConteiner}>
+                        <div className={styleBalance.dashboardTop}>
+                            <div className={styleBalance.divTop}>
+                                <p>{saldoProvPendienteEnPesos}</p>
+                                <p className={styleBalance.titles}>Saldo a Proveedores </p>
+                            </div>
+
+                            <div className={styleBalance.divTop}>
+                                <p>{saldoFaenaPendienteEnPesos}</p>
+                                <p className={styleBalance.titles}>Saldo a Frigorificos</p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{saldoClientePendienteEnPesos}</p>
+                                <p className={styleBalance.titles}>Total por cobrar</p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{cajaFormat}</p>
+                                <p className={styleBalance.titles}>Total en Caja</p>
+
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{patrimonioEnPesos}</p>
+                                <p className={styleBalance.titles}>Total por cobrar + caja</p>
+                            </div>
+                            <div className={styleBalance.divTop}>
+                                <p>{saldoPagarEnPesos}</p>
+                                <p className={styleBalance.titles}>Total por pagar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styleBalance.divBotton}>
+                        <div className={styleBalance.pie}>
+                            <PieChart
+                                data={chartData2}
+                                className={styleBalance.pie}
+                            />
+                        </div>
+                        <div className={styleBalance.GraphVar}>
+                            <GraficoGanancias
+                                kgSemanal={kgPorSemanaArray}
+                            />
+                            <p>Grafico de kg vendidos(Tn) / tiempo(semanas)</p>
+                        </div>
+                        <div className={styleBalance.divDeudas}>
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                <p className={styleBalance.titles}>Deudas a Proveedores</p>
+                            </div>
+
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>1° Finca la Soñada </p><p>$2.456.670</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>2° Los Nogales </p><p>$1.830.770</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>3° Fabian Ori </p><p>$1.606.060</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>4° Finca don Albero</p><p>$953.104</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>5° Ferreyra Spesot</p><p>$888.075</p>
+                            </div>
+                        </div>
+                        <div className={styleBalance.divDeudas}>
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                <p className={styleBalance.titles}>Deudas de Clientes</p>
+                            </div>
+
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>1° Don Alberto </p><p>$958.500</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>2° Jorge Barrion </p><p>$835.200</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>3° Jorge Dias </p><p>$548.900</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>4° Kelo Ance</p><p>$443.600</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>5° Ricardo Cabre</p><p>$432.160</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                :
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                </Box>
+            }
+            {/* <Graph
+                    className={styleBalance.Graph}
+                />  */}
+
+
+        </div>
+    )
+}
+
+/*
+  <table className="table">
                         <tbody>
                             <tr>
                                 <td className="table-warning">Ganancia (30 Dias)</td>
@@ -164,7 +316,7 @@ export default function Balance() {
                             </tr>
                             <tr>
                                 <td className="table-warning">Cantidad</td>
-                                <td className="table-warning">{kgStock} kg</td>
+                                <td className="table-warning">{kgEnStock} kg</td>
                             </tr>
                             <tr>
                                 <td className="table-warning">Valor estimado</td>
@@ -205,16 +357,5 @@ export default function Balance() {
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                :
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
-                    <CircularProgress />
-                </Box>
-            }
-            {/* <Graph
-                    className={styleBalance.Graph}
-                />  */}
+*/
 
-        </div>
-    )
-}

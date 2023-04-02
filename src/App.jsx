@@ -65,6 +65,11 @@ import PdfDetalleCompra from './Pages/Compra/pdfDetalleCompra.jsx';
 import Alertas from './Pages/Alertas/Alertas.jsx'
 import './App.css';
 import DRFullCode from './Pages/DR-FullCode/DR-FullCode.jsx';
+import Nueva_Compra from './Pages/Compra/Nueva_Compra.jsx';
+import Nueva_Faena from './Pages/Faenas/Nueva_Faena.jsx';
+import Form_Faena_Cerdo from './Pages/Faenas/Form_Faena_Cerdo.jsx';
+import Form_Compra_Cerdo from './Pages/Compra/Form_compra_cerdo.jsx';
+import Form_Venta_Cerdo from './Pages/Venta/Form_Venta_Cerdo.jsx';
 
 
 function App() {
@@ -90,7 +95,9 @@ function App() {
       <Route exact path="/Faenas/FormPagos/:id" element={state_login?<Form_Pago_Faena />:<NoAccess/>} />
       <Route exact path="/Faenas/DetallePagos/:nombre" element={state_login?<Detalle_Pagos_Frigorifico />:<NoAccess/>} />
       <Route exact path="/Faenas/editarRes/:id" element={state_login?<Form_Editar_Res />:<NoAccess/>} />
-      <Route exact path="/FormFaena" element={state_login?<Form_Faena />:<NoAccess/>} />
+      <Route exact path="/NuevaFaena" element={state_login?<Nueva_Faena />:<NoAccess/>} />
+      <Route exact path="/NuevaFaena/FormFaenaCarne" element={state_login?<Form_Faena />:<NoAccess/>} />
+      <Route exact path="/NuevaFaena/FormFaenaCerdo" element={state_login?<Form_Faena_Cerdo />:<NoAccess/>} />
       <Route exact path="/Faenas/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosFrigorifico/>:<NoAccess/>}/>
       <Route exact path="/Faenas/DetallePagos/:nombre/:id/pdf" element=<PdfDetallePagoPorIdFrigorifico/>/>
 
@@ -99,7 +106,9 @@ function App() {
       <Route exact path="/Compras/DetalleGrupos/:id" element={state_login?<DetalleGrupos />:<NoAccess/>} />
       <Route exact path="/Compras/DetalleGrupos/pdf/:id" element=<PdfDetalleCompra />/>
       <Route exact path="/Compras/Historial" element={state_login?<Historial_Compras />:<NoAccess/>} />
-      <Route exact path="/FormCompra" element={state_login?<Form_Compra />:<NoAccess/>} />
+      <Route exact path="/NuevaCompra" element={state_login?<Nueva_Compra />:<NoAccess/>} />
+      <Route exact path="/NuevaCompra/FormCompraCarne" element={state_login?<Form_Compra />:<NoAccess/>} />
+      <Route exact path="/NuevaCompra/FormCompraCerdo" element={state_login?<Form_Compra_Cerdo />:<NoAccess/>} />
 
     <Route exact path="/Ventas" element={state_login?<Ventas />:<NoAccess/>} />
       <Route exact path="/Ventas/:id" element={state_login?<Detalle_Venta />:<NoAccess/>} />
@@ -112,6 +121,7 @@ function App() {
       <Route exact path="/NuevaVenta" element={state_login?<Nueva_Venta />:<NoAccess/>} />
       <Route exact path="/NuevaVenta/FormCarne" element={state_login?<Form_Venta />:<NoAccess/> }/>
       <Route exact path="/NuevaVenta/FormAchuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>
+      <Route exact path="/NuevaVenta/FormCerdo" element={state_login?<Form_Venta_Cerdo />:<NoAccess/> }/>
 
     <Route exact path="/Clientes" element={state_login?<Clientes />:<NoAccess/>} />
       <Route exact path="/Clientes/:id" element={state_login?<Detalle_Cliente />:<NoAccess/>} />
