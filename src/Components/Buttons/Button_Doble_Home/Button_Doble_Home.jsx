@@ -1,7 +1,7 @@
 import React from "react";
 import styleBD from "./Button_Doble_Home.module.scss";
 
-const DoubleButton = ({ title, onClick1, onClick2}) => {
+const DoubleButton = ({ title, onClick1, onClick2, title2}) => {
   
   return (
       <div className={styleBD.cont}>
@@ -11,9 +11,10 @@ const DoubleButton = ({ title, onClick1, onClick2}) => {
         >{title}
         </button>
         <button
-          className={styleBD.button2}
+          className={title2?styleBD.button3:styleBD.button2}
           onClick={onClick2}
-        ></button>
+         
+        > {title2}</button>
       </div>
   );
 };

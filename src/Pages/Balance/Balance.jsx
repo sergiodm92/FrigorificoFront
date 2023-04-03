@@ -158,11 +158,11 @@ export default function Balance() {
                             <div className={styleBalance.divTop}>
 
                                 <p>{gananciaMensualEnPesos} </p>
-                                <p className={styleBalance.titles}>Ganancia mensual </p>
+                                <p className={styleBalance.titles}>Margenes mes actual </p>
                             </div>
                             <div className={styleBalance.divTop}>
                                 <p>{gananciaMensualUltimos30EnPesos} </p>
-                                <p className={styleBalance.titles}>Ganancia 30 dias </p>
+                                <p className={styleBalance.titles}>Margenes ultimos 30 dias </p>
                             </div>
                             <div className={styleBalance.divTop}>
                                 <p>{totalDeAchuras} un.</p>
@@ -186,7 +186,7 @@ export default function Balance() {
                         <div className={styleBalance.dashboardTop}>
                             <div className={styleBalance.divTop}>
                                 <p>{saldoProvPendienteEnPesos}</p>
-                                <p className={styleBalance.titles}>Saldo a Proveedores </p>
+                                <p className={styleBalance.titles}>Saldo a Proveedores</p>
                             </div>
 
                             <div className={styleBalance.divTop}>

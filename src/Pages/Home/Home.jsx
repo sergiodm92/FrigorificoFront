@@ -42,8 +42,8 @@ export default function Home(){
                 <DoubleButton title={"Faenas"} onClick1={()=> navigate("/Faenas")} onClick2={()=> navigate("/NuevaFaena")}/>
                 <DoubleButton title={"Compras"} onClick1={()=> navigate("/Compras")} onClick2={()=> navigate("/NuevaCompra")}/>
                 <DoubleButton title={"Ventas"} onClick1={()=> navigate("/Ventas")} onClick2={()=> navigate("/NuevaVenta")}/>
-                <LargeButton title={"Clientes"} onClick={()=> navigate("/Clientes")}/>
-                <LargeButton title={"Proveedores"} onClick={()=> navigate("/Proveedores")}/>
+                <DoubleButton title={"Gastos Extras"} onClick1={()=> navigate("/GastosExtras")} onClick2={()=> navigate("/NuevoGastoExtra")}/>
+                <DoubleButton title={"Clientes"} onClick1={()=> navigate("/Clientes")} title2={"Proveedores"} onClick2={()=> navigate("/Proveedores")}/>
                 <LargeButton title={"Stock"} onClick={()=> navigate("/Stock")}/>
                 <LargeButton title={"Caja"} onClick={()=> navigate("/Caja")}/>
                 <LargeButton title={"Balance"} onClick={()=> navigate("/Balance")}/>

@@ -70,6 +70,12 @@ import Nueva_Faena from './Pages/Faenas/Nueva_Faena.jsx';
 import Form_Faena_Cerdo from './Pages/Faenas/Form_Faena_Cerdo.jsx';
 import Form_Compra_Cerdo from './Pages/Compra/Form_compra_cerdo.jsx';
 import Form_Venta_Cerdo from './Pages/Venta/Form_Venta_Cerdo.jsx';
+import NuevoGastoExtra from './Pages/GastosExtras/NuevoGastoExtra.jsx';
+import GastosExtras from './Pages/GastosExtras/GastosExtras.jsx';
+import FormAdministrativo from './Pages/GastosExtras/FormAdministrativo.jsx';
+import FormImpositivo from './Pages/GastosExtras/FormImpositivo.jsx';
+import FormTransporte from './Pages/GastosExtras/FormTransporte.jsx';
+import FormCombustible from './Pages/GastosExtras/FormCombustible.jsx';
 
 
 function App() {
@@ -122,6 +128,13 @@ function App() {
       <Route exact path="/NuevaVenta/FormCarne" element={state_login?<Form_Venta />:<NoAccess/> }/>
       <Route exact path="/NuevaVenta/FormAchuras" element={state_login?<Form_Venta_Achuras />:<NoAccess/> }/>
       <Route exact path="/NuevaVenta/FormCerdo" element={state_login?<Form_Venta_Cerdo />:<NoAccess/> }/>
+    
+    <Route exact path="/GastosExtras" element={state_login?<GastosExtras />:<NoAccess/>} />
+    <Route exact path="/NuevoGastoExtra" element={state_login?<NuevoGastoExtra />:<NoAccess/>} />
+    <Route exact path="/NuevoGastoExtra/FormCombustible" element={state_login?<FormCombustible />:<NoAccess/>} />
+    <Route exact path="/NuevoGastoExtra/FormTransporte" element={state_login?<FormTransporte />:<NoAccess/>} />
+    <Route exact path="/NuevoGastoExtra/FormImpositivo" element={state_login?<FormImpositivo />:<NoAccess/>} />
+    <Route exact path="/NuevoGastoExtra/FormAdministrativo" element={state_login?<FormAdministrativo />:<NoAccess/>} />
 
     <Route exact path="/Clientes" element={state_login?<Clientes />:<NoAccess/>} />
       <Route exact path="/Clientes/:id" element={state_login?<Detalle_Cliente />:<NoAccess/>} />
