@@ -79,6 +79,25 @@
     font-style: initial;
     width: 80px;
 }
+.item5{
+    display: flex;
+    position: relative;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--ColorSeven);
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50%;
+    color: var(--ColorTrhee);
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    font-style: initial;
+    width: 40px;
+    height: 35px;
+    margin-left: 10px;
+}
 @media screen and (max-width: 500px) {
     .cont{
         width: 350px;

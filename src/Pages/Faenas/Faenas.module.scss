@@ -1,42 +1,47 @@
-
-.ConteinerFaenas{
+.ConteinerFaenas {
     width: 100%;
     min-height: 100%;
     display: flex;
     position: absolute;
     flex-direction: column;
-    background-image: linear-gradient(180deg,rgb(100, 9, 9) 0, rgb(90, 9, 9) 10%, rgb(80, 9, 9) 20%, rgb(70, 9, 9) 30%, rgb(60, 9, 9) 40%, rgb(50, 9, 9) 50%, rgb(40, 9, 9) 60%, rgb(30, 9, 9) 70%, rgb(20, 9, 9) 80%, rgb(10, 9, 9) 90%, rgb(0, 9, 9) 100%);
+    background-image: linear-gradient(180deg, rgb(100, 9, 9) 0, rgb(90, 9, 9) 10%, rgb(80, 9, 9) 20%, rgb(70, 9, 9) 30%, rgb(60, 9, 9) 40%, rgb(50, 9, 9) 50%, rgb(40, 9, 9) 60%, rgb(30, 9, 9) 70%, rgb(20, 9, 9) 80%, rgb(10, 9, 9) 90%, rgb(0, 9, 9) 100%);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     padding-bottom: 30px;
 }
-.titleForm{
+
+.titleForm {
     font-size: 16px;
 }
-#ConteinerCenter{
+
+#ConteinerCenter {
     align-items: center;
 }
+
 @media screen and (max-width: 1000px) {
-#ConteinerCenterPDF{
-    justify-content: center;
+    #ConteinerCenterPDF {
+        justify-content: center;
+    }
 }
-}
-.contTitle{
+
+.contTitle {
     margin: 20px;
     display: flex;
     position: relative;
     justify-content: center;
     align-items: center;
 }
-.titleP{
+
+.titleP {
     font-family: 'Karla', sans-serif;
     font-weight: bold;
     font-style: initial;
     font-size: 22px;
     color: var(--ColorFontTwo)
 }
-.title{
+
+.title {
     display: flex;
     position: relative;
     gap: 20px;
@@ -48,38 +53,54 @@
     font-style: initial;
     margin-top: 20px;
 }
-.cardsCont{
+
+.cardsCont {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 }
-.buttons{
+
+.buttons {
     display: flex;
     flex-direction: column;
     gap: 30px;
     margin-top: 10px;
 }
-.buttonsPagos{
+
+.buttonsPagos {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    
+
 }
+
 @media screen and (max-width: 500px) {
-    .title{
+    .title {
         gap: 15px;
         font-size: 15px;
-        
+
     }
-    .cardsCont{
+
+    .cardsCont {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
     }
 }
-.cont{
+
+.titles {
+    font-size: 10px;
+
+}
+
+.title1 {
+    width: 40px;
+    ;
+}
+
+.cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,73 +108,85 @@
     gap: 30px;
     margin-top: 80px;
 }
-#buttonOk{
+
+#buttonOk {
     display: flex;
     justify-content: flex-end;
 }
-.tablefaena{
+
+.tablefaena {
     margin-top: 2%;
 }
+
 @media screen and (max-width: 550px) {
-    .tablefaena{
+    .tablefaena {
         font-size: 13px;
     }
 
 
 }
+
 @media screen and (max-width: 450px) {
-    .tablefaena{
+    .tablefaena {
         font-size: 12px;
     }
 }
-.tdDF{
-    text-align:center
+
+.tdDF {
+    text-align: center
 }
-.text{
+
+.text {
     color: var(--ColorFontTrhee);
 }
-.tdr{
-    text-align:right
+
+.tdr {
+    text-align: right
 }
-.columnRight{
+
+.columnRight {
     text-align: center;
 }
 
-.tablefaena{
+.tablefaena {
     margin-top: 2%;
     max-width: 600px;
     min-width: 300px;
 }
 
-.buttonEdit{
+.buttonEdit {
     display: flex;
     position: relative;
     margin-left: 365px;
     margin-bottom: -10px;
 }
-.buttonDelete{
+
+.buttonDelete {
     display: flex;
     position: relative;
     justify-content: flex-end;
     margin-bottom: -11px;
 }
-.page{
+
+.page {
     margin-top: 10px;
 }
 
-.formContainer{
+.formContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.form{
+
+.form {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin: 20px;
 }
-.formItem{
+
+.formItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -168,7 +201,8 @@
     font-size: 15px;
     font-style: initial;
 }
-.formItemDate{
+
+.formItemDate {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -184,7 +218,8 @@
     font-style: initial;
     gap: 70px;
 }
-.formItem2{
+
+.formItem2 {
     display: flex;
     flex-direction: column;
 
@@ -201,13 +236,15 @@
     font-size: 15px;
     font-style: initial;
 }
-.inbox{
+
+.inbox {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-.item{
+
+.item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -215,56 +252,65 @@
     padding-right: 15px;
     padding-left: 15px;
 }
-.numero{
+
+.numero {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
 }
-.title{
+
+.title {
     font-size: large;
     padding-top: 10px;
 }
 
 p.danger {
-	color: var(--ColorFontTrhee);
-	text-align: center;
-	margin: 0;
+    color: var(--ColorFontTrhee);
+    text-align: center;
+    margin: 0;
     font-size: 12px;
 }
-p.pass{
+
+p.pass {
     display: none;
 }
-.buttons{
+
+.buttons {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 10px;
 }
-.shortButtons{
+
+.shortButtons {
     display: flex;
     gap: 50px;
 }
-input{
+
+input {
     border-radius: 10px;
     border-color: var(--ColorBorderOne);
 }
-select{
+
+select {
     border-radius: 10px;
     border-color: var(--ColorBorderOne);
     height: 30px;
 }
-.size2{
+
+.size2 {
     width: 80px;
 }
-.button{
+
+.button {
     display: flex;
     position: relative;
     justify-content: flex-end;
     margin-top: -20px;
 }
 
-.titles{
+.titles {
     display: flex;
     position: relative;
     justify-content: center;
@@ -273,32 +319,62 @@ select{
     font-size: 16px;
     font-style: initial;
 }
-.title1{
-    width: 100px;
-    }
-    .title2{
-        width: 140px;
-    }
-    .title3{
-        width: 90px;
-    }
-    .title4{
-        width: 70px;
-    }
+
+.title1 {
+    width: 80px;
+}
+
+.title2 {
+    width: 130px;
+}
+
+.title3 {
+    width: 60px;
+}
+
+.title4 {
+    width: 60px;
+}
+.title5{
+    width: 70px;
+}
 
 
-    @media screen and (max-width: 500px) {
+@media screen and (max-width: 500px) {
+    .title1 {
+        width: 60px;
+        text-align: center;
 
-        .title1{
-            width: 80px;
-            }
-            .title2{
-                width: 100px;
-            }
-            .title3{
-                width: 80px;
-            }
-            .title4{
-                width: 50px;
-            }
     }
+
+    .title2 {
+        width: 110px;
+        text-align: center;
+    }
+
+    .title3 {
+        width: 60px;
+        text-align: center;
+    }
+
+    .title4 {
+        width: 40px;
+        text-align: center;
+    }
+
+    .title5 {
+        width: 40px;
+        text-align: center;
+    }
+    .titles {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        color: var(--ColorFontTwo);
+        font-family: 'Karla', sans-serif;
+        font-size: 14px;
+        font-style: initial;
+        margin-right: 20px;
+    }
+
+}

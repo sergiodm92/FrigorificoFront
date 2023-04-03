@@ -29,9 +29,11 @@ export default function DetalleGrupos(){
 
         {compra.grupos?compra.grupos.map((a, i)=>{
                 return(
+                <div style={{width:"350px"}}>
                 <CardGruposDetalle
                 key={i}
                 tropa={a.n_tropa}
+                type={a.type}
                 categoria={a.categoria}
                 kgv_brutos={(a.kgv_brutos*1).toFixed(2)}
                 desbaste={a.desbaste}
@@ -50,6 +52,7 @@ export default function DetalleGrupos(){
                 recupero={a.recupero}
                 comision={a.comision}
                 />
+                </div>
                 )
             })
         :

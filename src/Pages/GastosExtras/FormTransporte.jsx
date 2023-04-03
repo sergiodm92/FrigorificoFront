@@ -24,7 +24,7 @@ const formPE = {
     img_comp:''
 };
 
-const formasDePago=["Efectivo", "Transferencia"]
+const formasDePago=["Efectivo","Debito","Credito","Transferencia"]
 
 //validaciones
 export const validate = (pago) => {
@@ -88,7 +88,8 @@ export default function FormTransporte(){
             form.id="IE"+Math.floor(Math.random()*1000000)
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
-            dispatch(postNewIngresoExtra(form))
+            form.monto= +form.monto
+            //dispatch(postNewIngresoExtra(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPE);
             dispatch(setimgurl())

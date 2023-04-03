@@ -30,6 +30,8 @@ export default function Historial_Faena() {
       <NavBar title={"Hist. Faenas"} />
       <div>
       <div className={style.titles}>
+      <div className={style.title1}><b>Tipo</b></div>
+
                     <div className={style.title1}><b>Fecha</b></div>
                     <div className={style.title2}><b>Frigorífico</b></div>
                     <div className={style.title3}><b>Tropa</b></div>
@@ -48,6 +50,7 @@ export default function Historial_Faena() {
                   saldo={a.costo_total}
                   tipo={"Faenas"}
                   pago={false}
+                  type={a.type === "vaca" ? "🐮" : "🐷"}
                 />
               );
             })

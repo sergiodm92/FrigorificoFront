@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 import swal from "sweetalert";
-import {validateForm, validate} from "./validations";
+import { validate, validateFormCerdo} from "./validations";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
 import {
   getAllFaenas,
   getAllProveedores,
   getFaenasByTropa,
-  getGruposByTropa,
   getGruposCerdoByTropa,
   postNewCompra,
   putEstadoCompraFaena,
@@ -197,7 +195,7 @@ const Form_Compra_Cerdo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm(form)) {
+    if (validateFormCerdo(form)) {
       setconfirm(true)
       //cargo el resto de las propiedades
       form.id = "C" + form.grupos[0].n_tropa;//editar para diferenciar cerdo de carne
@@ -225,8 +223,7 @@ const Form_Compra_Cerdo = () => {
           +a.comision +
           +a.costo_faena +
           +a.costo_hac +
-          +a.costo_flete -
-          +form.precio_venta_achuras_unit * +a.cant;
+          +a.costo_flete;
         a.costo_kg = +a.costo_total / (+a.kg_carne);
         if (!arr.some((t) => t.tropa == a.n_tropa))
           arr.push({

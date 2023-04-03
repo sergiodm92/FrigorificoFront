@@ -18,13 +18,14 @@ import DateFnsUtils from '@date-io/date-fns';
 const formPE = {
     id:0,
     fecha: new Date().toLocaleDateString('en'),
-    concepto:'',
+    tipoImpuesto:'',
+    nota:'',
     monto: 0,
     formaDePago:'',
     img_comp:''
 };
-
-const formasDePago=["Efectivo", "Transferencia"]
+const formasDePago=["Efectivo","Debito","Credito","Transferencia"]
+const tipoImpuesto=["Ingresos brutos","Ganancias","otro"]
 
 //validaciones
 export const validate = (pago) => {
@@ -88,7 +89,7 @@ export default function FormImpositivo(){
             form.id="IE"+Math.floor(Math.random()*1000000)
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
-            dispatch(postNewIngresoExtra(form))
+            form.monto = +form.monto            //dispatch(postNewIngresoExtra(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPE);
             dispatch(setimgurl())
@@ -141,10 +142,21 @@ export default function FormImpositivo(){
                 </div>
                 <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
                 <div className={style.formItem}>
-                    <h5 className={style.title}>Concepto: </h5>
+                        <h5 className={style.title}>Tipo: </h5>
+                        <select id="formaDePago" className="selectform" onChange={(e)=> handleSelectFP(e)}>
+                            <option defaultValue>-</option>
+                            {tipoImpuesto.length > 0 &&  
+                                tipoImpuesto.map((p,i) => (
+                                    <option	key={i} value={p}>{p}</option>
+                                    ))
+                            }
+                        </select>
+                    </div> 
+                <div className={style.formItem}>
+                    <h5 className={style.title}>Nota: </h5>
                     <input
                         type="text"
-                        value={form.concepto}
+                        value={form.nota}
                         id="concepto"
                         name="concepto"
                         onChange={handleChange}

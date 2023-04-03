@@ -1,7 +1,7 @@
 import React from "react";
 import styleCard from "./CardGruposDetalle.module.scss";
 
-const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos,rinde,pesoProm,costo_kg,costo_total,cosoVeps,costo_faena,costo_hac,costo_flete, comision}) => {
+const CardGruposDetalle = ({ tropa, type, recupero,categoria, kgv_brutos, desbaste, kgv_netos, cant, precio_kgv_netos,rinde,pesoProm,costo_kg,costo_total,cosoVeps,costo_faena,costo_hac,costo_flete, comision}) => {
 
     function currencyFormatter({ currency, value}) {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -60,7 +60,7 @@ const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kg
                 </div>
                 <div className={styleCard.items}>
                     <div><b>Cant: </b></div>
-                    <div><p>{"🐮".repeat(cant)+' ('+cant+')'}</p></div>
+                    <div><p>{type==="vaca"?"🐮".repeat(cant)+' ('+cant+')':"🐷".repeat(cant)+' ('+cant+')'}</p></div>
                 </div>
                 <div className={styleCard.items}>
                     <div><b>kg vivos brutos: </b></div>
@@ -82,10 +82,13 @@ const CardGruposDetalle = ({ tropa, recupero,categoria, kgv_brutos, desbaste, kg
                     <div><b>Rinde: </b></div>
                     <div><p>{rinde.toFixed(2)}%</p></div>
                 </div>
+                {type==="vaca"?
                 <div className={styleCard.items}>
                     <div><b>Recupero: </b></div>
-                    <div><p>${recupero.toFixed(2)}</p></div>
+                    <div><p>${recupero?.toFixed(2)}</p></div>
                 </div>
+                :null
+                }
                 <div className={styleCard.items}>
                     <div><b>Peso promedio: </b></div>
                     <div><p>{pesoProm} kg</p></div>

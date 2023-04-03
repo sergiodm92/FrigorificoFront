@@ -18,13 +18,15 @@ import DateFnsUtils from '@date-io/date-fns';
 const formPE = {
     id:0,
     fecha: new Date().toLocaleDateString('en'),
-    concepto:'',
+    type: "GasOil",
+    litros: 0,
     monto: 0,
     formaDePago:'',
     img_comp:''
 };
 
-const formasDePago=["Efectivo", "Transferencia"]
+const formasDePago=["Efectivo","Debito","Credito","Transferencia"]
+const tipoCombustible=["GasOil","Nafta","GNC"]
 
 //validaciones
 export const validate = (pago) => {
@@ -39,7 +41,6 @@ export const validate = (pago) => {
 export default function FormCombustible(){
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const alert_msj= useSelector ((state)=>state.alert_msj);
     const urlImg= useSelector ((state)=>state.urlImg);
@@ -85,10 +86,14 @@ export default function FormCombustible(){
             !error.formaDePago && form.formaDePago &&
             !error.monto && form.monto
         ){
-            form.id="IE"+Math.floor(Math.random()*1000000)
+            form.id="GEC"+Math.floor(Math.random()*1000000)
+            form.litros=+form.litros
+            form.monto=+form.monto
+            form.precioPorLitro= +(form.monto/form.litros).toFixed(2)
             form.fecha=form.fecha.getTime()
             form.img_comp = urlImg
-            dispatch(postNewIngresoExtra(form))
+            console.log(form)
+            //dispatch(postNewIngresoExtra(form))
             document.getElementById("formaDePago").selectedIndex = 0
             setForm(formPE);
             dispatch(setimgurl())
@@ -141,12 +146,24 @@ export default function FormCombustible(){
                 </div>
                 <p className={form.fecha!==new Date().toLocaleDateString() ? style.pass : style.danger }>Debe ingresar la fecha</p>
                 <div className={style.formItem}>
-                    <h5 className={style.title}>Concepto: </h5>
+                        <h5 className={style.title}>Tipo: </h5>
+                        <select id="formaDePago" className="selectform" onChange={(e)=> handleSelectFP(e)}>
+                            <option defaultValue>-</option>
+                            {tipoCombustible.length > 0 &&  
+                                tipoCombustible.map((p,i) => (
+                                    <option	key={i} value={p}>{p}</option>
+                                    ))
+                            }
+                        </select>
+                    </div>           
+                <div className={style.formItem}>
+                    <h5 className={style.title}>Litros: </h5>
                     <input
-                        type="text"
-                        value={form.concepto}
-                        id="concepto"
-                        name="concepto"
+                        type="number"
+                        value={form.litros?form.litros:''}
+                        id="litros"
+                        name="litros"
+                        placeholder="0.00"
                         onChange={handleChange}
                     />
                 </div>

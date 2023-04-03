@@ -88,3 +88,63 @@ export const validate = (compra) => {
 };
 
 
+// Define la función validateForm que recibe un objeto form como parámetro
+export const validateFormCerdo = (form) => {
+  const validationList = [ // Define una lista de objetos con los campos a validar y los mensajes de error correspondientes
+    {
+      field: "proveedor", // Nombre del campo a validar
+      message: "Debe seleccionar un proveedor", // Mensaje de error en caso de que el campo esté vacío
+    },
+    {
+      field: "fecha",
+      message: "Debe seleccionar una fecha",
+      condition: form.fecha == new Date().toLocaleDateString(),
+    },
+    {
+      field: "lugar",
+      message: "Debe escribir el lugar",
+    },
+    {
+      field: "n_dte",
+      message: "Debe escribir el número de DTE",
+    },
+    {
+      field: "costo_flete",
+      message: "Debe escribir el costo de flete",
+    },
+    {
+      field: "costo_veps_unit",
+      message: "Debe escribir el costo VEPS",
+    },
+    {
+      field: "grupos",
+      message: "Debe cargar al menos un grupo",
+      condition: form.grupos.length === 0,
+    },
+  ];
+
+  for (const { field, message, condition } of validationList) {
+    if (condition || !form[field]) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: message,
+      });
+
+      return false;
+    }
+  }
+
+  return true;
+}
