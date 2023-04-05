@@ -28,6 +28,7 @@ import {Validations} from "./validations";
 //Form Faena
 const formF = {
   fecha: new Date().toLocaleDateString("en"),
+  type: "vaca",
   frigorifico: "",
   tropa: "",
   proveedor: "",
@@ -199,7 +200,7 @@ const Form_Faena = () => {
           var formRes = {};
           formRes.categoria = formCF.categoria;
           formRes.correlativo = formCF.garron + "-A" + formCF.kg1;
-          formRes.kg = formCF.kg1 * 1;
+          formRes.kg = +formCF.kg1;
           formRes.stock = true;
           formRes.CuartoD = 0;
           formRes.CuartoT = 0;
@@ -208,7 +209,7 @@ const Form_Faena = () => {
           var formRes2 = {};
           formRes2.categoria = formCF.categoria;
           formRes2.correlativo = formCF.garron + "-B" + formCF.kg2;
-          formRes2.kg = formCF.kg2 * 1;
+          formRes2.kg = +formCF.kg2;
           formRes2.stock = true;
           formRes2.CuartoD = 0;
           formRes2.CuartoT = 0;

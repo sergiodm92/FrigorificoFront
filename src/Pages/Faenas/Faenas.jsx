@@ -54,7 +54,7 @@ export default function Faenas() {
                                     bstyle={"new"}
                                     bicon={"new"}
                                     bonClick={() => navigate(`/Faenas/FormPagos/${a.tropa}`)}
-                                    type={a.type === "vaca" ? "🐮" : "🐷"}
+                                    type={a.type === "cerdo" ? "🐷" : "🐮"}
                                 />
                             )
 
