@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import Swal from "sweetalert2";
 import swal from "sweetalert";
 import CardReses from "../../Components/Cards/CardReses/CardReses";
 import ShortButton from "../../Components/Buttons/Button_Short/Button_Short";
@@ -84,12 +82,12 @@ const Form_Venta_Cerdo = () => {
   const clientes = useSelector((state) => state.AllClientes);
   const AllFaenas = useSelector((state) => state.ultimasFaenas);
 
-  let resesStockTrue = AllFaenas.reduce((allReses, a) => {
+  let resesStockTrue = AllFaenas.filter(f=>f.tropa[f.tropa.length-1]==="C").reduce((allReses, a) => {
     return [...allReses, ...a.detalle.filter((s) => s.stock === true)];
   }, []);
 
   let stockByCat = resesStockTrue.filter(
-    (a) => a.categoria === formCV.categoria && a.costo_kg
+    (a) => a.categoria === formCV.categoria && a.costo_kg 
   ); //reses con stock true filtrados por categoria
 
   useEffect(() => {
@@ -150,15 +148,13 @@ const Form_Venta_Cerdo = () => {
     if (
       !error2.categoria &&
       formCV.categoria &&
-      !error2.total_media &&
-      formCV.total_media &&
       !error2.correlativo &&
       formCV.correlativo &&
       !error2.precio_kg &&
       formCV.precio_kg
     ) {
       formCV.costo_kg = +resSelect.costo_kg;
-      formCV.kg_total = +resSelect.kg;
+      formCV.kg = +resSelect.kg;
       formCV.precio_kg = +formCV.precio_kg;
       form.detalle.unshift(formCV);
       arrResesTotales.push(formCV.correlativo);
@@ -184,7 +180,7 @@ const Form_Venta_Cerdo = () => {
       form.id =
         "V" + form.detalle[0].correlativo + Math.floor(Math.random() * 10000) + "C";
       if (form.detalle.length > 0) {
-        form.detalle.map((a) => {
+        form.detalle.forEach((a) => {
           if (+a.kg < 10) {
             swal({
               titleForm: "Alerta",
@@ -201,8 +197,8 @@ const Form_Venta_Cerdo = () => {
         });
       }
       form.saldo = form.total;
-      arrResesTotales.map((a) =>
-        AllFaenas.map((g) => {
+      arrResesTotales.forEach((a) =>
+        AllFaenas.forEach((g) => {
           if (g.detalle.some((f) => f.correlativo == a)) {
             let current = {};
             g.detalle.map((f, i) => {
@@ -220,6 +216,7 @@ const Form_Venta_Cerdo = () => {
           }
         })
       );
+      console.log(form)
       dispatch(putStockReses(detallesPut));
       dispatch(postNewVentaCarne(form));
       document.getElementById("categoria").selectedIndex = 0;

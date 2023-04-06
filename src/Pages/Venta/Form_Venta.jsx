@@ -31,6 +31,7 @@ import {ValidationsVentaCarne, validate, validate2} from "./validationsVentaCarn
 //Form Venta
 var formV = {
   id: 0,
+  type:"vaca",
   cliente: "",
   fecha: new Date().toLocaleDateString("en"),
   detalle: [],
