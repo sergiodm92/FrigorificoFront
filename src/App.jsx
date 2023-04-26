@@ -104,8 +104,8 @@ function App() {
       <Route exact path="/NuevaFaena" element={state_login?<Nueva_Faena />:<NoAccess/>} />
       <Route exact path="/NuevaFaena/FormFaenaCarne" element={state_login?<Form_Faena />:<NoAccess/>} />
       <Route exact path="/NuevaFaena/FormFaenaCerdo" element={state_login?<Form_Faena_Cerdo />:<NoAccess/>} />
-      <Route exact path="/Faenas/DetallePagos/:nombre/pdf" element={state_login?<PdfDetallePagosFrigorifico/>:<NoAccess/>}/>
-      <Route exact path="/Faenas/DetallePagos/:nombre/:id/pdf" element=<PdfDetallePagoPorIdFrigorifico/>/>
+      <Route exact path="/Faenas/DetallePagos/pdf/:nombre" element={state_login?<PdfDetallePagosFrigorifico/>:<NoAccess/>}/>
+      <Route exact path="/Faenas/DetallePagos/pdf/:nombre/:id" element=<PdfDetallePagoPorIdFrigorifico/>/>
 
     <Route exact path="/Compras" element={state_login?<Compras />:<NoAccess/>} />
       <Route exact path="/Compras/:id" element={state_login?<Detalle_Compra />:<NoAccess/>} />

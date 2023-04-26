@@ -1,5 +1,5 @@
 import React from "react";
-import { Page, Text, View, Document, PDFViewer, Image } from '@react-pdf/renderer';
+import { Page, Text, View, Document, PDFViewer, Image, StyleSheet } from '@react-pdf/renderer';
 import { Table, TableHeader, TableCell, TableBody, DataTableCell } from 'react-pdf-table-fork'
 
 export default function DocPDFbyidC({ pagosAnteriores, pago, compra, nombre, array }) {

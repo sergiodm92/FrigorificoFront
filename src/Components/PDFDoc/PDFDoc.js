@@ -17,10 +17,10 @@ export default function DocPDF({pagosT, person, name}){
     }
     if(pagosT[0]!== "sin datos" && pagosT.length>0){
         pagosT.map(a=> {
-            total+=a.monto*1
+            total+=+a.monto
             a.newMonto = currencyFormatter({
                                     currency: "USD",
-                                    value : a.monto*1
+                                    value : +a.monto
                                     })})
     }
 

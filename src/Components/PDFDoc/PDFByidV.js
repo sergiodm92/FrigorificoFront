@@ -140,7 +140,7 @@ export default function DocPDFbyidV({pagosAnteriores, pago, venta, nombre, array
                             <View style={{marginTop:"0.1vh", marginBottom:"0.1vh", textAlign:"right"}}>
                                 <Text style={datosClienteBold}>Total Pagado:   {currencyFormatter({
                                                                         currency: "USD",
-                                                                        value : (venta.total*-venta.saldo*1)
+                                                                        value : (+venta.total - +venta.saldo)
                                                                     })}</Text>
                             </View>
                             <View style={{marginTop:"0.1vh", marginBottom:"0.1vh", textAlign:"right"}}>

@@ -116,7 +116,7 @@ export default function Detalle_Pagos_Frigorifico() {
                                         : 
                                         <td> - </td>
                                         }
-                                        <td ><a href={`/Faenas/DetallePagos/${nombre}/${e.id}/pdf`}>PDF</a></td>
+                                        <td ><a href={`/Faenas/DetallePagos/pdf/${nombre}/${e.id}`}>PDF</a></td>
                                         <td>
                                         <ButtonNew
                                             style={"delete"}
@@ -132,7 +132,7 @@ export default function Detalle_Pagos_Frigorifico() {
                 <div className={style.buttonLarge}>
                     <LargeButton
                         title={"Generar PDF"}
-                        onClick={()=>navigate(`/Faenas/DetallePagos/${nombre}/pdf`)}
+                        onClick={()=>navigate(`/Faenas/DetallePagos/pdf/${nombre}`)}
                     ></LargeButton>
                 </div>
             </div>

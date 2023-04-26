@@ -16,7 +16,7 @@ export default function DocPDFByidF({pagosAnteriores, pago, faena, nombre}){
     }
     
     const tableText = {
-        margin:"0.5vh",
+        margin:"0.3vh",
         borderColor:"white"
     };
     const tableTitle = {
@@ -44,7 +44,7 @@ export default function DocPDFByidF({pagosAnteriores, pago, faena, nombre}){
         margin:"0.5vh",
         fontFamily:"Helvetica-Bold"
     }
-    const pageNumber = {
+    const pageNumbers = {
         position: 'absolute',
         fontSize: 12,
         bottom: 30,
@@ -170,14 +170,12 @@ export default function DocPDFByidF({pagosAnteriores, pago, faena, nombre}){
                                                                         value : faena.saldo
                                                                     })}</Text>
                             </View>
-                            <View style={{marginTop:"0.1vh", marginBottom:"0.1vh"}}>
-                                <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica", marginTop:"10vh"}}>Carnes Don Alberto</Text>
+                            <View style={{marginTop:"0.00vh", marginBottom:"0.05vh"}}>
+                                <Text style={{fontSize:"1.5vh", textAlign:"right", fontFamily:"Helvetica", marginTop:"1vh"}}>Carnes Don Alberto</Text>
                             </View>
                         </View>
                     </View>
-                    <Text style={pageNumber} render={({ pageNumber, totalPages }) => (
-          `${pageNumber} / ${totalPages}`
-        )} fixed />
+                    {/* <Text style={pageNumbers} render={({ pageNumber, totalPages }) => (`${pageNumber} / ${totalPages}`)} fixed/> */}
                 </Page>
             </Document>   
     )
