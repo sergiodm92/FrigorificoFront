@@ -177,8 +177,8 @@ export default function Balance() {
                                 <p className={styleBalance.titles}>Kg vendidos 30 dias</p>
                             </div>
                             <div className={styleBalance.divTop}>
-                                <p>{kgEnStock} kg</p>
-                                <p className={styleBalance.titles}>Kg en Stock </p>
+                                <p>{totalEstenPesos}</p>
+                                <p className={styleBalance.titles}> Valor aprox. en Stock </p>
                             </div>
                         </div>
                     </div>
